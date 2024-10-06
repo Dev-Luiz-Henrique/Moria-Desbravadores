@@ -1,0 +1,57 @@
+.landing-header {
+    display: flex;
+    background-color: #1D7874;
+    flex-direction: column;
+    color: #F0E6D2;
+}
+
+.landing-header > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px 0 20px;
+}
+
+.landing-header > div > img {
+    width: 80px;
+    height:80px;
+}
+
+.landing-header > div > h1 {
+    font-family: "Londrina Solid", sans-serif;
+    font-size: 4rem;
+}
+
+.landing-header > div > span {
+    font-family: "Secular One", sans-serif;
+    font-size: 1.5rem;
+}
+
+.landing-header > nav {
+    font-family: "Secular One", sans-serif;
+}
+
+.landing-header > nav > ul{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    list-style: none;
+}
+.landing-header > nav a{
+    text-decoration: none;
+    color: #F0E6D2;
+    font-size: 1.5rem;
+}
+.landing-header > nav a:hover{
+    font-weight: bolder;
+}
+.landing-header >  div > span:hover{
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.landing-header > nav > img {
+    position: relative;
+    bottom: -25px;
+    width: 100%;
+}
+
