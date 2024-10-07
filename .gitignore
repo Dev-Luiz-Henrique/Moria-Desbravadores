@@ -1,0 +1,70 @@
+# Ignorar arquivos de build e dependências do Maven
+*/target/
+*/.mvn/
+!*/.mvn/wrapper/maven-wrapper.jar
+!*/.mvn/wrapper/maven-wrapper.properties
+*.xml.tag
+*.xml.releaseBackup
+*.xml.versionsBackup
+*.xml.next
+
+# Ignorar arquivos de logs
+*/logs/
+*.log
+
+# Ignorar arquivos temporários
+*/tmp/
+*/temp/
+
+# Ignorar arquivos de configuração do IDE
+/.idea/
+*.iml
+/.classpath
+/.project
+/.settings/
+/.vscode/
+
+# Ignorar arquivos de logs do cliente
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Ignorar dependências e build de clientes
+*/node_modules/
+*/dist/
+*.vite/
+*.env
+*.env.local
+*.env.development.local
+*.env.production.local
+
+# Ignorar arquivos de configuração do IDE (client)
+*/.idea/
+*/vscode/
+
+# Ignorar arquivos do STS
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# Ignorar arquivos do NetBeans
+/nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Ignorar arquivos e diretórios de editores
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
