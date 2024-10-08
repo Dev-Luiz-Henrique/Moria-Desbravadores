@@ -1,0 +1,66 @@
+.slider-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 0;
+}
+
+.slider{
+    display: flex;
+    width: 80%;
+    gap: 20px;
+}
+
+.arrow {
+    width: 45px;
+    position: relative;
+    transition: .2s;
+}
+.arrow:hover {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+.slider > .event{
+    display: flex;
+    gap: 5%;
+}
+.slider > .event > img {
+    width: 55%;
+}
+.slider > .event > .event-description {
+    width: 40%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    justify-content:center;
+}
+.slider > .event > .event-description > h2 {
+    color: #994C26;
+    font-size: 3rem;
+    font-family: "Candal", sans-serif;
+}
+.slider > .event > .event-description > span {
+    color: #352208;
+    font-size: 1.5rem;
+    font-family: "Afacad", sans-serif;
+}
+
+.slider > .event > .event-description > button {
+    width: 250px;
+    height: 45px;
+    color: #F0E6D2;
+    background-color: #C17732;
+    border-radius: 5px;
+    font-size: 2rem;
+    border: none ;
+    justify-self: flex-end;
+    transition: .2s;
+}
+
+.slider > .event > .event-description > button:hover {
+    background-color: #994C26;
+    cursor: pointer;
+}

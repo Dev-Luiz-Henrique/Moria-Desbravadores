@@ -17,11 +17,9 @@ export function Header() {
                     <li><a href="">Contato</a></li>
                     <li><a href="">Sobre nós</a></li>
                 </ul>
-
-                
-                <img src={HeaderBgImg} alt="" className="header-bg-detail"/>
             </nav>
 
+            <img src={HeaderBgImg} alt="" className="header-bg-detail"/>
         </header>
     )
 }

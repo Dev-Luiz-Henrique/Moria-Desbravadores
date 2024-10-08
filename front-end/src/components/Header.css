@@ -49,9 +49,15 @@
     cursor: pointer;
 }
 
-.landing-header > nav > img {
+.landing-header > img {
     position: relative;
-    bottom: -25px;
-    width: 100%;
+    bottom: -16px;
+    max-width: 100%;
+    object-fit: contain;
 }
 
+/* @media (max-width: 800px) {
+    .landing-header {
+        flex-direction: column-reverse;
+    }
+} */
