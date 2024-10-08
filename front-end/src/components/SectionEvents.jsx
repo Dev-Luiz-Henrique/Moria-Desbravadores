@@ -2,6 +2,7 @@
 import ArrowRight from "../assets/img/arrow-right.svg"
 import ArrowLeft from "../assets/img/arrow-left.svg"
 import ImgEvent from "../assets/img/default-event.png"
+import BgPastEvents from "../assets/img/Background_Mountain02.svg"
 import "./SectionEvents.css"
 
 export function SectionEvents() {
@@ -22,6 +23,7 @@ export function SectionEvents() {
                 </div>
                 <img src={ArrowRight} alt="" className="arrow" />
             </section>
+            <img src={BgPastEvents} alt="" />
         </div>
     )
 }

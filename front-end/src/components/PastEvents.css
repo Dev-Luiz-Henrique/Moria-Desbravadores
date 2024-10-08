@@ -1,0 +1,53 @@
+.past-events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+    background-color: #C17732;
+    position: relative;
+}
+
+.past-events-container > h2 {
+    justify-self: flex-start;
+    color: #352208;
+    font-family: "Candal", sans-serif;
+    font-size: 3rem;
+}
+
+.past-events-cards {
+    display: flex;
+    gap: 30px;
+    padding: 40px 20px;
+}
+
+.past-events-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #352208;
+    gap: 20px;
+}
+.past-events-card > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.past-events-card > span > h3 {
+    font-size: 2.5rem;
+    font-family: "Secular One", sans-serif;
+}
+.past-events-card > span > p {
+    font-size: 1.5rem;
+    font-family: "Afacad", sans-serif;
+}
+.past-events-card > img {
+    width: 100%;
+    transition: .2s;
+    
+}
+.past-events-card > img:hover {
+    transform: scale(1.05);
+}
