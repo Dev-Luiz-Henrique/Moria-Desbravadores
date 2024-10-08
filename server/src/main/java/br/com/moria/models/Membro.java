@@ -13,6 +13,7 @@ import br.com.moria.enums.TipoMembro;
 
 @Entity
 @Table(name = "Membros")
+@Inheritance(strategy = InheritanceType.JOINED) // Herança
 @Getter
 @Setter
 public class Membro {
