@@ -21,7 +21,7 @@ public class Membro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private int id;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -45,12 +45,12 @@ public class Membro {
 
     @NotBlank
     @Pattern(regexp = "\\d{10}", message = "Telefone deve ter exatamente 10 dígitos.")
-    @Column(name = "Telefone", nullable = false, length = 10)
+    @Column(name = "Telefone", nullable = false, columnDefinition = "CHAR(10)")
     private String telefone;
 
     @NotBlank
     @Pattern(regexp = "\\d{11}", message = "Celular deve ter exatamente 11 dígitos.")
-    @Column(name = "Celular", nullable = false, length = 11)
+    @Column(name = "Celular", nullable = false, columnDefinition = "CHAR(11)")
     private String celular;
 
     @NotBlank
@@ -66,14 +66,14 @@ public class Membro {
     @Column(name = "Logradouro", length = 255)
     private String logradouro;
 
-    @NotNull(message = "Número é obrigatório.")
+    @NotNull
     @Min(value = 1, message = "Número deve ser maior que 0.")
     @Column(name = "Numero", nullable = false)
     private int numero;
 
     @NotBlank
     @Pattern(regexp = "\\d{11}", message = "CPF deve ter exatamente 11 dígitos.")
-    @Column(name = "CPF", nullable = false, length = 11, unique = true)
+    @Column(name = "CPF", nullable = false, columnDefinition = "CHAR(11)", unique = true)
     private String cpf;
 
     @NotBlank

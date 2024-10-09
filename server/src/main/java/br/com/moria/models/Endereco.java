@@ -14,11 +14,11 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private Long id;
+    private int id;
 
     @NotBlank
     @Pattern(regexp = "\\d{8}", message = "CEP deve ter exatamente 8 dígitos.")
-    @Column(name = "CEP", nullable = false, length = 8)
+    @Column(name = "CEP", nullable = false, unique = true, columnDefinition = "CHAR(8)")
     private String cep;
 
     @NotBlank
