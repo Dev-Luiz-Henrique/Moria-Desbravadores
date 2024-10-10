@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Responsaveis")
-@PrimaryKeyJoinColumn(name = "Id") 
+@Table(name = "responsaveis")
+@PrimaryKeyJoinColumn(name = "id") 
 @Getter
 @Setter
 public class Responsavel extends Membro {

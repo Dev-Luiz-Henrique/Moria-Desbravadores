@@ -7,14 +7,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Voluntarios")
-@PrimaryKeyJoinColumn(name = "Id")
+@Table(name = "voluntarios")
+@PrimaryKeyJoinColumn(name = "id")
 @Getter
 @Setter
 public class Voluntario extends Membro {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "Cargo", nullable = false, length = 40)
+    @Column(name = "cargo", nullable = false, length = 40)
     private CargoVoluntario cargo;
 }

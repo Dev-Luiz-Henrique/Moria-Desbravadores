@@ -13,13 +13,10 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class MembroServiceImpl implements IMembroService {
 
-    private final MembroRepository membroRepository;
+	@Autowired
+    private MembroRepository membroRepository;
 
-    @Autowired
-    public MembroServiceImpl(MembroRepository membroRepository) {
-        this.membroRepository = membroRepository;
-    }
-
+  
     @Override
     public Membro create(Membro membro) {
         return membroRepository.save(membro);
