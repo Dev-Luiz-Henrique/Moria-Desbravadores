@@ -61,6 +61,12 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# Ignorar arquivos do Eclipse
+server/.classpath
+server/.project
+server/.settings/
+
+
 # Ignorar arquivos e diretórios de editores
 .DS_Store
 *.suo

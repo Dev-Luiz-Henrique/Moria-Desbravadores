@@ -28,8 +28,8 @@ public class MembroServiceImpl implements IMembroService {
     @Override
     public Membro update(Long id, Membro membro) {
         return null;
-        // Implementar posteriormente o método, devido a duvidas e a 
-        // falta de debates referentes a forma de como sera feito a atualização
+        // Implementar posteriormente o metodo, devido a duvidas e a 
+        // falta de debates referentes a forma de como sera feito a atualizacao
 
         /*Membro existingMembro = membroRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
