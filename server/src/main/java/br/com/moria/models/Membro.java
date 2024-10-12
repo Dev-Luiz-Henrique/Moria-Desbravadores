@@ -36,8 +36,8 @@ public class Membro {
     @NotBlank
     @Pattern(regexp = "[MFO]", message = "Sexo deve ser 'M', 'F' ou 'O'.")
     @Column(name = "sexo", nullable = false, length = 1)
-    private char sexo;
-
+    private String sexo;
+    
     @NotNull
     @Past(message = "A data de nascimento deve ser uma data passada.")
     @Column(name = "data_nascimento", nullable = false)
@@ -57,8 +57,8 @@ public class Membro {
     @Email(message = "O formato do email é inválido.")
     @Column(name = "email", nullable = false, length = 255, unique = true)
     private String email;
-
-    @NotBlank
+ 
+    @NotNull
     @Column(name = "senha", nullable = false)
     private byte[] senha;
 
@@ -106,7 +106,7 @@ public class Membro {
 
     @NotNull
     @Column(name = "data_cadastro", nullable = false)
-    private LocalDateTime dataCadastro = LocalDateTime.now();;
+    private LocalDateTime dataCadastro = LocalDateTime.now();
 
     @NotNull
     @Column(name = "ativo", nullable = false)
@@ -122,7 +122,10 @@ public class Membro {
     @Column(name = "tipo", nullable = false, length = 20)
     private TipoMembro tipo;
 
-    public void setSexo(char sexo) {
-        this.sexo = Character.toUpperCase(sexo);
+    public void setSexo(String sexo) {
+        if (sexo != null) 
+            this.sexo = sexo.toUpperCase();
+        else 
+            this.sexo = null;
     }
 }
