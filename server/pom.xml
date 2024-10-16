@@ -61,12 +61,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-        <!-- Dependencia do Jakarta Persistence (JPA) -->
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-        </dependency>
-
         <!-- Lombok (opcional para reduzir codigo boilerplate como getters/setters) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -86,12 +80,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
