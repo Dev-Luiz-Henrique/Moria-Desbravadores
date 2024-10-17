@@ -28,11 +28,13 @@ public class MembroServiceImpl implements IMembroService {
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
             .orElseGet(() -> enderecoRepository.save(endereco)));
 
-        if (membroRepository.findByEmail(membro.getEmail()).isPresent())
-            throw new IllegalArgumentException("Email já cadastrado.");
+        if (membroRepository.findByEmail(membro.getEmail()).isPresent()) {
+			throw new IllegalArgumentException("Email já cadastrado.");
+		}
 
-        if (membroRepository.findByCpf(membro.getCpf()).isPresent())
-            throw new IllegalArgumentException("CPF já cadastrado.");
+        if (membroRepository.findByCpf(membro.getCpf()).isPresent()) {
+			throw new IllegalArgumentException("CPF já cadastrado.");
+		}
 
         return membroRepository.save(membro);
     }
@@ -47,7 +49,7 @@ public class MembroServiceImpl implements IMembroService {
     public void delete(int id) {
         Membro existingMembro = membroRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
-        
+
         membroRepository.delete(existingMembro);
     }
 
