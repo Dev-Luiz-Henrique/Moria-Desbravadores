@@ -2,8 +2,13 @@ package br.com.moria.models;
 
 import java.math.BigDecimal;
 
+import br.com.moria.enums.FormaPagamento;
+import br.com.moria.enums.RecursoEvento;
+import br.com.moria.enums.StatusPagamento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,29 +54,25 @@ public class Recurso {
     @Digits(integer = 8, fraction = 2)
     @Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
+    
+    @NotNull
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 8, fraction = 2)
+    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
+    private Double quantidade;
 
-    @NotBlank
-    @Size(max = 50, message = "Tipo de transação deve ter no máximo 50 caracteres.")
-    @Column(name = "tipo_transacao", nullable = false, length = 50)
-    private String tipoTransacao;
-
-    @NotBlank
-    @Size(max = 20, message = "Forma de pagamento deve ter no máximo 20 caracteres.")
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "forma_pagamento", nullable = false, length = 20)
-    private String formaPagamento;
+    private FormaPagamento formaPagamento;
 
-    @NotBlank
-    @Size(max = 255, message = "Nota fiscal deve ter no máximo 255 caracteres.")
-    @Column(name = "nota_fiscal", nullable = false)
-    private String notaFiscal;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria", nullable = false, length = 30)
+    private RecursoEvento categoria;
 
-    @NotBlank
-    @Size(max = 50, message = "Categoria deve ter no máximo 50 caracteres.")
-    @Column(name = "categoria", nullable = false, length = 50)
-    private String categoria;
-
-    @NotBlank
-    @Size(max = 20, message = "Status deve ter no máximo 20 caracteres.")
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
-    private String status;
+    private StatusPagamento status;
 }

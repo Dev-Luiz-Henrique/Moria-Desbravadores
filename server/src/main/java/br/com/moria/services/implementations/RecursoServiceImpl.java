@@ -1,5 +1,8 @@
 package br.com.moria.services.implementations;
 
+import java.util.Optional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +10,7 @@ import br.com.moria.models.Recurso;
 import br.com.moria.repositories.EventoRepository;
 import br.com.moria.repositories.RecursoRepository;
 import br.com.moria.services.interfaces.IRecursoService;
+import jakarta.validation.Valid;
 
 @Service
 public class RecursoServiceImpl implements IRecursoService {
@@ -18,21 +22,41 @@ public class RecursoServiceImpl implements IRecursoService {
 	private EventoRepository eventoRepository;
 
 	@Override
-	public Recurso create(Recurso recurso) {
-
-		return null;
+	public Recurso create(@Valid Recurso recurso) {
+		if (!eventoRepository.existsById(recurso.getEvento().getId()))
+            throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
+        return recursoRepository.save(recurso);
 	}
 
 	@Override
-	public Recurso update(Recurso recurso) {
-		// TODO Auto-generated method stub
-		return null;
+	public Recurso update(@Valid Recurso recurso) {
+        if (!recursoRepository.existsById(recurso.getId())) 
+            throw new IllegalArgumentException("Recurso não encontrado para o ID fornecido.");
+        if (!eventoRepository.existsById(recurso.getEvento().getId())) 
+            throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
+        
+        Recurso recursoExistente = recursoRepository.findById(recurso.getId()).get();
+
+        String[] ignoreProps = {"nome", "descricao", "valor", "quantidade", "formaPagamento", "categoria", "status"};
+        
+        BeanUtils.copyProperties(recurso, recursoExistente, ignoreProps);
+        
+        recursoExistente.setNome(recurso.getNome());
+        recursoExistente.setDescricao(recurso.getDescricao());
+        recursoExistente.setValor(recurso.getValor());
+        recursoExistente.setQuantidade(recurso.getQuantidade());
+        recursoExistente.setFormaPagamento(recurso.getFormaPagamento());
+        recursoExistente.setCategoria(recurso.getCategoria());
+        recursoExistente.setStatus(recurso.getStatus());
+        
+        return recursoRepository.save(recursoExistente);
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-
+        if (!recursoRepository.existsById(id)) 
+            throw new IllegalArgumentException("Recurso não encontrado para o ID fornecido.");
+        recursoRepository.deleteById(id);
 	}
 
 }
