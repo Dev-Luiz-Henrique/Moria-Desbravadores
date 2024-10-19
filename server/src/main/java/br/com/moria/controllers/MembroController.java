@@ -1,5 +1,6 @@
 package br.com.moria.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.models.Membro;
 import br.com.moria.services.interfaces.IMembroService;
@@ -66,6 +69,22 @@ public class MembroController {
             return ResponseEntity.ok(membro);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @PostMapping("/{id}/ficha-saude")
+    public ResponseEntity<String> uploadFichaSaude(@PathVariable int id, @RequestParam("file") MultipartFile file) {
+        if (file.isEmpty())
+            return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
+    
+        try {
+            Membro membro = membroService.updateFichaSaudeById(id, file);
+            // Aqui você pode atualizar o membro com o caminho da ficha de saúde, se necessário
+            // membroService.atualizarFichaSaude(id, filePath);
+            return ResponseEntity.ok("Ficha de saúde salva em: " + membro.getFichaSaude());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erro ao fazer upload da ficha de saúde: " + e.getMessage());
         }
     }
 }

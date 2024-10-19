@@ -1,15 +1,18 @@
 package br.com.moria.services.implementations;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.models.Endereco;
 import br.com.moria.models.Membro;
 import br.com.moria.repositories.EnderecoRepository;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.services.interfaces.IMembroService;
+import br.com.moria.services.interfaces.IUploadService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -20,6 +23,9 @@ public class MembroServiceImpl implements IMembroService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private IUploadService uploadService;
 
     @Override
     public Membro create(Membro membro) {
@@ -62,5 +68,16 @@ public class MembroServiceImpl implements IMembroService {
     public Membro findById(int id) {
         return membroRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+    }
+
+    @Override
+    public Membro updateFichaSaudeById(int id, MultipartFile file) throws IOException {
+        Membro existingMembro = membroRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+
+        String filePath = uploadService.uploadFichaSaude(file);
+        existingMembro.setFichaSaude(filePath);
+    
+        return membroRepository.save(existingMembro);
     }
 }
