@@ -1,7 +1,10 @@
 package br.com.moria.models;
 
+import br.com.moria.enums.StatusParticipacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,9 +44,10 @@ public class Presenca {
     @Column(name = "inscrito", nullable = false)
     private boolean inscrito = false;
 
-    @Size(max = 20, message = "Status de participação deve ter no máximo 20 caracteres.")
-    @Column(name = "status_participacao", length = 20)
-    private String statusParticipacao;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_participacao", nullable = false, length = 20)
+    private StatusParticipacao statusParticipacao;
 
     @Lob
     @Column(name = "autorizacao")

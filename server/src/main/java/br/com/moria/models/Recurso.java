@@ -61,17 +61,17 @@ public class Recurso {
     @Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private Double quantidade;
 
-    @NotNull
+//    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "forma_pagamento", nullable = false, length = 20)
     private FormaPagamento formaPagamento;
 
-    @NotNull
+//    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria", nullable = false, length = 30)
     private RecursoEvento categoria;
 
-    @NotNull
+//    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     private StatusPagamento status;
