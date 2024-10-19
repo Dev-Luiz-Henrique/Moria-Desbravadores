@@ -57,8 +57,7 @@ public class Recurso {
     
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 8, fraction = 2)
-    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
+    @Column(name = "quantidade", nullable = false, columnDefinition = "DOUBLE(8,2)")
     private Double quantidade;
 
 //    @NotNull

@@ -65,7 +65,7 @@ public class MembroServiceImplIntegrationTest {
         membro.setDataCadastro(LocalDateTime.now());
         membro.setAtivo(true);
         membro.setFichaSaude("Sem restrições.");
-        membro.setTipo(TipoMembro.VOLUNTARIO);
+        membro.setTipo(TipoMembro.DESBRAVADOR);
     }
 
     @Test
