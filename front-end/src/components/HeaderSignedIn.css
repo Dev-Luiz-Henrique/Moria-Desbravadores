@@ -1,0 +1,71 @@
+.signed-in-header {
+    display: flex;
+    background-color: #1D7874;
+    flex-direction: column;
+    color: #F0E6D2;
+}
+
+.signed-in-header > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 20px 0 20px;
+}
+
+.signed-in-header > div > img {
+    width: 80px;
+    height:80px;
+}
+
+.signed-in-header > div > h1 {
+    font-family: "Londrina Solid", sans-serif;
+    font-size: 4rem;
+}
+
+.signed-in-header > nav {
+    font-family: "Secular One", sans-serif;
+}
+
+.signed-in-header > nav > ul{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    list-style: none;
+}
+.signed-in-header > nav a{
+    text-decoration: none;
+    color: #F0E6D2;
+    font-size: 1.5rem;
+}
+.signed-in-header > nav a:hover{
+    font-weight: bolder;
+}
+.signed-in-header >  div > img:hover{
+    cursor: pointer;
+}
+
+.signed-in-header >  div > .img-profile:hover + .dropdown-profile{
+    display: block;
+}
+.dropdown-profile{
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+}
+.dropdown-profile:hover{
+    display: block;
+}
+
+.signed-in-header > img {
+    position: relative;
+    bottom: -16px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* @media (max-width: 800px) {
+    .signed-in-header {
+        flex-direction: column-reverse;
+    }
+} */

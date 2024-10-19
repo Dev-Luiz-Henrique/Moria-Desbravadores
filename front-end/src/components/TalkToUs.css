@@ -1,0 +1,60 @@
+.talk-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 70px;
+    position: relative;
+}
+
+.talk-container h3 {
+    font-family: "Candal", sans-serif;
+    font-size: 48px;
+    color: #994C26;
+}
+
+.talk-container img {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+}
+
+.talk-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    background-color: #994C26;
+    border-radius: 10px;
+    padding: 32px;
+    width: max-content;
+    height: max-content;
+    font-family: "Secular One", sans-serif;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #352208;
+    margin-bottom: 70px;
+}
+
+.talk-container form div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.talk-container form div:last-child {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+}
+
+.talk-container form div input,
+.talk-container form div textarea {
+    background: #F0E6D2;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 8px;
+}

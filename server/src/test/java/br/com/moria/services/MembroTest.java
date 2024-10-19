@@ -1,18 +1,18 @@
 package br.com.moria.services;
 
-import br.com.moria.enums.EstadoCivil;
-import br.com.moria.enums.TipoMembro;
-import br.com.moria.models.Endereco;
-import br.com.moria.models.Membro;
-import br.com.moria.services.implementations.MembroServiceImpl;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import br.com.moria.enums.EstadoCivil;
+import br.com.moria.enums.TipoMembro;
+import br.com.moria.models.Endereco;
+import br.com.moria.models.Membro;
+import br.com.moria.services.implementations.MembroServiceImpl;
 
 @SpringBootTest
 public class MembroTest {
