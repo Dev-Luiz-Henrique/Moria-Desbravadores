@@ -145,4 +145,8 @@ public class Membro {
         else 
             this.sexo = null;
     }
+
+    public void setSenha(String senha){
+        this.senha = senha.getBytes();
+    }
 }
