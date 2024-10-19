@@ -13,18 +13,19 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "presenca", uniqueConstraints = {
+@Table(name = "inscricao", uniqueConstraints = {
 	    @UniqueConstraint(columnNames = {"id_membro", "id_evento"})
 	})
 @Getter
 @Setter
-public class Presenca {
+public class Inscricao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,15 +42,13 @@ public class Presenca {
     @JoinColumn(name = "id_evento", referencedColumnName = "id")
     private Evento evento;
 
-    @Column(name = "inscrito", nullable = false)
-    private boolean inscrito = false;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status_participacao", nullable = false, length = 20)
     private StatusParticipacao statusParticipacao;
 
-    @Lob
-    @Column(name = "autorizacao")
-    private byte[] autorizacao;
+    @NotBlank
+    @Size(max = 255, message = "Path da autorizacao deve ter no máximo 255 caracteres.")
+    @Column(name = "autorizacao", nullable = false, length = 255)
+    private String autorizacao;
 }
