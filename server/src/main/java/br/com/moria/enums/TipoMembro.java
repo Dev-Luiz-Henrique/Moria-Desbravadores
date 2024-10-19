@@ -1,7 +1,14 @@
 package br.com.moria.enums;
 
 public enum TipoMembro {
-    VOLUNTARIO,
+    DIRETOR_CLUBE,
+    DIRETOR_ASSOCIADO,
+    TESOUREIRO,
+    CAPELAO,
+    SECRETARIO,
+    INSTRUTOR_CLASSES_PROGRESSIVAS,
+    CONSELHEIRO_UNIDADE,
+    AUXILIAR,
     DESBRAVADOR,
     RESPONSAVEL
 }
