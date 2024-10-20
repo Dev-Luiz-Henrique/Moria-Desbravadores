@@ -71,9 +71,10 @@ public class Membro {
     @Column(name = "email", nullable = false, length = 255, unique = true)
     private String email;
  
-    @NotNull
-    @Column(name = "senha", nullable = false)
-    private byte[] senha;
+    @NotBlank
+    @Size(max = 5, message = "Senha deve ter no máximo 5 caracteres.")
+    @Column(name = "senha", nullable = false, length = 255)
+    private String senha;
 
     @Size(max = 255, message = "Logradouro deve ter no máximo 255 caracteres.")
     @Column(name = "logradouro", length = 255)
@@ -144,9 +145,5 @@ public class Membro {
             this.sexo = sexo.toUpperCase();
         else 
             this.sexo = null;
-    }
-
-    public void setSenha(String senha){
-        this.senha = senha.getBytes();
     }
 }

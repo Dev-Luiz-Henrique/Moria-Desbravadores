@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,9 @@ public class MembroServiceImpl implements IMembroService {
     @Autowired
     private IUploadService uploadService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Membro create(Membro membro) {
 
@@ -34,14 +38,13 @@ public class MembroServiceImpl implements IMembroService {
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
             .orElseGet(() -> enderecoRepository.save(endereco)));
 
-        if (membroRepository.findByEmail(membro.getEmail()).isPresent()) {
+        if (membroRepository.findByEmail(membro.getEmail()).isPresent())
 			throw new IllegalArgumentException("Email já cadastrado.");
-		}
-
-        if (membroRepository.findByCpf(membro.getCpf()).isPresent()) {
+            
+        if (membroRepository.findByCpf(membro.getCpf()).isPresent())
 			throw new IllegalArgumentException("CPF já cadastrado.");
-		}
 
+        membro.setSenha(passwordEncoder.encode(membro.getSenha()));
         return membroRepository.save(membro);
     }
 

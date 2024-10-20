@@ -52,7 +52,7 @@ public class MembroServiceImplIntegrationTest {
         membro.setTelefone("1234567890");
         membro.setCelular("98765432101");
         membro.setEmail("joao.silvaaa@example.com");
-        membro.setSenha("senha123".getBytes());
+        membro.setSenha("senha123");
         membro.setLogradouro("Rua das Flores");
         membro.setNumero(123);
         membro.setCpf("12345238901");
