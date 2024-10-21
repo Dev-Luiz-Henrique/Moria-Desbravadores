@@ -22,7 +22,7 @@
 /.classpath
 /.project
 /.settings/
-/.vscode/
+/.vscode/**
 
 # Ignorar arquivos de logs do cliente
 logs
@@ -66,7 +66,6 @@ server/.classpath
 server/.project
 server/.settings/
 
-
 # Ignorar arquivos e diretórios de editores
 .DS_Store
 *.suo
@@ -74,3 +73,7 @@ server/.settings/
 *.njsproj
 *.sln
 *.sw?
+
+# Ignorar a pasta uploads
+/server/uploads/
+/uploads/
