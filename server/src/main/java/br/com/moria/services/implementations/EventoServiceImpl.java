@@ -78,13 +78,18 @@ public class EventoServiceImpl implements IEventoService {
 	}
 
 	@Override
-	public List<Evento> findData(LocalDateTime date) {
-		return eventoRepository.findByData(date);
+	public List<Evento> findDataInterval(LocalDateTime start, LocalDateTime end) {
+		return eventoRepository.findByDataBetween(start, end);
 	}
 
 	@Override
-	public List<Evento> findDataInterval(LocalDateTime start, LocalDateTime end) {
-		return eventoRepository.findByDataBetween(start, end);
+	public List<Evento> findDataInicio(LocalDateTime date) {
+		return eventoRepository.findByDataInicio(date);
+	}
+
+	@Override
+	public List<Evento> findDataFim(LocalDateTime date) {
+		return eventoRepository.findByDataFim(date);
 	}
 
 }
