@@ -10,6 +10,7 @@ import br.com.moria.models.Evento;
 public interface EventoRepository extends JpaRepository<Evento, Integer>{
 
 	public List<Evento> findByNomeContaining(String palavraChave);
-	public List<Evento> findByData(LocalDateTime data);
-	public List<Evento> findByDataBetween(LocalDateTime start, LocalDateTime end);
+	public List<Evento> findByDataInicio(LocalDateTime data);
+	public List<Evento> findByDataFim(LocalDateTime data);
+	public List<Evento> findByDataInicioBetween(LocalDateTime start, LocalDateTime end);
 }

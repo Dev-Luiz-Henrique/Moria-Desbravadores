@@ -48,7 +48,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- Dependências para JSON Web Token (JWT) -->
+        <!-- Dependencias para JSON Web Token (JWT) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -58,11 +58,11 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>0.11.5</version>
-            <scope>runtime</scope> <!-- 'runtime' para que a implementação seja usada apenas em tempo de execução -->
+            <scope>runtime</scope> <!-- 'runtime' para que a implementacao seja usada apenas em tempo de execucao -->
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId> <!-- Usado para serialização/desserialização de JSON -->
+            <artifactId>jjwt-jackson</artifactId> <!-- Usado para serializacaoo/desserializacao de JSON -->
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
