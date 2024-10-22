@@ -5,5 +5,5 @@ public enum FormaPagamento {
 	PIX,
 	CREDITO,
 	DEBITO,
-	FIADO
+	BOLETO
 }

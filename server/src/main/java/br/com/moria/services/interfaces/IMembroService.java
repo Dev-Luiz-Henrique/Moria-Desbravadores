@@ -15,4 +15,7 @@ public interface IMembroService {
     public Membro findById(int id);
     public List<Membro> findAll();
     public Membro updateFichaSaudeById(int id, MultipartFile file) throws IOException;
+    public Membro findByEmail(String email);
+    public Membro findByCpf(String cpf);
+    public List<Membro> findByAtivo(Boolean ativo);
 }

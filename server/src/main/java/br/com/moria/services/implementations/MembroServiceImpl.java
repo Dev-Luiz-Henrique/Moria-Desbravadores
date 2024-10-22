@@ -83,4 +83,21 @@ public class MembroServiceImpl implements IMembroService {
     
         return membroRepository.save(existingMembro);
     }
+
+	@Override
+	public Membro findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Membro findByCpf(String cpf) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Membro> findByAtivo(Boolean ativo) {
+		return membroRepository.findByAtivo(ativo);
+	}
 }
