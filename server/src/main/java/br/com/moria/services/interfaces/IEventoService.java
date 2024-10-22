@@ -12,7 +12,6 @@ public interface IEventoService {
 	public Evento findById(int id);
 	public List<Evento> findAll();
 	public List<Evento> findNomeContaining(String keyword);
-	public List<Evento> findDataInicio(LocalDateTime date);
-	public List<Evento> findDataFim(LocalDateTime date);
+	public List<Evento> findData(LocalDateTime date);
 	public List<Evento> findDataInterval(LocalDateTime start, LocalDateTime end);
 }
