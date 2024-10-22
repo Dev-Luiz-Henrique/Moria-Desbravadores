@@ -56,9 +56,14 @@ public class Evento {
     private String descricao;
 
     @NotNull
-    @Future(message = "A data do evento deve ser uma data futura.")
-    @Column(name = "data", nullable = false)
-    private LocalDateTime data;
+    @Future(message = "A data de início do evento deve ser uma data futura.")
+    @Column(name = "data_inicio", nullable = false)
+    private LocalDateTime dataInicio;
+    
+    @NotNull
+    @Future(message = "A data fim do evento deve ser uma data futura.")
+    @Column(name = "data_fim", nullable = false)
+    private LocalDateTime dataFim;
 
     @NotNull
     @Min(value = 1, message = "Número deve ser maior que 0.")

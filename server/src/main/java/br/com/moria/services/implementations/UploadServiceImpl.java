@@ -49,4 +49,9 @@ public class UploadServiceImpl implements IUploadService {
     public String uploadFichaSaude(MultipartFile file) throws IOException {
         return uploadFile(file, "fichaSaude");
     }
+
+	@Override
+	public String uploadComprovantePagamento(MultipartFile file) throws IOException {
+		return uploadFile(file, "comprovantePagamento");
+	}
 }

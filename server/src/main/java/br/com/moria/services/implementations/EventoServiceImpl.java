@@ -26,12 +26,14 @@ public class EventoServiceImpl implements IEventoService {
 	@Override
 	public Evento create(@Valid Evento evento) {
 		Endereco endereco = evento.getEndereco();
-		Endereco enderecoExistente = enderecoRepository.findByCep(endereco.getCep()).orElse(null);
-
-		if (enderecoExistente != null)
-		    evento.setEndereco(enderecoExistente);
-		else
-		    evento.setEndereco(enderecoRepository.save(endereco));
+		evento.setEndereco(enderecoRepository.findByCep(endereco.getCep())
+	            .orElseGet(() -> enderecoRepository.save(endereco)));
+		
+		LocalDateTime inicio = evento.getDataInicio();
+		LocalDateTime fim = evento.getDataFim();
+		
+		if(fim.isBefore(inicio))
+			throw new IllegalArgumentException("Data inicio não pode suceder data fim.");
 		
 		return eventoRepository.save(evento);
 	}
@@ -39,12 +41,14 @@ public class EventoServiceImpl implements IEventoService {
 	@Override
 	public Evento update(@Valid Evento evento) {
 		Endereco endereco = evento.getEndereco();
-		Endereco enderecoExistente = enderecoRepository.findByCep(endereco.getCep()).orElse(null);
-
-		if (enderecoExistente != null)
-		    evento.setEndereco(enderecoExistente);
-		else
-		    evento.setEndereco(enderecoRepository.save(endereco));
+		evento.setEndereco(enderecoRepository.findByCep(endereco.getCep())
+	            .orElseGet(() -> enderecoRepository.save(endereco)));
+		
+		LocalDateTime inicio = evento.getDataInicio();
+		LocalDateTime fim = evento.getDataFim();
+		
+		if(fim.isBefore(inicio))
+			throw new IllegalArgumentException("Data inicio não pode suceder data fim.");
 		
 		return eventoRepository.save(evento);
 	}
