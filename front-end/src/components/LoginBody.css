@@ -7,6 +7,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 }
 
 .credenciais {
@@ -84,4 +85,10 @@
     background-color: #b8681d;
 
     cursor: pointer;
+}
+
+.container-login-body > .ButtonGoBack {
+    position: absolute;
+    top: 60px;
+    left: 60px;
 }

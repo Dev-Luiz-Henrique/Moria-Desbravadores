@@ -1,11 +1,12 @@
-import { Footer } from "./Footer"
-import { Header } from "./header"
+import { ButtonGoBack } from "./ButtonGoBack"
 import "./LoginBody.css"
 
 export function LoginBody() {
     return (
         <section className="container-login-body">
-            {/* btn */}
+            <div className="ButtonGoBack">
+                <ButtonGoBack />
+            </div>
             <div className="credenciais">
                 <h3>LOGIN</h3>
 
