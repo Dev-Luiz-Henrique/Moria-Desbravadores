@@ -1,4 +1,5 @@
 import "./App.css"
+import { ButtonGoBack } from "./components/ButtonGoBack"
 import { DropDownProfile } from "./components/DropDownProfile"
 import { Footer } from "./components/Footer"
 import { HeaderSignedIn } from "./components/HeaderSignedIn"
@@ -12,7 +13,8 @@ function App() {
   return (
     // <Landing />
     // <HeaderSignedIn />
-    <LoginBody />
+    // <LoginBody />
+    <ButtonGoBack />
     // <DropDownProfile />
     // <EventosPassados />
     // <Footer />

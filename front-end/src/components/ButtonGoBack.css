@@ -1,0 +1,31 @@
+.button-go-back{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 20px;
+    gap: 10px;
+    background-color: #C17732;
+    border-radius: 10px;
+    border: none;
+}
+.button-go-back{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 20px;
+    gap: 10px;
+    background-color: #C17732;
+    border-radius: 10px;
+    border: none;
+    transition: .2s;
+}
+.button-go-back:hover{
+    background-color: #b8681d;
+
+    cursor: pointer;
+}
+.button-go-back > p{
+    color: #F0E6D2;
+    font-family: "Secular One", sans-serif;
+    font-size: 24px;
+}
