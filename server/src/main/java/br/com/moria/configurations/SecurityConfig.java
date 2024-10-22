@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import br.com.moria.enums.TipoMembro;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig { 
@@ -21,7 +24,20 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/login").permitAll() // Acesso publico as rotas
+                .requestMatchers("/**").hasAnyRole(TipoMembro.DIRETOR_CLUBE.name(), TipoMembro.DIRETOR_ASSOCIADO.name())
+                .requestMatchers("/membros/**").hasRole(TipoMembro.SECRETARIO.name())
                 .anyRequest().authenticated() // Exige autenticacao para qualquer outra requisicao.
+            )
+            .exceptionHandling(exceptionHandling -> 
+                exceptionHandling
+                    .authenticationEntryPoint((request, response, authException) -> {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        response.getWriter().write("Acesso não autorizado: Token JWT inválido ou não fornecido.");
+                    })
+                    .accessDeniedHandler((request, response, accessDeniedException) -> {
+                        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                        response.getWriter().write("Você não tem permissão para acessar este recurso.");
+                    })
             )
             .sessionManagement(session -> 
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) 

@@ -27,7 +27,7 @@ public class MembroDetailsServiceImpl implements IMembroDetailsService {
 
         // Adiciona a authority baseada no tipo de membro
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(membro.getTipo().name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + membro.getTipo().name()));
 
         return new org.springframework.security.core.userdetails.User(
             membro.getEmail(), 
