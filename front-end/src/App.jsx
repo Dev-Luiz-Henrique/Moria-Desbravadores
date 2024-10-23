@@ -5,6 +5,7 @@ import { DropDownProfile } from "./components/DropDownProfile"
 import { Footer } from "./components/Footer"
 import { HeaderNoNav } from "./components/HeaderNoNav"
 import { HeaderSignedIn } from "./components/HeaderSignedIn"
+import { HeaderSignedInNoNav } from "./components/HeaderSigneInNoNav"
 import { LoginBody } from "./components/LoginBody"
 import { PastEvents } from "./components/PastEvents"
 import { SectionEvents } from "./components/SectionEvents"
@@ -20,7 +21,8 @@ function App() {
     // <LoginBody />
     // <HeaderNoNav />
     // <LoginPage /> 
-    <UserPage />
+    // <UserPage />
+    <HeaderSignedInNoNav />
     // <CardUser />
     // <ButtonGoBack />
     // <DropDownProfile />
