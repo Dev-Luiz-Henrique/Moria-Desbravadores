@@ -2,13 +2,13 @@ import { CardUser } from "./CardUser"
 import "./UserPage.css"
 import AddIcon from "../assets/img/Plus.svg"
 import SearchIcon from "../assets/img/Glass.svg"
-import { HeaderSignedIn } from "./HeaderSignedIn"
 import { Footer } from "./Footer"
+import { HeaderSignedInNoNav } from "./HeaderSigneInNoNav"
 
 export function UserPage() {
     return (
         <>
-            <HeaderSignedIn />
+            <HeaderSignedInNoNav />
             <section className="container-user-page">
                 <div className="filter">
                     <div className="detail">

@@ -2,6 +2,7 @@ import "./App.css"
 import { ButtonGoBack } from "./components/ButtonGoBack"
 import { CardUser } from "./components/CardUser"
 import { DropDownProfile } from "./components/DropDownProfile"
+import { DropDownProfileAdm } from "./components/DropDownProfileAdm"
 import { Footer } from "./components/Footer"
 import { HeaderNoNav } from "./components/HeaderNoNav"
 import { HeaderSignedIn } from "./components/HeaderSignedIn"
@@ -22,7 +23,8 @@ function App() {
     // <HeaderNoNav />
     // <LoginPage /> 
     // <UserPage />
-    <HeaderSignedInNoNav />
+    // <HeaderSignedInNoNav />
+    <DropDownProfileAdm />
     // <CardUser />
     // <ButtonGoBack />
     // <DropDownProfile />
