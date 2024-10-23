@@ -23,10 +23,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login").permitAll() // Acesso publico as rotas
-                .requestMatchers("/**").hasAnyRole(TipoMembro.DIRETOR_CLUBE.name(), TipoMembro.DIRETOR_ASSOCIADO.name())
-                .requestMatchers("/membros/**").hasRole(TipoMembro.SECRETARIO.name())
-                .anyRequest().authenticated() // Exige autenticacao para qualquer outra requisicao.
+                .requestMatchers("/**").permitAll()
+                /*.requestMatchers("/login").permitAll()
+                .requestMatchers("/membros/**").hasAuthority(TipoMembro.SECRETARIO.name())
+                .requestMatchers("/**").hasAnyRole(TipoMembro.DIRETOR_CLUBE.name(), TipoMembro.DIRETOR_ASSOCIADO.name())*/
+                .anyRequest().authenticated()
             )
             .exceptionHandling(exceptionHandling -> 
                 exceptionHandling
