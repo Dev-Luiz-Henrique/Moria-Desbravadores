@@ -1,0 +1,6 @@
+.container-user-page {
+    display: flex;
+}
+.container-user-page > filter{
+    display: flex;
+}

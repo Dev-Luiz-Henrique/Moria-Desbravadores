@@ -1,18 +1,34 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import "./App.css"
+import { ButtonGoBack } from "./components/ButtonGoBack"
+import { CardUser } from "./components/CardUser"
+import { DropDownProfile } from "./components/DropDownProfile"
+import { Footer } from "./components/Footer"
+import { HeaderNoNav } from "./components/HeaderNoNav"
+import { HeaderSignedIn } from "./components/HeaderSignedIn"
+import { LoginBody } from "./components/LoginBody"
+import { PastEvents } from "./components/PastEvents"
+import { SectionEvents } from "./components/SectionEvents"
+import { UserPage } from "./components/UserPage"
 import { Landing } from "./pages/Landing"
 import { LoginPage } from "./pages/LoginPage"
-import "./App.css"
 
 function App() {
 
   return (
-    <Router>
-        <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<LoginPage />} />
-        </Routes>
-    </Router>
+    // <Landing />
+    // <HeaderSignedIn />
+    // <LoginBody />
+    // <HeaderNoNav />
+    // <LoginPage /> 
+    <UserPage />
+    // <CardUser />
+    // <ButtonGoBack />
+    // <DropDownProfile />
+    // <EventosPassados />
+    // <Footer />
+    // <SectionEvents />
+    // <PastEvents />
   )
 }
 
-export default App;
+export default App
