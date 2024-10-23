@@ -1,5 +1,6 @@
 import "./App.css"
 import { ButtonGoBack } from "./components/ButtonGoBack"
+import { CardUser } from "./components/CardUser"
 import { DropDownProfile } from "./components/DropDownProfile"
 import { Footer } from "./components/Footer"
 import { HeaderNoNav } from "./components/HeaderNoNav"
@@ -17,7 +18,8 @@ function App() {
     // <HeaderSignedIn />
     // <LoginBody />
     // <HeaderNoNav />
-    <LoginPage /> 
+    // <LoginPage /> 
+    <CardUser />
     // <ButtonGoBack />
     // <DropDownProfile />
     // <EventosPassados />

@@ -1,0 +1,83 @@
+.card-user-container{
+    background-color: #F0E6D2;
+    box-shadow: 5px 5px 15px rgba(6, 6, 6, .4);
+    padding: 20px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    
+}
+.card-user-container > .options {
+    display: flex;
+    gap: 20px;
+    align-self: flex-end;
+}
+.card-user-container > .options > button {
+    border: none;
+    background-color: transparent;
+}
+.card-user-container > .options > button > img {
+    width: 30px;
+    height: 30px;
+}
+.card-user-container > .user-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: #352208;
+
+    font-size: 24px;
+    font-family: "Secular One", sans-serif;
+}
+
+.card-user-container > .user-tipo{
+    display: flex;
+    gap: 10px;
+}
+.card-user-container > .user-tipo > b{
+    color: #352208;
+
+    font-size: 24px;
+    font-family: "Secular One", sans-serif;
+}
+.card-user-container > .user-tipo > span{
+    color: #352208;
+
+    font-size: 24px;
+    font-family: "Afacad", sans-serif;
+}
+
+.section-status-mensalidade > .ssm{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 24px;
+    font-family: "Afacad", sans-serif;
+    color: #F0E6D2;
+    background-color: #1D7874;
+    border-radius: 10px;
+
+}
+.section-status-mensalidade > .ssm > .situation{
+    color: #352208;
+    padding: 5px 25px;
+    background-color: #fff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-family: "Secular One", sans-serif;
+    background-color: #F0E6D2;
+    width: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.section-status-mensalidade{  
+    display: flex;
+    flex-direction: column;  
+    gap: 10px;
+}
