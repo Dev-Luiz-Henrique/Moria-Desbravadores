@@ -72,7 +72,7 @@ public class Membro {
     private String email;
  
     @NotBlank
-    @Size(max = 5, message = "Senha deve ter no máximo 5 caracteres.")
+    @Size(max = 255, message = "Senha deve ter no máximo 255 caracteres.")
     @Column(name = "senha", nullable = false, length = 255)
     private String senha;
 

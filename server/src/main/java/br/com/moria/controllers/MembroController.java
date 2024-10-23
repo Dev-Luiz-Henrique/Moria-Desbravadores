@@ -79,8 +79,6 @@ public class MembroController {
     
         try {
             Membro membro = membroService.updateFichaSaudeById(id, file);
-            // Aqui você pode atualizar o membro com o caminho da ficha de saúde, se necessário
-            // membroService.atualizarFichaSaude(id, filePath);
             return ResponseEntity.ok("Ficha de saúde salva em: " + membro.getFichaSaude());
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
