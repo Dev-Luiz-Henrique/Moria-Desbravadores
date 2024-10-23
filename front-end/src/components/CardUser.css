@@ -2,7 +2,7 @@
     background-color: #F0E6D2;
     box-shadow: 5px 5px 15px rgba(6, 6, 6, .4);
     padding: 20px;
-    width: fit-content;
+    width: 450px;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -24,7 +24,7 @@
 .card-user-container > .user-name{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 20px;
     color: #352208;
 
@@ -38,7 +38,6 @@
 }
 .card-user-container > .user-tipo > b{
     color: #352208;
-
     font-size: 24px;
     font-family: "Secular One", sans-serif;
 }
@@ -73,6 +72,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+.section-status-mensalidade > .ssm > p{
+    padding: 0 10px 0 0;
 
 }
 
