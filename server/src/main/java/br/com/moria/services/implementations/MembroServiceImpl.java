@@ -38,10 +38,10 @@ public class MembroServiceImpl implements IMembroService {
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
             .orElseGet(() -> enderecoRepository.save(endereco)));
 
-        if (membroRepository.findByEmail(membro.getEmail()).isPresent())
+        if (membroRepository.findByEmail(membro.getEmail()) != null)
 			throw new IllegalArgumentException("Email já cadastrado.");
             
-        if (membroRepository.findByCpf(membro.getCpf()).isPresent())
+        if (membroRepository.findByCpf(membro.getCpf()) != null)
 			throw new IllegalArgumentException("CPF já cadastrado.");
 
         membro.setSenha(passwordEncoder.encode(membro.getSenha()));

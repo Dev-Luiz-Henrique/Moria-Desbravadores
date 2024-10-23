@@ -9,7 +9,7 @@ import br.com.moria.models.Membro;
 
 public interface MembroRepository extends JpaRepository<Membro, Integer> {
 
-    Optional<Membro> findByEmail(String email);
-    Optional<Membro> findByCpf(String cpf);
+    public Membro findByEmail(String email);
+    public Membro findByCpf(String cpf);
     public List<Membro> findByAtivo(Boolean ativo);
 }
