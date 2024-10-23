@@ -1,38 +1,20 @@
-import "./App.css"
-import { ButtonGoBack } from "./components/ButtonGoBack"
-import { CardUser } from "./components/CardUser"
-import { DropDownProfile } from "./components/DropDownProfile"
-import { DropDownProfileAdm } from "./components/DropDownProfileAdm"
-import { Footer } from "./components/Footer"
-import { HeaderNoNav } from "./components/HeaderNoNav"
-import { HeaderSignedIn } from "./components/HeaderSignedIn"
-import { HeaderSignedInNoNav } from "./components/HeaderSigneInNoNav"
-import { LoginBody } from "./components/LoginBody"
-import { PastEvents } from "./components/PastEvents"
-import { SectionEvents } from "./components/SectionEvents"
-import { UserPage } from "./components/UserPage"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Landing } from "./pages/Landing"
 import { LoginPage } from "./pages/LoginPage"
+import { Teste } from "./Teste";
+import "./App.css"
 
 function App() {
 
   return (
-    // <Landing />
-    // <HeaderSignedIn />
-    // <LoginBody />
-    // <HeaderNoNav />
-    // <LoginPage /> 
-    // <UserPage />
-    // <HeaderSignedInNoNav />
-    <DropDownProfileAdm />
-    // <CardUser />
-    // <ButtonGoBack />
-    // <DropDownProfile />
-    // <EventosPassados />
-    // <Footer />
-    // <SectionEvents />
-    // <PastEvents />
+    <Router>
+        <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/teste" element={<Teste />} />
+        </Routes>
+    </Router>
   )
 }
 
-export default App
+export default App;
