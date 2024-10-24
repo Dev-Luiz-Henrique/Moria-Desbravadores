@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonGoBack } from "./ButtonGoBack"
+import { apiRequest } from "../api";
 import "./LoginBody.css"
 
 export function LoginBody() {
     const navigate = useNavigate();
-    
+
     const [email, setEmail] = useState("daniel.silva@example.com");
     const [password, setPassword] = useState("daniel123");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const validateEmail = (email) => {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,38 +23,29 @@ export function LoginBody() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError("");
+        setLoading(true);
 
         if (!validateEmail(email)) {
             setError("Email inválido.");
+            setLoading(false);
             return;
         }
         if (!validatePassword(password)) {
             setError("A senha deve ter pelo menos 6 caracteres.");
+            setLoading(false);
             return;
         }
 
-        try {
-            const response = await fetch("http://localhost:8080/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
+        const { data, error: fetchError } = await apiRequest("/login", "POST", { email, password });
 
-            const data = await response.text();
-            if (response.ok) {
-                localStorage.setItem("authToken", data); 
-                console.log("Login bem-sucedido:", data);
-                navigate("/membros");
-            } else {
-                setError("Erro no login: " + data);
-                console.error("Erro no login:", data);
-            }
-        } catch (error) {
-            setError("Erro na requisição.");
-            console.error("Erro na requisição:", error);
+        if (fetchError) {
+            setError("Erro no login: " + fetchError);
+        } else {
+            localStorage.setItem("authToken", data);
+            navigate("/membros");
         }
+
+        setLoading(false);
     };
 
     return (
@@ -78,7 +71,9 @@ export function LoginBody() {
                     </div>
 
                     <a href=""><p>Esqueci minha senha</p></a>
-                    <button type="submit">LOGIN</button>
+                    <button type="submit" disabled={loading}>
+                        {loading ? "Carregando..." : "LOGIN"}
+                    </button>
                 </form>
             </div>
         </section>
