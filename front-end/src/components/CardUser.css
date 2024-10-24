@@ -1,4 +1,4 @@
-.card-user-container{
+.card-user-container {
     background-color: #F0E6D2;
     box-shadow: 5px 5px 15px rgba(6, 6, 6, .4);
     padding: 20px;
@@ -15,13 +15,14 @@
 }
 .card-user-container > .options > button {
     border: none;
+    cursor: pointer;
     background-color: transparent;
 }
 .card-user-container > .options > button > img {
     width: 30px;
     height: 30px;
 }
-.card-user-container > .user-name{
+.card-user-container > .user-name {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -32,23 +33,22 @@
     font-family: "Secular One", sans-serif;
 }
 
-.card-user-container > .user-tipo{
+.card-user-container > .user-tipo {
     display: flex;
     gap: 10px;
 }
-.card-user-container > .user-tipo > b{
+.card-user-container > .user-tipo > b {
     color: #352208;
     font-size: 24px;
     font-family: "Secular One", sans-serif;
 }
-.card-user-container > .user-tipo > span{
+.card-user-container > .user-tipo > span {
     color: #352208;
-
     font-size: 24px;
     font-family: "Afacad", sans-serif;
 }
 
-.section-status-mensalidade > .ssm{
+.section-status-mensalidade > .ssm {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -60,7 +60,7 @@
     border-radius: 10px;
 
 }
-.section-status-mensalidade > .ssm > .situation{
+.section-status-mensalidade > .ssm > .situation {
     color: #352208;
     padding: 5px 25px;
     background-color: #fff;
@@ -74,12 +74,11 @@
     align-items: center;
 
 }
-.section-status-mensalidade > .ssm > p{
+.section-status-mensalidade > .ssm > p {
     padding: 0 10px 0 0;
-
 }
 
-.section-status-mensalidade{  
+.section-status-mensalidade {  
     display: flex;
     flex-direction: column;  
     gap: 10px;
