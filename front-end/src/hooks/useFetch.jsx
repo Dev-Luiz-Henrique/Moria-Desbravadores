@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { apiRequest } from "../utils/api"; 
 
 export const useFetch = (endpoint, method = "GET", body = null) => {
     const [data, setData] = useState(null);
@@ -8,37 +8,16 @@ export const useFetch = (endpoint, method = "GET", body = null) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const url = `http://localhost:8080${endpoint}`;
-                let response;
+            const { data, error } = await apiRequest(endpoint, method, body);
 
-                switch (method) {
-                    case "GET":
-                        response = await axios.get(url);
-                        break;
-                    case "POST":
-                        response = await axios.post(url, body);
-                        break;
-                    case "PUT":
-                        response = await axios.put(url, body);
-                        break;
-                    case "DELETE":
-                        response = await axios.delete(url);
-                        break;
-                    default:
-                        throw new Error(`Método HTTP não suportado: ${method}`);
-                }
+            if (error) setError(error);
+            else setData(data);
 
-                setData(response.data);
-            } catch (err) {
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
+            setLoading(false);
         };
 
         fetchData();
     }, [endpoint, method, body]);
 
-    return { data, loading, error };
+    return { data, setData, loading, error };
 };

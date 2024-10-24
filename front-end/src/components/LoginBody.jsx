@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonGoBack } from "./ButtonGoBack"
-import { apiRequest } from "../api";
+import { apiRequest } from "../utils/api";
 import "./LoginBody.css"
 
 export function LoginBody() {
