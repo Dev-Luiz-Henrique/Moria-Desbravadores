@@ -46,7 +46,7 @@ public class Mensalidade {
     @NotNull
     @Column(name = "data_pagamento", nullable = false)
     private LocalDateTime dataPagamento;
-    
+
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     @Column(name = "valor", nullable = false, columnDefinition = "DOUBLE(8,2)")

@@ -38,11 +38,13 @@ public class MembroServiceImpl implements IMembroService {
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
             .orElseGet(() -> enderecoRepository.save(endereco)));
 
-        if (membroRepository.findByEmail(membro.getEmail()) != null)
+        if (membroRepository.findByEmail(membro.getEmail()) != null) {
 			throw new IllegalArgumentException("Email já cadastrado.");
-            
-        if (membroRepository.findByCpf(membro.getCpf()) != null)
+		}
+
+        if (membroRepository.findByCpf(membro.getCpf()) != null) {
 			throw new IllegalArgumentException("CPF já cadastrado.");
+		}
 
         membro.setSenha(passwordEncoder.encode(membro.getSenha()));
         return membroRepository.save(membro);
@@ -80,20 +82,18 @@ public class MembroServiceImpl implements IMembroService {
 
         String filePath = uploadService.uploadFichaSaude(file);
         existingMembro.setFichaSaude(filePath);
-    
+
         return membroRepository.save(existingMembro);
     }
 
 	@Override
 	public Membro findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		return membroRepository.findByEmail(email);
 	}
 
 	@Override
 	public Membro findByCpf(String cpf) {
-		// TODO Auto-generated method stub
-		return null;
+		return membroRepository.findByCpf(cpf);
 	}
 
 	@Override

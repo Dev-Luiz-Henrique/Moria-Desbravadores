@@ -30,7 +30,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Membro {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -50,7 +50,7 @@ public class Membro {
     @Pattern(regexp = "[MFO]", message = "Sexo deve ser 'M', 'F' ou 'O'.")
     @Column(name = "sexo", nullable = false, length = 1)
     private String sexo;
-    
+
     @NotNull
     @Past(message = "A data de nascimento deve ser uma data passada.")
     @Column(name = "data_nascimento", nullable = false)
@@ -70,7 +70,7 @@ public class Membro {
     @Email(message = "O formato do email é inválido.")
     @Column(name = "email", nullable = false, length = 255, unique = true)
     private String email;
- 
+
     @NotBlank
     @Size(max = 255, message = "Senha deve ter no máximo 255 caracteres.")
     @Column(name = "senha", nullable = false, length = 255)
@@ -141,9 +141,10 @@ public class Membro {
     private int medalhas;
 
     public void setSexo(String sexo) {
-        if (sexo != null) 
-            this.sexo = sexo.toUpperCase();
-        else 
-            this.sexo = null;
+        if (sexo != null) {
+			this.sexo = sexo.toUpperCase();
+		} else {
+			this.sexo = null;
+		}
     }
 }

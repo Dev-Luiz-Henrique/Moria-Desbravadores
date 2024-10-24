@@ -1,6 +1,7 @@
 package br.com.moria.configurations;
 
 import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +31,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
         throws ServletException, IOException {
-            
+
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/plain; charset=UTF-8");
 
@@ -54,16 +55,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     }
                 }
             } catch (ExpiredJwtException e) {
-                handleException(response, HttpServletResponse.SC_UNAUTHORIZED, 
+                handleException(response, HttpServletResponse.SC_UNAUTHORIZED,
                     "Token expirado.", e);
             } catch (MalformedJwtException e) {
-                handleException(response, HttpServletResponse.SC_BAD_REQUEST, 
+                handleException(response, HttpServletResponse.SC_BAD_REQUEST,
                     "Token JWT malformado.", e);
             } catch (JwtException e) {
-                handleException(response, HttpServletResponse.SC_UNAUTHORIZED, 
+                handleException(response, HttpServletResponse.SC_UNAUTHORIZED,
                     "Assinatura do token inválida ou erro de processamento.", e);
             } catch (Exception e) {
-                handleException(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, 
+                handleException(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     "Erro interno.", e);
             }
         }

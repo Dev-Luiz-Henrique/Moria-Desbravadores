@@ -74,9 +74,10 @@ public class MembroController {
 
     @PostMapping("/{id}/ficha-saude")
     public ResponseEntity<String> uploadFichaSaude(@PathVariable int id, @RequestParam("file") MultipartFile file) {
-        if (file.isEmpty())
-            return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
-    
+        if (file.isEmpty()) {
+			return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
+		}
+
         try {
             Membro membro = membroService.updateFichaSaudeById(id, file);
             return ResponseEntity.ok("Ficha de saúde salva em: " + membro.getFichaSaude());

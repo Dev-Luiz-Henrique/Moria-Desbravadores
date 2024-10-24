@@ -54,7 +54,7 @@ public class Recurso {
     @Digits(integer = 8, fraction = 2)
     @Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
-    
+
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     @Column(name = "quantidade", nullable = false, columnDefinition = "DOUBLE(8,2)")

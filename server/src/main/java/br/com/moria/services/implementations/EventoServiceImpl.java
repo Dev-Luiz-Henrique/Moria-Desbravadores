@@ -19,22 +19,23 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Autowired
 	private EventoRepository eventoRepository;
-	
+
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
+
 	@Override
 	public Evento create(@Valid Evento evento) {
 		Endereco endereco = evento.getEndereco();
 		evento.setEndereco(enderecoRepository.findByCep(endereco.getCep())
 	            .orElseGet(() -> enderecoRepository.save(endereco)));
-		
+
 		LocalDateTime inicio = evento.getDataInicio();
 		LocalDateTime fim = evento.getDataFim();
-		
-		if(fim.isBefore(inicio))
+
+		if(fim.isBefore(inicio)) {
 			throw new IllegalArgumentException("Data inicio não pode suceder data fim.");
-		
+		}
+
 		return eventoRepository.save(evento);
 	}
 
@@ -43,13 +44,14 @@ public class EventoServiceImpl implements IEventoService {
 		Endereco endereco = evento.getEndereco();
 		evento.setEndereco(enderecoRepository.findByCep(endereco.getCep())
 	            .orElseGet(() -> enderecoRepository.save(endereco)));
-		
+
 		LocalDateTime inicio = evento.getDataInicio();
 		LocalDateTime fim = evento.getDataFim();
-		
-		if(fim.isBefore(inicio))
+
+		if(fim.isBefore(inicio)) {
 			throw new IllegalArgumentException("Data inicio não pode suceder data fim.");
-		
+		}
+
 		return eventoRepository.save(evento);
 	}
 
@@ -60,7 +62,7 @@ public class EventoServiceImpl implements IEventoService {
 
 	   eventoRepository.delete(eventoExistente);
 	}
-	
+
 	@Override
 	public Evento findById(int id) {
 		return eventoRepository.findById(id)
@@ -77,6 +79,7 @@ public class EventoServiceImpl implements IEventoService {
 		return eventoRepository.findByNomeContaining(keyword);
 	}
 
+	@Override
 	public List<Evento> findDataInicioInterval(LocalDateTime start, LocalDateTime end) {
 		return eventoRepository.findByDataInicioBetween(start, end);
 	}
@@ -90,7 +93,4 @@ public class EventoServiceImpl implements IEventoService {
 	public List<Evento> findDataFim(LocalDateTime date) {
 		return eventoRepository.findByDataFim(date);
 	}
-
-	
-
 }

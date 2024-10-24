@@ -20,12 +20,14 @@ public class UploadServiceImpl implements IUploadService {
     private String uploadFile(MultipartFile file, String uploadDir) throws IOException {
         Path uploadPath = Paths.get(System.getProperty("user.dir"), uploadBaseDir, uploadDir);
 
-        if (!Files.exists(uploadPath)) 
-            Files.createDirectories(uploadPath);
+        if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
 
         String originalFilename = file.getOriginalFilename();
-        if (originalFilename == null)
-            throw new IllegalArgumentException("O nome do arquivo não pode ser nulo.");
+        if (originalFilename == null) {
+			throw new IllegalArgumentException("O nome do arquivo não pode ser nulo.");
+		}
         String fileName = StringUtils.cleanPath(originalFilename);
 
         // Adiciona um timestamp ao nome do arquivo para evitar conflitos
@@ -33,11 +35,13 @@ public class UploadServiceImpl implements IUploadService {
         Path filePath = uploadPath.resolve(uniqueFileName);
 
         String contentType = file.getContentType();
-        if (!"image/png".equals(contentType) && !"image/jpeg".equals(contentType))
-            throw new IllegalArgumentException("Tipo de arquivo não permitido para foto de perfil.");
+        if (!"image/png".equals(contentType) && !"image/jpeg".equals(contentType)) {
+			throw new IllegalArgumentException("Tipo de arquivo não permitido para foto de perfil.");
+		}
 
-        if (file.getSize() > 5 * 1024 * 1024) // 5MB
-            throw new IllegalArgumentException("O tamanho do arquivo deve ser inferior a 5MB.");
+        if (file.getSize() > 5 * 1024 * 1024) { // 5MB
+			throw new IllegalArgumentException("O tamanho do arquivo deve ser inferior a 5MB.");
+		}
 
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 

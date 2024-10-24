@@ -21,24 +21,27 @@ public class RecursoServiceImpl implements IRecursoService {
 
 	@Override
 	public Recurso create(@Valid Recurso recurso) {
-		if (!eventoRepository.existsById(recurso.getEvento().getId()))
-            throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
+		if (!eventoRepository.existsById(recurso.getEvento().getId())) {
+			throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
+		}
         return recursoRepository.save(recurso);
 	}
 
 	@Override
 	public Recurso update(@Valid Recurso recurso) {
-        if (!recursoRepository.existsById(recurso.getId())) 
-            throw new IllegalArgumentException("Recurso não encontrado para o ID fornecido.");
-        if (!eventoRepository.existsById(recurso.getEvento().getId())) 
-            throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
-        
+        if (!recursoRepository.existsById(recurso.getId())) {
+			throw new IllegalArgumentException("Recurso não encontrado para o ID fornecido.");
+		}
+        if (!eventoRepository.existsById(recurso.getEvento().getId())) {
+			throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
+		}
+
         Recurso recursoExistente = recursoRepository.findById(recurso.getId()).get();
 
         String[] ignoreProps = {"nome", "descricao", "valor", "quantidade", "formaPagamento", "categoria", "status"};
-        
+
         BeanUtils.copyProperties(recurso, recursoExistente, ignoreProps);
-        
+
         recursoExistente.setNome(recurso.getNome());
         recursoExistente.setDescricao(recurso.getDescricao());
         recursoExistente.setValor(recurso.getValor());
@@ -46,14 +49,15 @@ public class RecursoServiceImpl implements IRecursoService {
         recursoExistente.setFormaPagamento(recurso.getFormaPagamento());
         recursoExistente.setCategoria(recurso.getCategoria());
         recursoExistente.setStatus(recurso.getStatus());
-        
+
         return recursoRepository.save(recursoExistente);
 	}
 
 	@Override
 	public void delete(int id) {
-        if (!recursoRepository.existsById(id)) 
-            throw new IllegalArgumentException("Recurso não encontrado para o ID fornecido.");
+        if (!recursoRepository.existsById(id)) {
+			throw new IllegalArgumentException("Recurso não encontrado para o ID fornecido.");
+		}
         recursoRepository.deleteById(id);
 	}
 
