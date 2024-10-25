@@ -1,20 +1,30 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { PrivateRoute } from "./components/PrivateRoute";
 import { Landing } from "./pages/Landing";
 import { LoginPage } from "./pages/LoginPage";
-import { UserPage } from './components/UserPage';
-import "./App.css"
+import { UserPage } from "./components/UserPage";
+import "./App.css";
 
 function App() {
+    return (
+        <Router>
+            <Routes>
+                {/* Rotas públicas */}
+                <Route path='/' element={<Landing />} />
+                <Route path='/login' element={<LoginPage />} />
 
-  return (
-    <Router>
-        <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/membros" element={<UserPage />} />
-        </Routes>
-    </Router>
-  )
+                {/* Rotas protegidas */}
+                <Route 
+                    path='/membros'
+                    element={
+                        <PrivateRoute>
+                            <UserPage />
+                        </PrivateRoute>
+                    }
+                />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
