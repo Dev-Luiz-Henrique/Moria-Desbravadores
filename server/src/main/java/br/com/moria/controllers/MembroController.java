@@ -2,6 +2,7 @@ package br.com.moria.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,24 +31,29 @@ public class MembroController {
     private IMembroService membroService;
 
     @PostMapping
-    public ResponseEntity<Membro> create(@Valid @RequestBody Membro membro) {
+    public ResponseEntity<Object> create(@Valid @RequestBody Membro membro) {
         try {
             Membro createdMembro = membroService.create(membro);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdMembro);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+            	Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", e.getMessage()));
         }
     }
-
+    
     @PutMapping("/{id}")
     public ResponseEntity<Membro> update(@PathVariable int id, @RequestBody Membro membro) {
         membro.setId(id);
-        Membro updatedMembro = membroService.update(membro);
-        return ResponseEntity.ok(updatedMembro);
+        try {
+            Membro updatedMembro = membroService.update(membro);
+            return ResponseEntity.ok(updatedMembro);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         try {
             membroService.delete(id);
             return ResponseEntity.noContent().build();

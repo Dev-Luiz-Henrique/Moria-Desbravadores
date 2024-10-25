@@ -52,7 +52,9 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public Membro update(Membro membro) {
-        // Detalhar implementacao posteriormente
+    	Endereco endereco = membro.getEndereco();
+        membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
+            .orElseGet(() -> enderecoRepository.save(endereco))); 
         return membroRepository.save(membro);
     }
 
