@@ -19,7 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "inscricao", uniqueConstraints = {
+@Table(name = "inscricoes", uniqueConstraints = {
 	    @UniqueConstraint(columnNames = {"id_membro", "id_evento"})
 	})
 @Getter
