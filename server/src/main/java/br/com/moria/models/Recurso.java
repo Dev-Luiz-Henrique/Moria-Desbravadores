@@ -2,6 +2,8 @@ package br.com.moria.models;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.com.moria.enums.FormaPagamento;
 import br.com.moria.enums.RecursoEvento;
 import br.com.moria.enums.StatusPagamento;
@@ -37,6 +39,7 @@ public class Recurso {
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_evento", referencedColumnName = "id")
+    @JsonBackReference
     private Evento evento;
 
     @NotBlank
@@ -69,6 +72,6 @@ public class Recurso {
     private RecursoEvento categoria;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
-    private StatusPagamento status;
+    @Column(name = "status_pagamento", nullable = false, length = 20)
+    private StatusPagamento statusPagamento;
 }

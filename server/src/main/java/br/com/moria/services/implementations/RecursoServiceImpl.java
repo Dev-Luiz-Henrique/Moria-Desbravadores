@@ -1,9 +1,12 @@
 package br.com.moria.services.implementations;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.moria.models.Evento;
 import br.com.moria.models.Recurso;
 import br.com.moria.repositories.EventoRepository;
 import br.com.moria.repositories.RecursoRepository;
@@ -21,9 +24,10 @@ public class RecursoServiceImpl implements IRecursoService {
 
 	@Override
 	public Recurso create(@Valid Recurso recurso) {
-		if (!eventoRepository.existsById(recurso.getEvento().getId())) {
-			throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
-		}
+		Evento evento = recurso.getEvento();
+		recurso.setEvento(eventoRepository.findById(evento.getId())
+				.orElseGet(() -> eventoRepository.save(evento)));
+		
         return recursoRepository.save(recurso);
 	}
 
@@ -48,7 +52,7 @@ public class RecursoServiceImpl implements IRecursoService {
         recursoExistente.setQuantidade(recurso.getQuantidade());
         recursoExistente.setFormaPagamento(recurso.getFormaPagamento());
         recursoExistente.setCategoria(recurso.getCategoria());
-        recursoExistente.setStatus(recurso.getStatus());
+        recursoExistente.setStatusPagamento(recurso.getStatusPagamento());
 
         return recursoRepository.save(recursoExistente);
 	}
@@ -59,6 +63,11 @@ public class RecursoServiceImpl implements IRecursoService {
 			throw new IllegalArgumentException("Recurso não encontrado para o ID fornecido.");
 		}
         recursoRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Recurso> findAll() {
+		return recursoRepository.findAll();
 	}
 
 }

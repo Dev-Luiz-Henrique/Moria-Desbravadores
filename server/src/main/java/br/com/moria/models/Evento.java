@@ -3,6 +3,8 @@ package br.com.moria.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +40,7 @@ public class Evento {
     private Endereco endereco;
 
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+    @JsonManagedReference
 	private List<Recurso> recursos;
 
     @NotBlank
