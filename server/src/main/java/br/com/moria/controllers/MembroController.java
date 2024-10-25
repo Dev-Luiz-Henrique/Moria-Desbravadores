@@ -94,4 +94,14 @@ public class MembroController {
                 .body("Erro ao fazer upload da ficha de saúde: " + e.getMessage());
         }
     }
+
+    @GetMapping("/email")
+    public ResponseEntity<Membro> findByEmail(@RequestParam String email) {
+        try {
+            Membro membro = membroService.findByEmail(email);
+            return ResponseEntity.ok(membro);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }
