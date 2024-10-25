@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getToken } from "./auth";
 
 const api = axios.create({
     baseURL: "http://localhost:8080",
@@ -10,7 +9,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
     (config) => {
-        const token = getToken();
+        const token = localStorage.getItem("authToken");
         if (token) 
             config.headers.Authorization = `Bearer ${token}`;
 
@@ -27,10 +26,14 @@ api.interceptors.response.use(
     },
     (error) => {
         const originalRequest = error.config;
-        
-        if (error.response.status === 401 && originalRequest.url !== "/login") {
+
+        if (error.response.status === 401) {
             localStorage.removeItem("authToken");
-            window.location.href = "/login";
+
+            if (originalRequest.url !== "/login") {
+                window.location.href = "/login";
+                alert("Sessão expirada. Por favor, faça login novamente.");
+            } 
         }
         return Promise.reject(error);
     }

@@ -1,17 +1,17 @@
+import { useAuth } from "../context/AuthContext";
+import { useFetch } from "../hooks/useFetch";
+import { apiRequest } from "../utils/api";
+import { Authorities } from "../utils/authorities";
 import { CardUser } from "./CardUser";
 import { Footer } from "./Footer";
 import { HeaderSignedInNoNav } from "./HeaderSigneInNoNav";
-import { useFetch } from "../hooks/useFetch";
-import { apiRequest } from "../utils/api";
-import { getAuthoritiesFromToken } from "../utils/auth";
-import { Authorities } from "../utils/authorities";
 import "./UserPage.css";
 
 import AddIcon from "../assets/img/Plus.svg";
 import SearchIcon from "../assets/img/Glass.svg";
 
 export function UserPage() {
-    const authorities = getAuthoritiesFromToken();
+    const { authorities, membro } = useAuth();
     const allowedAuthorities = [Authorities.DIRETOR_CLUBE, Authorities.DIRETOR_ASSOCIADO, Authorities.SECRETARIO];
     const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
 

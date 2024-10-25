@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ButtonGoBack } from "./ButtonGoBack"
+import { useAuth } from "../context/AuthContext";
 import { apiRequest } from "../utils/api";
+import { ButtonGoBack } from "./ButtonGoBack"
 import "./LoginBody.css"
 
 export function LoginBody() {
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const [email, setEmail] = useState("daniel.silva@example.com");
     const [password, setPassword] = useState("daniel123");
@@ -38,10 +40,11 @@ export function LoginBody() {
 
         const { data, error: fetchError } = await apiRequest("/login", "POST", { email, password });
 
-        if (fetchError) {
+        if (fetchError)
             setError("Erro no login: " + fetchError);
-        } else {
-            localStorage.setItem("authToken", data);
+        else {
+            //const { token } = data;
+            await login(data);
             navigate("/membros");
         }
 

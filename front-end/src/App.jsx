@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Landing } from "./pages/Landing";
 import { LoginPage } from "./pages/LoginPage";
@@ -8,23 +9,25 @@ import "./App.css";
 
 function App() {
     return (
-        <Router>
-            <Routes>
-                {/* Rotas públicas */}
-                <Route path='/' element={<Landing />} />
-                <Route path='/login' element={<LoginPage />} />
+        <AuthProvider>
+            <Router>
+                <Routes>
+                    {/* Rotas públicas */}
+                    <Route path='/' element={<Landing />} />
+                    <Route path='/login' element={<LoginPage />} />
 
-                {/* Rotas protegidas */}
-                <Route 
-                    path='/membros'
-                    element={
-                        <PrivateRoute allowedAuthorities={getVoluntarios()}>
-                            <UserPage />
-                        </PrivateRoute>
-                    }
-                />
-            </Routes>
-        </Router>
+                    {/* Rotas protegidas */}
+                    <Route 
+                        path='/membros'
+                        element={
+                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                                <UserPage />
+                            </PrivateRoute>
+                        }
+                    />
+                </Routes>
+            </Router>
+        </AuthProvider>
     );
 }
 
