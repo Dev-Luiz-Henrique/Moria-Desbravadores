@@ -3,15 +3,26 @@ import { Footer } from "./Footer";
 import { HeaderSignedInNoNav } from "./HeaderSigneInNoNav";
 import { useFetch } from "../hooks/useFetch";
 import { apiRequest } from "../utils/api";
+import { getAuthoritiesFromToken } from "../utils/auth";
+import { Authorities } from "../utils/authorities";
 import "./UserPage.css";
 
 import AddIcon from "../assets/img/Plus.svg";
 import SearchIcon from "../assets/img/Glass.svg";
 
 export function UserPage() {
+    const authorities = getAuthoritiesFromToken();
+    const allowedAuthorities = [Authorities.DIRETOR_CLUBE, Authorities.DIRETOR_ASSOCIADO, Authorities.SECRETARIO];
+    const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
+
     const { data: membros, setData: setMembros, loading, error } = useFetch("/membros", "GET");
 
     const handleDelete = async (id) => {
+        if (!hasAccess) {
+            alert("Você não tem permissão para excluir membros.");
+            return;
+        }
+
         const confirmed = window.confirm("Você tem certeza que deseja excluir este membro?");
         if (confirmed) {
             const { error: deleteError } = await apiRequest(`/membros/${id}`, "DELETE");
@@ -22,9 +33,6 @@ export function UserPage() {
                 setMembros((prevMembros) => prevMembros.filter(membro => membro.id !== id));
         }
     };
-
-    if (loading) return <p>Carregando...</p>;
-    if (error) return <p>Erro ao carregar os membros: {error}</p>;
 
     return (
         <>
@@ -45,7 +53,7 @@ export function UserPage() {
 
                 <div className="users-space">
                     <div className="users">
-                        {membros.map((membro) => (
+                        {!error && !loading && membros.map((membro) => (
                             <CardUser
                                 key={membro.id}
                                 nome={membro.nome}
