@@ -3,6 +3,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { Landing } from "./pages/Landing";
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./components/UserPage";
+import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
                 <Route 
                     path='/membros'
                     element={
-                        <PrivateRoute allowedAuthorities={["SECRETARIO"]}>
+                        <PrivateRoute allowedAuthorities={getVoluntarios()}>
                             <UserPage />
                         </PrivateRoute>
                     }
