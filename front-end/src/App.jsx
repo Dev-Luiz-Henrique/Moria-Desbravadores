@@ -17,7 +17,7 @@ function App() {
                 <Route 
                     path='/membros'
                     element={
-                        <PrivateRoute>
+                        <PrivateRoute allowedAuthorities={["SECRETARIO"]}>
                             <UserPage />
                         </PrivateRoute>
                     }
