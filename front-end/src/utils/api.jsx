@@ -26,7 +26,9 @@ api.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response.status === 401) {
+        const originalRequest = error.config;
+        
+        if (error.response.status === 401 && originalRequest.url !== "/login") {
             localStorage.removeItem("authToken");
             window.location.href = "/login";
         }
