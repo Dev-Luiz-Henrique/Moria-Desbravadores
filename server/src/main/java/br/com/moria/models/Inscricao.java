@@ -12,9 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,8 +44,11 @@ public class Inscricao {
     @Column(name = "status_participacao", nullable = false, length = 20)
     private StatusParticipacao statusParticipacao;
 
-    @NotBlank
+    @Column(name = "inscrito", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
+    private boolean inscrito;
+
+    /*@NotBlank
     @Size(max = 255, message = "Path da autorizacao deve ter no máximo 255 caracteres.")
     @Column(name = "autorizacao", nullable = false, length = 255)
-    private String autorizacao;
+    private String autorizacao;*/
 }

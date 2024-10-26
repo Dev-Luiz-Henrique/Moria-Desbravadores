@@ -1,6 +1,5 @@
 package br.com.moria.controllers;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.enums.StatusParticipacao;
 import br.com.moria.models.Inscricao;
@@ -44,28 +42,14 @@ public class InscricaoController {
         }
     }
 
-    @PutMapping("/{id}/status")
-    public ResponseEntity<Inscricao> updateStatusParticipacao(@PathVariable int id, @RequestBody StatusParticipacao status) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Inscricao> update(@PathVariable int id, @RequestBody Inscricao inscricao) {
+        inscricao.setId(id);
         try {
-            Inscricao updatedInscricao = inscricaoService.updateStatusParticipacao(id, status);
+            Inscricao updatedInscricao = inscricaoService.update(inscricao);
             return ResponseEntity.ok(updatedInscricao);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
-
-    @PostMapping("/{id}/autorizacao")
-    public ResponseEntity<String> uploadAutorizacaoResponsavel(@PathVariable int id, @RequestParam("file") MultipartFile file) {
-    	if (file.isEmpty()) {
-			return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
-		}
-
-        try {
-            Inscricao inscricao = inscricaoService.updateAutorizacaoResponsavel(id, file);
-            return ResponseEntity.ok("Autorização do Responsável salva em: " + inscricao.getAutorizacao());
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erro ao fazer upload da autorização do responsável: " + e.getMessage());
         }
     }
 
@@ -87,7 +71,7 @@ public class InscricaoController {
 
     @GetMapping("/status")
     public ResponseEntity<List<Inscricao>> findStatusParticipacao(@RequestParam StatusParticipacao status) {
-        List<Inscricao> inscricoes = inscricaoService.findStatusParticipacao(status);
+        List<Inscricao> inscricoes = inscricaoService.findByStatusParticipacao(status);
         return ResponseEntity.ok(inscricoes);
     }
 }
