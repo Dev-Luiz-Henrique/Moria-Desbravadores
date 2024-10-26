@@ -14,11 +14,11 @@ public interface IEventoService {
 	public Evento update(Evento evento);
 	public void delete(int id);
 	public Evento findById(int id);
-	public Evento updateImagemEventoById(int id, MultipartFile file) throws IOException;
-	public FileResponseDTO getImagemEventoById(int id) throws IOException;
 	public List<Evento> findAll();
-	public List<Evento> findNomeContaining(String keyword);
-	public List<Evento> findDataInicio(LocalDateTime date);
-	public List<Evento> findDataFim(LocalDateTime date);
-	public List<Evento> findDataInicioInterval(LocalDateTime start, LocalDateTime end);
+	public List<Evento> findByNomeContaining(String keyword);
+	public List<Evento> findByDataInicio(LocalDateTime date);
+	public List<Evento> findByDataFim(LocalDateTime date);
+	public List<Evento> findByDataInicioInterval(LocalDateTime start, LocalDateTime end);
+    public Evento updateImagemEventoById(int id, MultipartFile file) throws IOException;
+	public FileResponseDTO getImagemEventoById(int id) throws IOException;
 }

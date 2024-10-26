@@ -82,22 +82,22 @@ public class EventoServiceImpl implements IEventoService {
 	}
 
 	@Override
-	public List<Evento> findNomeContaining(String keyword) {
+	public List<Evento> findByNomeContaining(String keyword) {
 		return eventoRepository.findByNomeContaining(keyword);
 	}
 
 	@Override
-	public List<Evento> findDataInicioInterval(LocalDateTime start, LocalDateTime end) {
+	public List<Evento> findByDataInicioInterval(LocalDateTime start, LocalDateTime end) {
 		return eventoRepository.findByDataInicioBetween(start, end);
 	}
 
 	@Override
-	public List<Evento> findDataInicio(LocalDateTime date) {
+	public List<Evento> findByDataInicio(LocalDateTime date) {
 		return eventoRepository.findByDataInicio(date);
 	}
 
 	@Override
-	public List<Evento> findDataFim(LocalDateTime date) {
+	public List<Evento> findByDataFim(LocalDateTime date) {
 		return eventoRepository.findByDataFim(date);
 	}
 

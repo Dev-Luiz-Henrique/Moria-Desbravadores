@@ -86,25 +86,25 @@ public class EventoController {
 
     @GetMapping("/search")
     public ResponseEntity<List<Evento>> findNomeContaining(@RequestParam(name="k") String keyword) {
-        List<Evento> eventos = eventoService.findNomeContaining(keyword);
+        List<Evento> eventos = eventoService.findByNomeContaining(keyword);
         return ResponseEntity.ok(eventos);
     }
 
     @GetMapping("/periodo")
     public ResponseEntity<List<Evento>> findDataInicioInterval(@RequestParam LocalDateTime start, @RequestParam LocalDateTime end) {
-        List<Evento> eventos = eventoService.findDataInicioInterval(start, end);
+        List<Evento> eventos = eventoService.findByDataInicioInterval(start, end);
         return ResponseEntity.ok(eventos);
     }
 
     @GetMapping("/data-inicio")
     public ResponseEntity<List<Evento>> findDataInicio(@RequestParam LocalDateTime date) {
-        List<Evento> eventos = eventoService.findDataInicio(date);
+        List<Evento> eventos = eventoService.findByDataInicio(date);
         return ResponseEntity.ok(eventos);
     }
 
     @GetMapping("/data-fim")
     public ResponseEntity<List<Evento>> findDataFim(@RequestParam LocalDateTime date) {
-        List<Evento> eventos = eventoService.findDataFim(date);
+        List<Evento> eventos = eventoService.findByDataFim(date);
         return ResponseEntity.ok(eventos);
     }
     

@@ -81,4 +81,7 @@ public class Evento {
     @Size(max = 255, message = "Logradouro deve ter no máximo 255 caracteres.")
     @Column(name = "logradouro", length = 255)
     private String logradouro;
+
+    @Column(name = "publico", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
+    private boolean publico;
 }
