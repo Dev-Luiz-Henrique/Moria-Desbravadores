@@ -1,8 +1,16 @@
 package br.com.moria.services.implementations.unit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,9 +27,6 @@ import br.com.moria.repositories.EnderecoRepository;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.services.implementations.MembroServiceImpl;
 import br.com.moria.services.interfaces.IFileService;
-
-import java.io.IOException;
-import java.util.Optional;
 
 @SpringBootTest
 public class MembroServiceTest {

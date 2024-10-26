@@ -43,8 +43,7 @@ public class Mensalidade {
     @Column(name = "data_vencimento", nullable = false)
     private LocalDateTime dataVencimento;
 
-    @NotNull
-    @Column(name = "data_pagamento", nullable = false)
+    @Column(name = "data_pagamento")
     private LocalDateTime dataPagamento;
 
     @NotNull
@@ -53,14 +52,14 @@ public class Mensalidade {
     private Double valor;
 
     @Column(name = "pagamento_realizado", nullable = false)
-    private boolean pagamentoRealizado = false;
+    private boolean pagamentoRealizado;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "forma_pagamento", nullable = false, length = 20)
+    @Column(name = "forma_pagamento", length = 20)
     private FormaPagamento formaPagamento;
 
     @Size(max = 255, message = "Caminho do comprovante deve ter no máximo 255 caracteres.")
-    @Column(name = "comprovante", nullable = false, length = 255)
+    @Column(name = "comprovante", length = 255)
     private String comprovante;
 
     @Size(max = 500, message = "Observações devem ter no máximo 500 caracteres.")

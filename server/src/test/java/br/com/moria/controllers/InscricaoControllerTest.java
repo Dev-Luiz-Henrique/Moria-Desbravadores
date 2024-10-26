@@ -1,8 +1,8 @@
 package br.com.moria.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -124,7 +124,7 @@ public class InscricaoControllerTest {
 
         mockMvc.perform(get("/inscricoes"))
             .andExpect(status().isOk());
-            
+
 
         verify(inscricaoService, times(1)).findAll();
     }
@@ -135,17 +135,18 @@ public class InscricaoControllerTest {
         inscricao1.setStatusParticipacao(StatusParticipacao.AUSENTE);
         Inscricao inscricao2 = new Inscricao();
         inscricao2.setStatusParticipacao(StatusParticipacao.JUSTIFICADO);
-
         List<Inscricao> inscricoes = Arrays.asList(inscricao1, inscricao2);
 
-        when(inscricaoService.findStatusParticipacao(anyString())).thenReturn(inscricoes);
+        when(inscricaoService.findStatusParticipacao(any(StatusParticipacao.class)))
+            .thenReturn(inscricoes);
 
-        mockMvc.perform(get("/inscricoes/status").param("status", "CONFIRMADO"))
+        mockMvc.perform(get("/inscricoes/status").param("status", "AUSENTE"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].statusParticipacao").value("CONFIRMADO"))
-            .andExpect(jsonPath("$[1].statusParticipacao").value("PENDENTE"));
+            .andExpect(jsonPath("$[0].statusParticipacao").value("AUSENTE"))
+            .andExpect(jsonPath("$[1].statusParticipacao").value("JUSTIFICADO"));
 
-        verify(inscricaoService, times(1)).findStatusParticipacao(anyString());
+        verify(inscricaoService, times(1)).findStatusParticipacao(any(StatusParticipacao.class));
     }
+
 }
 

@@ -13,8 +13,8 @@ import br.com.moria.models.Endereco;
 import br.com.moria.models.Membro;
 import br.com.moria.repositories.EnderecoRepository;
 import br.com.moria.repositories.MembroRepository;
-import br.com.moria.services.interfaces.IMembroService;
 import br.com.moria.services.interfaces.IFileService;
+import br.com.moria.services.interfaces.IMembroService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -55,7 +55,7 @@ public class MembroServiceImpl implements IMembroService {
     public Membro update(Membro membro) {
     	Endereco endereco = membro.getEndereco();
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
-            .orElseGet(() -> enderecoRepository.save(endereco))); 
+            .orElseGet(() -> enderecoRepository.save(endereco)));
         return membroRepository.save(membro);
     }
 

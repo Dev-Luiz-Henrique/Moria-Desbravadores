@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,11 +15,12 @@ import br.com.moria.models.Membro;
 import br.com.moria.models.Mensalidade;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.repositories.MensalidadeRepository;
-import br.com.moria.services.interfaces.IMensalidadeService;
 import br.com.moria.services.interfaces.IFileService;
+import br.com.moria.services.interfaces.IMensalidadeService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
+@Service
 public class MensalidadeServiceImpl implements IMensalidadeService {
 
 	@Autowired
@@ -35,7 +37,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     @Transactional
     public void gerarMensalidadesMensal() {
         LocalDateTime dataAtual = LocalDateTime.now();
-        List<Membro> membrosAtivos = membroRepository.findAll(); //em tese deveria ser findByAtivo();
+        List<Membro> membrosAtivos = membroRepository.findByAtivo(true);
 
         for (Membro membro : membrosAtivos) {
             if (!existeMensalidadeNoMesAtual(membro, dataAtual)) {

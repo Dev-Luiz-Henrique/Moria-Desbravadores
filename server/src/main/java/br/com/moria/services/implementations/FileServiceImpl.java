@@ -36,11 +36,13 @@ public class FileServiceImpl implements IFileService {
         Path filePath = uploadPath.resolve(uniqueFileName);
 
         String contentType = file.getContentType();
-        if (!"image/png".equals(contentType) && !"image/jpeg".equals(contentType))
+        if (!"image/png".equals(contentType) && !"image/jpeg".equals(contentType)) {
 			throw new IllegalArgumentException("Tipo de arquivo não permitido. Formatos aceitos: jpeg e png.");
+		}
 
-        if (file.getSize() > 5 * 1024 * 1024) // 5MB
+        if (file.getSize() > 5 * 1024 * 1024) { // 5MB
 			throw new IllegalArgumentException("O tamanho do arquivo deve ser inferior a 5MB.");
+		}
 
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -51,9 +53,10 @@ public class FileServiceImpl implements IFileService {
     private byte[] downloadFile(String filePath) throws IOException {
         Path fullPath = Paths.get(System.getProperty("user.dir"), uploadBaseDir, filePath);
         System.out.println(fullPath);
-    
-        if (!Files.exists(fullPath))
-            throw new IOException("Arquivo não encontrado");
+
+        if (!Files.exists(fullPath)) {
+			throw new IOException("Arquivo não encontrado");
+		}
         return Files.readAllBytes(fullPath);
     }
 

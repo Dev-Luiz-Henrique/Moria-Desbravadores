@@ -44,7 +44,7 @@ public class MembroController {
             	Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", e.getMessage()));
         }
     }
-    
+
     @PutMapping("/{id}")
     public ResponseEntity<Membro> update(@PathVariable int id, @RequestBody Membro membro) {
         membro.setId(id);

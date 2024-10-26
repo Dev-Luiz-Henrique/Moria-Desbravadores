@@ -143,4 +143,3 @@ public class EventoControllerTest {
         when(eventoService.findById(1)).thenThrow(new EntityNotFoundException());
     }
 }
-       

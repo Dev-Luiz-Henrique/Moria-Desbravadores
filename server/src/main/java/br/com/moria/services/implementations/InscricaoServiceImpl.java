@@ -14,22 +14,22 @@ import br.com.moria.models.Membro;
 import br.com.moria.repositories.EventoRepository;
 import br.com.moria.repositories.InscricaoRepository;
 import br.com.moria.repositories.MembroRepository;
-import br.com.moria.services.interfaces.IInscricaoService;
 import br.com.moria.services.interfaces.IFileService;
+import br.com.moria.services.interfaces.IInscricaoService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class InscricaoServiceImpl implements IInscricaoService{
-	
+
 	@Autowired
 	private InscricaoRepository inscricaoRepository;
-	
+
 	@Autowired
 	private EventoRepository eventoRepository;
-	
+
 	@Autowired
 	private MembroRepository membroRepository;
-	
+
 	@Autowired
     private IFileService uploadService;
 
@@ -38,11 +38,11 @@ public class InscricaoServiceImpl implements IInscricaoService{
 		Evento evento = inscricao.getEvento();
 		inscricao.setEvento(eventoRepository.findById(evento.getId())
 				.orElseGet(() -> eventoRepository.save(evento)));
-		
+
 		Membro membro = inscricao.getMembro();
 		inscricao.setMembro(membroRepository.findById(membro.getId())
 				.orElseGet(() -> membroRepository.save(membro)));
-		
+
 		return inscricaoRepository.save(inscricao);
 	}
 
@@ -50,18 +50,19 @@ public class InscricaoServiceImpl implements IInscricaoService{
 	public Inscricao updateStatusParticipacao(int id, StatusParticipacao status) {
 		Inscricao existingInscricao = inscricaoRepository.findById(id)
 	            .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
-		
+
 		existingInscricao.setStatusParticipacao(status);
-		
+
 		return inscricaoRepository.save(existingInscricao);
 	}
-	
+
 	@Override
 	public void delete(int id) {
-		if (!inscricaoRepository.existsById(id)) 
+		if (!inscricaoRepository.existsById(id)) {
 			throw new EntityNotFoundException("Inscricao não encontrada para o ID fornecido.");
-		
-        inscricaoRepository.deleteById(id);	
+		}
+
+        inscricaoRepository.deleteById(id);
 	}
 
 	@Override
@@ -78,10 +79,10 @@ public class InscricaoServiceImpl implements IInscricaoService{
 	public Inscricao updateAutorizacaoResponsavel(int id, MultipartFile file) throws IOException {
 		Inscricao existingInscricao = inscricaoRepository.findById(id)
 	            .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
-		
+
 		String filePath = uploadService.uploadAutorizacaoResponsavel(file);
 		existingInscricao.setAutorizacao(filePath);
-		
+
 		return inscricaoRepository.save(existingInscricao);
 	}
 }
