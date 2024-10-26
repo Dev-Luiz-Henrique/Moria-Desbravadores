@@ -2,6 +2,7 @@ package br.com.moria.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import br.com.moria.enums.TipoMembro;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
@@ -20,13 +22,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        //configureEventosRoutes(http);
+        //configureMembrosRoutes(http);
+        //configureOthersRoutes(http);
+
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/**").permitAll()
-                /*.requestMatchers("/login").permitAll()
-                .requestMatchers("/membros/**").hasAuthority(TipoMembro.SECRETARIO.name())
-                .requestMatchers("/**").hasAnyRole(TipoMembro.DIRETOR_CLUBE.name(), TipoMembro.DIRETOR_ASSOCIADO.name())*/
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             )
             .exceptionHandling(exceptionHandling ->
                 exceptionHandling
@@ -67,5 +69,34 @@ public class SecurityConfig {
     @Bean
     public JwtRequestFilter jwtRequestFilter() {
         return new JwtRequestFilter();
+    }
+
+    private void configureEventosRoutes(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
+            .requestMatchers("/eventos/**").hasAuthority(TipoMembro.SECRETARIO.name())
+        );
+    }
+
+    private void configureMembrosRoutes(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(HttpMethod.GET, "/membros/email").authenticated()
+            .requestMatchers(HttpMethod.POST, "/membros/{id}/ficha-saude").hasAuthority(TipoMembro.SECRETARIO.name())
+            .requestMatchers(HttpMethod.GET, "/membros/{id}/ficha-saude").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
+            .requestMatchers(HttpMethod.GET, "/membros/{id}").hasAnyAuthority(
+                TipoMembro.DESBRAVADOR.name(), 
+                TipoMembro.RESPONSAVEL.name()
+            )
+            .requestMatchers(HttpMethod.GET, "/membros/**").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
+            .requestMatchers("/membros/**").hasAnyAuthority(TipoMembro.SECRETARIO.name())
+        );
+    }
+
+    private void configureOthersRoutes(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+            .requestMatchers("/login").permitAll()
+            .requestMatchers("/**").hasAnyRole(TipoMembro.DIRETOR_CLUBE.name(), TipoMembro.DIRETOR_ASSOCIADO.name())
+            .anyRequest().authenticated()
+        );
     }
 }
