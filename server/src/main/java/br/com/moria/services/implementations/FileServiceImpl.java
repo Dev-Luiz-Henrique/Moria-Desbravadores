@@ -51,8 +51,11 @@ public class FileServiceImpl implements IFileService {
     }
 
     private byte[] downloadFile(String filePath) throws IOException {
+        if (filePath == null || filePath.isEmpty()) {
+            throw new IllegalArgumentException("Caminho de arquivo inválido fornecido");
+        }
+
         Path fullPath = Paths.get(System.getProperty("user.dir"), uploadBaseDir, filePath);
-        System.out.println(fullPath);
 
         if (!Files.exists(fullPath)) {
 			throw new IOException("Arquivo não encontrado");

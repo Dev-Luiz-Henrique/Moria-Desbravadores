@@ -108,7 +108,7 @@ public class EventoController {
         return ResponseEntity.ok(eventos);
     }
     
-    @PostMapping("/{id}/imagem-evento")
+    @PostMapping("/{id}/imagem")
     public ResponseEntity<String> uploadImagemEvento(@PathVariable int id, @RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
 			return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
@@ -116,26 +116,26 @@ public class EventoController {
 
         try {
         	Evento evento = eventoService.updateImagemEventoById(id, file);
-            return ResponseEntity.ok("Imagem do evento salva em: " + evento.getImagemEvento());
+            return ResponseEntity.ok("Imagem do evento salva em: " + evento.getImagem());
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Erro ao fazer upload da imagem do evento: " + e.getMessage());
         }
     }
 
-    @GetMapping("/{id}/imagem-evento")
+    @GetMapping("/{id}/imagem")
     public ResponseEntity<byte[]> downloadImagemEvento(@PathVariable int id) {
         try {
             FileResponseDTO fileResponse = eventoService.getImagemEventoById(id);
             return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
                 .body(fileResponse.getFileBytes());
-
         } catch (IOException e) {
-            System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 }

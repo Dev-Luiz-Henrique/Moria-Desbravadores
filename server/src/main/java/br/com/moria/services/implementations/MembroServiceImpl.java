@@ -110,6 +110,9 @@ public class MembroServiceImpl implements IMembroService {
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
 
         String filePath = membro.getFichaSaude();
+        if (filePath == null || filePath.isEmpty()) {
+            throw new IllegalArgumentException("Caminho de arquivo não disponível para o membro.");
+        }
         return uploadService.downloadFichaSaude(filePath);
     }
 }
