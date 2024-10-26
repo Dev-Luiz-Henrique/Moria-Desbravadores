@@ -9,4 +9,5 @@ import br.com.moria.models.Inscricao;
 
 public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
 	public List<Inscricao> findByStatusParticipacao(StatusParticipacao status);
+    public boolean existsByIdAndInscritoTrue(int inscricaoId);
 }

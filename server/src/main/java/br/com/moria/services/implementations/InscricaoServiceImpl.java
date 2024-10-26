@@ -28,6 +28,9 @@ public class InscricaoServiceImpl implements IInscricaoService{
 
 	@Override
 	public Inscricao create(@Valid Inscricao inscricao) {
+
+        System.out.println("Desgraça\n");
+		System.out.println(inscricao);
 		inscricao.setEvento(
             eventoRepository.findById(inscricao.getEvento().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"))
@@ -37,7 +40,7 @@ public class InscricaoServiceImpl implements IInscricaoService{
             membroRepository.findById(inscricao.getMembro().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"))
 		);
-
+		System.out.println("PORRA");
 		return inscricaoRepository.save(inscricao);
 	}
 
@@ -77,4 +80,9 @@ public class InscricaoServiceImpl implements IInscricaoService{
 	public List<Inscricao> findByStatusParticipacao(StatusParticipacao status) {
 		return inscricaoRepository.findByStatusParticipacao(status);
 	}
+
+    @Override
+    public boolean isInscrito(int id) {
+        return inscricaoRepository.existsByIdAndInscritoTrue(id);
+    }
 }

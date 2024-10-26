@@ -34,11 +34,19 @@ public class InscricaoController {
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody Inscricao inscricao) {
         try {
+            System.out.println("Desgraca de controller");
             Inscricao createdInscricao = inscricaoService.create(inscricao);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdInscricao);
+
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", e.getMessage()));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                Map.of("code", HttpStatus.NOT_FOUND.value(), "message", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                Map.of("code", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", e.getMessage()));
         }
     }
 
@@ -73,5 +81,11 @@ public class InscricaoController {
     public ResponseEntity<List<Inscricao>> findStatusParticipacao(@RequestParam StatusParticipacao status) {
         List<Inscricao> inscricoes = inscricaoService.findByStatusParticipacao(status);
         return ResponseEntity.ok(inscricoes);
+    }
+
+    @GetMapping("/inscrito")
+    public ResponseEntity<Boolean> isInscrito(@RequestParam int id) {
+        boolean inscrito = inscricaoService.isInscrito(id);
+        return ResponseEntity.ok(inscrito);
     }
 }

@@ -12,4 +12,5 @@ public interface IInscricaoService {
 	public List<Inscricao> findAll();
     public Inscricao findById(int id);
 	public List<Inscricao> findByStatusParticipacao(StatusParticipacao status);
+    public boolean isInscrito(int id);
 }
