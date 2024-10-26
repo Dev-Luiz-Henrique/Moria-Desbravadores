@@ -15,7 +15,7 @@ import br.com.moria.models.Mensalidade;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.repositories.MensalidadeRepository;
 import br.com.moria.services.interfaces.IMensalidadeService;
-import br.com.moria.services.interfaces.IUploadService;
+import br.com.moria.services.interfaces.IFileService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
@@ -28,7 +28,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     private MembroRepository membroRepository;
 
     @Autowired
-    private IUploadService uploadService;
+    private IFileService uploadService;
 
 	@Override
 	@Scheduled(cron = "0 0 0 1 * ?")

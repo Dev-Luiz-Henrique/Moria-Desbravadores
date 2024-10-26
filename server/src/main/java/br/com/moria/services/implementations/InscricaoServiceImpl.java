@@ -15,7 +15,7 @@ import br.com.moria.repositories.EventoRepository;
 import br.com.moria.repositories.InscricaoRepository;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.services.interfaces.IInscricaoService;
-import br.com.moria.services.interfaces.IUploadService;
+import br.com.moria.services.interfaces.IFileService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -31,7 +31,7 @@ public class InscricaoServiceImpl implements IInscricaoService{
 	private MembroRepository membroRepository;
 	
 	@Autowired
-    private IUploadService uploadService;
+    private IFileService uploadService;
 
 	@Override
 	public Inscricao create(Inscricao inscricao) {
@@ -57,17 +57,6 @@ public class InscricaoServiceImpl implements IInscricaoService{
 	}
 	
 	@Override
-	public Inscricao updateAutorizacaoResponsavel(int id, MultipartFile file) throws IOException {
-		Inscricao existingInscricao = inscricaoRepository.findById(id)
-	            .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
-		
-		String filePath = uploadService.uploadAutorizacaoResponsavel(file);
-		existingInscricao.setAutorizacao(filePath);
-		
-		return inscricaoRepository.save(existingInscricao);
-	}
-
-	@Override
 	public void delete(int id) {
 		if (!inscricaoRepository.existsById(id)) 
 			throw new EntityNotFoundException("Inscricao não encontrada para o ID fornecido.");
@@ -85,4 +74,14 @@ public class InscricaoServiceImpl implements IInscricaoService{
 		return inscricaoRepository.findByStatusParticipacao(status);
 	}
 
+    @Override
+	public Inscricao updateAutorizacaoResponsavel(int id, MultipartFile file) throws IOException {
+		Inscricao existingInscricao = inscricaoRepository.findById(id)
+	            .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
+		
+		String filePath = uploadService.uploadAutorizacaoResponsavel(file);
+		existingInscricao.setAutorizacao(filePath);
+		
+		return inscricaoRepository.save(existingInscricao);
+	}
 }

@@ -18,7 +18,7 @@ import br.com.moria.models.Membro;
 import br.com.moria.repositories.EnderecoRepository;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.services.implementations.MembroServiceImpl;
-import br.com.moria.services.interfaces.IUploadService;
+import br.com.moria.services.interfaces.IFileService;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -33,7 +33,7 @@ public class MembroServiceTest {
     private EnderecoRepository enderecoRepository;
 
     @Mock
-    private IUploadService uploadService;
+    private IFileService uploadService;
 
     @Mock
     private PasswordEncoder passwordEncoder;
