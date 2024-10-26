@@ -1,8 +1,12 @@
+import { useEffect } from "react"
 import "./Header.css"
+
 import MoriaLogo from "../assets/img/Logo.svg"
 import HeaderBgImg from "../assets/img/Background_mountain01.svg"
 
 export function Header() {
+    const { membro } = useAuth();
+
     return (
         <header className="landing-header">
             <div>

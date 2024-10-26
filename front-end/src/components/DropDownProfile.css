@@ -1,4 +1,4 @@
-.header-signed-in-container {
+.dropdown-profile-container {
     display: flex;
     flex-direction: column;
     background-color: #C17732;
@@ -9,17 +9,17 @@
     box-shadow: -10px 10px rgba(0, 0, 0, 0.3);
 }
 
-.header-signed-in-container > .hsc1 {
+.dropdown-profile-container > .hsc1 {
     display: flex;
     gap: 20px;
     border-bottom: 4px solid #994C26;
     padding: 20px;
 }
-.header-signed-in-container > .hsc1 img {
+.dropdown-profile-container > .hsc1 img {
     width: 80px;
     height:80px;
 }
-.header-signed-in-container > .hsc1 h2 {
+.dropdown-profile-container > .hsc1 h2 {
     font-size: 1.875rem;
     font-weight: 800;
     max-height: 4.5em;
@@ -28,7 +28,7 @@
     text-overflow: ellipsis;
 }
 
-.header-signed-in-container > .hsc2 {
+.dropdown-profile-container > .hsc2 {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -38,15 +38,15 @@
     padding: 20px;
     font-weight: 500;
 }
-.header-signed-in-container > .hsc2 > a {
+.dropdown-profile-container > .hsc2 > a {
     text-decoration: none;
     color: #F0E6D2;
 }
-.header-signed-in-container > .hsc2 > a:hover {
+.dropdown-profile-container > .hsc2 > a:hover {
     color: #d3c8b2;
 }
 
-.header-signed-in-container > .hsc2 > span {
+.dropdown-profile-container > .hsc2 > span {
     color: #994C26;
     font-weight: 900;
     align-self: center;
@@ -55,7 +55,7 @@
     bottom: -27px;
 }
 
-.header-signed-in-container > .notificacao {
+.dropdown-profile-container > .notificacao {
     background-color: #F0E6D2;
     font-family: "Secular One", sans-serif;
     display: flex;
@@ -63,13 +63,13 @@
     padding: 20px;
     
 }
-.header-signed-in-container > .notificacao > span {
+.dropdown-profile-container > .notificacao > span {
     color: #994C26;
 }
-.header-signed-in-container > .notificacao > p {
+.dropdown-profile-container > .notificacao > p {
     color: #352208;
 }
-.header-signed-in-container > .hsc4 {
+.dropdown-profile-container > .hsc4 {
     background-color: #F0E6D2;
     font-family: "Secular One", sans-serif;
     display: flex;

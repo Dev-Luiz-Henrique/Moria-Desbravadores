@@ -9,9 +9,27 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [authorities, setAuthorities] = useState([]);
 
+    useEffect(() => {
+        const authToken = localStorage.getItem("authToken");
+        if (authToken) {
+            const decodedToken = jwtDecode(authToken);
+            if (decodedToken.exp * 1000 < Date.now()) {
+                logout();
+                alert("Token expirado. Por favor, faça login novamente.");
+            } 
+            else
+                login(authToken); // Re-initialize session if the token is valid
+        }
+    }, []);
+
     const login = async (authToken) => {
         setToken(authToken);
         const decodedToken = jwtDecode(authToken);
+
+        if (decodedToken.exp * 1000 < Date.now()) {
+            alert("Token expirado. Por favor, faça login novamente.");
+            logout(); return;
+        }        
     
         const authoritiesFromToken = decodedToken.authorities
             ? decodedToken.authorities.map(auth => auth.authority) : [];

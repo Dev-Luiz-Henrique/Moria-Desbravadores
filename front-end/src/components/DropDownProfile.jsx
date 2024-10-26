@@ -11,7 +11,7 @@ export function DropDownProfile() {
     const hasManageAccess = isVoluntario(authorities);
 
     return(
-        <div className="header-signed-in-container">
+        <div className="dropdown-profile-container">
             <div className="hsc1">
                 <h2>{abbreviateName(membro.nome)}</h2>
                 <Link to="/membro">
