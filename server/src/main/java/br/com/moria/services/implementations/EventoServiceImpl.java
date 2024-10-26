@@ -1,16 +1,20 @@
 package br.com.moria.services.implementations;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.models.Endereco;
 import br.com.moria.models.Evento;
 import br.com.moria.repositories.EnderecoRepository;
 import br.com.moria.repositories.EventoRepository;
 import br.com.moria.services.interfaces.IEventoService;
+import br.com.moria.services.interfaces.IFileService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
@@ -22,6 +26,9 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+    private IFileService fileService;
 
 	@Override
 	public Evento create(@Valid Evento evento) {
@@ -92,5 +99,25 @@ public class EventoServiceImpl implements IEventoService {
 	@Override
 	public List<Evento> findDataFim(LocalDateTime date) {
 		return eventoRepository.findByDataFim(date);
+	}
+
+	@Override
+	public Evento updateImagemEventoById(int id, MultipartFile file) throws IOException {
+		Evento eventoExistente = eventoRepository.findById(id)
+	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
+		
+		String filePath = fileService.uploadImagemEvento(file);
+        eventoExistente.setImagemEvento(filePath);
+		
+		return eventoRepository.save(eventoExistente);
+	}
+
+	@Override
+	public FileResponseDTO getImagemEventoById(int id) throws IOException {
+		Evento eventoExistente = eventoRepository.findById(id)
+	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
+		
+		String filePath = eventoExistente.getImagemEvento();
+        return fileService.downloadImagemEvento(filePath);
 	}
 }

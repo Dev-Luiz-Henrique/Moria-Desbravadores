@@ -1,11 +1,13 @@
 package br.com.moria.controllers;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.models.Evento;
 import br.com.moria.services.interfaces.IEventoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -102,5 +106,36 @@ public class EventoController {
     public ResponseEntity<List<Evento>> findDataFim(@RequestParam LocalDateTime date) {
         List<Evento> eventos = eventoService.findDataFim(date);
         return ResponseEntity.ok(eventos);
+    }
+    
+    @PostMapping("/{id}/imagem-evento")
+    public ResponseEntity<String> uploadImagemEvento(@PathVariable int id, @RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+			return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
+		}
+
+        try {
+        	Evento evento = eventoService.updateImagemEventoById(id, file);
+            return ResponseEntity.ok("Imagem do evento salva em: " + evento.getImagemEvento());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Erro ao fazer upload da imagem do evento: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{id}/imagem-evento")
+    public ResponseEntity<byte[]> downloadImagemEvento(@PathVariable int id) {
+        try {
+            FileResponseDTO fileResponse = eventoService.getImagemEventoById(id);
+            return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
+                .body(fileResponse.getFileBytes());
+
+        } catch (IOException e) {
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }

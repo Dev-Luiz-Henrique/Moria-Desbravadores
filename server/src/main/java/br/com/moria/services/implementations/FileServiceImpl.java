@@ -84,4 +84,14 @@ public class FileServiceImpl implements IFileService {
     public FileResponseDTO downloadFichaSaude(String filePath) throws IOException {
         return new FileResponseDTO(downloadFile(filePath), getContentType(filePath));
     }
+
+	@Override
+	public String uploadImagemEvento(MultipartFile file) throws IOException {
+		return uploadFile(file, "imagemEvento");
+	}
+
+	@Override
+	public FileResponseDTO downloadImagemEvento(String filePath) throws IOException {
+		return new FileResponseDTO(downloadFile(filePath), getContentType(filePath));
+	}
 }

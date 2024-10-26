@@ -57,6 +57,10 @@ public class Evento {
     @Size(max = 500, message = "Descrição deve ter no máximo 500 caracteres.")
     @Column(name = "descricao", nullable = false, length = 500)
     private String descricao;
+    
+    @Size(max = 255, message = "Caminho da imagem deve ter no máximo 255 caracteres.")
+    @Column(name = "imagem_evento", length = 255)
+    private String imagemEvento;
 
     @NotNull
     @Future(message = "A data de início do evento deve ser uma data futura.")
