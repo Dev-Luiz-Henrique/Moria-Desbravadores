@@ -8,12 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.models.Endereco;
 import br.com.moria.models.Membro;
 import br.com.moria.repositories.EnderecoRepository;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.services.interfaces.IMembroService;
-import br.com.moria.services.interfaces.IUploadService;
+import br.com.moria.services.interfaces.IFileService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -26,7 +27,7 @@ public class MembroServiceImpl implements IMembroService {
     private EnderecoRepository enderecoRepository;
 
     @Autowired
-    private IUploadService uploadService;
+    private IFileService uploadService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -77,17 +78,6 @@ public class MembroServiceImpl implements IMembroService {
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
     }
 
-    @Override
-    public Membro updateFichaSaudeById(int id, MultipartFile file) throws IOException {
-        Membro existingMembro = membroRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
-
-        String filePath = uploadService.uploadFichaSaude(file);
-        existingMembro.setFichaSaude(filePath);
-
-        return membroRepository.save(existingMembro);
-    }
-
 	@Override
 	public Membro findByEmail(String email) {
 		return membroRepository.findByEmail(email);
@@ -102,4 +92,24 @@ public class MembroServiceImpl implements IMembroService {
 	public List<Membro> findByAtivo(Boolean ativo) {
 		return membroRepository.findByAtivo(ativo);
 	}
+
+    @Override
+    public Membro updateFichaSaudeById(int id, MultipartFile file) throws IOException {
+        Membro existingMembro = membroRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+
+        String filePath = uploadService.uploadFichaSaude(file);
+        existingMembro.setFichaSaude(filePath);
+
+        return membroRepository.save(existingMembro);
+    }
+
+    @Override
+    public FileResponseDTO getFichaSaudeById(int id) throws IOException {
+        Membro membro = membroRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+
+        String filePath = membro.getFichaSaude();
+        return uploadService.downloadFichaSaude(filePath);
+    }
 }

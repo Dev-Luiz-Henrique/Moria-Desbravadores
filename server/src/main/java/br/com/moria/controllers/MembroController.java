@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.models.Membro;
 import br.com.moria.services.interfaces.IMembroService;
 import jakarta.persistence.EntityNotFoundException;
@@ -80,6 +82,16 @@ public class MembroController {
         }
     }
 
+    @GetMapping("/email")
+    public ResponseEntity<Membro> findByEmail(@RequestParam String email) {
+        try {
+            Membro membro = membroService.findByEmail(email);
+            return ResponseEntity.ok(membro);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @PostMapping("/{id}/ficha-saude")
     public ResponseEntity<String> uploadFichaSaude(@PathVariable int id, @RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -95,11 +107,17 @@ public class MembroController {
         }
     }
 
-    @GetMapping("/email")
-    public ResponseEntity<Membro> findByEmail(@RequestParam String email) {
+    @GetMapping("/{id}/ficha-saude")
+    public ResponseEntity<byte[]> downloadFichaSaude(@PathVariable int id) {
         try {
-            Membro membro = membroService.findByEmail(email);
-            return ResponseEntity.ok(membro);
+            FileResponseDTO fileResponse = membroService.getFichaSaudeById(id);
+            return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
+                .body(fileResponse.getFileBytes());
+
+        } catch (IOException e) {
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
