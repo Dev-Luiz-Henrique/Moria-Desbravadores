@@ -7,12 +7,21 @@ const api = axios.create({
     },
 });
 
+const publicRoutes = {
+    "/login": ["POST"],
+    "/eventos": ["GET"],
+};
+
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("authToken");
-        if (token) 
-            config.headers.Authorization = `Bearer ${token}`;
 
+        const isPublicRoute = Object.keys(publicRoutes).some((route) => {
+            return config.url.startsWith(route) && publicRoutes[route].includes(config.method.toUpperCase());
+        });
+
+        if (token && !isPublicRoute)
+            config.headers.Authorization = `Bearer ${token}`;
         return config;
     },
     (error) => {

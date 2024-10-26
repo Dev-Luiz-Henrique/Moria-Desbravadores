@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { useAuth } from "../context/AuthContext"
 import "./Header.css"
 
 import MoriaLogo from "../assets/img/Logo.svg"
