@@ -39,17 +39,24 @@ api.interceptors.response.use(
     }
 );
 
-export const apiRequest = async (endpoint, method = "GET", body = null) => {
+export const apiRequest = async (endpoint, method = "GET", body = null, responseType = "json") => {
     try {
         const config = {
             method,
             url: endpoint,
+            responseType
         };
 
         if (method !== "GET" && body)
             config.data = body;
 
         const response = await api(config);
+
+        if (responseType === "arraybuffer") {
+            const base64String = btoa(new Uint8Array(response.data).reduce((acc, byte) => acc + String.fromCharCode(byte),""));
+            return { data: `data:image/png;base64,${base64String}`, error: null };
+        }
+
         return { data: response.data, error: null };
     } catch (error) {
         return { data: null, error: error.response?.data || error.message };
