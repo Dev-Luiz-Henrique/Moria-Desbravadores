@@ -36,7 +36,7 @@ public class UploadServiceImpl implements IUploadService {
 
         String contentType = file.getContentType();
         if (!"image/png".equals(contentType) && !"image/jpeg".equals(contentType)) {
-			throw new IllegalArgumentException("Tipo de arquivo não permitido para foto de perfil.");
+			throw new IllegalArgumentException("Tipo de arquivo não permitido. Formatos aceitos: jpeg e png.");
 		}
 
         if (file.getSize() > 5 * 1024 * 1024) { // 5MB
@@ -57,5 +57,10 @@ public class UploadServiceImpl implements IUploadService {
 	@Override
 	public String uploadComprovantePagamento(MultipartFile file) throws IOException {
 		return uploadFile(file, "comprovantePagamento");
+	}
+
+	@Override
+	public String uploadAutorizacaoResponsavel(MultipartFile file) throws IOException {
+		return uploadFile(file, "autorizacaoResponsavel");
 	}
 }
