@@ -49,10 +49,10 @@ public class InscricaoServiceImpl implements IInscricaoService{
         Inscricao existingInscricao = inscricaoRepository.findById(inscricao.getId())
             .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
         
-        if (inscricao.getEvento() != null)
-            existingInscricao.setEvento(inscricao.getEvento());
-        if (inscricao.getMembro() != null)
-            existingInscricao.setMembro(inscricao.getMembro());
+        if (inscricao.getStatusParticipacao() != null)
+            existingInscricao.setStatusParticipacao(inscricao.getStatusParticipacao());
+        if (inscricao.getInscrito() != null)
+            existingInscricao.setInscrito(inscricao.getInscrito());
 
 		return inscricaoRepository.save(existingInscricao);
 	}

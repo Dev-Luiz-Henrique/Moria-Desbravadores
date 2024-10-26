@@ -45,7 +45,7 @@ public class Inscricao {
     private StatusParticipacao statusParticipacao;
 
     @Column(name = "inscrito", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
-    private boolean inscrito;
+    private Boolean inscrito;
 
     /*@NotBlank
     @Size(max = 255, message = "Path da autorizacao deve ter no máximo 255 caracteres.")
