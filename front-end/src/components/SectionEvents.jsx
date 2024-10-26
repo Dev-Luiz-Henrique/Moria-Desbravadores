@@ -21,6 +21,7 @@ export function SectionEvents() {
 
                 for (const event of data) {
                     if (!newCache[event.id]) {
+                        //console.log(`Carregando imagem do evento ${event.id}`);
                         try {
                             const { data: img } = await apiRequest(`/eventos/${event.id}/imagem`, "GET", null, "arraybuffer");
                             newCache[event.id] = img || ImgEvent;

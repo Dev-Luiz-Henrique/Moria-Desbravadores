@@ -3,6 +3,7 @@ package br.com.moria.configurations;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,9 +30,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-        throws ServletException, IOException {
-
+    protected void doFilterInternal(@NonNull HttpServletRequest request, 
+                                    @NonNull HttpServletResponse response, 
+                                    @NonNull FilterChain chain)
+                                    throws ServletException, IOException {
+            
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/plain; charset=UTF-8");
 
@@ -57,15 +60,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (ExpiredJwtException e) {
                 handleException(response, HttpServletResponse.SC_UNAUTHORIZED,
                     "Token expirado.", e);
+                return;
             } catch (MalformedJwtException e) {
                 handleException(response, HttpServletResponse.SC_BAD_REQUEST,
                     "Token JWT malformado.", e);
+                return;
             } catch (JwtException e) {
                 handleException(response, HttpServletResponse.SC_UNAUTHORIZED,
                     "Assinatura do token inválida ou erro de processamento.", e);
+                return;
             } catch (Exception e) {
                 handleException(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     "Erro interno.", e);
+                return;
             }
         }
         chain.doFilter(request, response);
@@ -74,6 +81,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private void handleException(HttpServletResponse response, int status, String message, Exception e) throws IOException {
         logger.warn(message, e);
         response.setStatus(status);
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/plain; charset=UTF-8");
         response.getWriter().write(message);
-    }
+    }    
 }
