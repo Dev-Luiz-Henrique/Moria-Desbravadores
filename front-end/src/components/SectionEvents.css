@@ -1,20 +1,19 @@
-.slider-container{
+.slider-container {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 70px 0 0 0;
     flex-direction: column;
     gap: 40px;
-    /* position: relative; */
 }
 
-.slider-container > img{
+.slider-container > img {
     position: relative;
     width: 100%;
     bottom:-5px;
 }
 
-.slider{
+.slider {
     display: flex;
     width: 80%;
     gap: 20px;
@@ -30,7 +29,7 @@
     cursor: pointer;
 }
 
-.slider > .event{
+.slider > .event {
     display: flex;
     gap: 5%;
 }
@@ -56,21 +55,3 @@
     font-size: 1.5rem;
     font-family: "Afacad", sans-serif;
 }
-
-.slider > .event > .event-description > button {
-    width: 250px;
-    height: 45px;
-    color: #F0E6D2;
-    background-color: #C17732;
-    border-radius: 5px;
-    font-size: 2rem;
-    border: none ;
-    justify-self: flex-end;
-    transition: .2s;
-}
-
-.slider > .event > .event-description > button:hover {
-    background-color: #994C26;
-    cursor: pointer;
-}
-
