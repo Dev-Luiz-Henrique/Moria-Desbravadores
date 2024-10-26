@@ -32,9 +32,14 @@ const getVoluntarios = () => {
     ];
 };
 
+const isVoluntario = (authorities) => {
+    return getVoluntarios().some(role => authorities.includes(role));
+};
+
 export {
     Authorities,
     getAuthorities,
     getAuthority,
-    getVoluntarios
+    getVoluntarios,
+    isVoluntario
 };

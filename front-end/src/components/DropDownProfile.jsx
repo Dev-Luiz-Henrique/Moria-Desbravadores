@@ -1,22 +1,41 @@
-import ProfileLogo from "../assets/img/profile-icon.svg"
-import "./DropDownProfile.css"
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { Authorities, isVoluntario } from "../utils/authorities";
+import { abbreviateName } from "../utils/stringHelpers";
+import "./DropDownProfile.css";
+
+import ProfileLogo from "../assets/img/profile-icon.svg";
 
 export function DropDownProfile() {
+    const { membro, authorities, logout } = useAuth();
+    const hasManageAccess = isVoluntario(authorities);
+
     return(
         <div className="header-signed-in-container">
             <div className="hsc1">
-                <h2>Luiz Henrique de Santana</h2>
-                <img src={ProfileLogo} alt="" />
+                <h2>{abbreviateName(membro.nome)}</h2>
+                <Link to="/membro">
+                    <img src={ProfileLogo} alt="Icone do perfil" />
+                </Link>
             </div>
             <div className="hsc2">
-                <a href="#"><p>Mensalidades</p></a>
-                <a href="#"><p>Eventos Privados</p></a>
+                <Link to="/eventos"><p>Eventos</p></Link>
+                <Link to="/mensalidades"><p>Mensalidades</p></Link>
+                {
+                    hasManageAccess && (
+                        <>
+                            <Link to="/gerenciar-membros"><p>Gerenciar Membros</p></Link>
+                            <Link to="/gerenciar-mensalidades"><p>Gerenciar Mensalidades</p></Link>
+                            <Link to="/gerenciar-eventos"><p>Gerenciar Eventos</p></Link>
+                        </>
+                    )
+                }
                 <span>NOTIFICAÇÕES</span>
             </div>
-            <div className="notificacao">
+            {/*<div className="notificacao">
                 <span>12/10/2024</span>
                 <p>Inscrição para Campori 2024 Aprovada.</p>
-            </div>
+            </div>*/}
             <div className="hsc4">Não há notificações</div> 
         </div>
     )

@@ -18,7 +18,7 @@ function App() {
 
                     {/* Rotas protegidas */}
                     <Route 
-                        path='/membros'
+                        path='/gerenciar-membros'
                         element={
                             <PrivateRoute allowedAuthorities={getVoluntarios()}>
                                 <UserPage />
