@@ -5,6 +5,7 @@ import { NotFound } from "./pages/NotFound";
 import { Landing } from "./pages/Landing";
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./components/UserPage";
+import { Mensalidades } from "./pages/Mensalidades";
 import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
 import { DropDownProfile } from "./components/DropDownProfile";
@@ -28,6 +29,14 @@ function App() {
                                 <UserPage />
                             </PrivateRoute>
                         }
+                    />
+                    <Route 
+                        path='/gerenciar-mensalidades' 
+                        element={
+                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                                <Mensalidades />
+                            </PrivateRoute>
+                        } 
                     />
                 </Routes>
             </Router>

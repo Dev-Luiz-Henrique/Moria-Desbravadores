@@ -11,7 +11,7 @@ import AddIcon from "../assets/img/Plus.svg";
 import SearchIcon from "../assets/img/Glass.svg";
 
 export function UserPage() {
-    const { authorities, membro } = useAuth();
+    const { authorities } = useAuth();
     const allowedAuthorities = [Authorities.DIRETOR_CLUBE, Authorities.DIRETOR_ASSOCIADO, Authorities.SECRETARIO];
     const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
 
