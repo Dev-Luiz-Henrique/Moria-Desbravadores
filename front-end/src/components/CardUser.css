@@ -3,6 +3,7 @@
     box-shadow: 5px 5px 15px rgba(6, 6, 6, .4);
     padding: 20px;
     width: 450px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -27,6 +28,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
+    height: 100px;
     color: #352208;
 
     font-size: 24px;

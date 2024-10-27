@@ -90,8 +90,13 @@
     font-family: "Secular One", sans-serif;
     font-size: 1.5rem;
     gap: 10px;
+    border-bottom-left-radius: 10px;
 }
 .dropdown-profile-container > .logout:hover{
     background-color: #8a5034;
     cursor: pointer;
+}
+.dropdown-profile-container > .logout > img{
+    width: 40px;
+    height: 40px;
 }
