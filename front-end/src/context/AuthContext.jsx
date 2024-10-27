@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
             if (decodedToken.exp * 1000 < Date.now()) {
                 logout();
                 alert("Token expirado. Por favor, faça login novamente.");
-            } else {
+            } else if (window.location.pathname !== "/login") {
                 login(authToken);
             }
         }

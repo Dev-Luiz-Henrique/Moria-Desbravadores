@@ -39,10 +39,10 @@ api.interceptors.response.use(
         if (error.response.status === 401) {
             localStorage.removeItem("authToken");
 
-            if (originalRequest.url !== "/login") {
+            if (originalRequest.url !== "/login" && window.location.pathname !== "/login") {
                 window.location.href = "/login";
                 alert("Sessão expirada. Por favor, faça login novamente.");
-            } 
+            }
         }
         return Promise.reject(error);
     }
