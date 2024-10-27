@@ -7,12 +7,13 @@ import "./DropDownProfile.css";
 import ProfileLogo from "../assets/img/profile-icon.svg";
 
 export function DropDownProfile() {
-    const { membro, authorities, logout } = useAuth();
+    const { membro, authorities, logout, isLoading } = useAuth();
     const hasManageAccess = isVoluntario(authorities);
 
-    if (!membro) {
-        return null; // Ou exibir um loader ou outra mensagem temporária
-    }
+    if (isLoading)
+        return <div>Carregando perfil...</div>;
+    if (!membro)
+        return null;
 
     return(
         <div className="dropdown-profile-container">

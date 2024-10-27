@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
     const [membro, setMembro] = useState(null);
     const [token, setToken] = useState(null);
     const [authorities, setAuthorities] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const authToken = localStorage.getItem("authToken");
@@ -16,11 +17,13 @@ export const AuthProvider = ({ children }) => {
             if (decodedToken.exp * 1000 < Date.now()) {
                 logout();
                 alert("Token expirado. Por favor, faça login novamente.");
-            } 
-            else
-                login(authToken); // Re-initialize session if the token is valid
+            } else {
+                login(authToken);
+            }
         }
+        setIsLoading(false);
     }, []);
+
 
     const login = async (authToken) => {
         setToken(authToken);
@@ -50,7 +53,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ membro, token, authorities, login, logout }}>
+        <AuthContext.Provider value={{ membro, token, authorities, login, logout, isLoading }}>
             {children}
         </AuthContext.Provider>
     );
