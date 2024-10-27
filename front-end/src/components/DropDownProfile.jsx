@@ -5,6 +5,7 @@ import { abbreviateName } from "../utils/stringHelpers";
 import "./DropDownProfile.css";
 
 import ProfileLogo from "../assets/img/profile-icon.svg";
+import LogoutLogo from "../assets/img/logout-logo.svg";
 
 export function DropDownProfile() {
     const { membro, authorities, logout, isLoading } = useAuth();
@@ -41,7 +42,11 @@ export function DropDownProfile() {
                 <span>12/10/2024</span>
                 <p>Inscrição para Campori 2024 Aprovada.</p>
             </div>*/}
-            <div className="hsc4">Não há notificações</div> 
+            <div className="hsc4">Não há notificações</div>
+            <button className="logout">
+                <img className="img000" src={LogoutLogo} alt="" />
+                <p>Logout</p>
+            </button>
         </div>
     )
 }

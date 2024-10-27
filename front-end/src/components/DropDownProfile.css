@@ -80,3 +80,18 @@
     justify-content: center;
     align-items: center;
 }
+.dropdown-profile-container > .logout {
+    display: flex;
+    padding: 5px 20px;
+    align-items: center;
+    border: none;
+    background-color: #994C26;
+    color: #F0E6D2;
+    font-family: "Secular One", sans-serif;
+    font-size: 1.5rem;
+    gap: 10px;
+}
+.dropdown-profile-container > .logout:hover{
+    background-color: #8a5034;
+    cursor: pointer;
+}

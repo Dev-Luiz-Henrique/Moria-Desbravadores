@@ -17,6 +17,12 @@
     display: flex;
     width: 80%;
     gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+.slider > img{
+    width: 35px;
+    height: 35px;
 }
 
 .arrow {
@@ -35,6 +41,7 @@
 }
 .slider > .event > img {
     width: 55%;
+    border-radius: 10px;
 }
 .slider > .event > .event-description {
     width: 40%;
