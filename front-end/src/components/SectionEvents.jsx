@@ -21,7 +21,6 @@ export function SectionEvents() {
 
                 for (const event of data) {
                     if (!newCache[event.id]) {
-                        //console.log(`Carregando imagem do evento ${event.id}`);
                         try {
                             const { data: img } = await apiRequest(`/eventos/${event.id}/imagem`, "GET", null, "arraybuffer");
                             newCache[event.id] = img || ImgEvent;
@@ -42,15 +41,22 @@ export function SectionEvents() {
     }, [data]);
 
     const nextImage = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+        if (data && data.length > 0) 
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
     };
     const prevImage = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
+        if (data && data.length > 0)
+            setCurrentIndex((prevIndex) => (prevIndex - 1 + data.length) % data.length);
     };
+    
 
+    const isDataAvailable = !error && data && data.length > 0;
+    const currentEvent = isDataAvailable ? data[currentIndex] : {
+        id: null, nome: "CAMPORI 2024", endereco: { cidade: "IABC Planalmira - GO" }, 
+        dataInicio: "24/28 de Julho", descricao: "Reunião anual do clube dos Desbravadores"
+    };
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error loading events.</p>;
-
+    
     return (
         <div className="slider-container">
             <section className="slider">
@@ -58,21 +64,21 @@ export function SectionEvents() {
 
                 <div className="event">
                     <img 
-                        src={imagesCache[data[currentIndex]?.id] || ImgEvent} 
-                        alt={data[currentIndex]?.nome || "Evento"} 
+                        src={imagesCache[currentEvent.id] || ImgEvent} 
+                        alt={currentEvent.nome} 
                     />
                     <div className="event-description">
-                        <h2>{data[currentIndex]?.nome || "CAMPORI 2024"}</h2>
+                        <h2>{currentEvent.nome}</h2>
                         <span>
                             <strong>ENDEREÇO:</strong> 
-                            {data[currentIndex]?.endereco?.cidade || "IABC Planalmira - GO"}
+                            {currentEvent.endereco.cidade}
                         </span>
                         <span>
                             <strong>DATA:</strong> 
-                            {data[currentIndex]?.dataInicio || "24/28 de Julho"}
+                            {currentEvent.dataInicio}
                         </span>
                         <span>
-                            {data[currentIndex]?.descricao || "Reunião anual do clube dos Desbravadores"}
+                            {currentEvent.descricao}
                         </span>
                     </div>
                 </div>
