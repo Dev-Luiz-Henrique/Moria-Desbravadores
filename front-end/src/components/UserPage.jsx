@@ -4,7 +4,7 @@ import { apiRequest } from "../utils/api";
 import { Authorities } from "../utils/authorities";
 import { CardUser } from "./CardUser";
 import { Footer } from "./Footer";
-import { HeaderSignedInNoNav } from "./HeaderSigneInNoNav";
+import { Header } from "./Header";
 import "./UserPage.css";
 
 import AddIcon from "../assets/img/Plus.svg";
@@ -36,7 +36,7 @@ export function UserPage() {
 
     return (
         <>
-            <HeaderSignedInNoNav />
+            <Header />
             <section className="container-user-page">
                 <div className="filter">
                     <div className="detail">

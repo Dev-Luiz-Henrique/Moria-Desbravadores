@@ -10,6 +10,10 @@ export function DropDownProfile() {
     const { membro, authorities, logout } = useAuth();
     const hasManageAccess = isVoluntario(authorities);
 
+    if (!membro) {
+        return null; // Ou exibir um loader ou outra mensagem temporária
+    }
+
     return(
         <div className="dropdown-profile-container">
             <div className="hsc1">
