@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { PrivateRoute } from "./components/PrivateRoute";
+import { NotFound } from "./pages/NotFound";
 import { Landing } from "./pages/Landing";
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./components/UserPage";
@@ -13,6 +14,7 @@ function App() {
             <Router>
                 <Routes>
                     {/* Rotas públicas */}
+                    <Route path="*" element={<NotFound />} />
                     <Route path='/' element={<Landing />} />
                     <Route path='/login' element={<LoginPage />} />
 
