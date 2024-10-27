@@ -9,8 +9,8 @@ export function LoginBody() {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    const [email, setEmail] = useState("daniel.silva@example.com");
-    const [password, setPassword] = useState("daniel123");
+    const [email, setEmail] = useState("charlinho@hotmail.com");
+    const [password, setPassword] = useState("#MinhaSenhaSuperSecreta");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 

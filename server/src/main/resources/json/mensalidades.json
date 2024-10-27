@@ -1,0 +1,197 @@
+[
+    {
+        "data": "2023-01-10T10:00:00",
+        "dataVencimento": "2023-02-10T10:00:00",
+        "dataPagamento": "2023-01-15T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "PIX",
+        "comprovante": "comprovantes/2023-01-10-pix.pdf",
+        "observacoes": "Pagamento realizado via PIX.",
+        "membro": {
+            "id": 1
+        }
+    },
+    {
+        "data": "2023-02-10T10:00:00",
+        "dataVencimento": "2023-03-10T10:00:00",
+        "dataPagamento": null,
+        "valor": 15.0,
+        "pagamentoRealizado": false,
+        "formaPagamento": "BOLETO",
+        "comprovante": null,
+        "observacoes": "Boleto gerado, aguardando pagamento.",
+        "membro": {
+            "id": 2
+        }
+    },
+    {
+        "data": "2023-03-10T10:00:00",
+        "dataVencimento": "2023-04-10T10:00:00",
+        "dataPagamento": "2023-03-20T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "CREDITO",
+        "comprovante": "comprovantes/2023-03-10-credito.pdf",
+        "observacoes": "Pagamento realizado no cartão de crédito.",
+        "membro": {
+            "id": 3
+        }
+    },
+    {
+        "data": "2023-04-10T10:00:00",
+        "dataVencimento": "2023-05-10T10:00:00",
+        "dataPagamento": null,
+        "valor": 15.0,
+        "pagamentoRealizado": false,
+        "formaPagamento": "DEBITO",
+        "comprovante": null,
+        "observacoes": "Débito pendente de confirmação.",
+        "membro": {
+            "id": 4
+        }
+    },
+    {
+        "data": "2023-05-10T10:00:00",
+        "dataVencimento": "2023-06-10T10:00:00",
+        "dataPagamento": "2023-05-12T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "DINHEIRO",
+        "comprovante": "comprovantes/2023-05-10-dinheiro.jpg",
+        "observacoes": "Pago em dinheiro.",
+        "membro": {
+            "id": 5
+        }
+    },
+    {
+        "data": "2023-06-10T10:00:00",
+        "dataVencimento": "2023-07-10T10:00:00",
+        "dataPagamento": "2023-06-15T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "PIX",
+        "comprovante": "comprovantes/2023-06-10-pix.pdf",
+        "observacoes": "Pagamento realizado via PIX.",
+        "membro": {
+            "id": 1
+        }
+    },
+    {
+        "data": "2023-07-10T10:00:00",
+        "dataVencimento": "2023-08-10T10:00:00",
+        "dataPagamento": null,
+        "valor": 15.0,
+        "pagamentoRealizado": false,
+        "formaPagamento": "BOLETO",
+        "comprovante": null,
+        "observacoes": "Boleto gerado, aguardando pagamento.",
+        "membro": {
+            "id": 2
+        }
+    },
+    {
+        "data": "2023-08-10T10:00:00",
+        "dataVencimento": "2023-09-10T10:00:00",
+        "dataPagamento": "2023-08-20T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "CREDITO",
+        "comprovante": "comprovantes/2023-08-10-credito.pdf",
+        "observacoes": "Pagamento realizado no cartão de crédito.",
+        "membro": {
+            "id": 3
+        }
+    },
+    {
+        "data": "2023-09-10T10:00:00",
+        "dataVencimento": "2023-10-10T10:00:00",
+        "dataPagamento": null,
+        "valor": 15.0,
+        "pagamentoRealizado": false,
+        "formaPagamento": "DEBITO",
+        "comprovante": null,
+        "observacoes": "Débito pendente de confirmação.",
+        "membro": {
+            "id": 4
+        }
+    },
+    {
+        "data": "2023-10-10T10:00:00",
+        "dataVencimento": "2023-11-10T10:00:00",
+        "dataPagamento": "2023-10-12T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "DINHEIRO",
+        "comprovante": "comprovantes/2023-10-10-dinheiro.jpg",
+        "observacoes": "Pago em dinheiro.",
+        "membro": {
+            "id": 5
+        }
+    },
+    {
+        "data": "2023-01-10T10:00:00",
+        "dataVencimento": "2023-02-10T10:00:00",
+        "dataPagamento": "2023-01-15T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "PIX",
+        "comprovante": "comprovantes/2023-01-10-pix.pdf",
+        "observacoes": "Pagamento realizado via PIX.",
+        "membro": {
+            "id": 6
+        }
+    },
+    {
+        "data": "2023-02-10T10:00:00",
+        "dataVencimento": "2023-03-10T10:00:00",
+        "dataPagamento": null,
+        "valor": 15.0,
+        "pagamentoRealizado": false,
+        "formaPagamento": "BOLETO",
+        "comprovante": null,
+        "observacoes": "Boleto gerado, aguardando pagamento.",
+        "membro": {
+            "id": 7
+        }
+    },
+    {
+        "data": "2023-03-10T10:00:00",
+        "dataVencimento": "2023-04-10T10:00:00",
+        "dataPagamento": "2023-03-20T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "CREDITO",
+        "comprovante": "comprovantes/2023-03-10-credito.pdf",
+        "observacoes": "Pagamento realizado no cartão de crédito.",
+        "membro": {
+            "id": 8
+        }
+    },
+    {
+        "data": "2023-04-10T10:00:00",
+        "dataVencimento": "2023-05-10T10:00:00",
+        "dataPagamento": null,
+        "valor": 15.0,
+        "pagamentoRealizado": false,
+        "formaPagamento": "DEBITO",
+        "comprovante": null,
+        "observacoes": "Débito pendente de confirmação.",
+        "membro": {
+            "id": 9
+        }
+    },
+    {
+        "data": "2023-05-10T10:00:00",
+        "dataVencimento": "2023-06-10T10:00:00",
+        "dataPagamento": "2023-05-12T10:00:00",
+        "valor": 15.0,
+        "pagamentoRealizado": true,
+        "formaPagamento": "DINHEIRO",
+        "comprovante": "comprovantes/2023-05-10-dinheiro.jpg",
+        "observacoes": "Pago em dinheiro.",
+        "membro": {
+            "id": 10
+        }
+    }
+]

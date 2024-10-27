@@ -1,0 +1,84 @@
+[
+    {
+        "nome": "Festival de Música",
+        "atracao": "Banda XYZ",
+        "descricao": "Um festival de música com várias bandas locais.",
+        "imagem": "imagem_festival.jpg",
+        "dataInicio": "2024-11-15T18:00:00",
+        "dataFim": "2024-11-15T23:00:00",
+        "numero": 170,
+        "logradouro": "Viela Terra Rica",
+        "publico": true,
+        "endereco": {
+            "cep": "07074170",
+            "bairro": "Vila Rosália",
+            "cidade": "Guarulhos",
+            "estado": "SP"
+        }
+    },
+    {
+        "nome": "Palestra sobre Tecnologia",
+        "atracao": "Dr. Silva",
+        "descricao": "Palestra sobre as inovações tecnológicas do futuro.",
+        "imagem": "imagem_palestra.jpg",
+        "dataInicio": "2024-12-01T10:00:00",
+        "dataFim": "2024-12-01T12:00:00",
+        "numero": 215,
+        "logradouro": "Rua Doutor Manuel Fernando de Barros",
+        "publico": false,
+        "endereco": {
+            "cep": "04713020",
+            "bairro": "Chácara Santo Antônio (Zona Sul)",
+            "cidade": "São Paulo",
+            "estado": "SP"
+        }
+    },
+    {
+        "nome": "Feira de Artesanato",
+        "atracao": "Exposição de Artesanato Local",
+        "descricao": "Feira com diversos produtos de artesanato local.",
+        "imagem": "imagem_feira.jpg",
+        "dataInicio": "2024-11-20T09:00:00",
+        "dataFim": "2024-11-20T17:00:00",
+        "numero": 3,
+        "logradouro": "Praça das Artes",
+        "publico": true,
+        "endereco": {
+            "cep": "18770970",
+            "bairro": "Centro",
+            "cidade": "Águas de Santa Bárbara",
+            "estado": "SP"
+        }
+    },
+    {
+        "nome": "Workshop de Culinária",
+        "atracao": "Chef Ana",
+        "descricao": "Aprenda a fazer pratos deliciosos com a Chef Ana.",
+        "imagem": "imagem_workshop.jpg",
+        "dataInicio": "2024-11-25T10:00:00",
+        "dataFim": "2024-11-25T18:00:00",
+        "numero": 410,
+        "logradouro": "Cozinha Comunitária",
+        "publico": false,
+        "endereco": {
+            "cep": "04713020",
+            "bairro": "Chácara Santo Antônio (Zona Sul)",
+            "cidade": "São Paulo",
+            "estado": "SP"
+        }
+    },
+    {
+        "nome": "Corrida Beneficente",
+        "atracao": "Corrida de 5km",
+        "descricao": "Participe da corrida e ajude uma causa beneficente.",
+        "imagem": "imagem_corrida.jpg",
+        "dataInicio": "2024-12-10T07:00:00",
+        "dataFim": "2024-12-10T10:00:00",
+        "numero": 5,
+        "logradouro": "Avenida das Corridas",
+        "publico": true,
+        "endereco": {
+            "cep": "07074170"
+        }
+    }
+]
