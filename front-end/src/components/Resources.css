@@ -1,0 +1,98 @@
+.resources-header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.resources-header > h3 {
+  font-family: 'Candal', sans-serif;
+  color: #af7351;
+  font-size: 48px;
+  text-transform: uppercase;
+  line-height: 40px;
+  margin-bottom: -0.4rem;
+}
+
+.resourcesList {
+  background-color: #f0e6d2;
+  padding-bottom: 1rem;
+}
+
+.resourcesList > li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr 3fr;
+  line-height: 1.75rem;
+  height: 1.75rem;
+  font-family: 'Secular One', sans-serif;
+}
+
+.resourcesList > li > button {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #f0e6d2;
+  height: 2rem;
+}
+
+.resourcesList > li > button img {
+  width: 1.25rem;
+}
+
+.list-header {
+  background-color: #af7351;
+  color: #f0e6d2;
+  text-align: center;
+}
+
+/* .resourcesList > li:not(:first-child) span {
+  padding-left: 0.5rem;
+  border-bottom: 2px solid #af7351;
+  overflow: hidden;
+} */
+
+.resourcesList > li:not(:first-child) span:nth-child(2) {
+  padding-left: 20px;
+}
+
+.resourcesList > li:not(:first-child) span {
+  text-align: center;
+  border-bottom: 2px solid #af7351;
+}
+
+.resourcesList > li:not(:first-child) span:not(:first-child, :last-child) {
+  border-right: 2px solid #af7351;
+}
+
+.resources-header > button {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0 1rem 0.5rem auto;
+  background: #994c26;
+  color: #f0e6d2;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Secular One', sans-serif;
+  font-size: 24px;
+  cursor: pointer;
+  height: 2.5rem;
+}
+
+.resources-header > .adicionar {
+  margin-left: 1rem;
+  width: 20rem;
+}
+
+.resources-header > .adicionar img {
+  width: 1.25rem;
+}
+
+.resources-header > .salvar {
+  margin-right: 1rem;
+}
