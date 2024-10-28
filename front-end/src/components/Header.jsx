@@ -4,7 +4,7 @@ import { DropDownProfile } from "./DropDownProfile"
 import "./Header.css"
 
 import MoriaLogo from "../assets/img/Logo.svg"
-import HeaderBgImg from "../assets/img/Background_mountain01.svg"
+import HeaderBgImg from "../assets/img/Background_refact.svg"
 import ProfileLogo from "../assets/img/profile-icon.svg"
 
 export function Header() {
