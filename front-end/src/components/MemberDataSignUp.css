@@ -1,129 +1,119 @@
 .member-register {
-    width: 50%;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #A65D24;
     border-radius: 10px;
 }
-.member-register > h3{   
+
+.member-register > h3 {
     font-family: "Candal", sans-serif;
-    font-size: 3rem;
-    color: #994C26;
-    margin-bottom: -10px;
+    font-size: 2.5rem;
+    color: #3B1A07;
+    margin-bottom: 20px;
     text-align: center;
 }
 
-.member-register > form{
-    background-color: #994C26;
-    color: #352208;
-    width: 100%;    
+.member-register > form {
+    background-color: #D88F52;
+    color: #3B1A07;
+    width: 100%;
     padding: 20px;
     border-radius: 10px;
     font-family: "Secular One", sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-.member-register-input-password > p {
-    font-family: "Afacad", sans-serif;
-    font-size: 1.5rem;
-}
-.member-register-input-password{
-    align-self: center;
-    width: 70%;
+    gap: 15px;
 }
 
 .member-register-input {
     display: flex;
-    gap: 10px;
-    width: 100%;
-    align-items: center;
-    justify-content: flex-start;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
 }
-.member-register-input > input {
-    width: 100%;
-    outline: none;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+.member-register-input label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #3B1A07;
+}
+
+.member-register-input .error-message {
     font-family: "Secular One", sans-serif;
-    background-color: #F0E6D2;
+    font-size: 0.9rem;
+    color: #3B1A07;
+    margin: 5px 0;
 }
-.member-register-input > select > option {
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Secular One", sans-serif;
-    background-color: #F0E6D2;
-}
+
+.member-register-input > input,
 .member-register-input > select {
-    outline: none;
+    width: 100%;
+    padding: 10px;
     border: none;
     border-radius: 5px;
+    font-family: "Secular One", sans-serif;
+    background-color: #F4E3C1;
+    color: #3B1A07;
+}
+
+.pagination-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.pagination-buttons button {
+    border: none;
+    width: 100px;
+    height: 40px;
+    color: #F4E3C1;
+    font-family: "Secular One", sans-serif;
+    font-size: 1rem;
+    background-color: #A65D24;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination-buttons button:hover {
+    background-color: #C17836;
+}
+
+.pagination-buttons button:disabled {
+    background-color: #D3A17B;
+    cursor: not-allowed;
+}
+
+.member-register-input-batizado,
+.input-file {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-family: "Secular One", sans-serif;
-    background-color: #F0E6D2;
-}
-
-
-.label-batizado {
-    outline: none;
-    border: none;
-    display: flex;
-    gap: 20px;
-}
-
-.batizado{
-    gap: 20px;
+    gap: 10px;
 }
 
 input[type="file"] {
     border: none;
+    background-color: #F4E3C1;
+    padding: 5px;
+    border-radius: 5px;
+    color: #3B1A07;
 }
 
-.input-file {
-    gap: 20px;
+.member-register-input > select > option {
+    background-color: #F4E3C1;
 }
 
-.member-register > form > button {
-    border: none;
-    width: 128px;
-    height: 48px;
-    color: #F0E6D2;
-    font-family: "Secular One";
-    font-size: 1.5rem;
-    padding: 7px 15px;
-    background-color: #C17732;
-    border-radius: 10px;
-    align-self: center;
+@media (max-width: 600px) {
+    .member-register {
+        width: 90%;
+    }
+    .pagination-buttons button {
+        width: 80px;
+        font-size: 0.9rem;
+    }
 }
-
-hr {
-    width: 100%;
-    border: 3px solid #F0E6D2;
-    border-radius: 10px;
-}
-
-.member-register > form > button:hover{
-    cursor: pointer;
-    background-color: #d69151;
-}
-
-
-@media (max-width: 900px) {
-        .member-register {
-            width: 80%;
-
-        }
-  }

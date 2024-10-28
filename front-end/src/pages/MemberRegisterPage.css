@@ -5,7 +5,7 @@
     background-image: url("../assets/img/bg-img-user-register.svg");
     background-repeat: no-repeat;
     background-position: 0 100%;
-    padding: 200px 20px 200px 20px;
+    padding: 5vh 0;
     position: relative;
 }
 .container-register-page > .return-btn{
