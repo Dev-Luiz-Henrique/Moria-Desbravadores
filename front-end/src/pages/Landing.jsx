@@ -8,10 +8,16 @@ export function Landing() {
     return (
         <>
             <Header />
-            <SectionEvents />
-            <PastEvents />
-            <TalkToUs />
+            <section id="events">
+                <SectionEvents />
+            </section>
+            <section id="past-events">
+                <PastEvents />
+            </section>
+            <section id="contact">
+                <TalkToUs />
+            </section>
             <Footer />
         </>
-    )
+    );
 }

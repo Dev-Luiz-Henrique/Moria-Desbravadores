@@ -16,10 +16,10 @@ export function Header() {
         <header className={`header-container ${isHome ? 'with-nav' : 'no-nav'}`}>
             <div>
                 <Link to="/">
-                    <img src={ MoriaLogo } alt="Logo do Clube Moriá" />
+                    <img src={MoriaLogo} alt="Logo do Clube Moriá" />
                 </Link>
                 <h1>MORIÁ DESBRAVADORES</h1>
-                {token ? ( 
+                {token ? (
                     <>
                         <img src={ProfileLogo} alt="" className="img-profile" />
                         <div className="dropdown-profile">
@@ -35,13 +35,13 @@ export function Header() {
             {isHome && (
                 <nav>
                     <ul>
-                        <li><a href="">Eventos Públicos</a></li>
-                        <li><a href="">Contato</a></li>
-                        <li><a href="">Sobre nós</a></li>
+                        <li><a href="#events">Eventos Públicos</a></li>
+                        <li><a href="#past-events">Eventos Passados</a></li>
+                        <li><a href="#contact">Contato</a></li>
                     </ul>
                 </nav>
             )}
-            {isHome && <img src={HeaderBgImg} alt="" className="header-bg-detail"/>}
+            {isHome && <img src={HeaderBgImg} alt="" className="header-bg-detail" />}
         </header>
     );
 };
