@@ -1,0 +1,129 @@
+.member-register {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+.member-register > h3{   
+    font-family: "Candal", sans-serif;
+    font-size: 3rem;
+    color: #994C26;
+    margin-bottom: -10px;
+    text-align: center;
+}
+
+.member-register > form{
+    background-color: #994C26;
+    color: #352208;
+    width: 100%;    
+    padding: 20px;
+    border-radius: 10px;
+    font-family: "Secular One", sans-serif;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.member-register-input-password > p {
+    font-family: "Afacad", sans-serif;
+    font-size: 1.5rem;
+}
+.member-register-input-password{
+    align-self: center;
+    width: 70%;
+}
+
+.member-register-input {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+}
+.member-register-input > input {
+    width: 100%;
+    outline: none;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Secular One", sans-serif;
+    background-color: #F0E6D2;
+}
+.member-register-input > select > option {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Secular One", sans-serif;
+    background-color: #F0E6D2;
+}
+.member-register-input > select {
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Secular One", sans-serif;
+    background-color: #F0E6D2;
+}
+
+
+.label-batizado {
+    outline: none;
+    border: none;
+    display: flex;
+    gap: 20px;
+}
+
+.batizado{
+    gap: 20px;
+}
+
+input[type="file"] {
+    border: none;
+}
+
+.input-file {
+    gap: 20px;
+}
+
+.member-register > form > button {
+    border: none;
+    width: 128px;
+    height: 48px;
+    color: #F0E6D2;
+    font-family: "Secular One";
+    font-size: 1.5rem;
+    padding: 7px 15px;
+    background-color: #C17732;
+    border-radius: 10px;
+    align-self: center;
+}
+
+hr {
+    width: 100%;
+    border: 3px solid #F0E6D2;
+    border-radius: 10px;
+}
+
+.member-register > form > button:hover{
+    cursor: pointer;
+    background-color: #d69151;
+}
+
+
+@media (max-width: 900px) {
+        .member-register {
+            width: 80%;
+
+        }
+  }

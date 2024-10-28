@@ -1,3 +1,5 @@
+import "./MemberDataSignUp.css"
+
 export function MemberDataSignUp() {
     return (
         <div className="member-register">
@@ -81,11 +83,102 @@ export function MemberDataSignUp() {
                 </div>
 
                 <div className="member-register-input">
-                    <label htmlFor="cidade">CIDADE:</label>
-                    <input id="cidade" type="text" />
+                    <label htmlFor="numero">NUMERO:</label>
+                    <input id="numero" type="number" />
                 </div>
 
-                <a href=""><p>Esqueci minha senha</p></a>
+                <div className="member-register-input">
+                    <label htmlFor="logradouro">LOGRADOURO:</label>
+                    <input id="logradouro" type="text" />
+                </div>
+
+
+                <hr />
+
+
+                <div className="member-register-input">
+                    <label htmlFor="email">EMAIL:</label>
+                    <input id="email" type="text" />
+                </div>
+
+                <div className="member-register-input">
+                    <label htmlFor="celular">CELULAR:</label>
+                    <input id="celular" type="text" />
+                </div>
+
+                <div className="member-register-input">
+                    <label htmlFor="telefone">TELEFONE:</label>
+                    <input id="telefone" type="text" />
+                </div>
+
+                <div className="member-register-input">
+                    <label htmlFor="cpf">CPF:</label>
+                    <input id="cpf" type="text" />
+                </div>
+
+                <div className="member-register-input">
+                    <label htmlFor="rg">RG:</label>
+                    <input id="rg" type="text" />
+                </div>
+
+                <div className="member-register-input">
+                    <label htmlFor="orgao-expedidor">ORGÃO EXPEDIDOR:</label>
+                    <input id="orgao-expedidor" type="text" />
+                </div>
+
+
+                <hr />
+
+
+                <div className="member-register-input">
+                    <label for="tamanho-camisa">TAMANHO DA CAMISA:</label>
+                    <select id="tamanho-camisa" name="tamanho-camisa">
+                        <option value="p">P</option>
+                        <option value="m">M</option>
+                        <option value="g">G</option>
+                        <option value="gg">GG</option>
+                        <option value="xg">XG</option>
+                    </select>
+                </div>
+
+                <div className="member-register-input">
+                    <label for="estado-civil">ESTADO CIVIL:</label>
+                    <select id="estado-civil" name="estado-civil">
+                        <option value="p">P</option>
+                        <option value="m">M</option>
+                        <option value="g">G</option>
+                        <option value="gg">GG</option>
+                        <option value="xg">XG</option>
+                    </select>
+                </div>
+
+                <div className="member-register-input">
+                    <label for="estado-civil">ESTADO CIVIL:</label>
+                    <select id="estado-civil" name="estado-civil">
+                        <option value="solteiro">Solteiro</option>
+                        <option value="casado">Casado</option>
+                        <option value="viuvo">Viúvo</option>
+                        <option value="divorciado">Divorciado</option>
+                        <option value="separado">Separado</option>
+                        <option value="uniao-estavel">União Estável</option>
+                    </select>
+                </div>
+
+                <div className="member-register-input batizado">
+                    <p>Batizado</p>
+                    <label className="label-batizado">
+                        <input type="radio" name="sexo" id="F" /> F
+                    </label>
+                    <label className="label-batizado">
+                        <input type="radio" name="sexo" id="M" /> M
+                    </label>
+                </div>
+
+                <div className="member-register-input input-file">
+                    <label for="arquivo">Selecione um arquivo:</label>
+                    <input type="file" name="arquivo" id="arquivo" />
+                </div>
+
                 <button type="submit">
                     SALVAR
                 </button>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Authorities, isVoluntario } from "../utils/authorities";
 import { abbreviateName } from "../utils/stringHelpers";
@@ -15,6 +15,11 @@ export function DropDownProfile() {
         return <div>Carregando perfil...</div>;
     if (!membro)
         return null;
+
+    const handleLogout = async () => {
+        await logout();
+        navigate("/login");
+    };
 
     return(
         <div className="dropdown-profile-container">
@@ -43,7 +48,7 @@ export function DropDownProfile() {
                 <p>Inscrição para Campori 2024 Aprovada.</p>
             </div>*/}
             <div className="hsc4">Não há notificações</div>
-            <button className="logout">
+            <button className="logout" onClick={handleLogout}>
                 <img className="img000" src={LogoutLogo} alt="" />
                 <p>Logout</p>
             </button>

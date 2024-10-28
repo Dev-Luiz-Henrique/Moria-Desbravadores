@@ -1,4 +1,3 @@
-import BgTalkToUs from "../assets/img/Background_Mountain03.svg"
 import "./TalkToUs.css"
 
 export function TalkToUs() {
@@ -23,11 +22,11 @@ export function TalkToUs() {
 
                 <div>
                     <label htmlFor="message">MENSAGEM:</label>
-                    <textarea id="message"></textarea>
+                    <textarea className="fixed-text-area" id="message"></textarea>
                 </div>
             </form>
 
-            <img src={BgTalkToUs} alt="" />
+            {/* <img src={BgTalkToUs} alt="" /> */}
         </div>
     )
 }

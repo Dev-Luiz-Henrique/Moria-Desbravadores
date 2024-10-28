@@ -6,9 +6,9 @@ import { Landing } from "./pages/Landing";
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./components/UserPage";
 import { Mensalidades } from "./pages/Mensalidades";
+import { MemberRegisterPage } from "./pages/MemberRegisterPage.jsx"; 
 import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
-import { DropDownProfile } from "./components/DropDownProfile";
 
 function App() {
     return (
@@ -19,7 +19,6 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                     <Route path='/' element={<Landing />} />
                     <Route path='/login' element={<LoginPage />} />
-                    <Route path='/teste' element={<DropDownProfile />} />
 
                     {/* Rotas protegidas */}
                     <Route 
@@ -37,6 +36,14 @@ function App() {
                                 <Mensalidades />
                             </PrivateRoute>
                         } 
+                    />
+                    <Route
+                        path='/cadastrar-membro'
+                        element={
+                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                                <MemberRegisterPage />
+                            </PrivateRoute>
+                        }
                     />
                 </Routes>
             </Router>

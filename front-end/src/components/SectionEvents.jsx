@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { apiRequest } from "../utils/api";
+import { formatDateWithHours } from "../utils/dateHelpers";
+import { formatEndereco } from "../utils/stringHelpers";
 
 import ArrowRight from "../assets/img/arrow-right.svg";
 import ArrowLeft from "../assets/img/arrow-left.svg";
@@ -70,14 +72,27 @@ export function SectionEvents() {
                     <div className="event-description">
                         <h2>{currentEvent.nome}</h2>
                         <span>
+                            <p>
+                                {formatEndereco({
+                                    logradouro: currentEvent.logradouro,
+                                    numero: currentEvent.numero,
+                                    bairro: currentEvent.endereco.bairro,
+                                    cidade: currentEvent.endereco.cidade,
+                                    estado: currentEvent.endereco.estado
+                                })}
+                                {", no dia "}
+                                {formatDateWithHours(currentEvent.dataInicio)}
+                            </p>
+                        </span>
+                        {/* <span>
                             <strong>ENDEREÇO:</strong> 
-                            {currentEvent.endereco.cidade}
+                            
                         </span>
                         <span>
                             <strong>DATA:</strong> 
                             {currentEvent.dataInicio}
-                        </span>
-                        <span>
+                        </span> */}
+                        <span className="description">
                             {currentEvent.descricao}
                         </span>
                     </div>

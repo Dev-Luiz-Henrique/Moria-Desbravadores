@@ -5,6 +5,7 @@
     padding: 70px 0 0 0;
     flex-direction: column;
     gap: 40px;
+    width: 100%;
 }
 
 .slider-container > img {
@@ -17,6 +18,7 @@
     display: flex;
     width: 80%;
     gap: 20px;
+    height: 300px;
     align-items: center;
     justify-content: space-between;
 }
@@ -38,6 +40,7 @@
 .slider > .event {
     display: flex;
     gap: 5%;
+    height: 100%;
 }
 .slider > .event > img {
     width: 55%;
@@ -45,7 +48,7 @@
 }
 .slider > .event > .event-description {
     width: 40%;
-    max-height: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -55,10 +58,18 @@
 .slider > .event > .event-description > h2 {
     color: #994C26;
     font-size: 3rem;
-    font-family: "Candal", sans-serif;
+    font-family: "Candal", sans-serif;  
+    width: 100%;    
+    overflow: hidden;              /* Oculta qualquer conteúdo que ultrapasse o contêiner */
+    display: -webkit-box;          /* Usa o layout flexível para texto */
+    -webkit-box-orient: vertical;  /* Define a orientação do box como vertical */
+    -webkit-line-clamp: 2;       
 }
 .slider > .event > .event-description > span {
     color: #352208;
     font-size: 1.5rem;
     font-family: "Afacad", sans-serif;
+    width: 400px;
+    overflow: hidden;        /* Oculta qualquer texto que exceda o contêiner */
+    text-overflow: ellipsis; /* Adiciona reticências ao final do texto cortado */
 }

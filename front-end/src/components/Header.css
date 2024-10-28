@@ -24,18 +24,6 @@
     font-size: 4rem;
 }
 
-.header-container > div > a {
-    color: inherit;
-    text-decoration: none;
-}
-.header-container > div > a:visited {
-    color: inherit;
-}
-.header-container > div > a:hover,
-.header-container > div > a:focus {
-    outline: none;
-}
-
 .header-container > div > a > span {
     font-family: "Secular One", sans-serif;
     font-size: 1.5rem;
