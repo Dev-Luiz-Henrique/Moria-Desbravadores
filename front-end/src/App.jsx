@@ -8,7 +8,7 @@ import { UserPage } from "./components/UserPage";
 import { Mensalidades } from "./pages/Mensalidades";
 import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
-import { DropDownProfile } from "./components/DropDownProfile";
+import { MemberRegisterPage } from "./pages/MemberRegisterPage.jsx";
 
 function App() {
     return (
@@ -19,7 +19,7 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                     <Route path='/' element={<Landing />} />
                     <Route path='/login' element={<LoginPage />} />
-                    <Route path='/teste' element={<DropDownProfile />} />
+                    <Route path='/teste' element={<MemberRegisterPage />} />
 
                     {/* Rotas protegidas */}
                     <Route 
