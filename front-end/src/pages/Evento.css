@@ -1,0 +1,24 @@
+.event {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* TODO: Inserir a imagem de background aqui! */
+  /* background: ; */
+}
+
+.event-body {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(100vw - 8rem);
+  margin: 0 auto;
+}
+
+.event-body > .button-go-back {
+  width: min-content;
+}
+
+.event-body > .event-card {
+  width: fit-content;
+}
