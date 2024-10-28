@@ -8,3 +8,14 @@
 body {
     background-color: #F0E6D2;
 }
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+a:visited {
+    color: inherit;
+}
+a:hover, a:focus {
+    outline: none;
+}

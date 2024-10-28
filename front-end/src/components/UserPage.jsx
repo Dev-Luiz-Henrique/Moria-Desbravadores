@@ -9,6 +9,7 @@ import "./UserPage.css";
 
 import AddIcon from "../assets/img/Plus.svg";
 import SearchIcon from "../assets/img/Glass.svg";
+import { Link } from "react-router-dom";
 
 export function UserPage() {
     const { authorities } = useAuth();
@@ -42,7 +43,9 @@ export function UserPage() {
                     <div className="detail">
                         <button>
                             <img src={AddIcon} alt="AddIcon" />
-                            <p>CADASTRAR MEMBRO</p>
+                            <Link to="/cadastrar-membro">
+                                <p>CADASTRAR MEMBRO</p>
+                            </Link>
                         </button>
                         <div className="search">
                             <img src={SearchIcon} alt="SearchIcon" />

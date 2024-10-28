@@ -1,6 +1,6 @@
 import { ButtonGoBack } from "../components/ButtonGoBack";
 import { Footer } from "../components/Footer";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import { MemberDataSignUp } from "../components/MemberDataSignUp";
 import "./MemberRegisterPage.css"
 
