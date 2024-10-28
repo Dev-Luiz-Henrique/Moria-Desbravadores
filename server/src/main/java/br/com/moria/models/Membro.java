@@ -100,10 +100,6 @@ public class Membro {
     @Column(name = "orgao_expedidor", nullable = false, length = 15)
     private String orgaoExpedidor;
 
-    @Size(max = 50, message = "Profissional de Saúde deve ter no máximo 50 caracteres.")
-    @Column(name = "profissional_saude", length = 50)
-    private String profissionalSaude;
-
     @NotBlank
     @Size(max = 5, message = "Tamanho da camisa deve ter no máximo 5 caracteres.")
     @Column(name = "tamanho_camisa", nullable = false, length = 5)
@@ -135,10 +131,6 @@ public class Membro {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false, length = 20)
     private TipoMembro tipo;
-
-    @Min(value = 0, message = "Medalhas não pode ser negativo.")
-    @Column(name = "medalhas", nullable = false, columnDefinition = "SMALLINT DEFAULT 0")
-    private int medalhas;
 
     public void setSexo(String sexo) {
         if (sexo != null) {
