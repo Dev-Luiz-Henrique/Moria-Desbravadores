@@ -1,13 +1,14 @@
 .container-card-mensalidades {
     display: flex;
     flex-direction: column;
-    height: 130px;
+    min-width: 90vw;
 }
 .container-card-mensalidades > p {
     font-family: "Secular One", sans-serif;
+    font-size: 18px;
     color: #C17732;
-    margin-left: 50px;
-    margin-bottom: -7px;
+    margin-left: 2.9%;
+    margin-bottom: -8px;
 }
 .container-card-mensalidades > .data-section-mensalidades {
     background-color: #F0E6D2;
@@ -20,6 +21,7 @@
     color: #352208;
     font-size: 24px;
     font-family: "Secular One", sans-serif;
+    padding: 0 10px;
 }
 .container-card-mensalidades > .data-section-mensalidades p {
     color: #F0E6D2;
@@ -32,8 +34,8 @@
     border-radius: 10px;
     display: flex;
 } */
-.container-card-mensalidades > .data-section-mensalidades > .box-mensalidade{
-    width: 189px;
+.container-card-mensalidades > .data-section-mensalidades > .box-mensalidade {
+    width: 12.5%;
     background-color: #C17732;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -49,23 +51,32 @@
     height: 45px;
 }
 .container-card-mensalidades > .data-section-mensalidades > .box-mensalidade > .status-mensalidade > .status-detail {
-    background-color: #994C26;
     width: 10%;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
-.container-card-mensalidades > .data-section-mensalidades > .box-mensalidade > .status-mensalidade > .status-text{
+
+.container-card-mensalidades > .data-section-mensalidades > .box-mensalidade > .status-mensalidade > .status-detail.pago {
+    background-color: #1D7874;
+}
+
+.container-card-mensalidades > .data-section-mensalidades > .box-mensalidade > .status-mensalidade > .status-detail.pendente {
+    background-color: #994C26;
+}
+
+.container-card-mensalidades > .data-section-mensalidades > .box-mensalidade > .status-mensalidade > .status-text {
     width: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.container-card-mensalidades > .data-section-mensalidades > .box-mensalidade > .status-mensalidade > .status-text > p{
+.container-card-mensalidades > .data-section-mensalidades > .box-mensalidade > .status-mensalidade > .status-text > p {
     color: #352208;
+    text-align: center;
 }
 
-.container-card-mensalidades > .data-section-mensalidades > .valor-mensalidade{
-    width: 124px;
+.container-card-mensalidades > .data-section-mensalidades > .valor-mensalidade {
+    width: 12.5%;
     background-color: #C17732;
     display: flex;
     flex-direction: column;
@@ -73,8 +84,8 @@
     justify-content: center;
     padding: 15px 20px;
 }
-.container-card-mensalidades > .data-section-mensalidades > .forma-pagamento-mensalidade{
-    width: 298px;
+.container-card-mensalidades > .data-section-mensalidades > .forma-pagamento-mensalidade {
+    width: 25%;
     background-color: #C17732;
     display: flex;
     flex-direction: column;
@@ -82,8 +93,8 @@
     justify-content: center;
     padding: 5px 20px;
 }
-.container-card-mensalidades > .data-section-mensalidades > .vencimento-mensalidade{
-    width: 188px;
+.container-card-mensalidades > .data-section-mensalidades > .vencimento-mensalidade {
+    width: 12.5%;
     background-color: #C17732;
     display: flex;
     flex-direction: column;
@@ -91,8 +102,8 @@
     justify-content: center;
     padding: 5px 20px;
 }
-.container-card-mensalidades > .data-section-mensalidades > .pagamento-mensalidade{
-    width: 182px;
+.container-card-mensalidades > .data-section-mensalidades > .pagamento-mensalidade {
+    width: 12.5%;
     background-color: #C17732;
     display: flex;
     flex-direction: column;
@@ -100,8 +111,8 @@
     justify-content: center;
     padding: 5px 20px;
 }
-.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade{
-    width: 343px;
+.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade {
+    width: 25%;
     background-color: #C17732;
     display: flex;
     flex-direction: column;
@@ -111,7 +122,16 @@
     justify-content: center;
     padding: 5px 20px;
 }
-.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > button{
+
+.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > .imprimir-comprovante.pago {
+    background-color: #1D7874;
+}
+
+.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > .imprimir-comprovante.pendente {
+    background-color: #994C26;
+}
+
+.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > button {
     background-color: #fff;
     width: 80%;
     height: 70%;
@@ -119,13 +139,13 @@
     background-color: #994C26;
     border-radius: 10px;
 }
-.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > button:hover{
+.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > button:hover {
     cursor: pointer;
 }
-.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > button:hover > h3{
+.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > button:hover > h3 {
     color: #fff9ec;
 }
-.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > button > h3{
+.container-card-mensalidades > .data-section-mensalidades > .imprimir-comprovante-mensalidade > button > h3 {
     color: #F0E6D2;
     font-size: 24px;
     font-family: "Secular One", sans-serif;

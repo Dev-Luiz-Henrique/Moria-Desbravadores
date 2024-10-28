@@ -10,3 +10,8 @@ export function abbreviateName(name) {
     const middleInitials = parts.slice(1, parts.length - 1).map(part => part.charAt(0) + '.').join(' ');
     return `${firstName} ${middleInitials} ${lastName}`;
 }
+
+export function formatEndereco(endereco) {
+    const { logradouro, numero, bairro, cidade, estado } = endereco;
+    return `${logradouro}, ${numero} - ${bairro}, ${cidade} - ${estado}`;
+}
