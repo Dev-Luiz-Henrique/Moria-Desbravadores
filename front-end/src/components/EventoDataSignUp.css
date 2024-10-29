@@ -1,0 +1,121 @@
+.event-register {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #A65D24;
+    border-radius: 10px;
+}
+
+.event-register > h3 {
+    font-family: "Candal", sans-serif;
+    font-size: 2.5rem;
+    color: #3B1A07;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.event-register > form {
+    background-color: #D88F52;
+    color: #3B1A07;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: "Secular One", sans-serif;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.event-register-input {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.event-register-input label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #3B1A07;
+}
+
+.event-register-input .error-message {
+    font-family: "Secular One", sans-serif;
+    font-size: 0.9rem;
+    color: #3B1A07;
+    margin: 5px 0;
+}
+
+.event-register-input > input,
+.event-register-input > select,
+.event-register-input > textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Secular One", sans-serif;
+    background-color: #F4E3C1;
+    color: #3B1A07;
+    resize: vertical;
+}
+
+.pagination-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.pagination-buttons button {
+    border: none;
+    width: 100px;
+    height: 40px;
+    color: #F4E3C1;
+    font-family: "Secular One", sans-serif;
+    font-size: 1rem;
+    background-color: #A65D24;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pagination-buttons button:hover {
+    background-color: #C17836;
+}
+
+.pagination-buttons button:disabled {
+    background-color: #D3A17B;
+    cursor: not-allowed;
+}
+
+.event-register-input-batizado,
+.input-file {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="file"] {
+    border: none;
+    background-color: #F4E3C1;
+    padding: 5px;
+    border-radius: 5px;
+    color: #3B1A07;
+}
+
+.event-register-input > select > option {
+    background-color: #F4E3C1;
+}
+
+@media (max-width: 600px) {
+    .event-register {
+        width: 90%;
+    }
+    .pagination-buttons button {
+        width: 80px;
+        font-size: 0.9rem;
+    }
+}

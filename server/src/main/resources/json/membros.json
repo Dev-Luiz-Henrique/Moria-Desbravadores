@@ -12,7 +12,6 @@
         "cpf": "58308393500",
         "rg": "201467082",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
@@ -20,7 +19,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "DIRETOR_CLUBE",
-        "medalhas": 100,
         "endereco": {
             "cep": "29163670",
             "bairro": "Cidade Continental-Setor Ásia",
@@ -41,7 +39,6 @@
         "cpf": "52104726808",
         "rg": "313234541",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
@@ -49,7 +46,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "DIRETOR_ASSOCIADO",
-        "medalhas": 10000,
         "endereco": {
             "cep": "13069072",
             "bairro": "Rua dos Anjos I",
@@ -70,7 +66,6 @@
         "cpf": "42930124946",
         "rg": "197887508",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
@@ -78,7 +73,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "TESOUREIRO",
-        "medalhas": 87,
         "endereco": {
             "cep": "77813560",
             "bairro": "Senador",
@@ -99,7 +93,6 @@
         "cpf": "38624011469",
         "rg": "317917717",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": "Psicólogo",
         "tamanhoCamisa": "G",
         "estadoCivil": "CASADO",
         "batizado": false,
@@ -107,7 +100,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "CAPELAO",
-        "medalhas": 72,
         "endereco": {
             "cep": "77813560"
         }
@@ -125,7 +117,6 @@
         "cpf": "38624012469",
         "rg": "317917717",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
@@ -133,7 +124,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "SECRETARIO",
-        "medalhas": 23,
         "endereco": {
             "cep": "38446106",
             "bairro": "Amorim",
@@ -154,7 +144,6 @@
         "cpf": "42819465196",
         "rg": "325494769",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "G",
         "estadoCivil": "DIVORCIADO",
         "batizado": false,
@@ -162,7 +151,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "INSTRUTOR_CLASSES_PROGRESSIVAS",
-        "medalhas": 0,
         "endereco": {
             "cep": "69317263",
             "bairro": "Alvorada",
@@ -183,7 +171,6 @@
         "cpf": "97016248828",
         "rg": "139905479",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
@@ -191,7 +178,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "CONSELHEIRO_UNIDADE",
-        "medalhas": 4,
         "endereco": {
             "cep": "12345678",
             "bairro": "Jardim Conceição",
@@ -212,7 +198,6 @@
         "cpf": "12345678908",
         "rg": "123456796",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "G",
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
@@ -220,7 +205,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "AUXILIAR",
-        "medalhas": 0,
         "endereco": {
             "cep": "12345678",
             "bairro": "Bairro Exemplo",
@@ -241,7 +225,6 @@
         "cpf": "36807289804",
         "rg": "298307984",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "M",
         "estadoCivil": "CASADO",
         "batizado": false,
@@ -249,7 +232,6 @@
         "ativo": true,
         "fichaSaude": "/",
         "tipo": "DESBRAVADOR",
-        "medalhas": 3,
         "endereco": {
             "cep": "13049594",
             "bairro": "Swiss Park",
@@ -270,7 +252,6 @@
         "cpf": "08674222897",
         "rg": "384069964",
         "orgaoExpedidor": "SSP",
-        "profissionalSaude": null,
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
@@ -278,7 +259,6 @@
         "ativo": true,
         "fichaSaude": "-",
         "tipo": "RESPONSAVEL",
-        "medalhas": 0,
         "endereco": {
             "cep": "13578970",
             "bairro": "Água Vermelha",
