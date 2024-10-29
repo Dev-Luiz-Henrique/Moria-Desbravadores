@@ -1,13 +1,15 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
 import { apiRequest } from "../utils/api";
 import { Authorities } from "../utils/authorities";
-import AddIcon from "../assets/img/Plus.svg";
-import SearchIcon from "../assets/img/Glass.svg";
-import "./ManageEvents.css"
 import { CardEvents } from "../components/CardEvents";
 import { Header } from "../components/header";
 import { Footer } from "../components/Footer";
+import "./ManageEvents.css";
+
+import AddIcon from "../assets/img/Plus.svg";
+import SearchIcon from "../assets/img/Glass.svg";
 
 export function ManageEvents() {
     const { authorities } = useAuth();
@@ -40,10 +42,12 @@ export function ManageEvents() {
             <section className="container-manage-events-page">
                 <div className="filter">
                     <div className="detail">
-                        <button>
-                            <img src={AddIcon} alt="AddIcon" />
-                            <p>CRIAR EVENTO</p>
-                        </button>
+                        <Link to="/cadastrar-evento">
+                            <button>
+                                <img src={AddIcon} alt="AddIcon" />
+                                <p>CRIAR EVENTO</p>
+                            </button>
+                        </Link>
                         <div className="search">
                             <img src={SearchIcon} alt="SearchIcon" />
                             <input type="text" />
@@ -56,6 +60,7 @@ export function ManageEvents() {
                         {!error && !loading && eventos.map((evento) => (
                             <CardEvents 
                                 key={evento.id}
+                                id={evento.id}
                                 nome={evento.nome}
                                 endereco={evento.endereco}
                                 logradouro={evento.logradouro}

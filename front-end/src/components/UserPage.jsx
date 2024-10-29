@@ -41,12 +41,12 @@ export function UserPage() {
             <section className="container-user-page">
                 <div className="filter">
                     <div className="detail">
-                        <button>
-                            <img src={AddIcon} alt="AddIcon" />
-                            <Link to="/cadastrar-membro">
+                        <Link to="/cadastrar-membro">
+                            <button>
+                                <img src={AddIcon} alt="AddIcon" />
                                 <p>CADASTRAR MEMBRO</p>
-                            </Link>
-                        </button>
+                            </button>
+                        </Link>
                         <div className="search">
                             <img src={SearchIcon} alt="SearchIcon" />
                             <input type="text" />
