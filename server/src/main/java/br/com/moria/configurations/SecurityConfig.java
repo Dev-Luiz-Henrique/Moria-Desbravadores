@@ -22,14 +22,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        //configureEventosRoutes(http);
-        //configureMembrosRoutes(http);
-        //configureOthersRoutes(http);
+        configureMensalidadesRoutes(http);
+        configureEventosRoutes(http);
+        configureMembrosRoutes(http);
+        configureOthersRoutes(http);
 
         http
-            .authorizeHttpRequests(authorize -> authorize
-                .anyRequest().permitAll()
-            )
+            //.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
             .exceptionHandling(exceptionHandling ->
                 exceptionHandling
                     .authenticationEntryPoint((request, response, authException) -> {
@@ -71,8 +70,17 @@ public class SecurityConfig {
         return new JwtRequestFilter();
     }
 
+    private void configureMensalidadesRoutes(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(HttpMethod.GET, "/mensalidades/**").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
+            .requestMatchers("/mensalidades/**").hasAuthority(TipoMembro.TESOUREIRO.name())
+        );
+    }
+
     private void configureEventosRoutes(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(HttpMethod.POST, "/membros/{id}/imagem").hasAuthority(TipoMembro.SECRETARIO.name())
+            .requestMatchers(HttpMethod.GET, "/membros/{id}/imagem").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
             .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
             .requestMatchers("/eventos/**").hasAuthority(TipoMembro.SECRETARIO.name())
         );
