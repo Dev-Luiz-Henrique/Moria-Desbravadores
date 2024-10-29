@@ -16,6 +16,10 @@ export const validateMembro = {
     dataNascimento: (value) => {
         const today = new Date();
         const birthDate = new Date(value);
+        const minDate = new Date("1900-01-01");
+        
+        if (birthDate < minDate)
+            return "Data de nascimento inválida.";
         if (birthDate >= today)
             return "Data de nascimento deve ser uma data passada.";
         return "";

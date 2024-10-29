@@ -14,11 +14,11 @@ export function MemberDataSignUp({ initialData = null }) {
     const navigate = useNavigate();
 
     const validateField = (field, value) => {
-        const fieldName = field.includes("endereco-") ? field.split(".")[1] : field;
+        const fieldName = field.includes("endereco-") ? field.split("-")[1] : field;
         const message = validate[fieldName] ? validate[fieldName](value) : "";
         setErrors((prevErrors) => ({
             ...prevErrors,
-            [field]: message,
+            [fieldName]: message,
         }));
     };
 
@@ -95,7 +95,7 @@ export function MemberDataSignUp({ initialData = null }) {
                 <label htmlFor='dataNascimento'>DATA DE NASCIMENTO:</label>
                 <input id='dataNascimento' type='date' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.dataNascimento || ""} />
-                {errors.dataNascimento && <p className="error-message">{errors.data}</p>}
+                {errors.dataNascimento && <p className="error-message">{errors.dataNascimento}</p>}
             </div>
 
             <div className="member-register-input">

@@ -12,11 +12,11 @@ export function EventoDataSignUp({ initialData = null }) {
     const navigate = useNavigate();
 
     const validateField = (field, value) => {
-        const fieldName = field.includes("endereco-") ? field.split(".")[1] : field;
+        const fieldName = field.includes("endereco-") ? field.split("-")[1] : field;
         const message = validate[fieldName] ? validate[fieldName](value) : "";
         setErrors((prevErrors) => ({
             ...prevErrors,
-            [field]: message,
+            [fieldName]: message,
         }));
     };
 
