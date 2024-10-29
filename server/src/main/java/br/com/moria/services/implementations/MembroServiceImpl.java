@@ -83,6 +83,11 @@ public class MembroServiceImpl implements IMembroService {
 		return membroRepository.findByEmail(email);
 	}
 
+    @Override
+    public List<Membro> findByNomeContaining(String nome) {
+        return membroRepository.findByNomeContaining(nome);
+    }
+
 	@Override
 	public Membro findByCpf(String cpf) {
 		return membroRepository.findByCpf(cpf);

@@ -11,4 +11,5 @@ public interface MembroRepository extends JpaRepository<Membro, Integer> {
     public Membro findByEmail(String email);
     public Membro findByCpf(String cpf);
     public List<Membro> findByAtivo(Boolean ativo);
+    public List<Membro> findByNomeContaining(String nome);
 }

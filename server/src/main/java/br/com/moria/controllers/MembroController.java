@@ -92,6 +92,12 @@ public class MembroController {
         }
     }
 
+    @GetMapping("/nome")
+    public ResponseEntity<List<Membro>> findByName(@RequestParam String nome) {
+        List<Membro> membros = membroService.findByNomeContaining(nome);
+        return ResponseEntity.ok(membros);
+    }
+
     @PostMapping("/{id}/ficha-saude")
     public ResponseEntity<String> uploadFichaSaude(@PathVariable int id, @RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {

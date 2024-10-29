@@ -15,6 +15,7 @@ public interface IMembroService {
     public void delete(int id);
     public Membro findById(int id);
     public List<Membro> findAll();
+    public List<Membro> findByNomeContaining(String nome);
     public Membro findByEmail(String email);
     public Membro findByCpf(String cpf);
     public List<Membro> findByAtivo(Boolean ativo);
