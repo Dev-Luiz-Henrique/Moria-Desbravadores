@@ -91,10 +91,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.GET, "/membros/email").authenticated()
             .requestMatchers(HttpMethod.POST, "/membros/{id}/ficha-saude").hasAuthority(TipoMembro.SECRETARIO.name())
             .requestMatchers(HttpMethod.GET, "/membros/{id}/ficha-saude").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
-            .requestMatchers(HttpMethod.GET, "/membros/{id}").hasAnyAuthority(
-                TipoMembro.DESBRAVADOR.name(), 
-                TipoMembro.RESPONSAVEL.name()
-            )
+            .requestMatchers(HttpMethod.GET, "/membros/{id}").authenticated()
             .requestMatchers(HttpMethod.GET, "/membros/**").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
             .requestMatchers("/membros/**").hasAnyAuthority(TipoMembro.SECRETARIO.name())
         );
