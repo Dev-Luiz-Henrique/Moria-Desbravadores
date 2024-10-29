@@ -1,6 +1,6 @@
 import { getAuthority } from "./authorities";
 
-export const validate = {
+export const validateMembro = {
     nome: (value) => {
         if (value.length < 3 || value.length > 100)
             return "Nome deve ter entre 3 e 100 caracteres.";
@@ -45,18 +45,6 @@ export const validate = {
         return "";
     },
 
-    logradouro: (value) => {
-        if (value.length > 255)
-            return "Logradouro deve ter no máximo 255 caracteres.";
-        return "";
-    },
-    
-    numero: (value) => {
-        if (value === null || value < 1)
-            return "Número deve ser maior que 0.";
-        return "";
-    },
-    
     cpf: (value) => {
         if (!/^\d{11}$/.test(value))
             return "CPF deve ter exatamente 11 dígitos.";
@@ -106,4 +94,122 @@ export const validate = {
             return "Função inválido.";
         return "";
     },
+
+    logradouro: (value) => {
+        if (value.length > 255)
+            return "Logradouro deve ter no máximo 255 caracteres.";
+        return "";
+    },
+    
+    numero: (value) => {
+        if (value === null || value < 1)
+            return "Número deve ser maior que 0.";
+        return "";
+    },
+
+    cep: (value) => {
+        if (value === null || !/^\d{8}$/.test(value))
+            return "CEP deve ter exatamente 8 dígitos.";
+        return "";
+    },
+
+    bairro: (value) => {
+        if (value === null || value.lenght < 3 || value.length > 255)
+            return "Bairro deve ter no minimo 3 no máximo 255 caracteres.";
+        return "";
+    },
+
+    cidade: (value) => {
+        if (value === null || value.lenght < 3 || value.length > 255)
+            return "Cidade deve ter no minimo 3 no máximo 255 caracteres.";
+        return "";
+    },
+
+    estado: (value) => {
+        if (value === null)
+            return "Estado é obrigatório.";
+        return "";
+    },
 };
+
+export const validadeEvento = {
+    nome: (value) => {
+        if (!value || value.length > 50)
+            return "Nome deve ter no máximo 50 caracteres.";
+        return "";
+    },
+
+    atracao: (value) => {
+        if (!value || value.length > 50)
+            return "Atração deve ter no máximo 50 caracteres.";
+        return "";
+    },
+
+    descricao: (value) => {
+        if (!value || value.length > 500)
+            return "Descrição deve ter no máximo 500 caracteres.";
+        return "";
+    },
+
+    imagem: (value) => {
+        if (value && value.length > 255)
+            return "Caminho da imagem deve ter no máximo 255 caracteres.";
+        return "";
+    },
+
+    dataInicio: (value) => {
+        const date = new Date(value);
+        if (isNaN(date.getTime()) || date <= new Date())
+            return "A data de início do evento deve ser uma data futura.";
+        return "";
+    },
+
+    dataFim: (value, dataInicio) => {
+        const date = new Date(value);
+        if (isNaN(date.getTime()) || date <= new Date(dataInicio))
+            return "A data fim do evento deve ser uma data futura e maior que a data de início.";
+        return "";
+    },
+
+    publico: (value) => {
+        if (value === null)
+            return "Campo Público é obrigatório.";
+        return "";
+    },
+
+    numero: (value) => {
+        if (value === null || value < 1)
+            return "Número deve ser maior que 0.";
+        return "";
+    },
+
+    logradouro: (value) => {
+        if (!value || value.length > 255)
+            return "Logradouro deve ter no máximo 255 caracteres.";
+        return "";
+    },
+
+    cep: (value) => {
+        if (value === null || !/^\d{8}$/.test(value))
+            return "CEP deve ter exatamente 8 dígitos.";
+        return "";
+    },
+
+    bairro: (value) => {
+        if (value === null || value.lenght < 3 || value.length > 255)
+            return "Bairro deve ter no minimo 3 no máximo 255 caracteres.";
+        return "";
+    },
+
+    cidade: (value) => {
+        if (value === null || value.lenght < 3 || value.length > 255)
+            return "Cidade deve ter no minimo 3 no máximo 255 caracteres.";
+        return "";
+    },
+
+    estado: (value) => {
+        if (value === null)
+            return "Estado é obrigatório.";
+        return "";
+    },
+}
