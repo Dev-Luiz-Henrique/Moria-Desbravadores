@@ -54,8 +54,20 @@ export function SectionEvents() {
 
     const isDataAvailable = !error && data && data.length > 0;
     const currentEvent = isDataAvailable ? data[currentIndex] : {
-        id: null, nome: "CAMPORI 2024", endereco: { cidade: "IABC Planalmira - GO" }, 
-        dataInicio: "24/28 de Julho", descricao: "Reunião anual do clube dos Desbravadores"
+        id: null,
+        nome: "CAMPORI 2024",
+        atracao: "Clube dos Desbravadores",
+        dataInicio: new Date("2024-11-24"), 
+        dataFim: new Date("2024-11-28"), 
+        descricao: "Reunião anual do clube dos Desbravadores",
+        logradouro: "Rua José Maria", 
+        numero: "123",            
+        endereco: {
+            cep: "12345678",  
+            cidade: "IABC Planalmira",
+            estado: "GO",
+            bairro: "Centro"
+        }
     };
     if (loading) return <p>Loading...</p>;
     
@@ -73,25 +85,19 @@ export function SectionEvents() {
                         <h2>{currentEvent.nome}</h2>
                         <span>
                             <p>
-                                {formatEndereco({
-                                    logradouro: currentEvent.logradouro,
-                                    numero: currentEvent.numero,
-                                    bairro: currentEvent.endereco.bairro,
-                                    cidade: currentEvent.endereco.cidade,
-                                    estado: currentEvent.endereco.estado
-                                })}
+                                {formatEndereco(
+                                    {
+                                        bairro: currentEvent.endereco.bairro,
+                                        cidade: currentEvent.endereco.cidade,
+                                        estado: currentEvent.endereco.estado
+                                    },
+                                    currentEvent.logradouro,
+                                    currentEvent.numero,
+                                )}
                                 {", no dia "}
                                 {formatDateWithHours(currentEvent.dataInicio)}
                             </p>
                         </span>
-                        {/* <span>
-                            <strong>ENDEREÇO:</strong> 
-                            
-                        </span>
-                        <span>
-                            <strong>DATA:</strong> 
-                            {currentEvent.dataInicio}
-                        </span> */}
                         <span className="description">
                             {currentEvent.descricao}
                         </span>
