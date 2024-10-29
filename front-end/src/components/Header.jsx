@@ -2,15 +2,31 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext"
 import { DropDownProfile } from "./DropDownProfile"
 import "./Header.css"
+import { useEffect, useState } from 'react';
 
 import MoriaLogo from "../assets/img/Logo.svg"
 import HeaderBgImg from "../assets/img/Background_refact.svg"
 import ProfileLogo from "../assets/img/profile-icon.svg"
 
 export function Header() {
+    const { token, isLoading } = useAuth();
     const location = useLocation();
-    const { token } = useAuth();
+    const [showProfile, setShowProfile] = useState(false);
     const isHome = location.pathname === '/';
+
+    // TODO: Refactor this timer logic to use a loading state instead. 
+    // Implement a more robust solution that checks for member data readiness 
+    // before displaying the dropdown profile, eliminating the need for a fixed delay.
+    useEffect(() => {
+        if (token) {
+            const timer = setTimeout(() => {
+                setShowProfile(true);
+            }, 100);
+
+            return () => clearTimeout(timer);
+        } 
+        else setShowProfile(false);
+    }, [token]);
 
     return (
         <header className={`header-container ${isHome ? 'with-nav' : 'no-nav'}`}>
@@ -19,7 +35,7 @@ export function Header() {
                     <img src={MoriaLogo} alt="Logo do Clube Moriá" />
                 </Link>
                 <h1>MORIÁ DESBRAVADORES</h1>
-                {token ? (
+                {token && showProfile ? (
                     <>
                         <img src={ProfileLogo} alt="" className="img-profile" />
                         <div className="dropdown-profile">
