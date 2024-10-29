@@ -46,6 +46,7 @@ export function LoginBody() {
             //const { token } = data;
             await login(data);
             navigate("/gerenciar-membros");
+            window.location.reload();
         }
 
         setLoading(false);

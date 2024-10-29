@@ -49,7 +49,7 @@ function App() {
                         }
                     />
                     <Route
-                        path='/cadastrar-membro'
+                        path='/cadastrar-membro/:id?'
                         element={
                             <PrivateRoute allowedAuthorities={
                                 [Authorities.SECRETARIO, Authorities.DIRETOR_CLUBE, Authorities.DIRETOR_ASSOCIADO]
@@ -59,7 +59,7 @@ function App() {
                         }
                     />
                     <Route
-                        path='/cadastrar-evento'
+                        path='/cadastrar-evento/:id?'
                         element={
                             <PrivateRoute allowedAuthorities={
                                 [Authorities.SECRETARIO, Authorities.DIRETOR_CLUBE, Authorities.DIRETOR_ASSOCIADO]

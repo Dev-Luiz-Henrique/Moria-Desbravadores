@@ -59,6 +59,7 @@ export function UserPage() {
                         {!error && !loading && membros.map((membro) => (
                             <CardUser
                                 key={membro.id}
+                                id={membro.id}
                                 nome={membro.nome}
                                 tipo={membro.tipo}
                                 status={membro.status}
