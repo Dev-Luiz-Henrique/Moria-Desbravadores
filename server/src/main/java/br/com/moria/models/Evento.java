@@ -34,7 +34,7 @@ public class Evento {
     @Column(name = "id")
     private int id;
 
-    @NotNull
+    @NotNull(message = "Endereço não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_endereco", referencedColumnName = "id")
     private Endereco endereco;
@@ -43,17 +43,17 @@ public class Evento {
     @JsonManagedReference
 	private List<Recurso> recursos;
 
-    @NotBlank
+    @NotBlank(message = "Nome não pode ser vazio.")
     @Size(max = 50, message = "Nome deve ter no máximo 50 caracteres.")
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
 
-    @NotBlank
+    @NotBlank(message = "Atração não pode ser vazia.")
     @Size(max = 50, message = "Atração deve ter no máximo 50 caracteres.")
     @Column(name = "atracao", nullable = false, length = 50)
     private String atracao;
 
-    @NotBlank
+    @NotBlank(message = "Descrição não pode ser vazia.")
     @Size(max = 500, message = "Descrição deve ter no máximo 500 caracteres.")
     @Column(name = "descricao", nullable = false, length = 500)
     private String descricao;
@@ -62,22 +62,22 @@ public class Evento {
     @Column(name = "imagem", length = 255)
     private String imagem;
 
-    @NotNull
+    @NotNull(message = "Data de início não pode ser nula.")
     @Future(message = "A data de início do evento deve ser uma data futura.")
     @Column(name = "data_inicio", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime dataInicio;
 
-    @NotNull
+    @NotNull(message = "Data fim não pode ser nula.")
     @Future(message = "A data fim do evento deve ser uma data futura.")
     @Column(name = "data_fim", nullable = false , columnDefinition= "DATETIME")
     private LocalDateTime dataFim;
 
-    @NotNull
+    @NotNull(message = "Número não pode ser nulo.")
     @Min(value = 1, message = "Número deve ser maior que 0.")
     @Column(name = "numero", nullable = false)
     private int numero;
 
-    @NotNull
+    @NotNull(message = "Logradouro não pode ser nulo.")
     @Size(max = 255, message = "Logradouro deve ter no máximo 255 caracteres.")
     @Column(name = "logradouro", length = 255)
     private String logradouro;

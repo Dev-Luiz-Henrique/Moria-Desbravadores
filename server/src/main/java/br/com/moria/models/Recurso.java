@@ -36,29 +36,29 @@ public class Recurso {
     @Column(name = "id")
     private int id;
 
-    @NotNull
+    @NotNull(message = "Evento não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_evento", referencedColumnName = "id")
     @JsonBackReference
     private Evento evento;
 
-    @NotBlank
+    @NotBlank(message = "Nome não pode ser vazio.")
     @Size(max = 255, message = "Nome deve ter no máximo 255 caracteres.")
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @NotBlank
+    @NotBlank(message = "Descrição não pode ser vazia.")
     @Size(max = 255, message = "Descrição deve ter no máximo 255 caracteres.")
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @NotNull
+    @NotNull(message = "Valor não pode ser nulo.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Digits(integer = 8, fraction = 2)
     @Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
 
-    @NotNull
+    @NotNull(message = "Quantidade não pode ser nula.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Column(name = "quantidade", nullable = false, columnDefinition = "DOUBLE(8,2)")
     private Double quantidade;

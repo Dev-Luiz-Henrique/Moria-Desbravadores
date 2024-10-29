@@ -29,17 +29,17 @@ public class Inscricao {
     @Column(name = "id")
     private int id;
 
-    @NotNull
+    @NotNull(message = "Membro não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_membro", referencedColumnName = "id")
     private Membro membro;
 
-    @NotNull
+    @NotNull(message = "Evento não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_evento", referencedColumnName = "id")
     private Evento evento;
 
-    @NotNull
+    @NotNull(message = "Status de participação não pode ser nulo.")
     @Enumerated(EnumType.STRING)
     @Column(name = "status_participacao", nullable = false, length = 20)
     private StatusParticipacao statusParticipacao;

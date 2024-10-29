@@ -30,23 +30,23 @@ public class Mensalidade {
     @Column(name = "id")
     private int id;
 
-    @NotNull
+    @NotNull(message = "Membro não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_membro", referencedColumnName = "id")
     private Membro membro;
 
-    @NotNull
+    @NotNull(message = "Data não pode ser nula.")
     @Column(name = "data", nullable = false, columnDefinition= "DATETIME")
     private LocalDateTime data;
 
-    @NotNull
+    @NotNull(message = "Data de vencimento não pode ser nula.")
     @Column(name = "data_vencimento", nullable = false, columnDefinition= "DATETIME")
     private LocalDateTime dataVencimento;
 
     @Column(name = "data_pagamento", columnDefinition= "DATETIME")
     private LocalDateTime dataPagamento;
 
-    @NotNull
+    @NotNull(message = "Valor não pode ser nulo.")
     @DecimalMin(value = "0.0", inclusive = false)
     @Column(name = "valor", nullable = false, columnDefinition = "DOUBLE(8,2)")
     private Double valor;

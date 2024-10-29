@@ -36,42 +36,42 @@ public class Membro {
     @Column(name = "id")
     private int id;
 
-    @NotNull
+    @NotNull(message = "Endereço não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_endereco", referencedColumnName = "id")
     private Endereco endereco;
 
-    @NotBlank
+    @NotBlank(message = "Nome não pode ser vazio.")
     @Size(min = 3, max = 100, message = "Nome deve ter entre 3 e 100 caracteres.")
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @NotBlank
+    @NotBlank(message = "Sobrenome não pode ser vazio.")
     @Pattern(regexp = "[MFO]", message = "Sexo deve ser 'M', 'F' ou 'O'.")
     @Column(name = "sexo", nullable = false, length = 1)
     private String sexo;
 
-    @NotNull
+    @NotNull(message = "Data de nascimento não pode ser nula.")
     @Past(message = "A data de nascimento deve ser uma data passada.")
     @Column(name = "data_nascimento", nullable = false, columnDefinition= "DATETIME")
     private LocalDate dataNascimento;
 
-    @NotBlank
+    @NotBlank(message = "Telefone não pode ser vazio.")
     @Pattern(regexp = "\\d{10}", message = "Telefone deve ter exatamente 10 dígitos.")
     @Column(name = "telefone", nullable = false, columnDefinition = "CHAR(10)")
     private String telefone;
 
-    @NotBlank
+    @NotBlank(message = "Celular não pode ser vazio.")
     @Pattern(regexp = "\\d{11}", message = "Celular deve ter exatamente 11 dígitos.")
     @Column(name = "celular", nullable = false, columnDefinition = "CHAR(11)")
     private String celular;
 
-    @NotBlank
+    @NotBlank(message = "Email não pode ser vazio.")
     @Email(message = "O formato do email é inválido.")
     @Column(name = "email", nullable = false, length = 255, unique = true)
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Senha não pode ser vazia.")
     @Size(max = 255, message = "Senha deve ter no máximo 255 caracteres.")
     @Column(name = "senha", nullable = false, length = 255)
     private String senha;
@@ -80,54 +80,53 @@ public class Membro {
     @Column(name = "logradouro", length = 255)
     private String logradouro;
 
-    @NotNull
+    @NotNull(message = "Número não pode ser nulo.")
     @Min(value = 1, message = "Número deve ser maior que 0.")
     @Column(name = "numero", nullable = false)
     private int numero;
 
-    @NotBlank
+    @NotBlank(message = "CPF não pode ser vazio.")
     @Pattern(regexp = "\\d{11}", message = "CPF deve ter exatamente 11 dígitos.")
     @Column(name = "cpf", nullable = false, columnDefinition = "CHAR(11)", unique = true)
     private String cpf;
 
-    @NotBlank
+    @NotBlank(message = "RG não pode ser vazio.")
     @Size(max = 20, message = "RG deve ter no máximo 20 caracteres.")
     @Column(name = "rg", nullable = false, length = 20)
     private String rg;
 
-    @NotBlank
+    @NotBlank(message = "Órgão Expedidor não pode ser vazio.")
     @Size(max = 15, message = "Órgão Expedidor deve ter no máximo 15 caracteres.")
     @Column(name = "orgao_expedidor", nullable = false, length = 15)
     private String orgaoExpedidor;
 
-    @NotBlank
+    @NotBlank(message = "Tamanho da camisa não pode ser vazio.")
     @Size(max = 5, message = "Tamanho da camisa deve ter no máximo 5 caracteres.")
     @Column(name = "tamanho_camisa", nullable = false, length = 5)
     private String tamanhoCamisa;
 
-    @NotNull
+    @NotNull(message = "Estado civil não pode ser nulo.")
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_civil", nullable = false, length = 10)
     private EstadoCivil estadoCivil;
 
-    @NotNull
+    @NotNull(message = "Batizado não pode ser nulo.")
     @Column(name = "batizado", nullable = false)
     private boolean batizado;
 
-    @NotNull
+    @NotNull(message = "Data de cadastro não pode ser nula.")
     @Column(name = "data_cadastro", nullable = false, columnDefinition= "DATETIME")
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
-    @NotNull
+    @NotNull(message = "Ativo não pode ser nulo.")
     @Column(name = "ativo", nullable = false)
     private boolean ativo = true;
 
-    @NotBlank
     @Size(max = 255, message = "Ficha de Saúde deve ter no máximo 255 caracteres.")
-    @Column(name = "ficha_saude", nullable = false, length = 255)
+    @Column(name = "ficha_saude", length = 255)
     private String fichaSaude;
 
-    @NotNull
+    @NotNull(message = "Tipo de membro não pode ser nulo.")
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false, length = 20)
     private TipoMembro tipo;
