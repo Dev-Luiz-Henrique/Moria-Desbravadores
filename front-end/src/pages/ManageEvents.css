@@ -1,0 +1,91 @@
+.container-manage-events-page {
+    display: flex;
+    padding: 80px 0;
+    background-image: url("../assets/img/bg-img-manage-events.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-top: 40px;
+    gap: 20px;
+    min-height: 100vh;
+}
+.container-manage-events-page > .filter{
+    display: flex;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 30px;
+    background-color: #F0E6D2;
+    position: relative;
+    top: -80px;
+    width: fit-content;
+    max-width: 300px;
+}
+.container-manage-events-page > .filter > .detail {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.container-manage-events-page > .filter > .detail > button {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #994C26;
+    color: #F0E6D2;
+    font-family: "Secular One", sans-serif;
+    font-size: 24px;
+}
+.container-manage-events-page > .filter > .detail > .search {
+    display: flex;
+    gap: 20px;
+}
+.container-manage-events-page > .filter > .detail > .search > input {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    border-bottom: solid #C17732;
+    width: 100%;
+    padding: 5px;
+}
+
+.container-manage-events-page > .events-space {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.container-manage-events-page > .events-space > .events{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+    gap: 20px;
+}
+
+/* @media (max-width: 1250px) {
+    .container-manage-events-page {
+        display: flex;
+        flex-direction: column;
+    }
+  }
+@media (max-width: 940px) {
+    .container-manage-events-page > .events-space > .events{
+        grid-template-columns: 1fr;
+    }
+  }
+@media (min-width: 1700px) {
+    .container-manage-events-page > .events-space > .events{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+  } */
+@media (max-width: 1060px) {
+    .container-manage-events-page{
+        flex-direction: column;
+    }
+  }

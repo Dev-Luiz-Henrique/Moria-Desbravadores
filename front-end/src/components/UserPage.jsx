@@ -4,12 +4,12 @@ import { apiRequest } from "../utils/api";
 import { Authorities } from "../utils/authorities";
 import { CardUser } from "./CardUser";
 import { Footer } from "./Footer";
-import { Header } from "./Header";
 import "./UserPage.css";
 
 import AddIcon from "../assets/img/Plus.svg";
 import SearchIcon from "../assets/img/Glass.svg";
 import { Link } from "react-router-dom";
+import { Header } from "./header";
 
 export function UserPage() {
     const { authorities } = useAuth();

@@ -1,0 +1,70 @@
+.card-event-container {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    height: 250px;
+    background-color: #F0E6D2;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.2);
+}
+.card-event-container > img {
+    width: 35%;
+    height: 100%;
+}
+.card-event-container > .card-events-buttons {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    gap: 15px;
+}
+.card-event-container > .card-events-buttons > button {
+    border: none;
+    background-color: transparent;
+}
+.card-event-container > .card-events-buttons > button:hover{
+    cursor: pointer;
+    filter: contrast(175%) brightness(80%);
+}
+.card-event-container > .card-events-buttons > button > img {
+    width: 30px;
+    height: 30px;
+}
+.card-event-container > .card-events-buttons > button {
+    border: none;
+    background-color: transparent;
+}
+.card-event-container > .card-event-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px 20px;
+    gap: 5px;
+}
+.card-event-container > .card-event-text > h3{
+    font-family: "Candal", sans-serif;
+    font-size: 3rem;
+    color: #994C26;
+
+}
+.card-event-container > .card-event-text > span{
+    display: flex;
+    gap: 20px;
+    font-size: 1.5rem;
+    color: #352208;
+}
+.card-event-container > .card-event-text > span > b{
+    font-family: "Secular One", sans-serif;
+
+}
+.card-event-container > .card-event-text > span > p{
+    font-family: "Afacad", sans-serif;
+    text-wrap: nowrap;
+    max-width: 250px;
+    overflow: hidden;        /* Oculta qualquer texto que exceda o contêiner */
+    text-overflow: ellipsis; /* Adiciona reticências ao final do texto cortado */
+}
