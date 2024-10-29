@@ -9,7 +9,7 @@ export function EventCard() {
       <img className="event-img" src={ImgEvent} alt="Imagem do Evento" />
       <div className="event-info">
         {/* TODO: ACREDITO QUE ESSE MENU SÓ SERÁ EXIBIDO PARA OS USUARIOS QUE TIVEREM PERMISSÃO */}
-        <div className="options">
+        <div className="options2">
           <button type="button">
             <img src={EditImg} alt="Editar" />
           </button>

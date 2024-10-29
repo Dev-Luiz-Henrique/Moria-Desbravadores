@@ -1,4 +1,4 @@
-header {
+.h {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   text-align: center;
@@ -7,7 +7,7 @@ header {
   padding-top: 1rem;
 }
 
-header > h3 {
+.h > h3 {
   font-family: 'Candal', sans-serif;
   color: #c17732;
   font-size: 48px;
@@ -16,7 +16,7 @@ header > h3 {
   margin-bottom: -0.4rem;
 }
 
-header > input {
+.h > input {
   background-color: transparent;
   border: none;
   border-bottom: 5px solid #994c26;
@@ -27,7 +27,7 @@ header > input {
   outline: none;
 }
 
-header > input::placeholder {
+.h > input::placeholder {
   color: #35220880;
   font-size: 1.2rem;
 }
