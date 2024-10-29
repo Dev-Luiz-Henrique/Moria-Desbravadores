@@ -1,19 +1,21 @@
 import "./MemberDataSignUp.css";
 import { useState } from "react";
-import { validate } from "../utils/validation.jsx";
+import { useNavigate } from "react-router-dom";
+import { apiRequest } from "../utils/api.jsx";
+import { validateMembro as validate } from "../utils/validation.jsx";
 import { states } from "../utils/states.jsx";
 import { getAuthorities as roles } from "../utils/authorities.jsx";
 import { normalizeUnderscore, memberUtils } from "../utils/stringHelpers.jsx";
-import { apiRequest } from "../utils/api.jsx";
 
 export function MemberDataSignUp({ initialData = null }) {
     const [formData, setFormData] = useState(initialData || {});
     const [currentPage, setCurrentPage] = useState(0);
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const validateField = (field, value) => {
-        const message = validate[field] ? validate[field](value) : "";
-        console.log(message)
+        const fieldName = field.includes("endereco-") ? field.split(".")[1] : field;
+        const message = validate[fieldName] ? validate[fieldName](value) : "";
         setErrors((prevErrors) => ({
             ...prevErrors,
             [field]: message,
@@ -22,33 +24,50 @@ export function MemberDataSignUp({ initialData = null }) {
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
+        
+        setFormData((prevData) => {
+            const isEnderecoField = id.startsWith("endereco-");
+            const fieldKey = isEnderecoField ? id.split("-")[1] : id;
     
-        setFormData((prevData) => ({
-            ...prevData,
-            [id.includes("endereco.") ? "endereco" : id]: 
-                id.includes("endereco.")
-                ? { ...prevData.endereco, [id.split(".")[1]]: value }
-                : value,
-        }));
+            if (isEnderecoField) {
+                return {
+                    ...prevData,
+                    endereco: {
+                        ...prevData.endereco,
+                        [fieldKey]: value,
+                    },
+                };
+            } else {
+                return {
+                    ...prevData,
+                    [fieldKey]: value,
+                };
+            }
+        });
     };
     
     const handleInputBlur = (e) => {
         const { id, value } = e.target;
-        let cleanedValue = value.trim();
-    
-        setFormData((prevData) => ({
-            ...prevData,
-            [id.includes("endereco.") ? "endereco" : id]: 
-                id.includes("endereco.")
-                ? { ...prevData.endereco, [id.split(".")[1]]: cleanedValue }
-                : cleanedValue,
-        }));
-    
+        const cleanedValue = value.trim();
+
+        setFormData((prevData) => {
+            const isEnderecoField = id.includes("endereco-");
+            const fieldKey = isEnderecoField ? id.split("-")[1] : id;
+
+            return {
+                ...prevData,
+                [isEnderecoField ? "endereco" : fieldKey]: 
+                    isEnderecoField
+                    ? { ...prevData.endereco, [fieldKey]: cleanedValue }
+                    : cleanedValue,
+            };
+        });
         validateField(id, cleanedValue);
     };
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const hasErrors = Object.values(errors).some((error) => error !== "");
         if (hasErrors)
             alert("Por favor, corrija os erros no formulário antes de enviá-lo.");
@@ -56,6 +75,10 @@ export function MemberDataSignUp({ initialData = null }) {
             const { error: submitError } = await apiRequest(`/membros`, "POST", formData);
             if (submitError)
                 alert("Não foi possível realizar o cadastro. " + submitError);
+            else {
+                alert("Cadastro realizado com sucesso!");
+                navigate("/gerenciar-membros");
+            }
         }
     };
 
@@ -63,28 +86,28 @@ export function MemberDataSignUp({ initialData = null }) {
         <div key='page1'>
             <div className='member-register-input'>
                 <label htmlFor='nome'>NOME:</label>
-                <input id='nome' type='text' onBlur={handleInputBlur} 
+                <input id='nome' type='text' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.nome || ""} />
                 {errors.nome && <p className="error-message">{errors.nome}</p>}
             </div>
 
             <div className='member-register-input'>
                 <label htmlFor='dataNascimento'>DATA DE NASCIMENTO:</label>
-                <input id='dataNascimento' type='date' onBlur={handleInputBlur} 
+                <input id='dataNascimento' type='date' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.dataNascimento || ""} />
                 {errors.dataNascimento && <p className="error-message">{errors.data}</p>}
             </div>
 
             <div className="member-register-input">
                 <label htmlFor="email">EMAIL:</label>
-                <input id="email" type="text" onBlur={handleInputBlur} 
+                <input id="email" type="text" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.email || ""} />
                 {errors.email && <p className="error-message">{errors.email}</p>}
             </div>
 
             <div className='member-register-input'>
                 <label htmlFor='senha'>SENHA:</label>
-                <input id='senha' type='text' onBlur={handleInputBlur} 
+                <input id='senha' type='text' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.senha || ""} />
                 {errors.senha && <p className="error-message">{errors.senha}</p>}
             </div>
@@ -96,16 +119,16 @@ export function MemberDataSignUp({ initialData = null }) {
 
         <div key='page2'>
             <div className='member-register-input'>
-                <label htmlFor='cep'>CEP:</label>
-                <input id='cep' type='text' onBlur={handleInputBlur} 
-                    onChange={handleInputChange} value={formData.endereco.cep || ""} />
+                <label htmlFor='endereco-cep'>CEP:</label>
+                <input id='endereco-cep' type='text' onBlur={handleInputBlur} required 
+                    onChange={handleInputChange} value={formData.endereco?.cep || ""} />
                 {errors.cep && <p className="error-message">{errors.cep}</p>}
             </div>
             
             <div className='member-register-input'>
-                <label htmlFor='estado'>ESTADO:</label>
-                <select id='estado' name='estado' onBlur={handleInputBlur} 
-                    onChange={handleInputChange} value={formData.endereco.estado || ""} >
+                <label htmlFor='endereco-estado'>ESTADO:</label>
+                <select id='endereco-estado' name='estado' onBlur={handleInputBlur} required 
+                    onChange={handleInputChange} value={formData.endereco?.estado || ""} >
                     {states.map((state) => (
                         <option key={state.value} value={state.abbreviation}>
                             {state.label}
@@ -116,29 +139,29 @@ export function MemberDataSignUp({ initialData = null }) {
             </div>
 
             <div className='member-register-input'>
-                <label htmlFor='cidade'>CIDADE:</label>
-                <input id='cidade' type='text' onBlur={handleInputBlur} 
-                    onChange={handleInputChange} value={formData.endereco.cidade || ""} />
+                <label htmlFor='endereco-cidade'>CIDADE:</label>
+                <input id='endereco-cidade' type='text' onBlur={handleInputBlur} required 
+                    onChange={handleInputChange} value={formData.endereco?.cidade || ""} />
                 {errors.cidade && <p className="error-message">{errors.cidade}</p>}
             </div>
 
             <div className='member-register-input'>
-                <label htmlFor='bairro'>BAIRRO:</label>
-                <input id='bairro' type='text' onBlur={handleInputBlur} 
-                    onChange={handleInputChange} value={formData.endereco.bairro || ""} />
+                <label htmlFor='endereco-bairro'>BAIRRO:</label>
+                <input id='endereco-bairro' type='text' onBlur={handleInputBlur} required 
+                    onChange={handleInputChange} value={formData.endereco?.bairro || ""} />
                 {errors.bairro && <p className="error-message">{errors.bairro}</p>}
             </div>
 
             <div className='member-register-input'>
                 <label htmlFor='logradouro'>LOGRADOURO:</label>
-                <input id='logradouro' type='text' onBlur={handleInputBlur} 
+                <input id='logradouro' type='text' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.logradouro || ""} />
                 {errors.logradouro && <p className="error-message">{errors.logradouro}</p>}
             </div>
 
             <div className='member-register-input'>
                 <label htmlFor='numero'>NUMERO:</label>
-                <input id='numero' type='number' onBlur={handleInputBlur} 
+                <input id='numero' type='number' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.numero || ""} />
                 {errors.numero && <p className="error-message">{errors.numero}</p>}
             </div>
@@ -151,35 +174,35 @@ export function MemberDataSignUp({ initialData = null }) {
         <div key='page3'>
             <div className="member-register-input">
                 <label htmlFor="celular">CELULAR:</label>
-                <input id="celular" type="text" onBlur={handleInputBlur} 
+                <input id="celular" type="text" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.celular || ""} />
                 {errors.celular && <p className="error-message">{errors.celular}</p>}
             </div>
 
             <div className="member-register-input">
                 <label htmlFor="telefone">TELEFONE:</label>
-                <input id="telefone" type="text" onBlur={handleInputBlur} 
+                <input id="telefone" type="text" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.telefone || ""} />
                 {errors.telefone && <p className="error-message">{errors.telefone}</p>}
             </div>
 
             <div className="member-register-input">
                 <label htmlFor="cpf">CPF:</label>
-                <input id="cpf" type="text" onBlur={handleInputBlur} 
+                <input id="cpf" type="text" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.cpf || ""} />
                 {errors.cpf && <p className="error-message">{errors.cpf}</p>}
             </div>
 
             <div className="member-register-input">
                 <label htmlFor="rg">RG:</label>
-                <input id="rg" type="text" onBlur={handleInputBlur} 
+                <input id="rg" type="text" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.rg || ""} />
                 {errors.rg && <p className="error-message">{errors.rg}</p>}
             </div>
 
             <div className="member-register-input">
                 <label htmlFor="orgaoExpedidor">ORGÃO EXPEDIDOR:</label>
-                <input id="orgaoExpedidor" type="text" onBlur={handleInputBlur} 
+                <input id="orgaoExpedidor" type="text" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.orgaoExpedidor || ""} />
                 {errors.orgaoExpedidor && <p className="error-message">{errors.orgaoExpedidor}</p>}
             </div>
@@ -192,7 +215,7 @@ export function MemberDataSignUp({ initialData = null }) {
         <div key='page4'>
             <div className="member-register-input">
                 <label htmlFor="estadoCivil">ESTADO CIVIL:</label>
-                <select id="estadoCivil" name="estado-civil" onBlur={handleInputBlur} 
+                <select id="estadoCivil" name="estado-civil" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.estadoCivil || ""} >
                     <option value="SOLTEIRO">Solteiro</option>
                     <option value="CASADO">Casado</option>
@@ -206,7 +229,7 @@ export function MemberDataSignUp({ initialData = null }) {
 
             <div className='member-register-input'>
                 <label htmlFor='sexo'>SEXO:</label>
-                <select id='sexo' name="sexo" onBlur={handleInputBlur} 
+                <select id='sexo' name="sexo" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.sexo || ""} >
                     <option value="M">Masculino</option>
                     <option value="F">Feminino</option>
@@ -217,7 +240,7 @@ export function MemberDataSignUp({ initialData = null }) {
 
             <div className="member-register-input">
                 <label htmlFor="tipo">FUNÇÃO:</label>
-                <select id="tipo" name="membro-funcao" onBlur={handleInputBlur} 
+                <select id="tipo" name="membro-funcao" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.tipo || ""} >
                     {roles().map((role) => (
                         <option key={role} value={role}>{normalizeUnderscore(role)}</option>
@@ -228,7 +251,7 @@ export function MemberDataSignUp({ initialData = null }) {
 
             <div className="member-register-input">
                 <label htmlFor="batizado">Batizado: </label>
-                <select name="batizado" id="batizado" onBlur={handleInputBlur} 
+                <select name="batizado" id="batizado" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.batizado || ""}>
                     <option value="S">SIM</option>
                     <option value="N">NÃO</option>
@@ -238,7 +261,7 @@ export function MemberDataSignUp({ initialData = null }) {
 
             <div className="member-register-input">
                 <label htmlFor="tamanhoCamisa">TAMANHO DA CAMISA:</label>
-                <select id="tamanhoCamisa" name="tamanho-camisa" onBlur={handleInputBlur} 
+                <select id="tamanhoCamisa" name="tamanho-camisa" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.tamanhoCamisa || ""} >
                     <option value="p">P</option>
                     <option value="m">M</option>
