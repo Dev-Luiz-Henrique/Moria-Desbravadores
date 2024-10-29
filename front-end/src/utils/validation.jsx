@@ -13,7 +13,7 @@ export const validate = {
         return "";
     },
     
-    data: (value) => {
+    dataNascimento: (value) => {
         const today = new Date();
         const birthDate = new Date(value);
         if (birthDate >= today)

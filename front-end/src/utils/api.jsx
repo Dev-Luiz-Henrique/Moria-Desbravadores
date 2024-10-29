@@ -71,28 +71,39 @@ export const apiRequest = async (endpoint, method = "GET", body = null, response
         let errorMessage;
 
         if (error.response) {
-            switch (error.response.status) {
-                case 400:
-                    errorMessage = "Requisição inválida. Verifique os dados enviados."; break;
-                case 401:
-                    errorMessage = "Não autorizado. Por favor, faça login."; break;
-                case 403:
-                    errorMessage = "Acesso negado. Você não tem permissão para esta ação."; break;
-                case 404:
-                    errorMessage = "Recurso não encontrado. Verifique o endereço e tente novamente."; break;
-                case 500:
-                    errorMessage = "Erro interno no servidor. Tente novamente mais tarde."; break;
-                case 503:
-                    errorMessage = "Servidor indisponível no momento. Tente novamente em alguns minutos."; break;
-                default:
-                    errorMessage = `Erro inesperado. Código: ${error.response.status}`;
+            // Checa se há uma mensagem específica retornada pela API e utiliza ela
+            errorMessage = error.response.data?.message || "";
+            
+            if (!errorMessage) {
+                switch (error.response.status) {
+                    case 400:
+                        errorMessage = "Requisição inválida. Verifique os dados enviados.";
+                        break;
+                    case 401:
+                        errorMessage = "Não autorizado. Por favor, faça login.";
+                        break;
+                    case 403:
+                        errorMessage = "Acesso negado. Você não tem permissão para esta ação.";
+                        break;
+                    case 404:
+                        errorMessage = "Recurso não encontrado. Verifique o endereço e tente novamente.";
+                        break;
+                    case 500:
+                        errorMessage = "Erro interno no servidor. Tente novamente mais tarde.";
+                        break;
+                    case 503:
+                        errorMessage = "Servidor indisponível no momento. Tente novamente em alguns minutos.";
+                        break;
+                    default:
+                        errorMessage = `Erro inesperado. Código: ${error.response.status}`;
+                }
             }
-        }
+        } 
         else if (error.request)
             errorMessage = "Erro de conexão. Verifique sua conexão com a internet.";
         else
             errorMessage = "Erro inesperado. Tente novamente mais tarde.";
-
+        
         if (import.meta.env.VITE_ENVIRONMENT === "development")
             console.error("Erro de requisição:", error);
 
