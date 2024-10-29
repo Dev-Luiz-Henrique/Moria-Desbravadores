@@ -12,7 +12,6 @@ import { Evento } from "./pages/Evento";
 import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
 import { ManageEvents } from "./pages/ManageEvents";
-import { CardEvents } from "./components/CardEvents";
 
 function App() {
     return (
@@ -23,7 +22,6 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                     <Route path='/' element={<Landing />} />
                     <Route path='/login' element={<LoginPage />} />
-                    <Route path='/teste' element={<ManageEvents />} />
 
                     {/* Rotas protegidas */}
                     <Route 
@@ -41,6 +39,14 @@ function App() {
                                 <Mensalidades />
                             </PrivateRoute>
                         } 
+                    />
+                    <Route 
+                        path='/gerenciar-eventos'
+                        element={
+                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                                <ManageEvents />
+                            </PrivateRoute>
+                        }
                     />
                     <Route
                         path='/cadastrar-membro'

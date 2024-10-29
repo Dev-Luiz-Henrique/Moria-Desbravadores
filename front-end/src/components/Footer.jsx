@@ -9,9 +9,9 @@ export function Footer() {
             <p>Associação Paulistana - UCB</p>
             <p>Fundado em 1982</p>
             <span>
-                <a href=""><img src={InstagramLogo} alt="" /></a>
-                <a href=""><img src={FacebookLogo} alt="" /></a>
-                <a href=""><img src={YoutubeLogo} alt="" /></a>
+                <a href="#"><img src={InstagramLogo} alt="" /></a>
+                <a href="#"><img src={FacebookLogo} alt="" /></a>
+                <a href="#"><img src={YoutubeLogo} alt="" /></a>
             </span>
         </footer>
     )

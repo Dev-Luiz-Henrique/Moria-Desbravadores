@@ -18,8 +18,8 @@ export function normalizeUnderscore(role) {
 
 // Formatação de dados do membro
 
-export function formatEndereco(endereco) {
-    const { logradouro, numero, bairro, cidade, estado } = endereco;
+export function formatEndereco(endereco, logradouro, numero) {
+    const { bairro, cidade, estado } = endereco;
     return `${logradouro}, ${numero} - ${bairro}, ${cidade} - ${estado}`;
 }
 

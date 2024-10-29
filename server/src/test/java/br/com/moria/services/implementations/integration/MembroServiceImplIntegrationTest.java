@@ -58,7 +58,6 @@ public class MembroServiceImplIntegrationTest {
         membro.setCpf("12345238901");
         membro.setRg("123456789");
         membro.setOrgaoExpedidor("SSP");
-        membro.setProfissionalSaude("Médico");
         membro.setTamanhoCamisa("M");
         membro.setEstadoCivil(EstadoCivil.SOLTEIRO);
         membro.setBatizado(true);
