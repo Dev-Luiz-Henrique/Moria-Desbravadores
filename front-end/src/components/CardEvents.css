@@ -1,8 +1,7 @@
 .card-event-container {
     display: flex;
-    width: 100%;
-    max-width: 900px;
-    height: 250px;
+    width: 90%;
+    height: 280px;
     background-color: #F0E6D2;
     border-radius: 10px;
     position: relative;
@@ -45,26 +44,25 @@
     padding: 20px 20px;
     gap: 5px;
 }
-.card-event-container > .card-event-text > h3{
+.card-event-container > .card-event-text > h3 {
     font-family: "Candal", sans-serif;
     font-size: 3rem;
     color: #994C26;
 
 }
-.card-event-container > .card-event-text > span{
+.card-event-container > .card-event-text > span {
     display: flex;
     gap: 20px;
     font-size: 1.5rem;
     color: #352208;
+    width: 100%;
 }
-.card-event-container > .card-event-text > span > b{
+.card-event-container > .card-event-text > span > b {
     font-family: "Secular One", sans-serif;
-
 }
-.card-event-container > .card-event-text > span > p{
+.card-event-container > .card-event-text > span > p {
     font-family: "Afacad", sans-serif;
     text-wrap: nowrap;
-    max-width: 250px;
-    overflow: hidden;        /* Oculta qualquer texto que exceda o contêiner */
-    text-overflow: ellipsis; /* Adiciona reticências ao final do texto cortado */
+    overflow: hidden;      
+    text-overflow: ellipsis;
 }
