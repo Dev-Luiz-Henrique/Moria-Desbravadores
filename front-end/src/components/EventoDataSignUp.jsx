@@ -26,6 +26,13 @@ export function EventoDataSignUp({ initialData = null }) {
         setFormData((prevData) => {
             const isEnderecoField = id.startsWith("endereco-");
             const fieldKey = isEnderecoField ? id.split("-")[1] : id;
+
+            if (fieldKey === "publico") {
+                return {
+                    ...prevData,
+                    [fieldKey]: value === "sim",
+                };
+            }
     
             if (isEnderecoField) {
                 return {
@@ -98,13 +105,13 @@ export function EventoDataSignUp({ initialData = null }) {
     const formPages = [
         <div key='page1'>
             <div className="event-register-input">
-                <label htmlFor="eventoPublico">EVENTO PÚBLICO:</label>
-                <select id="eventoPublico" onBlur={handleInputBlur} required
-                    onChange={handleInputChange} value={formData.eventoPublico || ""}>
+                <label htmlFor="publico">EVENTO PÚBLICO:</label>
+                <select id="publico" onBlur={handleInputBlur} required
+                    onChange={handleInputChange} value={formData.publico ? "sim" : "nao" || ""}>
                     <option value="sim">Sim</option>
                     <option value="nao">Não</option>
                 </select>
-                {errors.eventoPublico && <p className="error-message">{errors.eventoPublico}</p>}
+                {errors.publico && <p className="error-message">{errors.publico}</p>}
             </div>
 
             <div className='event-register-input'>
@@ -116,14 +123,14 @@ export function EventoDataSignUp({ initialData = null }) {
 
             <div className='event-register-input'>
                 <label htmlFor='dataInicio'>DATA INÍCIO:</label>
-                <input id='dataInicio' type='date' onBlur={handleInputBlur} required 
+                <input id='dataInicio' type='datetime-local' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.dataInicio || ""} />
                 {errors.dataInicio && <p className="error-message">{errors.dataInicio}</p>}
             </div>
 
             <div className='event-register-input'>
                 <label htmlFor='dataFim'>DATA FIM:</label>
-                <input id='dataFim' type='date' onBlur={handleInputBlur} required 
+                <input id='dataFim' type='datetime-local' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.dataFim || ""} />
                 {errors.dataFim && <p className="error-message">{errors.dataFim}</p>}
             </div>
