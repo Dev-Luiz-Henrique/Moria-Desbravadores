@@ -53,7 +53,7 @@ public class Membro {
 
     @NotNull
     @Past(message = "A data de nascimento deve ser uma data passada.")
-    @Column(name = "data_nascimento", nullable = false)
+    @Column(name = "data_nascimento", nullable = false, columnDefinition= "DATETIME")
     private LocalDate dataNascimento;
 
     @NotBlank
@@ -115,7 +115,7 @@ public class Membro {
     private boolean batizado;
 
     @NotNull
-    @Column(name = "data_cadastro", nullable = false)
+    @Column(name = "data_cadastro", nullable = false, columnDefinition= "DATETIME")
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
     @NotNull

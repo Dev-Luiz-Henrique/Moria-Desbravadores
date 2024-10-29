@@ -36,14 +36,14 @@ public class Mensalidade {
     private Membro membro;
 
     @NotNull
-    @Column(name = "data", nullable = false)
+    @Column(name = "data", nullable = false, columnDefinition= "DATETIME")
     private LocalDateTime data;
 
     @NotNull
-    @Column(name = "data_vencimento", nullable = false)
+    @Column(name = "data_vencimento", nullable = false, columnDefinition= "DATETIME")
     private LocalDateTime dataVencimento;
 
-    @Column(name = "data_pagamento")
+    @Column(name = "data_pagamento", columnDefinition= "DATETIME")
     private LocalDateTime dataPagamento;
 
     @NotNull

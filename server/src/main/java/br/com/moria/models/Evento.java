@@ -64,12 +64,12 @@ public class Evento {
 
     @NotNull
     @Future(message = "A data de início do evento deve ser uma data futura.")
-    @Column(name = "data_inicio", nullable = false)
+    @Column(name = "data_inicio", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime dataInicio;
 
     @NotNull
     @Future(message = "A data fim do evento deve ser uma data futura.")
-    @Column(name = "data_fim", nullable = false)
+    @Column(name = "data_fim", nullable = false , columnDefinition= "DATETIME")
     private LocalDateTime dataFim;
 
     @NotNull
