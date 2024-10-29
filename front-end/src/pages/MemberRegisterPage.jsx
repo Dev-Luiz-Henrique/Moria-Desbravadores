@@ -24,6 +24,8 @@ export function MemberRegisterPage() {
                 } 
                 else setMemberData(response.data);
             } 
+            else 
+                setMemberData({});
             setLoading(false);
         };
 
@@ -40,7 +42,7 @@ export function MemberRegisterPage() {
                 <div className="return-btn">
                     <ButtonGoBack />
                 </div>
-                {memberData && <MemberDataSignUp initialData={memberData} />}
+                <MemberDataSignUp initialData={memberData} />
             </div>
             <Footer />
         </>

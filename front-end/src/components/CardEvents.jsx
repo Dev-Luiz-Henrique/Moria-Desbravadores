@@ -1,16 +1,26 @@
-import DefaultEvent from "../assets/img/default-event.png"
-import Delete from "../assets/img/Delete.svg"
-import Edit from "../assets/img/Edit.svg"
+import { useNavigate } from "react-router-dom";
 import { formatDateWithHours } from "../utils/dateHelpers";
 import { formatEndereco } from "../utils/stringHelpers";
 import "./CardEvents.css"
 
-export function CardEvents({ nome, endereco, logradouro, numero, dataInicio, descricao, atracao, onDelete }) {
+import DefaultEvent from "../assets/img/default-event.png"
+import Delete from "../assets/img/Delete.svg"
+import Edit from "../assets/img/Edit.svg"
+
+export function CardEvents(
+    { id, nome, endereco, logradouro, numero, dataInicio, descricao, atracao, onDelete }
+) {
+    const navigate = useNavigate();
+
+    const handleEdit = () => {
+        navigate(`/cadastrar-evento/${id}`);
+    };
+
     return (
         <div className="card-event-container">
             <img src={DefaultEvent} alt={nome} />
             <div className="card-events-buttons">
-                <button><img src={Edit} alt="Edit" /></button>
+                <button onClick={handleEdit} ><img src={Edit} alt="Edit" /></button>
                 <button onClick={onDelete}><img src={Delete} alt="Delete" /></button>
             </div>
 

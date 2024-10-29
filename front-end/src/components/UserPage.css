@@ -23,7 +23,7 @@
     gap: 20px;
     flex-direction: column;
 }
-.container-user-page > .filter > .detail > button {
+.container-user-page > .filter > .detail button {
     width: 100%;
     display: flex;
     gap: 20px;
@@ -36,6 +36,7 @@
     color: #F0E6D2;
     font-family: "Secular One", sans-serif;
     font-size: 24px;
+    cursor: pointer;
 }
 .container-user-page > .filter > .detail > .search {
     display: flex;
