@@ -3,6 +3,7 @@ import "./CardUser.css";
 import EditImg from "../assets/img/Edit.svg";
 import DeleteImg from "../assets/img/Delete.svg";
 import UserICon from "../assets/img/user-card-icon.svg";
+import { abbreviateName, normalizeUnderscore } from "../utils/stringHelpers";
 
 export function CardUser({ id, nome, tipo, status, mensalidade, onDelete }) {
     const navigate = useNavigate();
@@ -20,12 +21,12 @@ export function CardUser({ id, nome, tipo, status, mensalidade, onDelete }) {
 
             <div className="user-name">
                 <img src={UserICon} alt="Ícone do usuário" />
-                <h3>{nome}</h3>
+                <h3>{abbreviateName(nome)}</h3>
             </div>
 
             <div className="user-tipo">
                 <b>TIPO:</b>
-                <span>{tipo}</span>
+                <span>{normalizeUnderscore(tipo)}</span>
             </div>
 
             <div className="section-status-mensalidade">

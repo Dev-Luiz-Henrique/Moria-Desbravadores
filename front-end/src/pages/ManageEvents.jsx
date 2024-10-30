@@ -20,11 +20,11 @@ export function ManageEvents() {
 
     const handleDelete = async (id) => {
         if (!hasAccess) {
-            alert("Você não tem permissão para excluir membros.");
+            alert("Você não tem permissão para excluir eventos.");
             return;
         }
 
-        const confirmed = window.confirm("Você tem certeza que deseja excluir este membro?");
+        const confirmed = window.confirm("Você tem certeza que deseja excluir este evento? " + id);
         if (confirmed) {
             const { error: deleteError } = await apiRequest(`/eventos/${id}`, "DELETE");
 
@@ -68,7 +68,7 @@ export function ManageEvents() {
                                 dataInicio={evento.dataInicio}
                                 descricao={evento.descricao}
                                 atracao={evento.atracao}
-                                onDelete={() => handleDelete(eventos.id)}
+                                onDelete={() => handleDelete(evento.id)}
                             />
                         ))}
                     </div>

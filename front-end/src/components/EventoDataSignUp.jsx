@@ -15,7 +15,6 @@ export function EventoDataSignUp({ initialData = null }) {
         logradouro: "",
         numero: "",
         endereco: {
-            complemento: "",
             bairro: "",
             cidade: "",
             estado: "SP",
@@ -73,6 +72,13 @@ export function EventoDataSignUp({ initialData = null }) {
         setFormData((prevData) => {
             const isEnderecoField = id.includes("endereco-");
             const fieldKey = isEnderecoField ? id.split("-")[1] : id;
+
+            if (fieldKey === "publico") {
+                return {
+                    ...prevData,
+                    [fieldKey]: value === "sim",
+                };
+            }
 
             return {
                 ...prevData,
