@@ -20,10 +20,11 @@ export function TalkToUs() {
                     <input id="phone" type="tel" pattern="[0-9]{2} [0-9]{5}-[0-9]{4}" />
                 </div>
 
-                <div>
+                <div className="fdc">
                     <label htmlFor="message">MENSAGEM:</label>
                     <textarea className="fixed-text-area" id="message"></textarea>
                 </div>
+                <button type="reset">ENVIAR</button>
             </form>
 
             {/* <img src={BgTalkToUs} alt="" /> */}

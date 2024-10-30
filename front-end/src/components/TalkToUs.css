@@ -39,6 +39,7 @@
     text-transform: uppercase;
     color: #352208;
     margin-bottom: 70px;
+    justify-content: center;
 }
 
 .talk-container form div {
@@ -46,6 +47,16 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
+}
+.talk-container form .fdc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+}
+.talk-container form .fdc > label {
+    align-self: flex-start;
 }
 
 .talk-container form div:last-child {
@@ -69,4 +80,20 @@
     resize: none;
     overflow: auto;
     padding: 10px;
+}
+
+.talk-container form > button {
+    background-color: #C17732;
+    padding: 10px 20px;
+    width: 145px;
+    border-radius: 10px;
+    border: none;
+    color: #F0E6D2;
+    font-family: "Secular One", sans-serif;
+    font-size: 1.5rem;
+    align-self: center;
+}
+.talk-container form > button:hover {
+    background-color: #c17732d0;
+    cursor: pointer;
 }
