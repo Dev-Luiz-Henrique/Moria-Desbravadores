@@ -4,13 +4,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import br.com.moria.models.Evento;
+import br.com.moria.models.Inscricao;
 import br.com.moria.models.Membro;
 import br.com.moria.models.Mensalidade;
+import br.com.moria.models.Recurso;
 import br.com.moria.repositories.EventoRepository;
+import br.com.moria.repositories.InscricaoRepository;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.repositories.MensalidadeRepository;
+import br.com.moria.repositories.RecursoRepository;
 import br.com.moria.services.implementations.EventoServiceImpl;
+import br.com.moria.services.implementations.InscricaoServiceImpl;
 import br.com.moria.services.implementations.MembroServiceImpl;
+import br.com.moria.services.implementations.RecursoServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,11 +34,19 @@ public class DataInitializer implements CommandLineRunner {
     private EventoRepository eventoRepository;
     @Autowired
     private MensalidadeRepository mensalidadeRepository;
+    @Autowired
+    private InscricaoRepository inscricaoRepository;
+    @Autowired
+    private RecursoRepository recursoRepository;
 
     @Autowired
     private MembroServiceImpl membroService;
     @Autowired
     private EventoServiceImpl eventoService;
+    @Autowired
+    private InscricaoServiceImpl inscricaoService;
+    @Autowired
+    private RecursoServiceImpl recursoService;
 
     private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
@@ -59,6 +73,20 @@ public class DataInitializer implements CommandLineRunner {
                 objectMapper.readValue(new File(path + "mensalidades.json"), Mensalidade[].class));
             for (Mensalidade mensalidade : mensalidades)
                 mensalidadeRepository.save(mensalidade); 
+        }
+
+        if (inscricaoRepository.count() == 0) {
+            List<Inscricao> inscricoes = List.of(
+                objectMapper.readValue(new File(path + "inscricoes.json"), Inscricao[].class));
+            for (Inscricao inscricao : inscricoes)
+                inscricaoService.create(inscricao);
+        }
+
+        if (recursoRepository.count() == 0) {
+            List<Recurso> recursos = List.of(
+                objectMapper.readValue(new File(path + "recursos.json"), Recurso[].class));
+            for (Recurso recurso : recursos)
+                recursoRepository.save(recurso);
         }
     }
 }

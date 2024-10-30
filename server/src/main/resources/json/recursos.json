@@ -1,0 +1,134 @@
+[
+    {
+        "evento": {
+          "id": 2
+        },
+        "nome": "Ônibus",
+        "descricao": "Õnibus alugado para excursão",
+        "valor": 1700.0,
+        "quantidade": 2.0,
+        "formaPagamento": "BOLETO",
+        "categoria": "TRANSPORTE",
+        "statusPagamento": "PENDENTE"
+    },
+
+
+    {
+        "evento": {
+          "id": 3
+        },
+        "nome": "Lápis de Cor",
+        "descricao": "Faber-Castell Ecolapis multicolor",
+        "valor": 7.79,
+        "quantidade": 5.0,
+        "formaPagamento": "PIX",
+        "categoria": "MATERIAIS",
+        "statusPagamento": "PAGO"
+    },
+
+    {
+        "evento": {
+          "id": 3
+        },
+        "nome": "Sulfite",
+        "descricao": "Chamex - Papel Sulfite, A4, 75g, 500 folhas",
+        "valor": 29.97,
+        "quantidade": 3.0,
+        "formaPagamento": "PIX",
+        "categoria": "MATERIAIS",
+        "statusPagamento": "PAGO"
+    },
+
+
+    {
+        "evento": {
+          "id": 4
+        },
+        "nome": "Cozinha Industrial",
+        "descricao": "Aluguel de uma cozinha industrial",
+        "valor": 1660.0,
+        "quantidade": 1.0,
+        "formaPagamento": "CREDITO",
+        "categoria": "LOCACAO_ESPACOS",
+        "statusPagamento": "PENDENTE"
+    },
+
+    {
+        "evento": {
+          "id": 4
+        },
+        "nome": "Kit Pratos de Plástico",
+        "descricao": "Kit Prato Refeição com 10 Unidades",
+        "valor": 5.50,
+        "quantidade": 8.0,
+        "formaPagamento": "DEBITO",
+        "categoria": "ALIMENTACAO",
+        "statusPagamento": "PAGO"
+    },
+
+    {
+        "evento": {
+          "id": 4
+        },
+        "nome": "Kit Talheres de Plástico",
+        "descricao": "Kit 100 Talher Descartável",
+        "valor": 25.0,
+        "quantidade": 1.0,
+        "formaPagamento": "DEBITO",
+        "categoria": "ALIMENTACAO",
+        "statusPagamento": "PAGO"
+    },
+
+
+    {
+        "evento": {
+          "id": 5
+        },
+        "nome": "Água mineral",
+        "descricao": "Kit 12 unidades Água Mineral sem gás, 500ml",
+        "valor": 16.80,
+        "quantidade": 5.0,
+        "formaPagamento": "DINHEIRO",
+        "categoria": "ALIMENTACAO",
+        "statusPagamento": "PAGO"
+    },
+
+    {
+        "evento": {
+          "id": 5
+        },
+        "nome": "Kit Coletes Esportivos",
+        "descricao": "Kit 6 Coletes de Esporte Dry",
+        "valor": 60.0,
+        "quantidade": 12.0,
+        "formaPagamento": "PIX",
+        "categoria": "VESTUARIO",
+        "statusPagamento": "PAGO"
+    },
+
+    {
+        "evento": {
+          "id": 5
+        },
+        "nome": "Biscoitos",
+        "descricao": "100 unidades Biscoitos Sortidos Bauducco Sache 11,5g",
+        "valor": 57.25,
+        "quantidade": 1.0,
+        "formaPagamento": "DEBITO",
+        "categoria": "ALIMENTACAO",
+        "statusPagamento": "PAGO"
+    },
+
+    {
+        "evento": {
+          "id": 5
+        },
+        "nome": "Linha de Chegada",
+        "descricao": "Lona Faixa Chegada Corrida 20x170 Cm",
+        "valor": 50.50,
+        "quantidade": 1.0,
+        "formaPagamento": "PIX",
+        "categoria": "LOCACAO_ESTRUTURAS",
+        "statusPagamento": "PAGO"
+    }
+]

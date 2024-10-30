@@ -25,7 +25,7 @@
             "cidade": "Serra",
             "estado": "ES"
         }
-    },
+    }, 
     {
         "nome": "Luan Lorenzo Lucas da Mata",
         "sexo": "M",
@@ -213,12 +213,12 @@
         }
     },
     {
-        "nome": "Diogo Felipe Danilo Almeida",
+        "nome": "Diogo Alves da Silva",
         "sexo": "M",
-        "dataNascimento": "1974-06-01",
+        "dataNascimento": "2012-06-01",
         "telefone": "1937243249",
         "celular": "11985467878",
-        "email": "diogo_felipe_almeida@senioraereo.com.br",
+        "email": "diogo_felipe_almeida@gmail.com",
         "senha": "YrG8j6ELuS",
         "logradouro": "Rua Antonio Réquia Henrique",
         "numero": 635,
@@ -226,7 +226,7 @@
         "rg": "298307984",
         "orgaoExpedidor": "SSP",
         "tamanhoCamisa": "M",
-        "estadoCivil": "CASADO",
+        "estadoCivil": "SOLTEIRO",
         "batizado": false,
         "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
