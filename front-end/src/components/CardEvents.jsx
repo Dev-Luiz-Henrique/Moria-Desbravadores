@@ -6,6 +6,7 @@ import "./CardEvents.css"
 import DefaultEvent from "../assets/img/default-event.png"
 import Delete from "../assets/img/Delete.svg"
 import Edit from "../assets/img/Edit.svg"
+import ArrowRight from "../assets/img/arrow-right.svg"
 
 export function CardEvents(
     { id, nome, endereco, logradouro, numero, dataInicio, descricao, atracao, onDelete }
@@ -25,7 +26,7 @@ export function CardEvents(
             <img src={DefaultEvent} alt={nome} />
             <div className="card-events-buttons">
                 <button onClick={handleDetail}>
-                    <img src={Edit} alt="Detalhes"/>
+                    <img src={ArrowRight} alt="Detalhes"/>
                 </button>
                 <button onClick={handleEdit}>
                     <img src={Edit} alt="Edit"/>
