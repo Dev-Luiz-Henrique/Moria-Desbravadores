@@ -77,3 +77,6 @@ server/.settings/
 # Ignorar a pasta uploads
 /server/uploads/
 /uploads/
+
+# Ignorar application.properties;
+src/main/resources/application.properties

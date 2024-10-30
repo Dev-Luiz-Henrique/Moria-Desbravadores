@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.moria.enums.StatusParticipacao;
+import br.com.moria.models.Evento;
 import br.com.moria.models.Inscricao;
+import br.com.moria.models.Membro;
 import br.com.moria.repositories.EventoRepository;
 import br.com.moria.repositories.InscricaoRepository;
 import br.com.moria.repositories.MembroRepository;
@@ -85,4 +87,10 @@ public class InscricaoServiceImpl implements IInscricaoService{
     public boolean isInscrito(int id) {
         return inscricaoRepository.existsByIdAndInscritoTrue(id);
     }
+
+	@Override
+	public List<Membro> findByEventoAndInscritoTrue(Evento evento) {
+		return inscricaoRepository.findByEventoAndInscritoTrue(evento);
+	}
+
 }

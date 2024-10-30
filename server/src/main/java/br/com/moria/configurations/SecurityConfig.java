@@ -25,6 +25,7 @@ public class SecurityConfig {
         configureMensalidadesRoutes(http);
         configureEventosRoutes(http);
         configureMembrosRoutes(http);
+        configureInscricaoRoutes(http);
         configureOthersRoutes(http);
 
         http
@@ -95,6 +96,12 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.GET, "/membros/**").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
             .requestMatchers("/membros/**").hasAnyAuthority(TipoMembro.SECRETARIO.name())
         );
+    }
+    
+    private void configureInscricaoRoutes(HttpSecurity http) throws Exception {
+    	http.authorizeHttpRequests(authorize -> authorize
+    			.requestMatchers("/inscricoes/*/inscritos").authenticated()
+    		    .requestMatchers("/inscricoes/**").permitAll());
     }
 
     private void configureOthersRoutes(HttpSecurity http) throws Exception {

@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.moria.enums.StatusParticipacao;
+import br.com.moria.models.Evento;
 import br.com.moria.models.Inscricao;
+import br.com.moria.models.Membro;
+import br.com.moria.services.interfaces.IEventoService;
 import br.com.moria.services.interfaces.IInscricaoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -30,6 +34,9 @@ public class InscricaoController {
 
     @Autowired
     private IInscricaoService inscricaoService;
+    
+    @Autowired
+    private IEventoService eventoService;
 
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody Inscricao inscricao) {
@@ -87,5 +94,16 @@ public class InscricaoController {
     public ResponseEntity<Boolean> isInscrito(@RequestParam int id) {
         boolean inscrito = inscricaoService.isInscrito(id);
         return ResponseEntity.ok(inscrito);
+    }
+    
+    @GetMapping("/{id}/inscritos")
+    public ResponseEntity<List<Membro>> findMembrosInscritos(@PathVariable int id) {
+    	try {
+    	    Evento evento = eventoService.findById(id);
+    	    List<Membro> membrosInscritos = inscricaoService.findByEventoAndInscritoTrue(evento);
+    	    return ResponseEntity.ok(membrosInscritos);
+    	} catch (Exception e) {
+    	    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado");
+    	}
     }
 }
