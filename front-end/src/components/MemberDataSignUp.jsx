@@ -8,7 +8,31 @@ import { getAuthorities as roles } from "../utils/authorities.jsx";
 import { normalizeUnderscore, memberUtils } from "../utils/stringHelpers.jsx";
 
 export function MemberDataSignUp({ initialData = null }) {
-    const [formData, setFormData] = useState(initialData || {});
+    const [formData, setFormData] = useState(initialData || {
+        nome: "",
+        sexo: "M",
+        dataNascimento: "",
+        telefone: "",
+        celular: "",
+        email: "",
+        senha: "",
+        logradouro: "",
+        numero: "",
+        cpf: "",
+        rg: "",
+        orgaoExpedidor: "",
+        tamanhoCamisa: "p",
+        estadoCivil: "SOLTEIRO",
+        batizado: false,
+        tipo: "DESBRAVADOR",
+        endereco: {
+            cep: "",
+            bairro: "",
+            cidade: "",
+            estado: "SP"
+        }
+    });
+    
     const [currentPage, setCurrentPage] = useState(0);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
@@ -28,6 +52,13 @@ export function MemberDataSignUp({ initialData = null }) {
         setFormData((prevData) => {
             const isEnderecoField = id.startsWith("endereco-");
             const fieldKey = isEnderecoField ? id.split("-")[1] : id;
+
+            if (fieldKey === "batizado") {
+                return {
+                    ...prevData,
+                    [fieldKey]: value === "sim",
+                };
+            }
     
             if (isEnderecoField) {
                 return {
@@ -54,6 +85,13 @@ export function MemberDataSignUp({ initialData = null }) {
             const isEnderecoField = id.includes("endereco-");
             const fieldKey = isEnderecoField ? id.split("-")[1] : id;
 
+            if (fieldKey === "batizado") {
+                return {
+                    ...prevData,
+                    [fieldKey]: value === "sim",
+                };
+            }
+
             return {
                 ...prevData,
                 [isEnderecoField ? "endereco" : fieldKey]: 
@@ -67,6 +105,7 @@ export function MemberDataSignUp({ initialData = null }) {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData);
 
         const hasErrors = Object.values(errors).some((error) => error !== "");
         if (hasErrors)
@@ -129,6 +168,7 @@ export function MemberDataSignUp({ initialData = null }) {
                 <label htmlFor='endereco-estado'>ESTADO:</label>
                 <select id='endereco-estado' name='estado' onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.endereco?.estado || ""} >
+                    <option value="defaultOption" disabled>Selecione uma opção</option>
                     {states.map((state) => (
                         <option key={state.value} value={state.abbreviation}>
                             {state.label}
@@ -252,9 +292,9 @@ export function MemberDataSignUp({ initialData = null }) {
             <div className="member-register-input">
                 <label htmlFor="batizado">Batizado: </label>
                 <select name="batizado" id="batizado" onBlur={handleInputBlur} required 
-                    onChange={handleInputChange} value={formData.batizado || ""}>
-                    <option value="S">SIM</option>
-                    <option value="N">NÃO</option>
+                    onChange={handleInputChange} value={formData.batizado ? "sim" : "nao" || ""}>
+                    <option value="sim">Sim</option>
+                    <option value="nao">Não</option>
                 </select>
                 {errors.batizado && <p className="error-message">{errors.batizado}</p>}
             </div>

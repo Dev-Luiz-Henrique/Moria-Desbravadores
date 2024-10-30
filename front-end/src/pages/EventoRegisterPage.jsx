@@ -25,7 +25,7 @@ export function EventoRegisterPage() {
                 else setEventoData(response.data);
             } 
             else 
-                setEventoData({});
+                setEventoData(null);
             setLoading(false);
         };
 

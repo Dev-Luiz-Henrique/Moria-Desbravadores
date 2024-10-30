@@ -6,7 +6,22 @@ import { validadeEvento as validate } from "../utils/validation.jsx";
 import { states } from "../utils/states.jsx";
 
 export function EventoDataSignUp({ initialData = null }) {
-    const [formData, setFormData] = useState(initialData || {});
+    const [formData, setFormData] = useState(initialData || {
+        nome: "",
+        descricao: "",
+        publico: false,
+        dataInicio: "",
+        dataFim: "",
+        logradouro: "",
+        numero: "",
+        endereco: {
+            complemento: "",
+            bairro: "",
+            cidade: "",
+            estado: "SP",
+            cep: "",
+        },
+    });
     const [currentPage, setCurrentPage] = useState(0);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();

@@ -31,7 +31,7 @@ export const validateMembro = {
         return "";
     },
 
-    celular: (value) => { console.log("cell " + value)
+    celular: (value) => {
         if (!/^\d{11}$/.test(value))
             return "Celular deve ter exatamente 11 dígitos.";
         return "";
@@ -118,13 +118,13 @@ export const validateMembro = {
     },
 
     bairro: (value) => {
-        if (value === null || value.lenght < 3 || value.length > 255)
+        if (value === null || value.length < 3 || value.length > 255) 
             return "Bairro deve ter no minimo 3 no máximo 255 caracteres.";
         return "";
     },
 
     cidade: (value) => {
-        if (value === null || value.lenght < 3 || value.length > 255)
+        if (value === null || value.length < 3 || value.length > 255)
             return "Cidade deve ter no minimo 3 no máximo 255 caracteres.";
         return "";
     },
@@ -200,13 +200,13 @@ export const validadeEvento = {
     },
 
     bairro: (value) => {
-        if (value === null || value.lenght < 3 || value.length > 255)
+        if (value === null || value.length < 3 || value.length > 255)
             return "Bairro deve ter no minimo 3 no máximo 255 caracteres.";
         return "";
     },
 
     cidade: (value) => {
-        if (value === null || value.lenght < 3 || value.length > 255)
+        if (value === null || value.length < 3 || value.length > 255)
             return "Cidade deve ter no minimo 3 no máximo 255 caracteres.";
         return "";
     },
