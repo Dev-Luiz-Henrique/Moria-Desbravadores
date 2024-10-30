@@ -8,6 +8,7 @@ import { UserPage } from "./components/UserPage";
 import { Mensalidades } from "./pages/Mensalidades";
 import { MemberRegisterPage } from "./pages/MemberRegisterPage.jsx"; 
 import { EventoRegisterPage } from "./pages/EventoRegisterPage";
+import { RecursoRegisterPage } from "./pages/RecursoRegisterPage";
 import { Evento } from "./pages/Evento";
 import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
@@ -52,6 +53,14 @@ function App() {
                         }
                     />
                     <Route
+                        path='/cadastrar-recurso/:id?'
+                        element={
+                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                                <RecursoRegisterPage />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
                         path='/cadastrar-membro/:id?'
                         element={
                             <PrivateRoute allowedAuthorities={
@@ -72,7 +81,7 @@ function App() {
                         }
                     />
                     <Route
-                        path='/gerenciar-evento'
+                        path='/detalhes-evento/:id?'
                         element={
                             <PrivateRoute allowedAuthorities={getVoluntarios()}>
                                 <Evento />

@@ -16,12 +16,23 @@ export function CardEvents(
         navigate(`/cadastrar-evento/${id}`);
     };
 
+    const handleDetail = () => {
+        navigate(`/detalhes-evento/${id}`);
+    };
+
     return (
         <div className="card-event-container">
             <img src={DefaultEvent} alt={nome} />
             <div className="card-events-buttons">
-                <button onClick={handleEdit} ><img src={Edit} alt="Edit" /></button>
-                <button onClick={onDelete}><img src={Delete} alt="Delete" /></button>
+                <button onClick={handleDetail}>
+                    <img src={Edit} alt="Detalhes"/>
+                </button>
+                <button onClick={handleEdit}>
+                    <img src={Edit} alt="Edit"/>
+                </button>
+                <button onClick={onDelete}>
+                    <img src={Delete} alt="Delete"/>
+                </button>
             </div>
 
             <div className="card-event-text">
