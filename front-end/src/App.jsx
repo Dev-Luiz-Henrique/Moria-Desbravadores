@@ -88,6 +88,14 @@ function App() {
                             </PrivateRoute>
                         }
                     />
+                    <Route
+                        path='/membro/:id?'
+                        element={
+                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                                <MemberView />
+                            </PrivateRoute>
+                        }
+                    />
                 </Routes>
             </Router>
         </AuthProvider>
