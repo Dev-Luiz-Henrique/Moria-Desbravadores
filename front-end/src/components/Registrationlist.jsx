@@ -1,63 +1,61 @@
 import React from "react";
 import "./Registrationlist.css";
 import DeleteImg from "../assets/img/Delete.svg";
+import { useAuth } from "../context/AuthContext";
+import { useFetch } from "../hooks/useFetch";
 
-// TODO: ESSES DADOS VIRÃO DA API
+// TODO: Dados devem ser carregados dinamicamente da API
 const data = [
-    { cpf: "383997758-43", nome: "DANIEL LEITE PEREIRA", função: "VOLUNTÁRIO" },
-    {
-        cpf: "687420981-73",
-        nome: "LUIZ HENRIQUE DE SANTANA",
-        função: "DESBRAVADOR",
-    },
-    { cpf: "204625821-59", nome: "WESLANIA PAULOVA", função: "VOLUNTÁRIO" },
-    {
-        cpf: "881005400-80",
-        nome: "MURLANA BARRILDA SANTANA",
-        função: "DESBRAVADOR",
-    },
-    {
-        cpf: "870049421-63",
-        nome: "PETRA HENRICA DE ASSIS",
-        função: "DESBRAVADOR",
-    },
-    { cpf: "484181527-96", nome: "GABRIELA GOMAS", função: "DESBRAVADOR" },
-    { cpf: "280130237-61", nome: "DIEGO ROCHA", função: "VOLUNTÁRIO" },
-    { cpf: "029092961-05", nome: "KARL MARX FERNANDS", função: "DESBRAVADOR" },
+    { id: 1, cpf: "383997758-43", nome: "DANIEL LEITE PEREIRA", função: "VOLUNTÁRIO" },
+    { id: 2, cpf: "687420981-73", nome: "LUIZ HENRIQUE DE SANTANA", função: "DESBRAVADOR" },
+    { id: 3, cpf: "123456789-00", nome: "MARIA DA SILVA", função: "VOLUNTÁRIO" },
+    { id: 4, cpf: "987654321-00", nome: "JOÃO SOUZA", função: "DESBRAVADOR" },
+    { id: 5, cpf: "456789123-00", nome: "CARLA ALMEIDA", função: "VOLUNTÁRIO" },
+    // ... outros dados
 ];
 
-export function Registrationlist() {
+export function Registrationlist({id}) {
+    const { authorities } = useAuth();
+    const allowedAuthorities = ["DIRETOR_CLUBE", "DIRETOR_ASSOCIADO", "SECRETARIO"];
+    const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
+
+    //const { data, loading, error } = useFetch("/inscritos");
+    //const filteredData = data ? data.filter(inscrito => inscrito.evento.id === id) : [];
+
+    const handleDelete = (id) => {
+        // TODO: Chamada para API de exclusão pode ser adicionada aqui
+        console.log(`Excluir inscrito com ID: ${id}`);
+    };
+
     return (
         <section className="box-shadow">
             <header className="h">
-                {/* TODO: Esse INPUT só será exibido para quem tiver a autorização adequada */}
-                <input type='text' placeholder='Adicionar inscritos' />
+                {hasAccess && <input type="text" placeholder="Adicionar inscritos" />}
                 <h3>Inscritos</h3>
-                {/* TODO: Esse Botão só será exibido para quem tiver a autorização adequada */}
-                <button className='salvar' type='button'>
-                    SALVAR
-                </button>
+                {/* {hasAccess && (
+                    <button className="salvar" type="button">
+                        SALVAR
+                    </button>
+                )} */}
             </header>
-            <ul className='registrationList'>
-                <li className='list-header'>
+            <ul className="registrationList">
+                <li className="list-header">
                     <span>CPF</span>
                     <span>NOME</span>
                     <span>FUNÇÃO</span>
                 </li>
-                {data.map((inscrito) => {
-                    return (
-                        // Se esse objeto tiver uma ID, será uma key melhor
-                        <li key={inscrito.nome}>
-                            {/* TODO: Esse Botão só será exibido para quem tiver a autorização adequada */}
-                            <button type='button'>
-                                <img src={DeleteImg} alt='Deletar' />
+                {data.map((inscrito) => (
+                    <li key={inscrito.id}>
+                        {/* {hasAccess && (
+                            <button type="button" onClick={() => handleDelete(inscrito.id)}>
+                                <img src={DeleteImg} alt="Deletar" />
                             </button>
-                            <span>{inscrito.cpf}</span>
-                            <span>{inscrito.nome}</span>
-                            <span>{inscrito.função}</span>
-                        </li>
-                    );
-                })}
+                        )} */}
+                        <span>{inscrito.cpf}</span>
+                        <span>{inscrito.nome}</span>
+                        <span>{inscrito.função}</span>
+                    </li>
+                ))}
             </ul>
         </section>
     );

@@ -75,7 +75,7 @@
   border-right: 2px solid #af7351;
 }
 
-.resources-header > button {
+.resources-header button {
   display: flex;
   gap: 0.5rem;
   align-items: center;

@@ -63,7 +63,6 @@ export function UserPage() {
                                 nome={membro.nome}
                                 tipo={membro.tipo}
                                 status={membro.status}
-                                mensalidade={membro.mensalidade}
                                 onDelete={() => handleDelete(membro.id)}
                             />
                         ))}

@@ -217,3 +217,7 @@ export const validadeEvento = {
         return "";
     },
 }
+
+export const validateRecurso = {
+
+}

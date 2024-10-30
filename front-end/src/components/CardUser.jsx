@@ -5,8 +5,9 @@ import DeleteImg from "../assets/img/Delete.svg";
 import UserICon from "../assets/img/user-card-icon.svg";
 import { abbreviateName, normalizeUnderscore } from "../utils/stringHelpers";
 import { Link } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
 
-export function CardUser({ id, nome, tipo, status, mensalidade, onDelete }) {
+export function CardUser({ id, nome, tipo, status, onDelete }) {
     const navigate = useNavigate();
 
     const handleEdit = () => {
@@ -41,10 +42,10 @@ export function CardUser({ id, nome, tipo, status, mensalidade, onDelete }) {
                     <p>STATUS:</p>
                     <span className="situation">{status}</span>
                 </div>
-                <div className="ssm user-mensalidade">
+                {/* <div className="ssm user-mensalidade">
                     <p>MENSALIDADE:</p>
-                    <span className="situation">{mensalidade}</span>
-                </div>
+                    <span className="situation">{latePayment ? "Atrasada" : "Em dia"}</span>
+                </div> */}
             </div>
         </div>
     );

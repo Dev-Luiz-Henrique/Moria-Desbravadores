@@ -48,10 +48,7 @@ export function ManageEvents() {
                                 <p>CRIAR EVENTO</p>
                             </button>
                         </Link>
-                        <div className="search">
-                            <img src={SearchIcon} alt="SearchIcon" />
-                            <input type="text" />
-                        </div>
+
                     </div>
                 </div>
 
