@@ -1,0 +1,61 @@
+body{
+    width: 80%;
+}
+.profile-card {
+    background-color: #F0E6D2;
+    width: 80%;
+    min-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.274);
+}
+.profile-card > .profile-card-buttons{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    gap: 10px;
+}
+.profile-card > .profile-card-buttons > button{
+    background-color: transparent;
+    border: none;
+}
+.profile-card > .profile-card-buttons > button:hover{
+    cursor: pointer;
+}
+.profile-card > .profile-card-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    gap: 20px;
+}
+.profile-card > .profile-card-header > img{
+    width: 60px;
+    height: 60px;
+}
+.profile-card > .profile-card-header > h4{
+    font-size: 1.5rem;
+    color: #352208;
+    font-family: "Secular One", sans-serif;
+}
+.profile-card > span{
+    display: flex;
+    gap: 10px;
+}
+.profile-card > span > b{
+    font-size: 1.5rem;
+    color: #352208;
+    font-family: "Secular One", sans-serif;
+}
+.profile-card > span > p{
+    font-size: 1.5rem;
+    color: #352208;
+    font-family: "Afacad", sans-serif;
+}

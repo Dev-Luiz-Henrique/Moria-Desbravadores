@@ -12,6 +12,7 @@ import { Evento } from "./pages/Evento";
 import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
 import { ManageEvents } from "./pages/ManageEvents";
+import { ViewMemberData } from "./components/ViewMemberData.jsx";
 
 function App() {
     return (

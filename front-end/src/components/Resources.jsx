@@ -22,7 +22,7 @@ const data = [
 
 export function Resources() {
   return (
-    <section>
+    <section className="box-shadow">
       <header className="resources-header">
         {/* TODO: Esse Botão só será exibido para quem tiver a autorização adequada */}
         <button className="adicionar" type="button">

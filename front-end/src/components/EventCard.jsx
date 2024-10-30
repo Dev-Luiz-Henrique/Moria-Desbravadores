@@ -5,7 +5,7 @@ import './EventCard.css';
 
 export function EventCard() {
   return (
-    <article className="event-card">
+    <article className="event-card box-shadow">
       <img className="event-img" src={ImgEvent} alt="Imagem do Evento" />
       <div className="event-info">
         {/* TODO: ACREDITO QUE ESSE MENU SÓ SERÁ EXIBIDO PARA OS USUARIOS QUE TIVEREM PERMISSÃO */}

@@ -28,7 +28,7 @@ const data = [
 
 export function Registrationlist() {
     return (
-        <section>
+        <section className="box-shadow">
             <header className="h">
                 {/* TODO: Esse INPUT só será exibido para quem tiver a autorização adequada */}
                 <input type='text' placeholder='Adicionar inscritos' />
