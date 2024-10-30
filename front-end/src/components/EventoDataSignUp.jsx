@@ -115,9 +115,9 @@ export function EventoDataSignUp({ initialData = null }) {
         else { console.log(formData)
             const { error: submitError } = await apiRequest(`/eventos`, "POST", formData);
             if (submitError) 
-                alert("Erro no cadastro do evento. " + submitError);
+                alert("Erro no salvamento do evento. " + submitError);
             else {
-                alert("Evento cadastrado com sucesso!");
+                alert("Evento salvo com sucesso!");
                 navigate("/gerenciar-eventos");
             }
         }
@@ -170,10 +170,10 @@ export function EventoDataSignUp({ initialData = null }) {
                 {errors.descricao && <p className="error-message">{errors.descricao}</p>}
             </div>
 
-            <div className="event-register-input input-file">
+            {/* <div className="event-register-input input-file">
                 <label htmlFor="imagem">IMAGEM:</label>
                 <input type="file" id="imagem"/>
-            </div>
+            </div> */}
         </div>,
 
         /////////////////////////////////////////////////////////////////////////////////////////////

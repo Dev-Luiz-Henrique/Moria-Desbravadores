@@ -59,7 +59,6 @@ export function LoginBody() {
             </div>
             <div className="credenciais">
                 <h3>LOGIN</h3>
-                {error && <p className="error-message">{error}</p>}
 
                 <form onSubmit={handleSubmit}>
                     <div className="credenciais-input">
@@ -78,7 +77,11 @@ export function LoginBody() {
                     <button type="submit" disabled={loading}>
                         {loading ? "Carregando..." : "LOGIN"}
                     </button>
+
+                    {error && <p className="error-message">{error}</p>}
                 </form>
+
+                
             </div>
         </section>
     )

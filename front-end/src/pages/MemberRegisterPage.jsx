@@ -42,7 +42,9 @@ export function MemberRegisterPage() {
                 <div className="return-btn">
                     <ButtonGoBack />
                 </div>
-                <MemberDataSignUp />
+                {
+                    memberData ? <MemberDataSignUp initialData={memberData} /> : <MemberDataSignUp/>
+                }
             </div>
             <Footer />
         </>

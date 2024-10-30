@@ -30,8 +30,9 @@ export function DropDownProfile() {
                 </Link>
             </div>
             <div className="hsc2">
-                <Link to="/eventos"><p>Eventos</p></Link>
-                <Link to="/mensalidades"><p>Mensalidades</p></Link>
+                {/* <Link to="/eventos"><p>Eventos</p></Link>
+                <Link to="/mensalidades"><p>Mensalidades</p></Link> */}
+                <Link to="/membro">Perfil</Link>
                 {
                     hasManageAccess && (
                         <>
@@ -41,13 +42,13 @@ export function DropDownProfile() {
                         </>
                     )
                 }
-                <span>NOTIFICAÇÕES</span>
+                {/* <span>NOTIFICAÇÕES</span> */}
             </div>
             {/*<div className="notificacao">
                 <span>12/10/2024</span>
                 <p>Inscrição para Campori 2024 Aprovada.</p>
             </div>*/}
-            <div className="hsc4">Não há notificações</div>
+            {/* <div className="hsc4">Não há notificações</div> */}
             <button className="logout" onClick={handleLogout}>
                 <img className="img000" src={LogoutLogo} alt="" />
                 <p>Logout</p>

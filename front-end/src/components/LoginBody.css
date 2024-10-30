@@ -92,3 +92,17 @@
     top: 60px;
     left: 60px;
 }
+
+.container-login-body > div > form > .error-message {
+    text-align: center;
+    border-radius: 16px;
+    font-family: "Afacad", sans-serif;
+    color: #F0E6D2;
+    border: none;
+    outline: none;
+    height: fit-content;
+    font-size: 18px;
+    text-decoration: none;
+    align-self: flex-end;
+    margin: auto;
+}

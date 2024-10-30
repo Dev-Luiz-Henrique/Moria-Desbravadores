@@ -46,11 +46,11 @@ export function Registrationlist({id}) {
                 </li>
                 {data.map((inscrito) => (
                     <li key={inscrito.id}>
-                        {/* {hasAccess && (
+                        {hasAccess && (
                             <button type="button" onClick={() => handleDelete(inscrito.id)}>
-                                <img src={DeleteImg} alt="Deletar" />
+                                {/* <img src={DeleteImg} alt="Deletar" /> */}
                             </button>
-                        )} */}
+                        )}
                         <span>{inscrito.cpf}</span>
                         <span>{inscrito.nome}</span>
                         <span>{inscrito.função}</span>

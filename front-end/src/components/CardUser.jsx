@@ -40,7 +40,7 @@ export function CardUser({ id, nome, tipo, status, onDelete }) {
             <div className="section-status-mensalidade">
                 <div className="ssm user-status">
                     <p>STATUS:</p>
-                    <span className="situation">{status}</span>
+                    <span className="situation">{status ? "ATIVO" : "INATIVO"}</span>
                 </div>
                 {/* <div className="ssm user-mensalidade">
                     <p>MENSALIDADE:</p>

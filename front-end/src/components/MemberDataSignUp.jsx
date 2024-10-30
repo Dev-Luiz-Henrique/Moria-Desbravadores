@@ -312,10 +312,10 @@ export function MemberDataSignUp({ initialData = null }) {
                 {errors.tamanhoCamisa && <p className="error-message">{errors.tamanhoCamisa}</p>}
             </div>
 
-            <div className="member-register-input input-file">
+            {/* <div className="member-register-input input-file">
                 <label htmlFor="arquivo">Selecione um arquivo:</label>
                 <input type="file" name="arquivo" id="arquivo" />
-            </div>
+            </div> */}
         </div>,
     ];
 

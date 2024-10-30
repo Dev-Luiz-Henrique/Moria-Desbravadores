@@ -47,10 +47,10 @@ export function UserPage() {
                                 <p>CADASTRAR MEMBRO</p>
                             </button>
                         </Link>
-                        <div className="search">
+                        {/* <div className="search">
                             <img src={SearchIcon} alt="SearchIcon" />
                             <input type="text" />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@ export function UserPage() {
                                 id={membro.id}
                                 nome={membro.nome}
                                 tipo={membro.tipo}
-                                status={membro.status}
+                                status={membro.ativo}
                                 onDelete={() => handleDelete(membro.id)}
                             />
                         ))}
