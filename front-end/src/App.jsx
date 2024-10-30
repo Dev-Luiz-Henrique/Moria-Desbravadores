@@ -6,9 +6,9 @@ import { Landing } from "./pages/Landing";
 import { LoginPage } from "./pages/LoginPage";
 import { UserPage } from "./components/UserPage";
 import { Mensalidades } from "./pages/Mensalidades";
-import { MemberRegisterPage } from "./pages/MemberRegisterPage.jsx"; 
+import { MemberRegisterPage } from "./pages/MemberRegisterPage"; 
 import { EventoRegisterPage } from "./pages/EventoRegisterPage";
-import { RecursoRegisterPage } from "./pages/RecursoRegisterPage";
+import { RecursoRegisterPage } from "./pages/RecursoRegisterPage.jsx";
 import { Evento } from "./pages/Evento";
 import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
@@ -25,7 +25,7 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                     <Route path='/' element={<Landing />} />
                     <Route path='/login' element={<LoginPage />} />
-                    <Route path='/teste' element={<Landing />} />
+                    <Route path='/teste' element={<MemberRegisterPage />} />
 
                     {/* Rotas protegidas */}
                     <Route 

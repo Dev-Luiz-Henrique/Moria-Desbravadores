@@ -4,7 +4,8 @@
     justify-content: center;
     background-image: url("../assets/img/bg-img-user-register.svg");
     background-repeat: no-repeat;
-    background-position: 0 100%;
+    background-position: bottom;
+    background-size: contain;
     padding: 5vh 0;
     position: relative;
 }

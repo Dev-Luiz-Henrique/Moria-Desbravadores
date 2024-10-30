@@ -1,0 +1,5 @@
+export function RecursoRegisterPage() {
+    return(
+        <></>
+    )
+}
