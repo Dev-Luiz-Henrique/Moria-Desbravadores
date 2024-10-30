@@ -23,7 +23,7 @@
     width: 30px;
     height: 30px;
 }
-.card-user-container > .user-name {
+.card-user-container .user-name {
     display: flex;
     align-items: center;
     justify-content: flex-start;

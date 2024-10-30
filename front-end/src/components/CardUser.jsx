@@ -4,12 +4,17 @@ import EditImg from "../assets/img/Edit.svg";
 import DeleteImg from "../assets/img/Delete.svg";
 import UserICon from "../assets/img/user-card-icon.svg";
 import { abbreviateName, normalizeUnderscore } from "../utils/stringHelpers";
+import { Link } from "react-router-dom";
 
 export function CardUser({ id, nome, tipo, status, mensalidade, onDelete }) {
     const navigate = useNavigate();
 
     const handleEdit = () => {
         navigate(`/cadastrar-membro/${id}`);
+    };
+
+    const handleDetail = () => {
+        navigate(`/membro/${id}`);
     };
 
     return (
@@ -19,11 +24,13 @@ export function CardUser({ id, nome, tipo, status, mensalidade, onDelete }) {
                 <button onClick={onDelete}><img src={DeleteImg} alt="Deletar" /></button>
             </div>
 
-            <div className="user-name">
-                <img src={UserICon} alt="Ícone do usuário" />
-                <h3>{abbreviateName(nome)}</h3>
-            </div>
-
+            <Link to={`/membro/${id}`}>
+                <div className="user-name">
+                    <img src={UserICon} alt="Ícone do usuário" />
+                    <h3>{abbreviateName(nome)}</h3>
+                </div>
+            </Link>
+            
             <div className="user-tipo">
                 <b>TIPO:</b>
                 <span>{normalizeUnderscore(tipo)}</span>
