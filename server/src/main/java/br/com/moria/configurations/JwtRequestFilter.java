@@ -30,11 +30,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, 
-                                    @NonNull HttpServletResponse response, 
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
+                                    @NonNull HttpServletResponse response,
                                     @NonNull FilterChain chain)
                                     throws ServletException, IOException {
-            
+
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/plain; charset=UTF-8");
 
@@ -84,5 +84,5 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/plain; charset=UTF-8");
         response.getWriter().write(message);
-    }    
+    }
 }

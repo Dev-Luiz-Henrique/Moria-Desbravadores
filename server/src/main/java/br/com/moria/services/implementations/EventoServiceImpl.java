@@ -26,7 +26,7 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
+
 	@Autowired
     private IFileService fileService;
 
@@ -105,10 +105,10 @@ public class EventoServiceImpl implements IEventoService {
 	public Evento updateImagemEventoById(int id, MultipartFile file) throws IOException {
 		Evento eventoExistente = eventoRepository.findById(id)
 	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
-		
+
 		String filePath = fileService.uploadImagemEvento(file);
         eventoExistente.setImagem(filePath);
-		
+
 		return eventoRepository.save(eventoExistente);
 	}
 
@@ -116,7 +116,7 @@ public class EventoServiceImpl implements IEventoService {
 	public FileResponseDTO getImagemEventoById(int id) throws IOException {
 		Evento eventoExistente = eventoRepository.findById(id)
 	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
-		
+
 		String filePath = eventoExistente.getImagem();
         if (filePath == null || filePath.isEmpty()) {
             throw new IllegalArgumentException("Caminho de arquivo não disponível para o evento.");

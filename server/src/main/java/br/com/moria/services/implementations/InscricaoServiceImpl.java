@@ -50,11 +50,13 @@ public class InscricaoServiceImpl implements IInscricaoService{
 	public Inscricao update(@Valid Inscricao inscricao) {
         Inscricao existingInscricao = inscricaoRepository.findById(inscricao.getId())
             .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
-        
-        if (inscricao.getStatusParticipacao() != null)
-            existingInscricao.setStatusParticipacao(inscricao.getStatusParticipacao());
-        if (inscricao.getInscrito() != null)
-            existingInscricao.setInscrito(inscricao.getInscrito());
+
+        if (inscricao.getStatusParticipacao() != null) {
+			existingInscricao.setStatusParticipacao(inscricao.getStatusParticipacao());
+		}
+        if (inscricao.getInscrito() != null) {
+			existingInscricao.setInscrito(inscricao.getInscrito());
+		}
 
 		return inscricaoRepository.save(existingInscricao);
 	}

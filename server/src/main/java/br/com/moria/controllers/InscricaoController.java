@@ -34,7 +34,7 @@ public class InscricaoController {
 
     @Autowired
     private IInscricaoService inscricaoService;
-    
+
     @Autowired
     private IEventoService eventoService;
 
@@ -95,7 +95,7 @@ public class InscricaoController {
         boolean inscrito = inscricaoService.isInscrito(id);
         return ResponseEntity.ok(inscrito);
     }
-    
+
     @GetMapping("/{id}/inscritos")
     public ResponseEntity<List<Membro>> findMembrosInscritos(@PathVariable int id) {
     	try {

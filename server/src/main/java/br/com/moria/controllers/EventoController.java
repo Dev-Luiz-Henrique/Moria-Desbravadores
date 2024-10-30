@@ -107,7 +107,7 @@ public class EventoController {
         List<Evento> eventos = eventoService.findByDataFim(date);
         return ResponseEntity.ok(eventos);
     }
-    
+
     @PostMapping("/{id}/imagem")
     public ResponseEntity<String> uploadImagemEvento(@PathVariable int id, @RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {

@@ -97,7 +97,7 @@ public class SecurityConfig {
             .requestMatchers("/membros/**").hasAnyAuthority(TipoMembro.SECRETARIO.name())
         );
     }
-    
+
     private void configureInscricaoRoutes(HttpSecurity http) throws Exception {
     	http.authorizeHttpRequests(authorize -> authorize
     			.requestMatchers("/inscricoes/*/inscritos").authenticated()

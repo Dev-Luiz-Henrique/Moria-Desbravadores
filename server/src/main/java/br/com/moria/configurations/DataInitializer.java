@@ -1,5 +1,12 @@
 package br.com.moria.configurations;
 
+import java.io.File;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -17,13 +24,6 @@ import br.com.moria.services.implementations.EventoServiceImpl;
 import br.com.moria.services.implementations.InscricaoServiceImpl;
 import br.com.moria.services.implementations.MembroServiceImpl;
 import br.com.moria.services.implementations.RecursoServiceImpl;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.util.List;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -57,36 +57,41 @@ public class DataInitializer implements CommandLineRunner {
         if (membroRepository.count() == 0) {
             List<Membro> modelos = List.of(
                 objectMapper.readValue(new File(path + "membros.json"), Membro[].class));
-            for (Membro modelo : modelos) 
-                membroService.create(modelo);
+            for (Membro modelo : modelos) {
+				membroService.create(modelo);
+			}
         }
 
         if (eventoRepository.count() == 0) {
             List<Evento> eventos = List.of(
                 objectMapper.readValue(new File(path + "eventos.json"), Evento[].class));
-            for (Evento evento : eventos)
-                eventoService.create(evento);
+            for (Evento evento : eventos) {
+				eventoService.create(evento);
+			}
         }
 
         if (mensalidadeRepository.count() == 0) {
             List<Mensalidade> mensalidades = List.of(
                 objectMapper.readValue(new File(path + "mensalidades.json"), Mensalidade[].class));
-            for (Mensalidade mensalidade : mensalidades)
-                mensalidadeRepository.save(mensalidade); 
+            for (Mensalidade mensalidade : mensalidades) {
+				mensalidadeRepository.save(mensalidade);
+			}
         }
 
         if (inscricaoRepository.count() == 0) {
             List<Inscricao> inscricoes = List.of(
                 objectMapper.readValue(new File(path + "inscricoes.json"), Inscricao[].class));
-            for (Inscricao inscricao : inscricoes)
-                inscricaoService.create(inscricao);
+            for (Inscricao inscricao : inscricoes) {
+				inscricaoService.create(inscricao);
+			}
         }
 
         if (recursoRepository.count() == 0) {
             List<Recurso> recursos = List.of(
                 objectMapper.readValue(new File(path + "recursos.json"), Recurso[].class));
-            for (Recurso recurso : recursos)
-                recursoRepository.save(recurso);
+            for (Recurso recurso : recursos) {
+				recursoRepository.save(recurso);
+			}
         }
     }
 }

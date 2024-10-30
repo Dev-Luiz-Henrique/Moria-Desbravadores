@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
         List<String> errors = ex.getBindingResult().getFieldErrors().stream()
             .map(error -> String.format("Campo '%s': %s", error.getField(), error.getDefaultMessage()))
             .collect(Collectors.toList());
-        
+
         String errorMessage = "Houve erros de validação. Verifique os seguintes campos:";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
             Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", errorMessage, "errors", errors));
