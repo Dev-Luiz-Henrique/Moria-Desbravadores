@@ -1,0 +1,15 @@
+.container-register-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../assets/img/bg-img-user-register.svg");
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    padding: 5vh 0;
+    position: relative;
+}
+.container-register-page > .return-btn{
+    position: absolute;
+    top: 60px;
+    left: 60px;
+}
