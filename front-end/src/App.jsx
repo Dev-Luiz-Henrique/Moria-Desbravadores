@@ -13,6 +13,7 @@ import { Authorities, getVoluntarios } from "./utils/authorities";
 import "./App.css";
 import { ManageEvents } from "./pages/ManageEvents";
 import { ViewMemberData } from "./components/ViewMemberData.jsx";
+import { MemberView } from "./pages/MemberView.jsx";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                     <Route path='/' element={<Landing />} />
                     <Route path='/login' element={<LoginPage />} />
+                    <Route path='/teste' element={<MemberView />} />
 
                     {/* Rotas protegidas */}
                     <Route 

@@ -1,7 +1,6 @@
 .profile-card-member-view {
     background-color: #F0E6D2;
     width: 80%;
-    min-width: 900px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
