@@ -1,5 +1,5 @@
 import { Footer } from "../components/Footer";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import { SectionEvents } from "../components/SectionEvents";
 import { PastEvents } from "../components/PastEvents";
 import { TalkToUs } from "../components/TalkToUs";

@@ -4,7 +4,7 @@ import { useFetch } from "../hooks/useFetch";
 import { apiRequest } from "../utils/api";
 import { Authorities } from "../utils/authorities";
 import { CardEvents } from "../components/CardEvents";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import "./ManageEvents.css";
 

@@ -4,7 +4,7 @@ import { apiRequest } from "../utils/api";
 import { Authorities } from "../utils/authorities";
 import { CardMensalidades } from "../components/CardMensalidades";
 import { Footer } from "../components/Footer";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import "./Mensalidades.css"
 
 export function Mensalidades() {

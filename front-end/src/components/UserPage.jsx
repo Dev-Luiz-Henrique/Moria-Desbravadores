@@ -9,7 +9,7 @@ import "./UserPage.css";
 import AddIcon from "../assets/img/Plus.svg";
 import SearchIcon from "../assets/img/Glass.svg";
 import { Link } from "react-router-dom";
-import { Header } from "./header";
+import { Header } from "./Header";
 
 export function UserPage() {
     const { authorities } = useAuth();

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import { ButtonGoBack } from "../components/ButtonGoBack";
 import { Footer } from "../components/Footer";
 import { EventCard } from "../components/EventCard";
