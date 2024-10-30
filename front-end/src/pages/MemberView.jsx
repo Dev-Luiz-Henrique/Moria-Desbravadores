@@ -9,6 +9,7 @@ import "./MemberView.css";
 import { ViewMemberData } from "../components/ViewMemberData";
 import AddIcon from "../assets/img/Plus.svg";
 import SearchIcon from "../assets/img/Glass.svg";
+import { ButtonGoBack } from "../components/ButtonGoBack";
 
 export function MemberView() {
     return (
@@ -29,6 +30,9 @@ export function MemberView() {
                 </div>
 
                 <div className="events-space">
+                    <div className="btgb">
+                        <ButtonGoBack />
+                    </div>
                     <div className="events">
                         <ViewMemberData />
                         <ViewMemberData />
@@ -36,7 +40,7 @@ export function MemberView() {
                     </div>
                 </div>
             </section>
-            <Footer />  
+            <Footer />
         </>
     )
 }

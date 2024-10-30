@@ -55,9 +55,15 @@
 
 .container-manage-events-user-view > .events-space {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
     align-items: center;
     justify-content: center;
+}
+.container-manage-events-user-view > .events-space > .btgb {
+    align-self: flex-start;
+   margin-left: 20px;
 }
 .container-manage-events-user-view > .events-space > .events{
     display: flex;

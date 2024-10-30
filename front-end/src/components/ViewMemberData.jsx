@@ -6,7 +6,7 @@ import ProfileLogo from "../assets/img/user-card-icon.svg"
 export function ViewMemberData() {
     return (
         <>
-            <div class="profile-card-member-view">
+            <div className="profile-card-member-view">
                 <div className="profile-card-buttons">
                     <button><img src={Edit} alt="" /></button>
                     <button><img src={Delete} alt="" /></button>
