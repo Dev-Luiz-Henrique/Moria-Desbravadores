@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,6 +19,15 @@ import br.com.moria.services.interfaces.IFileService;
 public class FileServiceImpl implements IFileService {
 
     private String uploadBaseDir = "/uploads";
+
+    private static final List<String> SUPPORTED_CONTENT_TYPES = Arrays.asList(
+        "image/png", 
+        "image/jpeg",
+        "image/bmp",
+        "image/webp",
+        "image/svg+xml",
+        "image/tiff"
+    );
 
     private String uploadFile(MultipartFile file, String uploadDir) throws IOException {
         Path uploadPath = Paths.get(System.getProperty("user.dir"), uploadBaseDir, uploadDir);
@@ -36,9 +47,10 @@ public class FileServiceImpl implements IFileService {
         Path filePath = uploadPath.resolve(uniqueFileName);
 
         String contentType = file.getContentType();
-        if (!"image/png".equals(contentType) && !"image/jpeg".equals(contentType)) {
-			throw new IllegalArgumentException("Tipo de arquivo não permitido. Formatos aceitos: jpeg e png.");
-		}
+        if (!SUPPORTED_CONTENT_TYPES.contains(contentType)) {
+            throw new IllegalArgumentException("Tipo de arquivo não permitido. Formatos aceitos: " 
+                + SUPPORTED_CONTENT_TYPES);
+        }
 
         if (file.getSize() > 5 * 1024 * 1024) { // 5MB
 			throw new IllegalArgumentException("O tamanho do arquivo deve ser inferior a 5MB.");
