@@ -7,7 +7,7 @@
     background-position: top;
     margin-top: 40px;
 }
-.container-user-page > .filter{
+.container-user-page > .filter {
     display: flex;
     height: fit-content;
     border-radius: 10px;
@@ -37,6 +37,11 @@
     font-family: "Secular One", sans-serif;
     font-size: 24px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.container-user-page > .filter > .detail button:hover {
+    background-color: #A6603B;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 .container-user-page > .filter > .detail > .search {
     display: flex;

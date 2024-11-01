@@ -13,10 +13,6 @@ export function CardUser({ id, nome, tipo, status, onDelete }) {
         navigate(`/cadastrar-membro/${id}`);
     };
 
-    const handleDetail = () => {
-        navigate(`/membro/${id}`);
-    };
-
     return (
         <div className="card-user-container">
             <div className="options">

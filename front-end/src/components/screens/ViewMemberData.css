@@ -11,46 +11,55 @@
     border-radius: 10px;
     box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.274);
 }
-.profile-card-member-view > .profile-card-buttons{
+
+.profile-card-member-view > .profile-card-buttons {
     position: absolute;
     right: 20px;
     top: 20px;
     display: flex;
     gap: 10px;
 }
-.profile-card-member-view > .profile-card-buttons > button{
-    background-color: transparent;
+
+.profile-card-member-view > .profile-card-buttons > button {
     border: none;
+    background-color: transparent;
 }
-.profile-card-member-view > .profile-card-buttons > button:hover{
+.profile-card-member-view > .profile-card-buttons > button:hover {
     cursor: pointer;
+    filter: contrast(175%) brightness(80%);
 }
-.profile-card-member-view > .profile-card-header{
+
+.profile-card-member-view > .profile-card-header {
     display: flex;
     align-items: center;
     justify-content: center;
     align-self: center;
     gap: 20px;
 }
-.profile-card-member-view > .profile-card-header > img{
+
+.profile-card-member-view > .profile-card-header > img { 
     width: 60px;
     height: 60px;
 }
-.profile-card-member-view > .profile-card-header > h4{
+
+.profile-card-member-view > .profile-card-header > h4 {
     font-size: 1.5rem;
     color: #352208;
     font-family: "Secular One", sans-serif;
 }
-.profile-card-member-view > span{
+
+.profile-card-member-view > span {
     display: flex;
     gap: 10px;
 }
-.profile-card-member-view > span > b{
+
+.profile-card-member-view > span > b {
     font-size: 1.5rem;
     color: #352208;
     font-family: "Secular One", sans-serif;
 }
-.profile-card-member-view > span > p{
+
+.profile-card-member-view > span > p {
     font-size: 1.5rem;
     color: #352208;
     font-family: "Afacad", sans-serif;

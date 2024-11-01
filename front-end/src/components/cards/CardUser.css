@@ -9,20 +9,28 @@
     gap: 30px;
     border-radius: 10px;
 }
+
 .card-user-container > .options {
     display: flex;
     gap: 20px;
     align-self: flex-end;
 }
+
 .card-user-container > .options > button {
     border: none;
     cursor: pointer;
     background-color: transparent;
 }
+.card-user-container > .options > button:hover {
+    cursor: pointer;
+    filter: contrast(175%) brightness(80%);
+}
+
 .card-user-container > .options > button > img {
     width: 30px;
     height: 30px;
 }
+
 .card-user-container .user-name {
     display: flex;
     align-items: center;

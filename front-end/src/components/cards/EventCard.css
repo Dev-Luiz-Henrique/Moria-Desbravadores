@@ -68,5 +68,9 @@
 .options2 > button {
     background-color: transparent;
     border: none;
+}
+
+.options2 > button:hover {
     cursor: pointer;
+    filter: contrast(175%) brightness(80%);
 }

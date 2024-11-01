@@ -40,10 +40,16 @@
     font-size: 24px;
     cursor: pointer;
 }
+.container-manage-events-page > .filter > .detail button:hover {
+    background-color: #A6603B;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 .container-manage-events-page > .filter > .detail > .search {
     display: flex;
     gap: 20px;
 }
+
 .container-manage-events-page > .filter > .detail > .search > input {
     border: none;
     background-color: transparent;

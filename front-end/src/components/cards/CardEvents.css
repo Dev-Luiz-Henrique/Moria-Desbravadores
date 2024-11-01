@@ -22,7 +22,7 @@
     border: none;
     background-color: transparent;
 }
-.card-event-container > .card-events-buttons > button:hover{
+.card-event-container > .card-events-buttons > button:hover {
     cursor: pointer;
     filter: contrast(175%) brightness(80%);
 }

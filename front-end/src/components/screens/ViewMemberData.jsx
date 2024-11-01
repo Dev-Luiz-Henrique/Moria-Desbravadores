@@ -13,7 +13,7 @@ import Edit from "../../assets/img/layout/edit.svg";
 import ProfileLogo from "../../assets/img/layout/user-card.svg";
 
 export function ViewMemberData({ id }) {
-    const { navigate } = useNavigate();
+    const navigate = useNavigate();
     const { authorities, membro: authMembro } = useAuth();
     const allowedAuthorities = [Authorities.DIRETOR_CLUBE, Authorities.DIRETOR_ASSOCIADO, Authorities.SECRETARIO];
     const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
