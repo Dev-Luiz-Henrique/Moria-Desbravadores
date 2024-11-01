@@ -81,7 +81,7 @@ public class SecurityConfig {
     private void configureEventosRoutes(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
             .requestMatchers(HttpMethod.POST, "/membros/{id}/imagem").hasAuthority(TipoMembro.SECRETARIO.name())
-            .requestMatchers(HttpMethod.GET, "/membros/{id}/imagem").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
+            .requestMatchers(HttpMethod.GET, "/membros/{id}/imagem").permitAll()
             .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
             .requestMatchers("/eventos/**").hasAuthority(TipoMembro.SECRETARIO.name())
         );

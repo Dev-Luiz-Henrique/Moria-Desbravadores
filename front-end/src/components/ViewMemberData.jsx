@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
 import { Authorities } from "../utils/authorities";
 import { formatEndereco, normalizeUnderscore } from "../utils/stringHelpers";
+import { formatDate } from "../utils/dateHelpers";
 import { apiRequest } from "../utils/api";
 
 export function ViewMemberData({ id }) {
@@ -16,9 +17,12 @@ export function ViewMemberData({ id }) {
     const allowedAuthorities = [Authorities.DIRETOR_CLUBE, Authorities.DIRETOR_ASSOCIADO, Authorities.SECRETARIO];
     const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
 
-    // Se não houver membro em useAuth, use o fetch para buscá-lo na API
-    const { data: membro, loading, error } = id ? useFetch(`/membros/${id}`, "GET") 
-        : { data: authMembro, loading: false, error: null };
+    const { data: memberFetched, loading, error } = useFetch(id ? `/membros/${id}` : null, "GET");
+    const membro = id ? memberFetched : authMembro;
+
+    if (loading) return <p>Carregando dados do membro...</p>;
+    if (error) return <p>Erro ao carregar dados do membro.</p>;
+
 
     if (loading) return <p>Carregando dados do membro...</p>;
     if (error) return <p>Erro ao carregar dados do membro.</p>;
@@ -47,6 +51,8 @@ export function ViewMemberData({ id }) {
         }
     };
 
+    const formatSexo = (sexo) => sexo === "M" ? "Masculino" : sexo === "F" ? "Feminino" : "Outro";
+
     return (
         <div className="profile-card-member-view">
             {hasAccess && (
@@ -69,8 +75,14 @@ export function ViewMemberData({ id }) {
                 <b>STATUS:</b>
                 <p>{membro?.ativo !== undefined ? (membro.ativo ? "Sim" : "Não") : "Status não informado"}</p>
             </span>
-            <span><b>SEXO:</b><p>{membro?.sexo || "Sexo não informado"}</p></span>
-            <span><b>DATA DE NASCIMENTO:</b><p>{membro?.dataNascimento || "Data não informada"}</p></span>
+            <span>
+                <b>SEXO:</b>
+                <p>{membro.sexo ? formatSexo(membro.sexo) : "Sexo não informado"}</p>
+            </span>
+            <span>
+                <b>DATA DE NASCIMENTO:</b>
+                <p>{membro.dataNascimento ? formatDate(membro.dataNascimento) :  "Data não informada"}</p>
+            </span>
             <span>
                 <b>ENDEREÇO:</b>
                 <p>
