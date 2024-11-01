@@ -1,11 +1,11 @@
-import "./MemberDataSignUp.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiRequest } from "../utils/api.jsx";
-import { validateMembro as validate } from "../utils/validation.jsx";
-import { states } from "../utils/states.jsx";
-import { getAuthorities as roles } from "../utils/authorities.jsx";
-import { normalizeUnderscore, memberUtils } from "../utils/stringHelpers.jsx";
+import { apiRequest } from "../../utils/api.jsx";
+import { validateMembro as validate } from "../../utils/validation.jsx";
+import { states } from "../../utils/states.jsx";
+import { getAuthorities as roles } from "../../utils/authorities.jsx";
+import { normalizeUnderscore } from "../../utils/stringHelpers.jsx";
+import "./MemberDataSignUp.css";
 
 export function MemberDataSignUp({ id, initialData = null }) {
     const [formData, setFormData] = useState(initialData || {

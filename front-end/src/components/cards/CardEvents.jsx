@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { formatDateWithHours } from "../utils/dateHelpers";
-import { formatEndereco } from "../utils/stringHelpers";
+import { formatDateWithHours } from "../../utils/dateHelpers";
+import { formatEndereco } from "../../utils/stringHelpers";
 import "./CardEvents.css"
 
-import DefaultEvent from "../assets/img/default-event.png"
-import Delete from "../assets/img/Delete.svg"
-import Edit from "../assets/img/Edit.svg"
-import ArrowRight from "../assets/img/arrow-right.svg"
+import DefaultEvent from "../../assets/img/default-event.png"
+import ArrowRight from "../../assets/img/layout/arrow-right.svg"
+import Delete from "../../assets/img/layout/delete.svg"
+import Edit from "../../assets/img/layout/edit.svg"
 
 export function CardEvents(
     { id, nome, endereco, logradouro, numero, dataInicio, descricao, atracao, onDelete }

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ArrowBack from "../assets/img/arrow-back.svg";
+import ArrowBack from "../../assets/img/layout/arrow-back.svg";
 import "./ButtonGoBack.css";
 
 export function ButtonGoBack() {

@@ -1,15 +1,16 @@
-import { useNavigate } from 'react-router-dom';
 import React from "react";
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext";
+import { useFetch } from "../../hooks/useFetch";
+import { Authorities } from "../../utils/authorities";
+import { formatEndereco, normalizeUnderscore } from "../../utils/stringHelpers";
+import { formatDate } from "../../utils/dateHelpers";
+import { apiRequest } from "../../utils/api";
 import "./ViewMemberData.css";
-import Delete from "../assets/img/Delete.svg";
-import Edit from "../assets/img/Edit.svg";
-import ProfileLogo from "../assets/img/user-card-icon.svg";
-import { useAuth } from "../context/AuthContext";
-import { useFetch } from "../hooks/useFetch";
-import { Authorities } from "../utils/authorities";
-import { formatEndereco, normalizeUnderscore } from "../utils/stringHelpers";
-import { formatDate } from "../utils/dateHelpers";
-import { apiRequest } from "../utils/api";
+
+import Delete from "../../assets/img/layout/delete.svg";
+import Edit from "../../assets/img/layout/edit.svg";
+import ProfileLogo from "../../assets/img/layout/user-card.svg";
 
 export function ViewMemberData({ id }) {
     const { navigate } = useNavigate();

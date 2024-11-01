@@ -1,8 +1,9 @@
 import React from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useFetch } from "../../hooks/useFetch";
 import "./Registrationlist.css";
-import DeleteImg from "../assets/img/Delete.svg";
-import { useAuth } from "../context/AuthContext";
-import { useFetch } from "../hooks/useFetch";
+
+import DeleteImg from "../../assets/img/layout/delete.svg";
 
 // TODO: Dados devem ser carregados dinamicamente da API
 const data = [

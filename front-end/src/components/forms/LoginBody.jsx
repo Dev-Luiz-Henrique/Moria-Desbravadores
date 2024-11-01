@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { apiRequest } from "../utils/api";
-import { ButtonGoBack } from "./ButtonGoBack"
-import "./LoginBody.css"
+import { useAuth } from "../../context/AuthContext";
+import { apiRequest } from "../../utils/api";
+import { ButtonGoBack } from "../layout/ButtonGoBack"
+import "./LoginBody.css";
 
 export function LoginBody() {
     const navigate = useNavigate();

@@ -1,13 +1,14 @@
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { apiRequest } from "../utils/api";
-import { Authorities } from "../utils/authorities";
-import ImgEvent from "../assets/img/default-event.png";
-import EditImg from "../assets/img/Edit.svg";
-import DeleteImg from "../assets/img/Delete.svg";
+import { apiRequest } from "../../utils/api";
+import { Authorities } from "../../utils/authorities";
+import { formatEndereco } from "../../utils/stringHelpers";
+import { formatDateWithHours } from "../../utils/dateHelpers";
 import "./EventCard.css";
-import { formatEndereco } from "../utils/stringHelpers";
-import { formatDateWithHours } from "../utils/dateHelpers";
+
+import ImgEvent from "../../assets/img/default-event.png";
+import EditImg from "../../assets/img/layout/edit.svg";
+import DeleteImg from "../../assets/img/layout/delete.svg";
 
 export function EventCard(evento) {
     const navigate = useNavigate();

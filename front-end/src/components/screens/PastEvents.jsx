@@ -1,8 +1,7 @@
-import EventOne from "../assets/img/evento01.png"
-import EventTwo from "../assets/img/evento02.png"
-import EventThree from "../assets/img/evento03.png"
-import EventFour from "../assets/img/evento04.png"
-// import BgPastEvents from "../assets/img/Background_Mountain02.svg"
+import EventOne from "../../assets/img/evento01.png"
+import EventTwo from "../../assets/img/evento02.png"
+import EventThree from "../../assets/img/evento03.png"
+import EventFour from "../../assets/img/evento04.png"
 import "./PastEvents.css"
 
 export function PastEvents() {

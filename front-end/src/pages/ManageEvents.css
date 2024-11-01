@@ -1,7 +1,7 @@
 .container-manage-events-page {
     display: flex;
     padding: 80px 0;
-    background-image: url("../assets/img/bg-img-manage-events.svg");
+    background-image: url("../assets/img/backgrounds/bg-manage-events.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

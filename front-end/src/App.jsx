@@ -1,20 +1,25 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import { PrivateRoute } from "./components/PrivateRoute";
+import { Authorities, getVoluntarios } from "./utils/authorities";
+
+// Pages
 import { NotFound } from "./pages/NotFound";
 import { Landing } from "./pages/Landing";
 import { LoginPage } from "./pages/LoginPage";
-import { UserPage } from "./components/UserPage";
+import { UserPage } from "./pages/UserPage";
 import { Mensalidades } from "./pages/Mensalidades";
-import { MemberRegisterPage } from "./pages/MemberRegisterPage"; 
-import { EventoRegisterPage } from "./pages/EventoRegisterPage";
-import { RecursoRegisterPage } from "./pages/RecursoRegisterPage.jsx";
 import { Evento } from "./pages/Evento";
-import { Authorities, getVoluntarios } from "./utils/authorities";
-import "./App.css";
 import { ManageEvents } from "./pages/ManageEvents";
-import { ViewMemberData } from "./components/ViewMemberData.jsx";
-import { MemberView } from "./pages/MemberView.jsx";
+import { MemberRegisterPage } from "./pages/MemberRegisterPage";
+import { EventoRegisterPage } from "./pages/EventoRegisterPage";
+import { RecursoRegisterPage } from "./pages/RecursoRegisterPage";
+import { MemberView } from "./pages/MemberView";
+
+// Components
+import { PrivateRoute } from "./components/routing/PrivateRoute";
+
+import "./App.css";
+
 
 function App() {
     return (

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useFetch } from "../hooks/useFetch";
-import { apiRequest } from "../utils/api";
-import { formatDateWithHours } from "../utils/dateHelpers";
-import { formatEndereco } from "../utils/stringHelpers";
+import { useFetch } from "../../hooks/useFetch";
+import { apiRequest } from "../../utils/api";
+import { formatDateWithHours } from "../../utils/dateHelpers";
+import { formatEndereco } from "../../utils/stringHelpers";
 
-import ArrowRight from "../assets/img/arrow-right.svg";
-import ArrowLeft from "../assets/img/arrow-left.svg";
-import ImgEvent from "../assets/img/default-event.png";
-import BgPastEvents from "../assets/img/Background_Mountain02.svg";
+import ArrowRight from "../../assets/img/layout/arrow-right.svg";
+import ArrowLeft from "../../assets/img/layout/arrow-left.svg";
+import ImgEvent from "../../assets/img/default-event.png";
+import BgPastEvents from "../../assets/img/backgrounds/bg-Mountain-02.svg";
 import "./SectionEvents.css";
 
 export function SectionEvents() {

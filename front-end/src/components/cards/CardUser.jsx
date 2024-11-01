@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { abbreviateName, normalizeUnderscore } from "../../utils/stringHelpers";
 import "./CardUser.css";
-import EditImg from "../assets/img/Edit.svg";
-import DeleteImg from "../assets/img/Delete.svg";
-import UserICon from "../assets/img/user-card-icon.svg";
-import { abbreviateName, normalizeUnderscore } from "../utils/stringHelpers";
-import { Link } from "react-router-dom";
-import { useFetch } from "../hooks/useFetch";
+
+import EditImg from "../../assets/img/layout/edit.svg";
+import DeleteImg from "../../assets/img/layout/delete.svg";
+import UserIcon from "../../assets/img/layout/user-card.svg";
 
 export function CardUser({ id, nome, tipo, status, onDelete }) {
     const navigate = useNavigate();
@@ -27,7 +26,7 @@ export function CardUser({ id, nome, tipo, status, onDelete }) {
 
             <Link to={`/membro/${id}`}>
                 <div className="user-name">
-                    <img src={UserICon} alt="Ícone do usuário" />
+                    <img src={UserIcon} alt="Ícone do usuário" />
                     <h3>{abbreviateName(nome)}</h3>
                 </div>
             </Link>

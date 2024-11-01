@@ -2,9 +2,9 @@ import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
 import { apiRequest } from "../utils/api";
 import { Authorities } from "../utils/authorities";
-import { CardMensalidades } from "../components/CardMensalidades";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
+import { CardMensalidades } from "../components/cards/CardMensalidades";
+import { Footer } from "../components/layout/Footer";
+import { Header } from "../components/layout/Header";
 import "./Mensalidades.css"
 
 export function Mensalidades() {

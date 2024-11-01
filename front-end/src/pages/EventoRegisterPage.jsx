@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { apiRequest } from "../utils/api";
-import { ButtonGoBack } from "../components/ButtonGoBack";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
-import { EventoDataSignUp } from "../components/EventoDataSignUp";
+import { ButtonGoBack } from "../components/layout/ButtonGoBack";
+import { Footer } from "../components/layout/Footer";
+import { Header } from "../components/layout/Header";
+import { EventoDataSignUp } from "../components/forms/EventoDataSignUp";
 import "./EventoRegisterPage.css";
 
 export function EventoRegisterPage() {

@@ -1,8 +1,8 @@
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
-import { SectionEvents } from "../components/SectionEvents";
-import { PastEvents } from "../components/PastEvents";
-import { TalkToUs } from "../components/TalkToUs";
+import { Footer } from "../components/layout/Footer";
+import { Header } from "../components/layout/Header";
+import { SectionEvents } from "../components/screens/SectionEvents";
+import { PastEvents } from "../components/screens/PastEvents";
+import { TalkToUs } from "../components/screens/TalkToUs";
 
 export function Landing() {
     return (

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiRequest } from "../utils/api.jsx";
-import { validateRecurso } from "../utils/validation.jsx"; // Validações específicas para recursos
-import { getPayments } from "../utils/paymentOptions.jsx"; // Opções de dropdown
-import { getPaymentCategories } from "../utils/PaymentCategory.jsx"; // Opções de dropdown
-import { getPayStatus } from "../utils/PaymentStatus.jsx"; // Opções de dropdown
+import { apiRequest } from "../../utils/api.jsx";
+import { validateRecurso } from "../../utils/validation.jsx";
+import { getPayments } from "../../utils/paymentOptions.jsx";
+import { getPaymentCategories } from "../../utils/PaymentCategory.jsx";
+import { getPayStatus } from "../../utils/PaymentStatus.jsx";
 import "./RecursoDataSignUp.css";
 
 export function RecursoSignUp({ initialData = null }) {

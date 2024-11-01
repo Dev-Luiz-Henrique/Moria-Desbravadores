@@ -1,9 +1,9 @@
-import "./EventoDataSignUp.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiRequest } from "../utils/api.jsx";
-import { validadeEvento as validate } from "../utils/validation.jsx";
-import { states } from "../utils/states.jsx";
+import { apiRequest } from "../../utils/api.jsx";
+import { validadeEvento as validate } from "../../utils/validation.jsx";
+import { states } from "../../utils/states.jsx";
+import "./EventoDataSignUp.css";
 
 export function EventoDataSignUp({ id, initialData = null }) {
     const [formData, setFormData] = useState(initialData || {

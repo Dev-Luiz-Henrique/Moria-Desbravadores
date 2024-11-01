@@ -3,13 +3,13 @@ import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
 import { apiRequest } from "../utils/api";
 import { Authorities } from "../utils/authorities";
-import { CardEvents } from "../components/CardEvents";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
+import { CardEvents } from "../components/cards/CardEvents";
+import { Header } from "../components/layout/Header";
+import { Footer } from "../components/layout/Footer";
 import "./ManageEvents.css";
 
-import AddIcon from "../assets/img/Plus.svg";
-import SearchIcon from "../assets/img/Glass.svg";
+import AddIcon from "../assets/img/layout/plus.svg";
+import SearchIcon from "../assets/img/layout/search.svg";
 
 export function ManageEvents() {
     const { authorities } = useAuth();

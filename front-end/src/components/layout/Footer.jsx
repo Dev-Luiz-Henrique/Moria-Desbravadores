@@ -1,6 +1,6 @@
-import FacebookLogo from "../assets/img/Facebook.png"
-import YoutubeLogo from "../assets/img/Youtube.png"
-import InstagramLogo from "../assets/img/Instagram.png"
+import FacebookLogo from "../../assets/img/icons/facebook.png"
+import YoutubeLogo from "../../assets/img/icons/youtube.png"
+import InstagramLogo from "../../assets/img/icons/instagram.png"
 import "./Footer.css"
 
 export function Footer() {

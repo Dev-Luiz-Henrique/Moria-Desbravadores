@@ -1,12 +1,12 @@
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../../context/AuthContext"
 import { DropDownProfile } from "./DropDownProfile"
 import "./Header.css"
-import { useEffect, useState } from 'react';
 
-import MoriaLogo from "../assets/img/Logo.svg"
-import HeaderBgImg from "../assets/img/Background_refact.svg"
-import ProfileLogo from "../assets/img/profile-icon.svg"
+import MoriaLogo from "../../assets/img/layout/logo.svg"
+import HeaderBgImg from "../../assets/img/backgrounds/bg-refact.svg"
+import ProfileLogo from "../../assets/img/layout/profile-icon.svg"
 
 export function Header() {
     const { token, isLoading } = useAuth();

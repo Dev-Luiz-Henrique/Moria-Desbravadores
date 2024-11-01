@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
-import { Header } from "../components/Header";
-import { ButtonGoBack } from "../components/ButtonGoBack";
-import { Footer } from "../components/Footer";
-import { EventCard } from "../components/EventCard";
-import { Registrationlist } from "../components/Registrationlist";
-import { Resources } from "../components/Resources";
+import { Header } from "../components/layout/Header";
+import { ButtonGoBack } from "../components/layout/ButtonGoBack";
+import { Footer } from "../components/layout/Footer";
+import { EventCard } from "../components/cards/EventCard";
+import { Registrationlist } from "../components/tables/Registrationlist";
+import { Resources } from "../components/tables/Resources";
 import "./Evento.css";
 
 export function Evento() {

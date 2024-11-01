@@ -1,4 +1,4 @@
-import { formatDate } from "../utils/dateHelpers";
+import { formatDate } from "../../utils/dateHelpers";
 import "./CardMensalidades.css";
 
 export function CardMensalidades({

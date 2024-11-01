@@ -1,15 +1,15 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useFetch } from "../hooks/useFetch";
 import { apiRequest } from "../utils/api";
 import { Authorities } from "../utils/authorities";
-import { CardUser } from "./CardUser";
-import { Footer } from "./Footer";
+import { Header } from "../components/layout/Header";
+import { Footer } from "../components/layout/Footer";
+import { CardUser } from "../components/cards/CardUser";
 import "./UserPage.css";
 
-import AddIcon from "../assets/img/Plus.svg";
-import SearchIcon from "../assets/img/Glass.svg";
-import { Link } from "react-router-dom";
-import { Header } from "./Header";
+import AddIcon from "../assets/img/layout/plus.svg";
+import SearchIcon from "../assets/img/layout/search.svg";
 
 export function UserPage() {
     const { authorities } = useAuth();

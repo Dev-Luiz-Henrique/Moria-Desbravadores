@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React from "react";
-import { Link } from "react-router-dom";
-import DeleteImg from "../assets/img/Delete.svg";
-import PlusImg from "../assets/img/Plus.svg";
 import "./Resources.css";
+
+import DeleteImg from "../../assets/img/layout/delete.svg";
+import PlusImg from "../../assets/img/layout/plus.svg";
 
 const data = [
     {

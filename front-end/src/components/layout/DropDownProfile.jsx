@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { Authorities, isVoluntario } from "../utils/authorities";
-import { abbreviateName } from "../utils/stringHelpers";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { Authorities, isVoluntario } from "../../utils/authorities";
+import { abbreviateName } from "../../utils/stringHelpers";
 import "./DropDownProfile.css";
 
-import ProfileLogo from "../assets/img/profile-icon.svg";
-import LogoutLogo from "../assets/img/logout-logo.svg";
+import ProfileLogo from "../../assets/img/layout/profile-icon.svg";
+import LogoutLogo from "../../assets/img/layout/logout.svg";
 
 export function DropDownProfile() {
     const { membro, authorities, logout, isLoading } = useAuth();
