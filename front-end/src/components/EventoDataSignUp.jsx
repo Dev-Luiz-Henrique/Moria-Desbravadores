@@ -5,13 +5,13 @@ import { apiRequest } from "../utils/api.jsx";
 import { validadeEvento as validate } from "../utils/validation.jsx";
 import { states } from "../utils/states.jsx";
 
-export function EventoDataSignUp({ initialData = null }) {
+export function EventoDataSignUp({ id, initialData = null }) {
     const [formData, setFormData] = useState(initialData || {
         nome: "",
         descricao: "",
         publico: false,
-        dataInicio: "",
-        dataFim: "",
+        dataInicio: new Date().toISOString().slice(0, 16),
+        dataFim: new Date(new Date().getTime() + 6 * 60 * 60 * 1000).toISOString().slice(0, 16),
         logradouro: "",
         numero: "",
         endereco: {
@@ -110,17 +110,21 @@ export function EventoDataSignUp({ initialData = null }) {
         e.preventDefault();
         
         const hasErrors = Object.values(errors).some((error) => error !== "");
-        if (hasErrors) 
-            alert("Corrija os erros antes de enviar.");
-        else { console.log(formData)
-            const { error: submitError } = await apiRequest(`/eventos`, "POST", formData);
-            if (submitError) 
-                alert("Erro no salvamento do evento. " + submitError);
-            else {
-                alert("Evento salvo com sucesso!");
-                navigate("/gerenciar-eventos");
-            }
+        if (hasErrors) {
+            alert("Por favor, corrija os erros no formulário antes de enviá-lo.");
+            return;
         }
+
+        const url = id ? `/eventos/${id}` : `/eventos`;
+        const method = id ? "PUT" : "POST";
+
+        const { error: submitError } = await apiRequest(url, method, formData);
+        if (submitError)
+            alert("Não foi possível realizar a operação. " + submitError);
+        else {
+            alert(`Evento ${id ? 'atualizado' : 'criado'} com sucesso!`);
+            navigate("/gerenciar-eventos");
+        }  
     };
 
     const formPages = [
@@ -232,10 +236,13 @@ export function EventoDataSignUp({ initialData = null }) {
     ];
 
     const handleNext = () => {
-        setCurrentPage((prevPage) =>
-            Math.min(prevPage + 1, formPages.length - 1)
-        );
-    };
+        const hasErrors = Object.values(errors).some((error) => error !== "");
+        if (hasErrors) {
+            alert("Por favor, corrija os erros antes de prosseguir.");
+            return;
+        }
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, formPages.length - 1));
+    };   
     const handlePrev = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
     };

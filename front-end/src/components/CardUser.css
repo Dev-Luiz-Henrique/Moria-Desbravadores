@@ -32,7 +32,16 @@
     color: #352208;
 
     font-size: 24px;
-    font-family: "Secular One", sans-serif;
+    font-family: "Secular One", sans-serif;  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.card-user-container .user-name > h3:hover {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.card-user-container .user-name :hover {
+    color: #1D7874;
+    transform: scale(1.02);
+    cursor: pointer;
 }
 
 .card-user-container > .user-tipo {

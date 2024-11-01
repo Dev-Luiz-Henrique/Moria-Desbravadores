@@ -36,14 +36,14 @@ export function MemberRegisterPage() {
     if (error) return <p>Erro: {error}</p>;
 
     return (
-        <>
+        <> 
             <Header />
             <div className="container-register-page">
                 <div className="return-btn">
                     <ButtonGoBack />
                 </div>
                 {
-                    memberData ? <MemberDataSignUp initialData={memberData} /> : <MemberDataSignUp/>
+                    memberData ? <MemberDataSignUp id={id} initialData={memberData} /> : <MemberDataSignUp/>
                 }
             </div>
             <Footer />

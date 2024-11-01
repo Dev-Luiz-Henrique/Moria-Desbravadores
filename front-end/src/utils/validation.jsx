@@ -138,26 +138,20 @@ export const validateMembro = {
 
 export const validadeEvento = {
     nome: (value) => {
-        if (!value || value.length > 50)
-            return "Nome deve ter no máximo 50 caracteres.";
+        if (!value || value.length < 3 || value.length > 50)
+            return "Nome deve ter entre 3 e 50 caracteres.";
         return "";
     },
 
     atracao: (value) => {
-        if (!value || value.length > 50)
-            return "Atração deve ter no máximo 50 caracteres.";
+        if (!value || value.length < 3 || value.length > 50)
+            return "Atração deve ter entre 3 e 50 caracteres.";
         return "";
     },
 
     descricao: (value) => {
-        if (!value || value.length > 500)
-            return "Descrição deve ter no máximo 500 caracteres.";
-        return "";
-    },
-
-    imagem: (value) => {
-        if (value && value.length > 255)
-            return "Caminho da imagem deve ter no máximo 255 caracteres.";
+        if (!value || value.length < 3 || value.length > 500)
+            return "Descrição deve ter entre 3 e 50 caracteres.";
         return "";
     },
 

@@ -7,11 +7,11 @@ import { states } from "../utils/states.jsx";
 import { getAuthorities as roles } from "../utils/authorities.jsx";
 import { normalizeUnderscore, memberUtils } from "../utils/stringHelpers.jsx";
 
-export function MemberDataSignUp({ initialData = null }) {
+export function MemberDataSignUp({ id, initialData = null }) {
     const [formData, setFormData] = useState(initialData || {
         nome: "",
         sexo: "M",
-        dataNascimento: "",
+        dataNascimento: "2000-01-01",
         telefone: "",
         celular: "",
         email: "",
@@ -108,17 +108,21 @@ export function MemberDataSignUp({ initialData = null }) {
         console.log(formData);
 
         const hasErrors = Object.values(errors).some((error) => error !== "");
-        if (hasErrors)
+        if (hasErrors){
             alert("Por favor, corrija os erros no formulário antes de enviá-lo.");
-        else {
-            const { error: submitError } = await apiRequest(`/membros`, "POST", formData);
-            if (submitError)
-                alert("Não foi possível realizar o cadastro. " + submitError);
-            else {
-                alert("Cadastro realizado com sucesso!");
-                navigate("/gerenciar-membros");
-            }
+            return;
         }
+            
+        const url = id ? `/membros/${id}` : `/membros`;
+        const method = id ? "PUT" : "POST";
+
+        const { error: submitError } = await apiRequest(url, method, formData);
+        if (submitError)
+            alert("Não foi possível realizar a operação. " + submitError);
+        else {
+            alert(`Membro ${id ? 'atualizado' : 'criado'} com sucesso!`);
+            navigate("/gerenciar-membros");
+        }        
     };
 
     const formPages = [
@@ -320,10 +324,13 @@ export function MemberDataSignUp({ initialData = null }) {
     ];
 
     const handleNext = () => {
-        setCurrentPage((prevPage) =>
-            Math.min(prevPage + 1, formPages.length - 1)
-        );
-    };
+        const hasErrors = Object.values(errors).some((error) => error !== "");
+        if (hasErrors) {
+            alert("Por favor, corrija os erros antes de prosseguir.");
+            return;
+        }
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, formPages.length - 1));
+    };    
     const handlePrev = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
     };
@@ -347,7 +354,7 @@ export function MemberDataSignUp({ initialData = null }) {
                         </button>
                     )}
                     {currentPage === formPages.length - 1 && (
-                        <button type='submit'>Salvar</button>
+                        <button type='submit'>{id ? 'Atualizar' : 'Salvar'}</button>
                     )}
                 </div>
             </form>

@@ -42,7 +42,7 @@ export function EventoRegisterPage() {
                 <div className="return-btn">
                     <ButtonGoBack />
                 </div>
-                <EventoDataSignUp initialData={eventoData}/>
+                {eventoData ? <EventoDataSignUp id={id} initialData={eventoData}/> : <EventoDataSignUp/>}
             </div>
             <Footer />
         </>
