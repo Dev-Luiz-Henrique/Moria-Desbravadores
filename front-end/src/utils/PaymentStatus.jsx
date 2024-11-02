@@ -6,7 +6,7 @@ const PaymentStatuses = Object.freeze({
 const getPaymentStatus = () => {
     return Object.values(PaymentStatuses).map(payment => ({
         value: payment,
-        label: payment.charAt(0) + payment.slice(1).toLowerCase()  
+        label: payment.charAt(0) + payment.slice(1)
     }));
 };
 
