@@ -27,7 +27,7 @@ public class RecursoServiceImpl implements IRecursoService {
 	public Recurso create(@Valid Recurso recurso) {
 		Evento evento = recurso.getEvento();
 		recurso.setEvento(eventoRepository.findById(evento.getId())
-				.orElseGet(() -> eventoRepository.save(evento)));
+			.orElseGet(() -> eventoRepository.save(evento)));
 
         return recursoRepository.save(recurso);
 	}
