@@ -65,4 +65,14 @@ public class RecursoController {
         List<Recurso> recursos = recursoService.findAll();
         return ResponseEntity.ok(recursos);
     }
+
+    @GetMapping("/evento/{eventoId}")
+    public ResponseEntity<List<Recurso>> findRecursosById(@PathVariable int eventoId) {
+        try {
+            List<Recurso> recursos = recursoService.findRecursosByEvento(eventoId);
+            return ResponseEntity.ok(recursos);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
 }

@@ -9,4 +9,5 @@ public interface IRecursoService {
     public Recurso update(Recurso recurso);
     public void delete(int id);
     public List<Recurso> findAll();
+    public List<Recurso> findRecursosByEvento(int eventoId);
 }

@@ -94,13 +94,13 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Dependencia para o Spring Boot DevTools 
+        <!-- Dependencia para o Spring Boot DevTools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
-		-->
+		
         <!-- Dependencia para testes 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

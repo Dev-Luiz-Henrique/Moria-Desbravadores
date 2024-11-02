@@ -22,10 +22,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        configureInscricaoRoutes(http);
+        configureRecursosRoutes(http);
         configureMensalidadesRoutes(http);
         configureEventosRoutes(http);
         configureMembrosRoutes(http);
-        configureInscricaoRoutes(http);
         configureOthersRoutes(http);
 
         http
@@ -102,6 +103,13 @@ public class SecurityConfig {
     	http.authorizeHttpRequests(authorize -> authorize
     			.requestMatchers("/inscricoes/*/inscritos").authenticated()
     		    .requestMatchers("/inscricoes/**").permitAll());
+    }
+
+    private void configureRecursosRoutes(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(HttpMethod.GET, "/recursos/**").permitAll()
+            .requestMatchers("/recursos/**").hasAuthority(TipoMembro.SECRETARIO.name())
+        );
     }
 
     private void configureOthersRoutes(HttpSecurity http) throws Exception {
