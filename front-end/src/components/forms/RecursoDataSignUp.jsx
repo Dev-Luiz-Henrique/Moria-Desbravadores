@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { apiRequest } from "../../utils/api.jsx";
 import { validateRecurso } from "../../utils/validation.jsx";
 import { getPayments } from "../../utils/paymentOptions.jsx";
@@ -7,27 +7,31 @@ import { getPaymentCategories } from "../../utils/PaymentCategory.jsx";
 import { getPayStatus } from "../../utils/PaymentStatus.jsx";
 import "./RecursoDataSignUp.css";
 
-export function RecursoSignUp({ initialData = null }) {
-    const [formData, setFormData] = useState(
-        initialData || {
-            eventoId: "", // Dropdown para selecionar evento
-            nome: "",
-            descricao: "",
-            valor: "",
-            quantidade: "",
-            formaPagamento: "",
-            categoria: "",
-            statusPagamento: "",
-        }
-    );
-
-    const [errors, setErrors] = useState({});
-    const navigate = useNavigate();
+export function RecursoSignUp({initialData = null }) {
+    const { eventoId } = useParams();
 
     // Chama as funções e atribui o retorno a payOptions, payCategories e statusPagamentoOptions
     const payOptions = getPayments();
     const payCategories = getPaymentCategories();
     const statusPagamentoOptions = getPayStatus();
+
+    const [formData, setFormData] = useState(
+        initialData || {
+            nome: "",
+            descricao: "",
+            valor: "",
+            quantidade: "",
+            formaPagamento: payOptions[0].value,
+            categoria: payCategories[0].value,
+            statusPagamento: "PAGO", 
+            evento: {
+                id: eventoId,
+            },
+        }
+    );
+
+    const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
@@ -57,6 +61,8 @@ export function RecursoSignUp({ initialData = null }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const hasErrors = Object.values(errors).some((error) => error !== "");
+        console.log(formData);
+
         if (hasErrors) {
             alert("Corrija os erros antes de enviar.");
         } else {
@@ -69,7 +75,7 @@ export function RecursoSignUp({ initialData = null }) {
                 alert("Erro ao cadastrar o recurso: " + submitError);
             } else {
                 alert("Recurso cadastrado com sucesso!");
-                navigate("/gerenciar-recursos");
+                navigate(`/detalhes-evento/${eventoId}`);
             }
         }
     };

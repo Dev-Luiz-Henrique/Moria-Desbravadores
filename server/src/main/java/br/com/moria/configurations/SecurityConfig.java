@@ -101,6 +101,7 @@ public class SecurityConfig {
 
     private void configureInscricaoRoutes(HttpSecurity http) throws Exception {
     	http.authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(HttpMethod.GET, "/inscricoes/{id}").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
             .requestMatchers(HttpMethod.GET, "/inscricoes/**").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
             .requestMatchers("/inscricoes/**").hasAuthority(TipoMembro.SECRETARIO.name())
         );

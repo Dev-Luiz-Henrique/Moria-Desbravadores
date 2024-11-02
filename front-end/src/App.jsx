@@ -20,7 +20,6 @@ import { PrivateRoute } from "./components/routing/PrivateRoute";
 
 import "./App.css";
 
-
 function App() {
     return (
         <AuthProvider>
@@ -58,7 +57,7 @@ function App() {
                         }
                     />
                     <Route
-                        path='/cadastrar-recurso/:id?'
+                        path='/cadastrar-recurso/:eventoId?'
                         element={
                             <PrivateRoute allowedAuthorities={getVoluntarios()}>
                                 <RecursoRegisterPage />
