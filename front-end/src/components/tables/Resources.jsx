@@ -22,7 +22,7 @@ export function Resources({eventoId}) {
 
     const handleDelete = async (id) => {
         if (!hasAccess) {
-            alert("Você não tem permissão para excluir membros.");
+            alert("Você não tem permissão para excluir recursos.");
             return;
         }
 
@@ -42,7 +42,7 @@ export function Resources({eventoId}) {
             <header className='resources-header'>
                 <button onClick={handleCreate} className='adicionar' type='button'>
                     <img src={PlusImg} alt='' />
-                    ADICIONAR RECURSO
+                    <span>ADICIONAR RECURSO</span>
                 </button>
                 <h3>Recursos</h3>
             </header>

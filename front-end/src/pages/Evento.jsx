@@ -18,7 +18,7 @@ export function Evento() {
             <div className='event-body'>
                 <ButtonGoBack />
                 {evento && !loading && !error && <EventCard {...evento} />}
-                <Registrationlist id={id} />
+                {evento && !loading && !error && <Registrationlist eventoId={evento.id} />}
                 {evento && !loading && !error && <Resources eventoId={evento.id} />}
             </div>
             <Footer />

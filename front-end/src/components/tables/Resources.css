@@ -1,6 +1,7 @@
 .resources-header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: row;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -31,10 +32,14 @@
 .resourcesList > li {
   position: relative;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr 3fr;
+  grid-template-columns: 2fr 1fr 1.2fr 1.5fr 3fr;
   line-height: 1.75rem;
   height: 1.75rem;
   font-family: 'Secular One', sans-serif;
+}
+
+.resourcesList > li > span {
+  overflow: hidden;
 }
 
 .resourcesList > li > button {
@@ -68,6 +73,7 @@
 
 .resourcesList > li:not(:first-child) span {
   text-align: center;
+  text-overflow: ellipsis;
   border-bottom: 2px solid #af7351;
 }
 
@@ -93,7 +99,7 @@
 
 .resources-header > .adicionar {
   margin-left: 1rem;
-  width: 20rem;
+  width: 19rem;
 }
 
 .resources-header > .adicionar img {
@@ -102,4 +108,13 @@
 
 .resources-header > .salvar {
   margin-right: 1rem;
+}
+
+@media (max-width: 800px) {
+  .resources-header > .adicionar {
+    width: fit-content;
+  }
+  .resources-header > .adicionar span {
+    display: none;
+  }
 }
