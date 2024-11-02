@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.moria.enums.StatusParticipacao;
 import br.com.moria.models.Inscricao;
-import br.com.moria.models.Membro;
 import br.com.moria.services.interfaces.IInscricaoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -91,11 +90,11 @@ public class InscricaoController {
     }
 
     @GetMapping("/evento/{eventoId}")
-    public ResponseEntity<List<Membro>> findInscricoesById(@PathVariable int eventoId) {
+    public ResponseEntity<List<Inscricao>> findInscricoesById(@PathVariable int eventoId) {
     	try {
-    	    List<Membro> inscricoes = inscricaoService.findByEventoId(eventoId);
+    	    List<Inscricao> inscricoes = inscricaoService.findInscricoesByEventoId(eventoId);
     	    return ResponseEntity.ok(inscricoes);
-    	} catch (Exception e) {
+    	} catch (Exception e) { System.out.println(e);
     	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     	}
     }

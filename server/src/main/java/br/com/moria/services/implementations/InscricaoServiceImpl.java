@@ -1,5 +1,6 @@
 package br.com.moria.services.implementations;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.moria.enums.StatusParticipacao;
 import br.com.moria.models.Inscricao;
-import br.com.moria.models.Membro;
 import br.com.moria.repositories.EventoRepository;
 import br.com.moria.repositories.InscricaoRepository;
 import br.com.moria.repositories.MembroRepository;
@@ -29,9 +29,6 @@ public class InscricaoServiceImpl implements IInscricaoService{
 
 	@Override
 	public Inscricao create(@Valid Inscricao inscricao) {
-
-        System.out.println("Desgraça\n");
-		System.out.println(inscricao);
 		inscricao.setEvento(
             eventoRepository.findById(inscricao.getEvento().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"))
@@ -41,7 +38,6 @@ public class InscricaoServiceImpl implements IInscricaoService{
             membroRepository.findById(inscricao.getMembro().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"))
 		);
-		System.out.println("PORRA");
 		return inscricaoRepository.save(inscricao);
 	}
 
@@ -90,7 +86,15 @@ public class InscricaoServiceImpl implements IInscricaoService{
     }
 
 	@Override
-	public List<Membro> findByEventoId(int eventoId) {
-		return inscricaoRepository.findByEventoId(eventoId);
+	public List<Inscricao> findInscricoesByEventoId(int eventoId) {
+        if (!eventoRepository.existsById(eventoId)) {
+            throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
+        }
+		List<Inscricao> inscricoes = inscricaoRepository.findByEventoId(eventoId);
+        inscricoes.forEach(inscricao -> {
+            inscricao.getEvento().setRecursos(Collections.emptyList());
+        });
+
+        return inscricoes;
 	}
 }
