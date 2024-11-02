@@ -101,14 +101,16 @@ public class SecurityConfig {
 
     private void configureInscricaoRoutes(HttpSecurity http) throws Exception {
     	http.authorizeHttpRequests(authorize -> authorize
-    			.requestMatchers("/inscricoes/*/inscritos").authenticated()
-    		    .requestMatchers("/inscricoes/**").permitAll());
+            .requestMatchers(HttpMethod.GET, "/inscricoes/**").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
+            .requestMatchers("/inscricoes/**").hasAuthority(TipoMembro.SECRETARIO.name())
+        );
     }
 
     private void configureRecursosRoutes(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(HttpMethod.GET, "/recursos/**").permitAll()
-            .requestMatchers("/recursos/**").hasAuthority(TipoMembro.SECRETARIO.name())
+            .requestMatchers(HttpMethod.GET, "/recursos/{id}").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
+            .requestMatchers(HttpMethod.GET, "/recursos/**").hasAnyAuthority(TipoMembro.VOLUNTARIOS)
+            .requestMatchers("/recursos/**").hasAnyAuthority(TipoMembro.SECRETARIO.name(), TipoMembro.TESOUREIRO.name())
         );
     }
 
