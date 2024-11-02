@@ -19,7 +19,7 @@ export function Evento() {
                 <ButtonGoBack />
                 {evento && !loading && !error && <EventCard {...evento} />}
                 <Registrationlist id={id} />
-                <Resources />
+                {evento && !loading && !error && <Resources eventoId={evento.id} />}
             </div>
             <Footer />
         </div>

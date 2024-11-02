@@ -1,46 +1,50 @@
-import { Link, useNavigate } from 'react-router-dom';
 import React from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from "../../context/AuthContext";
+import { useFetch } from "../../hooks/useFetch";
+import { apiRequest } from "../../utils/api";
 import "./Resources.css";
 
 import DeleteImg from "../../assets/img/layout/delete.svg";
 import PlusImg from "../../assets/img/layout/plus.svg";
 
-const data = [
-    {
-        nome: "cadeira",
-        valor: "50,00",
-        quantidade: "250",
-        categoria: "móvel",
-        descrição: "cadeira de plástico",
-    },
-    {
-        nome: "copo",
-        valor: "5,00",
-        quantidade: "50",
-        categoria: "descartável",
-        descrição: "conjunto de copos de plástico",
-    },
-];
-
-export function Resources() {
+export function Resources({eventoId}) {
     const navigate = useNavigate();
+    const { authorities } = useAuth();
+    const allowedAuthorities = ["DIRETOR_CLUBE", "DIRETOR_ASSOCIADO", "SECRETARIO", "TESOUREIRO"];
+    const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
+
+    const { data: recursos, setData: setRecursos, loading, error } = useFetch(`/recursos/evento/${eventoId}`, "GET");
+
     const handleCreate = () => {
-        navigate("/cadastrar-recurso");
+        navigate(`/cadastrar-recurso/${eventoId}`);
+    };
+
+    const handleDelete = async (id) => {
+        if (!hasAccess) {
+            alert("Você não tem permissão para excluir membros.");
+            return;
+        }
+
+        const confirmed = window.confirm("Você tem certeza que deseja excluir este recurso?");
+        if (confirmed) {
+            const { error: deleteError } = await apiRequest(`/recursos/${id}`, "DELETE");
+
+            if (deleteError)
+                console.error(deleteError);
+            else 
+                setRecursos((prevRecursos) => prevRecursos.filter(recurso => recurso.id !== id));
+        }
     };
 
     return (
         <section className='box-shadow'>
             <header className='resources-header'>
-                {/* TODO: Esse Botão só será exibido para quem tiver a autorização adequada */}
                 <button onClick={handleCreate} className='adicionar' type='button'>
                     <img src={PlusImg} alt='' />
                     ADICIONAR RECURSO
                 </button>
                 <h3>Recursos</h3>
-                {/* TODO: Esse Botão só será exibido para quem tiver a autorização adequada */}
-                {/* <button className='salvar' type='button'>
-                    SALVAR
-                </button> */}
             </header>
             <ul className='resourcesList'>
                 <li className='list-header'>
@@ -50,19 +54,17 @@ export function Resources() {
                     <span>CATEGORIA</span>
                     <span>DESCRIÇÃO</span>
                 </li>
-                {data.map((inscrito) => {
+                {!error && !loading && recursos.map((recurso) => {
                     return (
-                        // Se esse objeto tiver uma ID, será uma key melhor
-                        <li key={inscrito.nome}>
-                            {/* TODO: Esse Botão só será exibido para quem tiver a autorização adequada */}
-                            <button type='button'>
-                                {/* <img src={DeleteImg} alt='Deletar' /> */}
+                        <li key={recurso.id}>
+                            <button type='button' onClick={() => handleDelete(recurso.id)}>
+                                <img src={DeleteImg} alt='Deletar'/>
                             </button>
-                            <span>{inscrito.nome}</span>
-                            <span>R$ {inscrito.valor}</span>
-                            <span>{inscrito.quantidade} un</span>
-                            <span>{inscrito.categoria}</span>
-                            <span>{inscrito.descrição}</span>
+                            <span>{recurso.nome}</span>
+                            <span>R$ {recurso.valor}</span>
+                            <span>{recurso.quantidade} un</span>
+                            <span>{recurso.categoria}</span>
+                            <span>{recurso.descricao}</span>
                         </li>
                     );
                 })}
