@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { apiRequest } from "../../utils/api";
+import { useAuth } from "../../context/AuthContext";
 import { formatDateWithHours } from "../../utils/dateHelpers";
 import { formatEndereco } from "../../utils/stringHelpers";
 import "./CardEvents.css"
@@ -12,6 +14,7 @@ export function CardEvents(
     { id, nome, endereco, logradouro, numero, dataInicio, descricao, atracao, onDelete }
 ) {
     const navigate = useNavigate();
+    const { membro, isLoading } = useAuth();
 
     const handleEdit = () => {
         navigate(`/cadastrar-evento/${id}`);
@@ -20,6 +23,20 @@ export function CardEvents(
     const handleDetail = () => {
         navigate(`/detalhes-evento/${id}`);
     };
+
+    const handleEnroll = async () => {
+        const { error: enrollError } = await apiRequest(`/inscricoes/confirmar?membroId=${membro.id}&eventoId=${id}`, "PUT");
+
+        if (enrollError) {
+            alert("Ocorreu um erro ao tentar se inscrever: " + enrollError);
+            console.error("Erro ao tentar se inscrever: ", enrollError);
+        } else {
+            alert("Inscrição realizada com sucesso!");
+        }
+    };
+            
+    if (isLoading) return <p>Carregando dados do membro...</p>;
+    if (!membro) return <p>Dados do membro não disponíveis.</p>;
 
     return (
         <div className="card-event-container">
@@ -56,6 +73,9 @@ export function CardEvents(
                 <span>
                     <b>ATRAÇÃO:</b>
                     <p>{atracao}</p>
+                </span>
+                <span>
+                    <button onClick={handleEnroll}>Inscrever-se</button>
                 </span>
             </div>
         </div>
