@@ -1,7 +1,6 @@
 package br.com.moria.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,32 +32,21 @@ public class InscricaoController {
 
     @PostMapping
     public ResponseEntity<Object> create(@Valid @RequestBody Inscricao inscricao) {
-        try {
-            System.out.println("Desgraca de controller");
-            Inscricao createdInscricao = inscricaoService.create(inscricao);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdInscricao);
+        Inscricao createdInscricao = inscricaoService.create(inscricao);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdInscricao);
+    }
 
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", e.getMessage()));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                Map.of("code", HttpStatus.NOT_FOUND.value(), "message", e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                Map.of("code", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", e.getMessage()));
-        }
+    @PutMapping("/confirmar")
+    public ResponseEntity<Inscricao> confirmarInscricao(@RequestParam int membroId, @RequestParam int eventoId) {
+        Inscricao updatedInscricao = inscricaoService.updateStatusInscricao(membroId, eventoId);
+        return ResponseEntity.ok(updatedInscricao);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Inscricao> update(@PathVariable int id, @RequestBody Inscricao inscricao) {
         inscricao.setId(id);
-        try {
-            Inscricao updatedInscricao = inscricaoService.update(inscricao);
-            return ResponseEntity.ok(updatedInscricao);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        Inscricao updatedInscricao = inscricaoService.update(inscricao);
+        return ResponseEntity.ok(updatedInscricao);
     }
 
     @DeleteMapping("/{id}")
@@ -91,11 +79,7 @@ public class InscricaoController {
 
     @GetMapping("/evento/{eventoId}")
     public ResponseEntity<List<Inscricao>> findInscricoesById(@PathVariable int eventoId) {
-    	try {
-    	    List<Inscricao> inscricoes = inscricaoService.findInscricoesByEventoId(eventoId);
-    	    return ResponseEntity.ok(inscricoes);
-    	} catch (Exception e) { System.out.println(e);
-    	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-    	}
+    	List<Inscricao> inscricoes = inscricaoService.findInscricoesByEventoId(eventoId);
+    	return ResponseEntity.ok(inscricoes);
     }
 }
