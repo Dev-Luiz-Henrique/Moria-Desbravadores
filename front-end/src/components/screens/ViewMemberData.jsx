@@ -27,6 +27,7 @@ export function ViewMemberData({ id }) {
 
     if (loading) return <p>Carregando dados do membro...</p>;
     if (error) return <p>Erro ao carregar dados do membro.</p>;
+    if (!membro) return <p>Dados do membro não disponíveis.</p>;
 
     const handleEdit = () => {
         if (!hasAccess) {
