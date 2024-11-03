@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -30,14 +31,30 @@ public class GlobalExceptionHandler {
     private String activeProfile;
 
     /**
-     * Handle validation exceptions (400 Bad Request)
+     * Handle validation exceptions from MethodArgumentNotValidException (400 Bad Request)
      */
-    @ExceptionHandler({ MethodArgumentNotValidException.class, ConstraintViolationException.class })
-    public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         List<String> errors = ex.getBindingResult().getFieldErrors().stream()
             .map(error -> String.format("Campo '%s': %s", error.getField(), error.getDefaultMessage()))
             .collect(Collectors.toList());
-            
+        
+        String errorMessage = "Houve erros de validação. Verifique os seguintes campos:";
+        logAndAdaptMessage(ex, errorMessage, HttpStatus.BAD_REQUEST);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+            Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", errorMessage, "errors", errors));
+    }
+
+    /**
+     * Handle validation exceptions from ConstraintViolationException (400 Bad Request)
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex) {
+        List<String> errors = ex.getConstraintViolations().stream()
+            .map(violation -> String.format("Campo '%s': %s", violation.getPropertyPath(), violation.getMessage()))
+            .collect(Collectors.toList());
+
         String errorMessage = "Houve erros de validação. Verifique os seguintes campos:";
         logAndAdaptMessage(ex, errorMessage, HttpStatus.BAD_REQUEST);
 
@@ -58,18 +75,6 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Handle "resource not found" exceptions (404 Not Found)
-     */
-    @ExceptionHandler({ NoHandlerFoundException.class, EntityNotFoundException.class })
-    public ResponseEntity<Object> handleNotFoundException(Exception ex) {
-        String message = "Recurso não encontrado.";
-        logAndAdaptMessage(ex, message, HttpStatus.NOT_FOUND);
-        
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-            Map.of("code", HttpStatus.NOT_FOUND.value(), "message", message));
-    }
-
-    /**
      * Handle illegal arguments (400 Bad Request)
      */
     @ExceptionHandler(IllegalArgumentException.class)
@@ -79,18 +84,6 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
             Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", message));
-    }
-
-    /**
-     * Handle I/O exceptions (500 Internal Server Error)
-     */
-    @ExceptionHandler(IOException.class)
-    public ResponseEntity<Object> handleIOException(IOException ex) {
-        String message = "Erro ao processar o arquivo.";
-        logAndAdaptMessage(ex, message, HttpStatus.INTERNAL_SERVER_ERROR);
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-            Map.of("code", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", message));
     }
 
     /**
@@ -115,6 +108,42 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
             Map.of("code", HttpStatus.FORBIDDEN.value(), "message", message));
+    }
+
+    /**
+     * Handle "resource not found" exceptions (404 Not Found)
+     */
+    @ExceptionHandler({ NoHandlerFoundException.class, EntityNotFoundException.class })
+    public ResponseEntity<Object> handleNotFoundException(Exception ex) {
+        String message = "Recurso não encontrado.";
+        logAndAdaptMessage(ex, message, HttpStatus.NOT_FOUND);
+        
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+            Map.of("code", HttpStatus.NOT_FOUND.value(), "message", message));
+    }
+
+    /**
+     * Handle data integrity violations, such as unique constraint violations (409 Conflict)
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        String message = "Erro de integridade de dados: verifique se o recurso já existe ou se há uma duplicação.";
+        logAndAdaptMessage(ex, message, HttpStatus.CONFLICT);
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+            Map.of("code", HttpStatus.CONFLICT.value(), "message", message));
+    }
+
+    /**
+     * Handle I/O exceptions (500 Internal Server Error)
+     */
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<Object> handleIOException(IOException ex) {
+        String message = "Erro ao processar o arquivo.";
+        logAndAdaptMessage(ex, message, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+            Map.of("code", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", message));
     }
 
     /**

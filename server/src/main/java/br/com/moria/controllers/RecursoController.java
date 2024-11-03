@@ -1,7 +1,6 @@
 package br.com.moria.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,35 +28,22 @@ public class RecursoController {
     private IRecursoService recursoService;
 
     @PostMapping
-    public ResponseEntity<Object> create(@Valid @RequestBody Recurso recurso) {
-        try {
-            Recurso createdRecurso = recursoService.create(recurso);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdRecurso);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-            	Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", e.getMessage()));
-        }
+    public ResponseEntity<Recurso> create(@Valid @RequestBody Recurso recurso) {
+        Recurso createdRecurso = recursoService.create(recurso);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRecurso);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Recurso> update(@PathVariable int id, @RequestBody Recurso recurso) {
         recurso.setId(id);
-        try {
-            Recurso updatedRecurso = recursoService.update(recurso);
-            return ResponseEntity.ok(updatedRecurso);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        Recurso updatedRecurso = recursoService.update(recurso);
+        return ResponseEntity.ok(updatedRecurso);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
-        try {
-            recursoService.delete(id);
-            return ResponseEntity.noContent().build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        recursoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
@@ -68,11 +54,7 @@ public class RecursoController {
 
     @GetMapping("/evento/{eventoId}")
     public ResponseEntity<List<Recurso>> findRecursosById(@PathVariable int eventoId) {
-        try {
-            List<Recurso> recursos = recursoService.findRecursosByEvento(eventoId);
-            return ResponseEntity.ok(recursos);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        List<Recurso> recursos = recursoService.findRecursosByEvento(eventoId);
+        return ResponseEntity.ok(recursos);
     }
 }

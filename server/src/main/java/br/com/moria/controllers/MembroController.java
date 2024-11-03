@@ -2,7 +2,6 @@ package br.com.moria.controllers;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.models.Membro;
 import br.com.moria.services.interfaces.IMembroService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -35,35 +33,22 @@ public class MembroController {
     private IMembroService membroService;
 
     @PostMapping
-    public ResponseEntity<Object> create(@Valid @RequestBody Membro membro) {
-        try {
-            Membro createdMembro = membroService.create(membro);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdMembro);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-            	Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", e.getMessage()));
-        }
+    public ResponseEntity<Membro> create(@Valid @RequestBody Membro membro) {
+        Membro createdMembro = membroService.create(membro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdMembro);  
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Membro> update(@PathVariable int id, @RequestBody Membro membro) {
         membro.setId(id);
-        try {
-            Membro updatedMembro = membroService.update(membro);
-            return ResponseEntity.ok(updatedMembro);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        Membro updatedMembro = membroService.update(membro);
+        return ResponseEntity.ok(updatedMembro);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
-        try {
-            membroService.delete(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        membroService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
@@ -74,22 +59,14 @@ public class MembroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Membro> findById(@PathVariable int id) {
-        try {
-            Membro membro = membroService.findById(id);
-            return ResponseEntity.ok(membro);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        Membro membro = membroService.findById(id);
+        return ResponseEntity.ok(membro);
     }
 
     @GetMapping("/email")
     public ResponseEntity<Membro> findByEmail(@RequestParam String email) {
-        try {
-            Membro membro = membroService.findByEmail(email);
-            return ResponseEntity.ok(membro);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        Membro membro = membroService.findByEmail(email);
+        return ResponseEntity.ok(membro);
     }
 
     @GetMapping("/nome")
@@ -99,33 +76,19 @@ public class MembroController {
     }
 
     @PostMapping("/{id}/ficha-saude")
-    public ResponseEntity<String> uploadFichaSaude(@PathVariable int id, @RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
+    public ResponseEntity<String> uploadFichaSaude(@PathVariable int id, @RequestParam("file") MultipartFile file) throws IOException {
+        if (file.isEmpty())
 			return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
-		}
 
-        try {
-            Membro membro = membroService.updateFichaSaudeById(id, file);
-            return ResponseEntity.ok("Ficha de saúde salva em: " + membro.getFichaSaude());
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erro ao fazer upload da ficha de saúde: " + e.getMessage());
-        }
+        Membro membro = membroService.updateFichaSaudeById(id, file);
+        return ResponseEntity.ok("Ficha de saúde salva em: " + membro.getFichaSaude());
     }
 
     @GetMapping("/{id}/ficha-saude")
-    public ResponseEntity<byte[]> downloadFichaSaude(@PathVariable int id) {
-        try {
-            FileResponseDTO fileResponse = membroService.getFichaSaudeById(id);
-            return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
-                .body(fileResponse.getFileBytes());
-
-        } catch (IOException e) {
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    public ResponseEntity<byte[]> downloadFichaSaude(@PathVariable int id) throws IOException {
+        FileResponseDTO fileResponse = membroService.getFichaSaudeById(id);
+        return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
+            .body(fileResponse.getFileBytes());
     }
 }
