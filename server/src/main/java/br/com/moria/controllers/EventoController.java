@@ -3,7 +3,6 @@ package br.com.moria.controllers;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.models.Evento;
 import br.com.moria.services.interfaces.IEventoService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -36,36 +34,22 @@ public class EventoController {
     private IEventoService eventoService;
 
     @PostMapping
-    public ResponseEntity<Object> create(@Valid @RequestBody Evento evento) {
-        try {
-            Evento createdEvento = eventoService.create(evento);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdEvento);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", e.getMessage()));
-        }
+    public ResponseEntity<Evento> create(@Valid @RequestBody Evento evento) {
+        Evento createdEvento = eventoService.create(evento);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdEvento);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Evento> update(@PathVariable int id, @Valid @RequestBody Evento evento) {
         evento.setId(id);
-        try {
-            Evento updatedEvento = eventoService.update(evento);
-            return ResponseEntity.ok(updatedEvento);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        Evento updatedEvento = eventoService.update(evento);
+        return ResponseEntity.ok(updatedEvento);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
-        try {
-            eventoService.delete(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        eventoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
@@ -76,12 +60,8 @@ public class EventoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Evento> findById(@PathVariable int id) {
-        try {
-            Evento evento = eventoService.findById(id);
-            return ResponseEntity.ok(evento);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+        Evento evento = eventoService.findById(id);
+        return ResponseEntity.ok(evento);
     }
 
     @GetMapping("/search")
@@ -109,33 +89,19 @@ public class EventoController {
     }
 
     @PostMapping("/{id}/imagem")
-    public ResponseEntity<String> uploadImagemEvento(@PathVariable int id, @RequestParam("file") MultipartFile file) {
-        if (file.isEmpty()) {
-			return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
-		}
+    public ResponseEntity<String> uploadImagemEvento(@PathVariable int id, @RequestParam("file") MultipartFile file) throws IOException {
+        if (file.isEmpty())
+            return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
 
-        try {
-        	Evento evento = eventoService.updateImagemEventoById(id, file);
-            return ResponseEntity.ok("Imagem do evento salva em: " + evento.getImagem());
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erro ao fazer upload da imagem do evento: " + e.getMessage());
-        }
+        Evento evento = eventoService.updateImagemEventoById(id, file);
+        return ResponseEntity.ok("Imagem do evento salva em: " + evento.getImagem());
     }
 
     @GetMapping("/{id}/imagem")
-    public ResponseEntity<byte[]> downloadImagemEvento(@PathVariable int id) {
-        try {
-            FileResponseDTO fileResponse = eventoService.getImagemEventoById(id);
-            return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
-                .body(fileResponse.getFileBytes());
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+    public ResponseEntity<byte[]> downloadImagemEvento(@PathVariable int id) throws IOException {
+        FileResponseDTO fileResponse = eventoService.getImagemEventoById(id);
+        return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
+            .body(fileResponse.getFileBytes());
     }
 }

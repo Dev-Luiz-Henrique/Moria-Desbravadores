@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -14,47 +15,127 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import io.jsonwebtoken.io.IOException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @Value("${spring.profiles.active:default}")
+    private String activeProfile;
+
+    /**
+     * Handle validation exceptions (400 Bad Request)
+     */
     @ExceptionHandler({ MethodArgumentNotValidException.class, ConstraintViolationException.class })
     public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
         List<String> errors = ex.getBindingResult().getFieldErrors().stream()
             .map(error -> String.format("Campo '%s': %s", error.getField(), error.getDefaultMessage()))
             .collect(Collectors.toList());
-
+            
         String errorMessage = "Houve erros de validação. Verifique os seguintes campos:";
+        logAndAdaptMessage(ex, errorMessage, HttpStatus.BAD_REQUEST);
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
             Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", errorMessage, "errors", errors));
     }
 
+    /**
+     * Handle data conversion exceptions (400 Bad Request)
+     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> handleConversionExceptions(HttpMessageNotReadableException ex) {
-        String message = "Ocorreu um erro de conversão de dados. Por favor, verifique se todos os campos estão corretamente formatados.";
+        String message = "Ocorreu um erro de conversão de dados. Verifique se todos os campos estão corretamente formatados.";
+        logAndAdaptMessage(ex, message, HttpStatus.BAD_REQUEST);
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
             Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", message));
     }
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<Object> handleNotFoundException(NoHandlerFoundException ex) {
-        String message = "Recurso não encontrado. Verifique a URL e tente novamente.";
+    /**
+     * Handle "resource not found" exceptions (404 Not Found)
+     */
+    @ExceptionHandler({ NoHandlerFoundException.class, EntityNotFoundException.class })
+    public ResponseEntity<Object> handleNotFoundException(Exception ex) {
+        String message = "Recurso não encontrado.";
+        logAndAdaptMessage(ex, message, HttpStatus.NOT_FOUND);
+        
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
             Map.of("code", HttpStatus.NOT_FOUND.value(), "message", message));
     }
 
-    /*@ExceptionHandler(AuthenticationException.class)
+    /**
+     * Handle illegal arguments (400 Bad Request)
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
+        String message = ex.getMessage();
+        logAndAdaptMessage(ex, message, HttpStatus.BAD_REQUEST);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+            Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", message));
+    }
+
+    /**
+     * Handle I/O exceptions (500 Internal Server Error)
+     */
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<Object> handleIOException(IOException ex) {
+        String message = "Erro ao processar o arquivo.";
+        logAndAdaptMessage(ex, message, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+            Map.of("code", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", message));
+    }
+
+    /**
+     * Handle authentication exceptions (401 Unauthorized)
+     */
+    @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
-        String message = "Acesso não autorizado: Token JWT inválido ou não fornecido.";
+        String message = "Acesso não autorizado: Token JWT inválido ou não fornecido."; 
+        logAndAdaptMessage(ex, message, HttpStatus.UNAUTHORIZED);
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
             Map.of("code", HttpStatus.UNAUTHORIZED.value(), "message", message));
     }
 
+    /**
+     * Handle access denied exceptions (403 Forbidden)
+     */
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex) {
         String message = "Você não tem permissão para acessar este recurso.";
+        logAndAdaptMessage(ex, message, HttpStatus.FORBIDDEN);
+
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
             Map.of("code", HttpStatus.FORBIDDEN.value(), "message", message));
-    }*/
+    }
+
+    /**
+     * Handle generic exceptions (500 Internal Server Error)
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleGeneralException(Exception ex) {
+        String message = "Ocorreu um erro interno no servidor. Por favor, tente novamente mais tarde.";
+        logAndAdaptMessage(ex, message, HttpStatus.INTERNAL_SERVER_ERROR);
+        
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+            Map.of("code", HttpStatus.INTERNAL_SERVER_ERROR.value(), "message", message));
+    }
+
+    /**
+     * Utility method to log exceptions and adapt messages based on environment
+     */
+    private void logAndAdaptMessage(Exception ex, String userMessage, HttpStatus status) {
+        if ("dev".equals(activeProfile))
+            logger.error("Erro [{}]: {}", status, ex.getMessage(), ex);
+        else
+            logger.error("Erro [{}]: {}", status, userMessage);
+    }
 }
