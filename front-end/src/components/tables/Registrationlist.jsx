@@ -1,43 +1,131 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useFetch } from "../../hooks/useFetch";
+import { apiRequest } from "../../utils/api";
 import "./Registrationlist.css";
 
 import DeleteImg from "../../assets/img/layout/delete.svg";
 
-// TODO: Dados devem ser carregados dinamicamente da API
-const data = [
-    { id: 1, cpf: "383997758-43", nome: "DANIEL LEITE PEREIRA", função: "VOLUNTÁRIO" },
-    { id: 2, cpf: "687420981-73", nome: "LUIZ HENRIQUE DE SANTANA", função: "DESBRAVADOR" },
-    { id: 3, cpf: "123456789-00", nome: "MARIA DA SILVA", função: "VOLUNTÁRIO" },
-    { id: 4, cpf: "987654321-00", nome: "JOÃO SOUZA", função: "DESBRAVADOR" },
-    { id: 5, cpf: "456789123-00", nome: "CARLA ALMEIDA", função: "VOLUNTÁRIO" },
-    // ... outros dados
-];
-
-export function Registrationlist({id}) {
+export function Registrationlist({ eventoId }) {
     const { authorities } = useAuth();
     const allowedAuthorities = ["DIRETOR_CLUBE", "DIRETOR_ASSOCIADO", "SECRETARIO"];
     const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
 
-    //const { data, loading, error } = useFetch("/inscritos");
-    //const filteredData = data ? data.filter(inscrito => inscrito.evento.id === id) : [];
+    const [isFocused, setIsFocused] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [selectedMemberId, setSelectedMemberId] = useState(null);
+    const [filteredMembros, setFilteredMembros] = useState([]);
 
-    const handleDelete = (id) => {
-        // TODO: Chamada para API de exclusão pode ser adicionada aqui
-        console.log(`Excluir inscrito com ID: ${id}`);
+    const inputRef = useRef(null);
+    const suggestionsRef = useRef(null);
+
+    const { data: inscricoes, setData: setInscricoes, loading: inscricoesLoading, 
+        error: inscricoesError } = useFetch(`/inscricoes/evento/${eventoId}`, "GET");
+    if (inscricoesError)
+        setErrorMessage("Erro ao carregar inscrições. Tente novamente mais tarde.");
+
+    const { data: membros, loading: membrosLoading, error: membrosError } = useFetch("/membros", "GET");
+    if (membrosError)
+        setErrorMessage("Erro ao carregar membros. Tente novamente mais tarde.");
+
+    const handleClickOutside = (event) => {
+        if (
+            inputRef.current && !inputRef.current.contains(event.target) &&
+            suggestionsRef.current && !suggestionsRef.current.contains(event.target)
+        ) {
+            setIsFocused(false); // Oculta a lista de sugestões ao clicar fora
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (membros) {
+            const filtered = membros.filter(member =>
+                member.nome.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredMembros(filtered);
+        }
+    }, [searchTerm, membros]);
+
+    const handleDelete = async (id) => {
+        if (!hasAccess) {
+            alert("Você não tem permissão para excluir inscrições.");
+            return;
+        }
+
+        const confirmed = window.confirm("Você tem certeza que deseja excluir esta inscrição?");
+        if (confirmed) {
+            const { error: deleteError } = await apiRequest(`/inscricoes/${id}`, "DELETE");
+
+            if (deleteError) {
+                setErrorMessage("Erro ao excluir a inscrição. Tente novamente mais tarde.");
+                console.error(deleteError);
+            }
+            else
+                setInscricoes(prevInscricoes => prevInscricoes.filter(inscricao => inscricao.id !== id));
+        }
+    };
+
+    const handleAddMember = async (membroId) => {
+        if (!membroId) return;
+
+        const { data: newInscricao, error: addError } = await apiRequest(`/inscricoes`, "POST", {
+            evento: {
+                id: eventoId
+            },
+            membro: {
+                id: membroId
+            },
+            statusParticipacao: "PENDENTE",
+            inscrito: false
+        });
+
+        if (addError)
+            setErrorMessage("Erro ao adicionar o membro. Tente novamente mais tarde.");
+        else {
+            setInscricoes(prevInscricoes => [...prevInscricoes, newInscricao]);
+            setSelectedMemberId(null);
+            setSearchTerm("");
+        }
+    };
+
+    const handleSelectMember = (membro) => {
+        setSelectedMemberId(membro.id);
+        setSearchTerm(membro.nome);
+        handleAddMember(membro.id);
+        setIsFocused(false);
     };
 
     return (
         <section className="box-shadow">
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
             <header className="h">
-                {hasAccess && <input type="text" placeholder="Adicionar inscritos" />}
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Digite o nome do membro"
+                    className="member-input"
+                    onFocus={() => setIsFocused(true)}
+                    ref={inputRef} // Referência para o input
+                />
                 <h3>Inscritos</h3>
-                {/* {hasAccess && (
-                    <button className="salvar" type="button">
-                        SALVAR
-                    </button>
-                )} */}
+                {isFocused && filteredMembros.length > 0 && (
+                    <ul className="suggestions-list" ref={suggestionsRef}>
+                        {filteredMembros.map(membro => (
+                            <li key={membro.id} onClick={() => handleSelectMember(membro)}>
+                                {membro.nome}
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </header>
             <ul className="registrationList">
                 <li className="list-header">
@@ -45,16 +133,14 @@ export function Registrationlist({id}) {
                     <span>NOME</span>
                     <span>FUNÇÃO</span>
                 </li>
-                {data.map((inscrito) => (
-                    <li key={inscrito.id}>
-                        {hasAccess && (
-                            <button type="button" onClick={() => handleDelete(inscrito.id)}>
-                                {/* <img src={DeleteImg} alt="Deletar" /> */}
-                            </button>
-                        )}
-                        <span>{inscrito.cpf}</span>
-                        <span>{inscrito.nome}</span>
-                        <span>{inscrito.função}</span>
+                {!inscricoesError && !inscricoesLoading && inscricoes.map(inscricao => (
+                    <li key={inscricao.id}>
+                        <button type="button" onClick={() => handleDelete(inscricao.id)}>
+                            {hasAccess && <img src={DeleteImg} alt="Deletar" />}
+                        </button>
+                        <span>{inscricao.membro.cpf}</span>
+                        <span>{inscricao.membro.nome}</span>
+                        <span>{inscricao.membro.tipo}</span>
                     </li>
                 ))}
             </ul>
