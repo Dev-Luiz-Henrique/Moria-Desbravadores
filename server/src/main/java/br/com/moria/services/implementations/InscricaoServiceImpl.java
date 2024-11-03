@@ -57,16 +57,14 @@ public class InscricaoServiceImpl implements IInscricaoService{
 	}
 
 	@Override
-	public Inscricao updateStatusInscricao(int membroId,int eventoId) {
+	public Inscricao updateStatusInscricao(int membroId, int eventoId) {
 		Inscricao existingInscricao = inscricaoRepository.findByMembroIdAndEventoId(membroId, eventoId)
-			.orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
+			.orElseThrow(() -> new EntityNotFoundException("Membro não elegivel para o evento"));
 		
 		if (existingInscricao.getInscrito() == true) 
-			throw new IllegalArgumentException("Inscricao já feita");
+			throw new IllegalArgumentException("Inscrição já feita");
 		
-
 		existingInscricao.setInscrito(true);
-
 		return inscricaoRepository.save(existingInscricao);
 	}
 

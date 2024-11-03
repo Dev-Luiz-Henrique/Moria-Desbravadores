@@ -67,7 +67,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> handleConversionExceptions(HttpMessageNotReadableException ex) {
-        String message = "Ocorreu um erro de conversão de dados. Verifique se todos os campos estão corretamente formatados.";
+        String message = ex.getMessage() != null ? ex.getMessage()
+            : "Ocorreu um erro de conversão de dados. Verifique se todos os campos estão corretamente formatados.";
         logAndAdaptMessage(ex, message, HttpStatus.BAD_REQUEST);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
@@ -79,7 +80,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
-        String message = ex.getMessage();
+        String message = ex.getMessage() != null ? ex.getMessage() 
+            : "Argumento inválido. Verifique se todos os campos estão corretamente preenchidos.";
         logAndAdaptMessage(ex, message, HttpStatus.BAD_REQUEST);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
@@ -91,7 +93,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
-        String message = "Acesso não autorizado: Token JWT inválido ou não fornecido."; 
+        String message = ex.getMessage() != null ? ex.getMessage()
+            :  "Acesso não autorizado: Token JWT inválido ou não fornecido."; 
         logAndAdaptMessage(ex, message, HttpStatus.UNAUTHORIZED);
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
@@ -103,7 +106,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex) {
-        String message = "Você não tem permissão para acessar este recurso.";
+        String message = ex.getMessage() != null ? ex.getMessage()
+            : "Você não tem permissão para acessar este recurso.";
         logAndAdaptMessage(ex, message, HttpStatus.FORBIDDEN);
 
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
@@ -115,7 +119,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({ NoHandlerFoundException.class, EntityNotFoundException.class })
     public ResponseEntity<Object> handleNotFoundException(Exception ex) {
-        String message = "Recurso não encontrado.";
+        String message = ex.getMessage() != null ? ex.getMessage() : "Recurso não encontrado.";
         logAndAdaptMessage(ex, message, HttpStatus.NOT_FOUND);
         
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
