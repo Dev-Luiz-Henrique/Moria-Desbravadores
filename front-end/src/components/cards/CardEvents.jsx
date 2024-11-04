@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiRequest } from "../../utils/api";
 import { useAuth } from "../../context/AuthContext";
+import { useFetch } from "../../hooks/useFetch";
 import { formatDateWithHours } from "../../utils/dateHelpers";
 import { formatEndereco } from "../../utils/stringHelpers";
 import "./CardEvents.css"
@@ -15,6 +17,22 @@ export function CardEvents(
 ) {
     const navigate = useNavigate();
     const { membro, isLoading } = useAuth();
+
+    const [imageUrl, setImageUrl] = useState(DefaultEvent);
+    useEffect(() => {
+        const loadImage = async () => {
+            try {
+                const { data: img } = await apiRequest(`/eventos/${id}/imagem`, "GET", null, "arraybuffer");
+                if (img)
+                    setImageUrl(img);
+            } catch (error) {
+                console.error(`Erro ao carregar imagem do evento ${id}:`, error);
+                setImageUrl(DefaultEvent);
+            }
+        };
+
+        loadImage();
+    }, [id]);
 
     const handleEdit = () => {
         navigate(`/cadastrar-evento/${id}`);
@@ -40,7 +58,7 @@ export function CardEvents(
 
     return (
         <div className="card-event-container">
-            <img src={DefaultEvent} alt={nome} />
+            <img src={imageUrl} alt={nome} />
             <div className="card-events-buttons">
                 <button onClick={handleDetail}>
                     <img src={ArrowRight} alt="Detalhes"/>
@@ -75,7 +93,7 @@ export function CardEvents(
                     <p>{atracao}</p>
                 </span>
                 <span>
-                    <button onClick={handleEnroll}>Inscrever-se</button>
+                    <button className="enroll-button" onClick={handleEnroll}>Inscrever-se</button>
                 </span>
             </div>
         </div>

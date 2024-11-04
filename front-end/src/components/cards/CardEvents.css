@@ -66,3 +66,15 @@
     overflow: hidden;      
     text-overflow: ellipsis;
 }
+
+.enroll-button  {
+    border: none;
+    width: 100px;
+    height: 40px;
+    color: #F4E3C1;
+    font-family: "Secular One", sans-serif;
+    font-size: 1rem;
+    background-color: #A65D24;
+    border-radius: 5px;
+    cursor: pointer;
+}
