@@ -1,75 +1,93 @@
 .card-event-container {
     display: flex;
-    width: 90%;
-    height: 280px;
+    width: 80vw;
+    max-width: 1200px;
+    min-height: 300px;
     background-color: #F0E6D2;
     border-radius: 10px;
+    overflow: hidden;
     position: relative;
     box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.2);
+    margin: auto;
 }
+
+.card-event-large {
+    width: 90vw; /* Tamanho maior */
+    max-width: 1400px; /* Define o limite */
+    min-height: 300px; /* Altura maior */
+}
+
 .card-event-container > img {
-    width: 35%;
+    width: 40%;
     height: 100%;
+    max-height: 300px;
+    object-fit: cover; /* Crop image to fit container */
+    border-radius: 10px 0 0 10px;
+    flex-shrink: 0;
 }
-.card-event-container > .card-events-buttons {
+
+.card-event-container .card-events-buttons {
     display: flex;
     position: absolute;
     right: 20px;
     top: 10px;
     gap: 15px;
+    z-index: 1; /* Ensures buttons are above the image */
 }
-.card-event-container > .card-events-buttons > button {
+
+.card-event-container .card-events-buttons > button {
     border: none;
     background-color: transparent;
-}
-.card-event-container > .card-events-buttons > button:hover {
     cursor: pointer;
+}
+
+.card-event-container .card-events-buttons > button:hover {
     filter: contrast(175%) brightness(80%);
 }
-.card-event-container > .card-events-buttons > button > img {
-    width: 30px;
-    height: 30px;
+
+.card-event-container .card-events-buttons > button > img {
+    width: 24px;
+    height: 24px;
 }
-.card-event-container > .card-events-buttons > button {
-    border: none;
-    background-color: transparent;
-}
-.card-event-container > .card-event-text {
-    width: 100%;
-    height: 100%;
+
+.card-event-container .card-event-text {
+    width: 60%;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 20px 20px;
-    gap: 5px;
-}
-.card-event-container > .card-event-text > h3 {
-    font-family: "Candal", sans-serif;
-    font-size: 3rem;
-    color: #994C26;
-
-}
-.card-event-container > .card-event-text > span {
-    display: flex;
-    gap: 20px;
-    font-size: 1.5rem;
-    color: #352208;
-    width: 600px;
-}
-.card-event-container > .card-event-text > span > b {
     font-family: "Secular One", sans-serif;
-}
-.card-event-container > .card-event-text > span > p {
-    font-family: "Afacad", sans-serif;
-    text-wrap: nowrap;
-    overflow: hidden;      
-    text-overflow: ellipsis;
+    gap: 10px;
+    overflow: hidden;
+    position: relative;
 }
 
-.enroll-button  {
-    border: none;
-    width: 100px;
+.card-event-container .card-event-text h3 {
+    font-family: "Candal", sans-serif;
+    font-size: 2.5rem;
+    color: #994C26;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-event-container .card-event-text span {
+    display: flex;
+    gap: 8px;
+    font-size: 1.4rem;
+    color: #352208;
+}
+
+.card-event-container .card-event-text span p {
+    font-family: "Afacad", sans-serif;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 80%;
+}
+
+.card-event-container .enroll-button {
+    width: 120px;
     height: 40px;
     color: #F4E3C1;
     font-family: "Secular One", sans-serif;
@@ -77,4 +95,24 @@
     background-color: #A65D24;
     border-radius: 5px;
     cursor: pointer;
+    border: none;
+    margin-left: auto; /* Align button to the right */
+}
+
+/* Limite para a descrição em aproximadamente 4 linhas */
+.description-limited {
+    max-height: 6em; /* Aproximadamente 4 linhas */
+    overflow: hidden;
+    line-height: 1.5em; /* Ajuste do espaçamento entre linhas */
+    text-overflow: ellipsis;
+    white-space: normal; /* Permite que o texto quebre em várias linhas */
+}
+
+/* Limite para o endereço em aproximadamente 3 linhas */
+.address-limited {
+    max-height: 4.5em; /* Aproximadamente 3 linhas */
+    overflow: hidden;
+    line-height: 1.5em; /* Ajuste do espaçamento entre linhas */
+    text-overflow: ellipsis;
+    white-space: normal; /* Permite que o texto quebre em várias linhas */
 }

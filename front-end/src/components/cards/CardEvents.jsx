@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { apiRequest } from "../../utils/api";
 import { useAuth } from "../../context/AuthContext";
 import { useFetch } from "../../hooks/useFetch";
@@ -16,8 +16,10 @@ export function CardEvents(
     { id, nome, endereco, logradouro, numero, dataInicio, descricao, atracao, onDelete }
 ) {
     const navigate = useNavigate();
+    const location = useLocation();
     const { membro, isLoading } = useAuth();
 
+    const isDetailPage = location.pathname.includes('/detalhes-evento/');
     const [imageUrl, setImageUrl] = useState(DefaultEvent);
     useEffect(() => {
         const loadImage = async () => {
@@ -57,7 +59,7 @@ export function CardEvents(
     if (!membro) return <p>Dados do membro não disponíveis.</p>;
 
     return (
-        <div className="card-event-container">
+        <div className={`card-event-container ${isDetailPage ? 'card-event-large' : ''}`}>
             <img src={imageUrl} alt={nome} />
             <div className="card-events-buttons">
                 <button onClick={handleDetail}>
@@ -74,8 +76,8 @@ export function CardEvents(
             <div className="card-event-text">
                 <h3>{nome}</h3>
                 <span>
-                    <b>ENDEREÇO:</b>
-                    <p>{formatEndereco(endereco, logradouro, numero)}</p>
+                    <b>ATRAÇÃO:</b>
+                    <p>{atracao}</p>
                 </span>
 
                 <span>
@@ -84,14 +86,19 @@ export function CardEvents(
                 </span>
 
                 <span>
-                    <b>DESCRIÇÃO:</b>
-                    <p>{descricao}</p>
+                    <b>ENDEREÇO:</b>
+                    <p className={isDetailPage ? 'address-limited' : ''}>
+                        {formatEndereco(endereco, logradouro, numero)}
+                    </p>
                 </span>
 
                 <span>
-                    <b>ATRAÇÃO:</b>
-                    <p>{atracao}</p>
+                    <b>DESCRIÇÃO:</b>
+                    <p className={isDetailPage ? 'description-limited' : ''}>
+                        {descricao}
+                    </p>
                 </span>
+
                 <span>
                     <button className="enroll-button" onClick={handleEnroll}>Inscrever-se</button>
                 </span>

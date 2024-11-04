@@ -3,10 +3,10 @@ import { useFetch } from "../hooks/useFetch";
 import { Header } from "../components/layout/Header";
 import { ButtonGoBack } from "../components/layout/ButtonGoBack";
 import { Footer } from "../components/layout/Footer";
-import { EventCard } from "../components/cards/EventCard";
 import { Registrationlist } from "../components/tables/Registrationlist";
 import { Resources } from "../components/tables/Resources";
 import "./Evento.css";
+import { CardEvents } from "../components/cards/CardEvents";
 
 export function Evento() {
     const { id } = useParams();
@@ -17,7 +17,7 @@ export function Evento() {
             <Header />
             <div className='event-body'>
                 <ButtonGoBack />
-                {evento && !loading && !error && <EventCard {...evento} />}
+                {evento && !loading && !error && <CardEvents {...evento} />}
                 {evento && !loading && !error && <Registrationlist eventoId={evento.id} />}
                 {evento && !loading && !error && <Resources eventoId={evento.id} />}
             </div>
