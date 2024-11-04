@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useFetch } from "../../hooks/useFetch";
 import { apiRequest } from "../../utils/api";
+import { normalizeUnderscore } from "../../utils/stringHelpers";
 import "./Registrationlist.css";
 
 import DeleteImg from "../../assets/img/layout/delete.svg";
@@ -107,40 +108,46 @@ export function Registrationlist({ eventoId }) {
         <section className="box-shadow">
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <header className="h">
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Digite o nome do membro"
-                    className="member-input"
-                    onFocus={() => setIsFocused(true)}
-                    ref={inputRef} // Referência para o input
-                />
+                <div className="input-container">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Digite o nome do membro"
+                        className="member-input"
+                        onFocus={() => setIsFocused(true)}
+                        ref={inputRef} // Referência para o input
+                    />
+                    {isFocused && filteredMembros.length > 0 && (
+                        <ul className="suggestions-list" ref={suggestionsRef}>
+                            {filteredMembros.map(membro => (
+                                <li key={membro.id} onClick={() => handleSelectMember(membro)}>
+                                    {membro.nome}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
                 <h3>Inscritos</h3>
-                {isFocused && filteredMembros.length > 0 && (
-                    <ul className="suggestions-list" ref={suggestionsRef}>
-                        {filteredMembros.map(membro => (
-                            <li key={membro.id} onClick={() => handleSelectMember(membro)}>
-                                {membro.nome}
-                            </li>
-                        ))}
-                    </ul>
-                )}
             </header>
             <ul className="registrationList">
                 <li className="list-header">
                     <span>CPF</span>
                     <span>NOME</span>
                     <span>FUNÇÃO</span>
+                    <span>STATUS</span>
+                    <span>INSCRITO</span>
                 </li>
                 {!inscricoesError && !inscricoesLoading && inscricoes.map(inscricao => (
                     <li key={inscricao.id}>
                         <button type="button" onClick={() => handleDelete(inscricao.id)}>
                             {hasAccess && <img src={DeleteImg} alt="Deletar" />}
                         </button>
-                        <span>{inscricao.membro.cpf}</span>
-                        <span>{inscricao.membro.nome}</span>
-                        <span>{inscricao.membro.tipo}</span>
+                        <span>{inscricao.membro?.cpf || "CPF não informado"}</span>
+                        <span>{inscricao.membro?.nome || "Nome não informado"}</span>
+                        <span>{inscricao.membro?.tipo ? normalizeUnderscore(inscricao.membro.tipo) : "Tipo não definido"}</span>
+                        <span>{inscricao.statusParticipacao || "Status não informado"}</span>
+                        <span>{inscricao.inscrito !== undefined ? (inscricao.inscrito ? "Sim" : "Não") : "Inscrição não definida"}</span>
                     </li>
                 ))}
             </ul>
