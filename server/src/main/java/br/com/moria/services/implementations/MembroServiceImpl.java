@@ -56,6 +56,7 @@ public class MembroServiceImpl implements IMembroService {
     	Endereco endereco = membro.getEndereco();
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
             .orElseGet(() -> enderecoRepository.save(endereco)));
+        membro.setSenha(passwordEncoder.encode(membro.getSenha()));
         return membroRepository.save(membro);
     }
 

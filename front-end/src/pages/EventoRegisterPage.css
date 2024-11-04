@@ -8,6 +8,7 @@
     background-size: contain;
     padding: 5vh 0;
     position: relative;
+    min-height: calc(100vh - 104px - 147px);
 }
 .container-register-evento-page > .return-btn {
     position: absolute;

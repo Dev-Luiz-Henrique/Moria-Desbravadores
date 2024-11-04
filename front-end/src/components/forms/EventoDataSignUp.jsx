@@ -23,6 +23,9 @@ export function EventoDataSignUp({ id, initialData = null }) {
     });
     const [currentPage, setCurrentPage] = useState(0);
     const [errors, setErrors] = useState({});
+    const [showImageForm, setShowImageForm] = useState(false);
+    const [imageFile, setImageFile] = useState(null);
+    const [createdEventId, setCreatedEventId] = useState(id || null);
     const navigate = useNavigate();
 
     const validateField = (field, value) => {
@@ -117,14 +120,39 @@ export function EventoDataSignUp({ id, initialData = null }) {
 
         const url = id ? `/eventos/${id}` : `/eventos`;
         const method = id ? "PUT" : "POST";
-
-        const { error: submitError } = await apiRequest(url, method, formData);
+        const { data: newMemberData, error: submitError } = await apiRequest(url, method, formData);
         if (submitError)
             alert("Não foi possível realizar a operação. " + submitError);
         else {
-            alert(`Evento ${id ? 'atualizado' : 'criado'} com sucesso!`);
+            const newId = newMemberData?.id;
+            if (!createdEventId && newId)
+                setCreatedEventId(newId);
+            alert(`Evento ${createdEventId ? 'atualizado' : 'criado'} com sucesso!`);
+            setShowImageForm(true);
+        }
+    };
+
+    const handleImageSubmit = async (e) => {
+        e.preventDefault();
+        if (!imageFile) {
+            alert("Por favor, selecione uma imagem para enviar.");
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append("file", imageFile);
+        
+        const url = `/eventos/${createdEventId}/imagem`;
+        const { error: submitError } = await apiRequest(url, "POST", formData, "json", {
+            "Content-Type": "multipart/form-data",
+        });
+        
+        if (submitError) {
+            alert("Erro ao enviar a imagem: " + submitError);
+        } else {
+            alert("Imagem enviada com sucesso!");
             navigate("/gerenciar-eventos");
-        }  
+        }
     };
 
     const formPages = [
@@ -173,11 +201,6 @@ export function EventoDataSignUp({ id, initialData = null }) {
                     onChange={handleInputChange} value={formData.descricao || ""} />
                 {errors.descricao && <p className="error-message">{errors.descricao}</p>}
             </div>
-
-            {/* <div className="event-register-input input-file">
-                <label htmlFor="imagem">IMAGEM:</label>
-                <input type="file" id="imagem"/>
-            </div> */}
         </div>,
 
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -250,20 +273,30 @@ export function EventoDataSignUp({ id, initialData = null }) {
     return (
         <div className='event-register'>
             <h3>CADASTRO DE EVENTO</h3>
-            <form onSubmit={handleSubmit}>
-                {formPages[currentPage]}
-                <div className='pagination-buttons'>
-                    {currentPage > 0 ? (
-                        <button type='button' onClick={handlePrev}>Anterior</button>
-                    ) : <div style={{ width: '100px' }}></div>}
-                    {currentPage < formPages.length - 1 && (
-                        <button type='button' onClick={handleNext}>Próximo</button>
-                    )}
-                    {currentPage === formPages.length - 1 && (
-                        <button type='submit'>Salvar</button>
-                    )}
-                </div>
-            </form>
+            {showImageForm ? (
+                <form onSubmit={handleImageSubmit}>
+                    <div className="event-register-input input-file">
+                        <label htmlFor="imagem">IMAGEM:</label>
+                        <input type="file" id="imagem" onChange={(e) => setImageFile(e.target.files[0])} />
+                    </div>
+                    <button type='submit'>Enviar Imagem</button>
+                </form>
+            ) : (
+                <form onSubmit={handleSubmit}>
+                    {formPages[currentPage]}
+                    <div className='pagination-buttons'>
+                        {currentPage > 0 ? (
+                            <button type='button' onClick={handlePrev}>Anterior</button>
+                        ) : <div style={{ width: '100px' }}></div>}
+                        {currentPage < formPages.length - 1 && (
+                            <button type='button' onClick={handleNext}>Próximo</button>
+                        )}
+                        {currentPage === formPages.length - 1 && (
+                            <button type='submit'>Salvar</button>
+                        )}
+                    </div>
+                </form>
+            )}
         </div>
     );
 }
