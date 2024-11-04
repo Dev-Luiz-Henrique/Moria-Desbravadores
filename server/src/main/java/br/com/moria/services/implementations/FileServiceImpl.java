@@ -52,7 +52,8 @@ public class FileServiceImpl implements IFileService {
                 + SUPPORTED_CONTENT_TYPES);
         }
 
-        if (file.getSize() > 5 * 1024 * 1024) { // 5MB
+        // TODO: Lançar Exception personalida para tamanho máximo excedido, com erro 413
+        if (file.getSize() > 1 * 1024 * 1024) { // 5MB
 			throw new IllegalArgumentException("O tamanho do arquivo deve ser inferior a 5MB.");
 		}
 

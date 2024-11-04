@@ -53,10 +53,17 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public Membro update(Membro membro) {
+        Membro existingMembro = membroRepository.findById(membro.getId())
+            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+
     	Endereco endereco = membro.getEndereco();
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
             .orElseGet(() -> enderecoRepository.save(endereco)));
-        membro.setSenha(passwordEncoder.encode(membro.getSenha()));
+
+        // TODO: Essa verificação de senha deve ser feita com DTO
+        if (!membro.getSenha().equals(existingMembro.getSenha()))
+            membro.setSenha(passwordEncoder.encode(membro.getSenha()));
+
         return membroRepository.save(membro);
     }
 

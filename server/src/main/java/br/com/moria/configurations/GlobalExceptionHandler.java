@@ -14,6 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import io.jsonwebtoken.io.IOException;
@@ -136,6 +137,18 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(
             Map.of("code", HttpStatus.CONFLICT.value(), "message", message));
+    }
+
+    /**
+     * Handle file upload size limit exceeded exception (413 Payload Too Large)
+     */
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException ex) {
+        String message = "O arquivo enviado excede o tamanho máximo permitido.";
+        logAndAdaptMessage(ex, message, HttpStatus.PAYLOAD_TOO_LARGE);
+
+        return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(
+            Map.of("code", HttpStatus.PAYLOAD_TOO_LARGE.value(), "message", message));
     }
 
     /**
