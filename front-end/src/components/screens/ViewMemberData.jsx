@@ -1,16 +1,16 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useFetch } from "../../hooks/useFetch";
 import { Authorities } from "../../utils/authorities";
 import { formatEndereco, normalizeUnderscore } from "../../utils/stringHelpers";
 import { formatDate } from "../../utils/dateHelpers";
 import { apiRequest } from "../../utils/api";
-import "./ViewMemberData.css";
 
-import Delete from "../../assets/img/layout/delete.svg";
-import Edit from "../../assets/img/layout/edit.svg";
+import DeleteIcon from "../../assets/img/layout/delete.svg";
+import EditIcon from "../../assets/img/layout/edit.svg";
 import ProfileLogo from "../../assets/img/layout/user-card.svg";
+import "./ViewMemberData.css";
 
 export function ViewMemberData({ id }) {
     const navigate = useNavigate();
@@ -23,10 +23,6 @@ export function ViewMemberData({ id }) {
 
     if (loading) return <p>Carregando dados do membro...</p>;
     if (error) return <p>Erro ao carregar dados do membro.</p>;
-
-
-    if (loading) return <p>Carregando dados do membro...</p>;
-    if (error) return <p>Erro ao carregar dados do membro.</p>;
     if (!membro) return <p>Dados do membro não disponíveis.</p>;
 
     const handleEdit = () => {
@@ -34,7 +30,7 @@ export function ViewMemberData({ id }) {
             alert("Você não tem permissão para editar membros.");
             return;
         }
-        navigate(`/cadastrar-membro/${id}`);
+        navigate(`/cadastrar-membro/${membro.id}`);
     };
 
     const handleDelete = async () => {
@@ -46,65 +42,48 @@ export function ViewMemberData({ id }) {
         const confirmed = window.confirm("Você tem certeza que deseja excluir este membro?");
         if (confirmed) {
             const { error: deleteError } = await apiRequest(`/membros/${id}`, "DELETE");
-            if (deleteError)
-                console.error(deleteError);
-            else
-                navigate("/gerenciar-membros");
+            if (deleteError) console.error(deleteError);
+            else navigate("/gerenciar-membros");
         }
     };
 
-    const formatSexo = (sexo) => sexo === "M" ? "Masculino" : sexo === "F" ? "Feminino" : "Outro";
+    const formatSexo = (sexo) => (sexo === "M" ? "Masculino" : sexo === "F" ? "Feminino" : "Outro");
 
     return (
-        <div className="profile-card-member-view">
+        <div className="member-view-container">
             {hasAccess && (
-                <div className="profile-card-buttons">
-                    <button onClick={handleEdit}><img src={Edit} alt="Editar" /></button>
-                    <button onClick={handleDelete}><img src={Delete} alt="Deletar" /></button>
+                <div className="action-buttons">
+                    <button onClick={handleEdit}><img src={EditIcon} alt="Editar" /></button>
+                    <button onClick={handleDelete}><img src={DeleteIcon} alt="Deletar" /></button>
                 </div>
             )}
-            
-            <div className="profile-card-header">
-                <img src={ProfileLogo} alt="Perfil" />
-                <h4>{membro?.nome || "Nome do Membro"}</h4>
+            <div className="member-header">
+                <img src={ProfileLogo} alt="Perfil" className="profile-img" />
+                <h2 className="member-name">{membro?.nome || "Nome do Membro"}</h2>
             </div>
-
-            <span>
-                <b>TIPO:</b>
-                <p>{membro.tipo ? normalizeUnderscore(membro.tipo) : "Tipo não informado"}</p>
-            </span>
-            <span>
-                <b>STATUS:</b>
-                <p>{membro?.ativo !== undefined ? (membro.ativo ? "Sim" : "Não") : "Status não informado"}</p>
-            </span>
-            <span>
-                <b>SEXO:</b>
-                <p>{membro.sexo ? formatSexo(membro.sexo) : "Sexo não informado"}</p>
-            </span>
-            <span>
-                <b>DATA DE NASCIMENTO:</b>
-                <p>{membro.dataNascimento ? formatDate(membro.dataNascimento) :  "Data não informada"}</p>
-            </span>
-            <span>
-                <b>ENDEREÇO:</b>
-                <p>
-                    {membro.endereco ? formatEndereco(membro.endereco, membro.logradouro, membro.numero) 
-                        : "Endereço não informado"}
-                </p>
-            </span>
-            <span><b>EMAIL:</b><p>{membro?.email || "Email não informado"}</p></span>
-            <span><b>CELULAR:</b><p>{membro?.celular || "Celular não informado"}</p></span>
-            <span><b>TELEFONE:</b><p>{membro?.telefone || "Telefone não informado"}</p></span>
-            <span><b>CPF:</b><p>{membro?.cpf || "CPF não informado"}</p></span>
-            <span><b>RG:</b><p>{membro?.rg || "RG não informado"}</p></span>
-            <span><b>ÓRGÃO EXPEDIDOR:</b><p>{membro?.orgaoExpedidor || "Órgão não informado"}</p></span>
-            <span><b>TAMANHO DA CAMISA:</b><p>{membro?.tamanhoCamisa || "Tamanho não informado"}</p></span>
-            <span><b>ESTADO CIVIL:</b><p>{membro?.estadoCivil || "Estado civil não informado"}</p></span>
-            <span><b>BATIZADO:</b><p>{membro?.batizado ? "Sim" : "Não"}</p></span>
-            {/* <span>
-                <b>FICHA DE SAÚDE:</b>
-                <p><a href={membro?.fichaSaude || "#"} download>ficha_saude.png</a></p>
-            </span> */}
+            <div className="member-details">
+                {[
+                    { label: "FUNÇÃO:", value: membro.tipo ? normalizeUnderscore(membro.tipo) : "Tipo não informado" },
+                    { label: "STATUS:", value: membro?.ativo !== undefined ? (membro.ativo ? "Ativo" : "Inativo") : "Status não informado" },
+                    { label: "SEXO:", value: membro.sexo ? formatSexo(membro.sexo) : "Sexo não informado" },
+                    { label: "DATA DE NASCIMENTO:", value: membro.dataNascimento ? formatDate(membro.dataNascimento) : "Data não informada" },
+                    { label: "ENDEREÇO:", value: membro.endereco ? formatEndereco(membro.endereco, membro.logradouro, membro.numero) : "Endereço não informado" },
+                    { label: "EMAIL:", value: membro?.email || "Email não informado" },
+                    { label: "CELULAR:", value: membro?.celular || "Celular não informado" },
+                    { label: "TELEFONE:", value: membro?.telefone || "Telefone não informado" },
+                    { label: "CPF:", value: membro?.cpf || "CPF não informado" },
+                    { label: "RG:", value: membro?.rg || "RG não informado" },
+                    { label: "ÓRGÃO EXPEDIDOR:", value: membro?.orgaoExpedidor || "Órgão não informado" },
+                    { label: "TAMANHO DA CAMISA:", value: membro?.tamanhoCamisa || "Tamanho não informado" },
+                    { label: "ESTADO CIVIL:", value: membro?.estadoCivil || "Estado civil não informado" },
+                    { label: "BATIZADO:", value: membro?.batizado ? "Sim" : "Não" }
+                ].map((item, index) => (
+                    <div className="member-detail" key={index}>
+                        <span className="detail-label">{item.label}</span>
+                        <span className="detail-value">{item.value}</span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

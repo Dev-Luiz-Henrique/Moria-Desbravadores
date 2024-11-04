@@ -1,66 +1,96 @@
-.profile-card-member-view {
-    background-color: #F0E6D2;
-    width: 70vw;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 10px;
-    padding: 20px;
+/* src/components/ViewMemberData.css */
+
+.member-view-container {
+    background: linear-gradient(135deg, #f0e6d2, #d6c3a1);
+    width: 100%;
+    max-width: 650px;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    font-family: "Secular One", sans-serif;
     position: relative;
-    border-radius: 10px;
-    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.274);
 }
 
-.profile-card-member-view > .profile-card-buttons {
+.action-buttons {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    top: 15px;
+    right: 15px;
     display: flex;
     gap: 10px;
 }
 
-.profile-card-member-view > .profile-card-buttons > button {
+.action-buttons button {
+    background: none;
     border: none;
-    background-color: transparent;
-}
-.profile-card-member-view > .profile-card-buttons > button:hover {
     cursor: pointer;
-    filter: contrast(175%) brightness(80%);
 }
 
-.profile-card-member-view > .profile-card-header {
+.action-buttons button img {
+    width: 25px;
+    height: 25px;
+    transition: filter 0.2s ease;
+}
+
+.action-buttons button:hover img {
+    filter: brightness(1.2);
+}
+
+.member-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    align-self: center;
-    gap: 20px;
+    flex-direction: column;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-.profile-card-member-view > .profile-card-header > img { 
-    width: 60px;
-    height: 60px;
+.profile-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
 }
 
-.profile-card-member-view > .profile-card-header > h4 {
-    font-size: 1.5rem;
+.member-name {
+    font-size: 2.2rem;
     color: #352208;
-    font-family: "Secular One", sans-serif;
+    max-width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.profile-card-member-view > span {
+.member-details {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.profile-card-member-view > span > b {
-    font-size: 1.5rem;
+.member-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: #ffffffcc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease;
+}
+
+.member-detail:hover {
+    background-color: #f7f1e6;
+}
+
+.detail-label {
+    font-size: 1.2rem;
+    font-weight: bold;
     color: #352208;
-    font-family: "Secular One", sans-serif;
+    flex-basis: 40%;
 }
 
-.profile-card-member-view > span > p {
-    font-size: 1.5rem;
+.detail-value {
+    font-size: 1.2rem;
     color: #352208;
     font-family: "Afacad", sans-serif;
+    text-align: right;
 }
