@@ -19,13 +19,25 @@
     min-height: 300px; /* Altura maior */
 }
 
-.card-event-container > img {
+.card-events-img {
     width: 40%;
     height: 100%;
-    object-fit: cover;  /* Crop image to fit container */
+}
+
+.card-events-img > img {
+    width: 100%; /* Fill the image container */
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px 0 0 10px;
+}
+
+/* .card-event-container img {
+    width: 40%;
+    height: 100%;
+    object-fit: cover;  /* Crop image to fit container
     border-radius: 10px 0 0 10px;
     flex-shrink: 0;
-}
+} */
 
 .card-event-container .card-events-buttons {
     display: flex;
@@ -70,6 +82,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.card-event-container .card-event-text h3:hover {
+    filter: contrast(175%) brightness(80%);
+    cursor: pointer;
 }
 
 .card-event-container .card-event-text span {
