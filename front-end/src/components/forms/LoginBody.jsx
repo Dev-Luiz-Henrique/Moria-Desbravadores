@@ -6,9 +6,11 @@ import { ButtonGoBack } from "../layout/ButtonGoBack"
 import "./LoginBody.css";
 
 export function LoginBody() {
+    console.log("Passei aqui 1");
     const navigate = useNavigate();
     const { login } = useAuth();
 
+    console.log("Passei aqui 2");
     const [email, setEmail] = useState("charlinho@hotmail.com");
     const [password, setPassword] = useState("#MinhaSenhaSuperSecreta");
     const [error, setError] = useState("");
@@ -52,8 +54,11 @@ export function LoginBody() {
         setLoading(false);
     };
 
+    console.log("Passei aqui 3");
+
     return (
         <section className="container-login-body">
+            {console.log("Passei aqui 4")}
             <div className="ButtonGoBack">
                 <ButtonGoBack />
             </div>
