@@ -2,9 +2,13 @@ package br.com.moria.models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import br.com.moria.enums.EstadoCivil;
 import br.com.moria.enums.TipoMembro;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -40,6 +45,14 @@ public class Membro {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_endereco", referencedColumnName = "id")
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Inscricao> inscricoes;
+
+    @OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Mensalidade> mensalidades;
 
     @NotBlank(message = "Nome não pode ser vazio.")
     @Size(min = 3, max = 100, message = "Nome deve ter entre 3 e 100 caracteres.")
