@@ -27,13 +27,13 @@ export const validateMembro = {
 
     telefone: (value) => {
         if (!/^\d{10}$/.test(value))
-            return "Telefone deve ter exatamente 10 dígitos.";
+            return "Telefone deve conter exatamente 10 dígitos numéricos, sem outros caracteres";
         return "";
     },
 
     celular: (value) => {
         if (!/^\d{11}$/.test(value))
-            return "Celular deve ter exatamente 11 dígitos.";
+            return "Celular deve conter exatamente 11 dígitos numéricos, sem outros caracteres";
         return "";
     },
 
@@ -51,7 +51,7 @@ export const validateMembro = {
 
     cpf: (value) => {
         if (!/^\d{11}$/.test(value))
-            return "CPF deve ter exatamente 11 dígitos.";
+            return "CPF deve conter exatamente 11 dígitos numéricos, sem outros caracteres";
         return "";
     },
     
@@ -113,7 +113,7 @@ export const validateMembro = {
 
     cep: (value) => {
         if (value === null || !/^\d{8}$/.test(value))
-            return "CEP deve ter exatamente 8 dígitos.";
+            return "CEP deve conter exatamente 8 dígitos numéricos, sem outros caracteres.";
         return "";
     },
 
@@ -189,7 +189,7 @@ export const validadeEvento = {
 
     cep: (value) => {
         if (value === null || !/^\d{8}$/.test(value))
-            return "CEP deve ter exatamente 8 dígitos.";
+            return "CEP deve conter exatamente 8 dígitos numéricos, sem outros caracteres.";
         return "";
     },
 
