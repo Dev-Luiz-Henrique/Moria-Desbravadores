@@ -56,6 +56,9 @@ public class MembroServiceImpl implements IMembroService {
         Membro existingMembro = membroRepository.findById(membro.getId())
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
 
+        membro.setInscricoes(existingMembro.getInscricoes());
+        membro.setMensalidades(existingMembro.getMensalidades());
+
     	Endereco endereco = membro.getEndereco();
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
             .orElseGet(() -> enderecoRepository.save(endereco)));
