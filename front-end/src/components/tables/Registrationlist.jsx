@@ -98,6 +98,11 @@ export function Registrationlist({ eventoId }) {
     };
 
     const handleSelectMember = (membro) => {
+        if (!hasAccess) {
+            alert("Você não tem permissão para adicionar membros.");
+            return;
+        }
+
         setSelectedMemberId(membro.id);
         setSearchTerm(membro.nome);
         handleAddMember(membro.id);

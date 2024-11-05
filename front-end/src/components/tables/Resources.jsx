@@ -17,6 +17,10 @@ export function Resources({eventoId}) {
     const { data: recursos, setData: setRecursos, loading, error } = useFetch(`/recursos/evento/${eventoId}`, "GET");
 
     const handleCreate = () => {
+        if (!hasAccess) {
+            alert("Você não tem permissão para cadastrar recursos.");
+            return;
+        }
         navigate(`/cadastrar-recurso/${eventoId}`);
     };
 
@@ -58,7 +62,7 @@ export function Resources({eventoId}) {
                     return (
                         <li key={recurso.id}>
                             <button type='button' onClick={() => handleDelete(recurso.id)}>
-                                <img src={DeleteImg} alt='Deletar'/>
+                                {hasAccess && <img src={DeleteImg} alt='Deletar'/>}
                             </button>
                             <span>{recurso.nome}</span>
                             <span>R$ {recurso.valor}</span>

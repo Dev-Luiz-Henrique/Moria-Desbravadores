@@ -26,32 +26,36 @@ export function LoginBody() {
         event.preventDefault();
         setError("");
         setLoading(true);
-
-        if (!validateEmail(email)) {
+    
+        const trimmedEmail = email.trim();
+        const trimmedPassword = password.trim();
+    
+        setEmail(trimmedEmail);
+        setPassword(trimmedPassword);
+    
+        if (!validateEmail(trimmedEmail)) {
             setError("Email inválido.");
             setLoading(false);
             return;
         }
-        if (!validatePassword(password)) {
+        if (!validatePassword(trimmedPassword)) {
             setError("A senha deve ter pelo menos 6 caracteres.");
             setLoading(false);
             return;
         }
-
-        const { data, error: fetchError } = await apiRequest("/login", "POST", { email, password });
-
-        if (fetchError)
+    
+        const { data, error: fetchError } = await apiRequest("/login", "POST", { email: trimmedEmail, password: trimmedPassword });
+    
+        if (fetchError) {
             setError("Erro no login: " + fetchError);
-        else {
-            //const { token } = data;
+        } else {
             await login(data);
             navigate("/membro");
             window.location.reload();
         }
-
         setLoading(false);
     };
-
+    
     return (
         <section className="container-login-body">
             <div className="ButtonGoBack">
