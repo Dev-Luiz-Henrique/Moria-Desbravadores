@@ -151,7 +151,7 @@ export function EventoDataSignUp({ id, initialData = null }) {
             alert("Erro ao enviar a imagem: " + submitError);
         } else {
             alert("Imagem enviada com sucesso!");
-            navigate("/gerenciar-eventos");
+            navigate("/eventos");
         }
     };
 
@@ -277,9 +277,12 @@ export function EventoDataSignUp({ id, initialData = null }) {
                 <form onSubmit={handleImageSubmit}>
                     <div className="event-register-input input-file">
                         <label htmlFor="imagem">IMAGEM:</label>
-                        <input type="file" id="imagem" onChange={(e) => setImageFile(e.target.files[0])} />
+                        <input type="file" id="imagem" accept=".png, .jpg, .jpeg, .bmp, .webp, .svg, .tiff" 
+                            onChange={(e) => setImageFile(e.target.files[0])} />
                     </div>
-                    <button type='submit'>Enviar Imagem</button>
+                    <div className='pagination-buttons-img'>
+                        <button type='submit'>Enviar Imagem</button>
+                    </div>
                 </form>
             ) : (
                 <form onSubmit={handleSubmit}>

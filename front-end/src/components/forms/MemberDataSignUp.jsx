@@ -121,7 +121,7 @@ export function MemberDataSignUp({ id, initialData = null }) {
             alert("Não foi possível realizar a operação. " + submitError);
         else {
             alert(`Membro ${id ? 'atualizado' : 'criado'} com sucesso!`);
-            navigate("/gerenciar-membros");
+            navigate("/membros");
         }        
     };
 
@@ -148,12 +148,14 @@ export function MemberDataSignUp({ id, initialData = null }) {
                 {errors.email && <p className="error-message">{errors.email}</p>}
             </div>
 
-            <div className='member-register-input'>
-                <label htmlFor='senha'>SENHA:</label>
-                <input id='senha' type='text' onBlur={handleInputBlur} required 
-                    onChange={handleInputChange} value={formData.senha || ""} />
-                {errors.senha && <p className="error-message">{errors.senha}</p>}
-            </div>
+            {!id && (
+                <div className="event-register-input">
+                    <label htmlFor="senha">SENHA:</label>
+                    <input id="senha" type="password" onBlur={handleInputBlur}
+                        onChange={handleInputChange} value={formData.senha || ""} />
+                    {errors.senha && <p className="error-message">{errors.senha}</p>}
+                </div>
+            )}
         </div>,
 
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -287,7 +289,13 @@ export function MemberDataSignUp({ id, initialData = null }) {
                 <select id="tipo" name="membro-funcao" onBlur={handleInputBlur} required 
                     onChange={handleInputChange} value={formData.tipo || ""} >
                     {roles().map((role) => (
-                        <option key={role} value={role}>{normalizeUnderscore(role)}</option>
+                        <option 
+                            key={role} 
+                            value={role} 
+                            disabled={role === "DIRETOR_CLUBE" || role === "DIRETOR_ASSOCIADO"}
+                        >
+                            {normalizeUnderscore(role)}
+                        </option>
                     ))}
                 </select>
                 {errors.tipo && <p className="error-message">{errors.tipo}</p>}

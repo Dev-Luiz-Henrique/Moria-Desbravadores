@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import { Authorities, getVoluntarios } from "./utils/authorities";
+import { Authorities, getVoluntarios, getAuthorities } from "./utils/authorities";
 
 // Pages
 import { NotFound } from "./pages/NotFound";
@@ -33,7 +33,7 @@ function App() {
 
                     {/* Rotas protegidas */}
                     <Route 
-                        path='/gerenciar-membros'
+                        path='/membros'
                         element={
                             <PrivateRoute allowedAuthorities={getVoluntarios()}>
                                 <UserPage />
@@ -41,7 +41,7 @@ function App() {
                         }
                     />
                     <Route 
-                        path='/gerenciar-mensalidades' 
+                        path='/mensalidades' 
                         element={
                             <PrivateRoute allowedAuthorities={getVoluntarios()}>
                                 <Mensalidades />
@@ -49,9 +49,9 @@ function App() {
                         } 
                     />
                     <Route 
-                        path='/gerenciar-eventos'
+                        path='/eventos'
                         element={
-                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                            <PrivateRoute allowedAuthorities={getAuthorities()}>
                                 <ManageEvents />
                             </PrivateRoute>
                         }
@@ -87,7 +87,7 @@ function App() {
                     <Route
                         path='/detalhes-evento/:id?'
                         element={
-                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                            <PrivateRoute allowedAuthorities={getAuthorities()}>
                                 <Evento />
                             </PrivateRoute>
                         }
@@ -95,7 +95,7 @@ function App() {
                     <Route
                         path='/membro/:id?'
                         element={
-                            <PrivateRoute allowedAuthorities={getVoluntarios()}>
+                            <PrivateRoute allowedAuthorities={getAuthorities()}>
                                 <MemberView />
                             </PrivateRoute>
                         }

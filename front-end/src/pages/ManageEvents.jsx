@@ -35,23 +35,25 @@ export function ManageEvents() {
         }
     };
 
-
     return (
         <>
             <Header />
             <section className="container-manage-events-page">
-                <div className="filter">
-                    <div className="detail">
-                        <Link to="/cadastrar-evento">
-                            <button>
-                                <img src={AddIcon} alt="AddIcon" />
-                                <p>CRIAR EVENTO</p>
-                            </button>
-                        </Link>
-
+                { hasAccess && (
+                        <div className="filter">
+                        <div className="detail">
+                            <Link to="/cadastrar-evento">
+                                <button>
+                                    <img src={AddIcon} alt="AddIcon" />
+                                    <p>CRIAR EVENTO</p>
+                                </button>
+                            </Link>
+    
+                        </div>
                     </div>
-                </div>
-
+                    )
+                }
+            
                 <div className="events-space">
                     <div className="events">
                         {!error && !loading && eventos.map((evento) => (

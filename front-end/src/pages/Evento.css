@@ -1,26 +1,27 @@
 .evento {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  background-image: url("../assets/img/backgrounds/bg-evento-resources.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-image: url("../assets/img/backgrounds/bg-evento-resources.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
 }
 
 .event-body {
-  display: flex;
-  gap: 2rem;
-  flex-direction: column;
-  justify-content: center;
-  width: calc(100vw - 8rem);
-  margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    width: calc(100vw - 8rem);
+    min-height: calc(100vh - 104px - 147px);
+    margin: 0 auto;
 }
 
 .event-body > .button-go-back {
-  width: min-content;
+    width: min-content;
 }
 
 .event-body > .event-card {
-  width: fit-content;
+    width: fit-content;
 }

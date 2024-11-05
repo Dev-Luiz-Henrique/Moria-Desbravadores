@@ -30,15 +30,13 @@ export function DropDownProfile() {
                 </Link>
             </div>
             <div className="hsc2">
-                {/* <Link to="/eventos"><p>Eventos</p></Link>
-                <Link to="/mensalidades"><p>Mensalidades</p></Link> */}
                 <Link to="/membro">Perfil</Link>
+                <Link to="/eventos"><p>Eventos</p></Link>
                 {
                     hasManageAccess && (
                         <>
-                            <Link to="/gerenciar-membros"><p>Gerenciar Membros</p></Link>
-                            <Link to="/gerenciar-mensalidades"><p>Gerenciar Mensalidades</p></Link>
-                            <Link to="/gerenciar-eventos"><p>Gerenciar Eventos</p></Link>
+                            <Link to="/membros"><p>Membros</p></Link>
+                            <Link to="/mensalidades"><p>Mensalidades</p></Link>
                         </>
                     )
                 }

@@ -43,7 +43,7 @@ export function ViewMemberData({ id }) {
         if (confirmed) {
             const { error: deleteError } = await apiRequest(`/membros/${id}`, "DELETE");
             if (deleteError) console.error(deleteError);
-            else navigate("/gerenciar-membros");
+            else navigate("/membros");
         }
     };
 

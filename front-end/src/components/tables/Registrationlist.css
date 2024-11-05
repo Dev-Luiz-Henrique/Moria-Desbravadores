@@ -145,3 +145,11 @@
 .suggestions-list li:hover {
     background-color: #D88F52; /* Hover color matching form theme */
 }
+
+.box-shadow .error-message {
+  font-family: 'Candal', sans-serif;
+  color: #f0e6d2;
+  text-align: center;
+  background-color: #994c26;
+  border-radius: 5px;
+}
