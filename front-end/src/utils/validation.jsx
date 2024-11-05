@@ -157,18 +157,26 @@ export const validadeEvento = {
 
     dataInicio: (value) => {
         const date = new Date(value);
-        if (isNaN(date.getTime()) || date <= new Date())
-            return "A data de início do evento deve ser uma data futura.";
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const minDate = new Date(today);
+        minDate.setDate(today.getDate() + 2);
+    
+        if (isNaN(date.getTime()) || date <= minDate)
+            return "A data de início do evento deve ser pelo menos 2 dias no futuro.";
         return "";
     },
-
+    
     dataFim: (value, dataInicio) => {
-        const date = new Date(value);
-        if (isNaN(date.getTime()) || date <= new Date(dataInicio))
-            return "A data fim do evento deve ser uma data futura e maior que a data de início.";
+        const dateInicio = new Date(dataInicio);
+        const dateFim = new Date(value);
+        
+        if (isNaN(dateFim.getTime()) || dateFim <= dateInicio)
+            return "A data fim do evento deve ser maior que a data de início.";
         return "";
     },
-
+    
     publico: (value) => {
         if (value === null)
             return "Campo Público é obrigatório.";
