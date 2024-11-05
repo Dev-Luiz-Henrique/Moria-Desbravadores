@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { apiRequest } from "../../utils/api";
 import { useAuth } from "../../context/AuthContext";
-import { useFetch } from "../../hooks/useFetch";
 import { formatDateWithHours } from "../../utils/dateHelpers";
 import { formatEndereco } from "../../utils/stringHelpers";
+import { Authorities } from "../../utils/authorities";
 import "./CardEvents.css"
 
 import DefaultEvent from "../../assets/img/default-event.png"
@@ -18,6 +18,10 @@ export function CardEvents(
     const navigate = useNavigate();
     const location = useLocation();
     const { membro, isLoading } = useAuth();
+
+    const { authorities } = useAuth();
+    const allowedAuthorities = [Authorities.DIRETOR_CLUBE, Authorities.DIRETOR_ASSOCIADO, Authorities.SECRETARIO];
+    const hasAccess = allowedAuthorities.some(auth => authorities.includes(auth));
 
     const isDetailPage = location.pathname.includes('/detalhes-evento/');
     const [imageUrl, setImageUrl] = useState(DefaultEvent);
@@ -44,14 +48,37 @@ export function CardEvents(
         navigate(`/detalhes-evento/${id}`);
     };
 
+    const handleDelete = async () => {
+        if (!hasAccess) {
+            alert("Você não tem permissão para excluir eventos.");
+            return;
+        }
+
+        const confirmed = window.confirm(`Você tem certeza que deseja excluir o evento?`);
+        if (confirmed) {
+            const { error: deleteError } = await apiRequest(`/eventos/${id}`, "DELETE");
+            if (deleteError) {
+                console.error(deleteError);
+                alert("Erro ao tentar excluir o evento.");
+            } else {
+                alert("Evento excluído com sucesso.");
+                navigate("/eventos");
+            }
+        }
+    };
+
     const handleEnroll = async () => {
         const { error: enrollError } = await apiRequest(`/inscricoes/confirmar?membroId=${membro.id}&eventoId=${id}`, "PUT");
 
         if (enrollError) {
             alert("Ocorreu um erro ao tentar se inscrever: " + enrollError);
             console.error("Erro ao tentar se inscrever: ", enrollError);
-        } else {
+        } 
+        else {
             alert("Inscrição realizada com sucesso!");
+            // TODO: Arranjar outra forma de atualizar o componente de inscrição que não seja recarregar a página
+            if (isDetailPage)
+                window.location.reload();
         }
     };
             
@@ -60,21 +87,26 @@ export function CardEvents(
 
     return (
         <div className={`card-event-container ${isDetailPage ? 'card-event-large' : ''}`}>
-            <img src={imageUrl} alt={nome} />
-            <div className="card-events-buttons">
-                <button onClick={handleDetail}>
-                    <img src={ArrowRight} alt="Detalhes"/>
-                </button>
-                <button onClick={handleEdit}>
-                    <img src={Edit} alt="Edit"/>
-                </button>
-                <button onClick={onDelete}>
-                    <img src={Delete} alt="Delete"/>
-                </button>
+            <div className="card-events-img">
+                <img src={imageUrl} alt={nome} />
             </div>
-
+            
+            {hasAccess && (
+                <div className="card-events-buttons">
+                    {/* <button onClick={handleDetail}>
+                        <img src={ArrowRight} alt="Detalhes"/>
+                    </button> */}
+                    <button onClick={handleEdit}>
+                        <img src={Edit} alt="Edit"/>
+                    </button>
+                    <button onClick={onDelete || handleDelete}>
+                        <img src={Delete} alt="Delete"/>
+                    </button>
+                </div>
+            )}
+            
             <div className="card-event-text">
-                <h3>{nome}</h3>
+                <h3 onClick={handleDetail}>{nome}</h3>
                 <span>
                     <b>ATRAÇÃO:</b>
                     <p>{atracao}</p>

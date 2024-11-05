@@ -24,7 +24,7 @@ export function ManageEvents() {
             return;
         }
 
-        const confirmed = window.confirm("Você tem certeza que deseja excluir este evento? " + id);
+        const confirmed = window.confirm("Você tem certeza que deseja excluir este evento? ");
         if (confirmed) {
             const { error: deleteError } = await apiRequest(`/eventos/${id}`, "DELETE");
 

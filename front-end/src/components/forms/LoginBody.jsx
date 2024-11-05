@@ -73,7 +73,7 @@ export function LoginBody() {
                             onChange={(e) => setPassword(e.target.value)} required />
                     </div>
 
-                    <a href=""><p>Esqueci minha senha</p></a>
+                    {/* <a href=""><p>Esqueci minha senha</p></a> */}
                     <button type="submit" disabled={loading}>
                         {loading ? "Carregando..." : "LOGIN"}
                     </button>
