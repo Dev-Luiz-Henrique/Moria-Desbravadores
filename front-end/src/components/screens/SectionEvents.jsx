@@ -7,7 +7,7 @@ import { formatEndereco } from "../../utils/stringHelpers";
 import ArrowRight from "../../assets/img/layout/arrow-right.svg";
 import ArrowLeft from "../../assets/img/layout/arrow-left.svg";
 import ImgEvent from "../../assets/img/default-event.png";
-import BgPastEvents from "../../assets/img/backgrounds/bg-Mountain-02.svg";
+import BgPastEvents from "../../assets/img/backgrounds/bg-mountain-02.svg";
 import "./SectionEvents.css";
 
 export function SectionEvents() {

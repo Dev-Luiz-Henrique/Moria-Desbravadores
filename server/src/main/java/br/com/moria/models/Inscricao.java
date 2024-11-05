@@ -1,5 +1,7 @@
 package br.com.moria.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.com.moria.enums.StatusParticipacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,11 +34,13 @@ public class Inscricao {
     @NotNull(message = "Membro não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_membro", referencedColumnName = "id")
+    @JsonBackReference("membroInscricoes")
     private Membro membro;
 
     @NotNull(message = "Evento não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_evento", referencedColumnName = "id")
+    @JsonBackReference("eventoInscricoes")
     private Evento evento;
 
     @NotNull(message = "Status de participação não pode ser nulo.")

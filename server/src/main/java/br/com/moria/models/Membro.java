@@ -47,7 +47,7 @@ public class Membro {
     private Endereco endereco;
 
     @OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonBackReference("membroInscricoes")
     private List<Inscricao> inscricoes;
 
     @OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)

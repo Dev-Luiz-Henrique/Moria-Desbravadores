@@ -3,7 +3,6 @@ package br.com.moria.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -45,7 +44,7 @@ public class Evento {
 	private List<Recurso> recursos;
 
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonManagedReference("eventoInscricoes")
     private List<Inscricao> inscricoes;
 
     @NotBlank(message = "Nome não pode ser vazio.")
