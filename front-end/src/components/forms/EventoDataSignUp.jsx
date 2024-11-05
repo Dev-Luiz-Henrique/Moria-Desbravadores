@@ -10,8 +10,8 @@ export function EventoDataSignUp({ id, initialData = null }) {
         nome: "",
         descricao: "",
         publico: false,
-        dataInicio: new Date().toISOString().slice(0, 16),
-        dataFim: new Date(new Date().getTime() + 6 * 60 * 60 * 1000).toISOString().slice(0, 16),
+        dataInicio: new Date(new Date().getTime() + 48 * 60 * 60 * 1000).toISOString().slice(0, 16), // 1 dia à frente
+        dataFim: new Date(new Date().getTime() + 48 * 60 * 60 * 1000 + 6 * 60 * 60 * 1000).toISOString().slice(0, 16), // 6 horas após dataInicio
         logradouro: "",
         numero: "",
         endereco: {
