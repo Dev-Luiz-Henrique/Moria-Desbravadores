@@ -79,4 +79,8 @@ server/.settings/
 /uploads/
 
 # Ignorar application.properties;
-src/main/resources/application.properties
+server/src/main/resources/application.properties
+
+# Ignorar certificado ssl
+server/src/main/resources/keystore.p12
+
