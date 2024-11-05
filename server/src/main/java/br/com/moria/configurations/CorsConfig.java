@@ -16,8 +16,10 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(
-            "http://localhost:5173", "https://proud-wave-0042c520f.5.azurestaticapps.net/"
-            
+            "http://localhost:5173", 
+            "http://192.168.15.22:5173/",
+            "https://moria-desbravadores-bice.vercel.app",
+            "https://proud-wave-0042c520f.5.azurestaticapps.net/"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
