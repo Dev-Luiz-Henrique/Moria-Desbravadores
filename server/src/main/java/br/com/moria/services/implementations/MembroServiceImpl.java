@@ -3,6 +3,7 @@ package br.com.moria.services.implementations;
 import java.io.IOException;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,31 +34,27 @@ public class MembroServiceImpl implements IMembroService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Membro create(Membro membro) {
-
+    public Membro create(@NotNull Membro membro) { 
         Endereco endereco = membro.getEndereco();
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
-            .orElseGet(() -> enderecoRepository.save(endereco)));
+                .orElseGet(() -> enderecoRepository.save(endereco)));
 
-        if (membroRepository.findByEmail(membro.getEmail()) != null) {
-			throw new IllegalArgumentException("Email já cadastrado.");
-		}
-
-        if (membroRepository.findByCpf(membro.getCpf()) != null) {
-			throw new IllegalArgumentException("CPF já cadastrado.");
-		}
+        if (membroRepository.findByEmail(membro.getEmail()).isPresent())
+            throw new IllegalArgumentException("Email já cadastrado.");
+        if (membroRepository.findByCpf(membro.getCpf()).isPresent())
+            throw new IllegalArgumentException("CPF já cadastrado.");
 
         membro.setSenha(passwordEncoder.encode(membro.getSenha()));
         return membroRepository.save(membro);
     }
 
     @Override
-    public Membro update(Membro membro) {
+    public Membro update(@NotNull Membro membro) {
         Membro existingMembro = membroRepository.findById(membro.getId())
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
 
-        membro.setInscricoes(existingMembro.getInscricoes());
-        membro.setMensalidades(existingMembro.getMensalidades());
+        //membro.setInscricoes(existingMembro.getInscricoes());
+        //membro.setMensalidades(existingMembro.getMensalidades());
 
     	Endereco endereco = membro.getEndereco();
         membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
@@ -74,7 +71,6 @@ public class MembroServiceImpl implements IMembroService {
     public void delete(int id) {
         Membro existingMembro = membroRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
-
         membroRepository.delete(existingMembro);
     }
 
@@ -91,7 +87,8 @@ public class MembroServiceImpl implements IMembroService {
 
 	@Override
 	public Membro findByEmail(String email) {
-		return membroRepository.findByEmail(email);
+		return membroRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
 	}
 
     @Override
@@ -101,7 +98,8 @@ public class MembroServiceImpl implements IMembroService {
 
 	@Override
 	public Membro findByCpf(String cpf) {
-		return membroRepository.findByCpf(cpf);
+		return membroRepository.findByCpf(cpf)
+                .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
 	}
 
 	@Override
@@ -126,9 +124,8 @@ public class MembroServiceImpl implements IMembroService {
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
 
         String filePath = membro.getFichaSaude();
-        if (filePath == null || filePath.isEmpty()) {
+        if (filePath == null || filePath.isEmpty())
             throw new IllegalArgumentException("Caminho de arquivo não disponível para o membro.");
-        }
         return uploadService.downloadFichaSaude(filePath);
     }
 }

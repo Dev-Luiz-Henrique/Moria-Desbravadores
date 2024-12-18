@@ -22,10 +22,8 @@ public class MembroDetailsServiceImpl implements IMembroDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Membro membro = membroRepository.findByEmail(email);
-        if (membro == null) {
-			throw new UsernameNotFoundException("Usuário não encontrado com o email: " + email);
-		}
+        Membro membro = membroRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o email: " + email));
 
         // Adiciona a authority baseada no tipo de membro
         List<GrantedAuthority> authorities = new ArrayList<>();

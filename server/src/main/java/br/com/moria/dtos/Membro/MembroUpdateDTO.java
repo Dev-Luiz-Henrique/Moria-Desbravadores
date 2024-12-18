@@ -1,97 +1,85 @@
-package br.com.moria.models;
+package br.com.moria.dtos.Membro;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import br.com.moria.enums.EstadoCivil;
 import br.com.moria.enums.TipoMembro;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import br.com.moria.models.Endereco;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
-@Entity
-@Table(name = "membros")
-public class Membro {
+public class MembroUpdateDTO {
 
-    /*@OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference("membroInscricoes")
-    private List<Inscricao> inscricoes;
-
-    @OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private List<Mensalidade> mensalidades;*/
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @NotNull(message = "O campo id é obrigatório")
     private int id;
-
-    @Column(name = "nome", nullable = false, length = 100)
+    
+    @NotBlank(message = "O campo nome é obrigatório")
+    @Size(min = 3, max = 100, message = "O campo nome deve conter entre 3 e 100 caracteres")
     private String nome;
 
-    @Column(name = "sexo", nullable = false, length = 1)
+    @NotBlank(message = "O campo sexo é obrigatório")
+    @Pattern(regexp = "[MFO]", message = "Sexo deve ser 'M', 'F' ou 'O'.")
     private String sexo;
 
-    @Column(name = "data_nascimento", nullable = false, columnDefinition= "DATETIME")
+    @NotNull(message = "O campo data de nascimento é obrigatório")
+    @Past(message = "A data de nascimento deve ser anterior a data atual")
     private LocalDate dataNascimento;
 
-    @Column(name = "cpf", nullable = false, columnDefinition = "CHAR(11)", unique = true)
+    @NotBlank(message = "O campo CPF é obrigatório")
+    @Pattern(regexp = "\\d{11}", message = "O campo CPF deve conter exatamente 11 dígitos")
+    @Size(min = 11, max = 11, message = "O campo CPF deve conter exatamente 11 dígitos")
     private String cpf;
 
-    @Column(name = "rg", nullable = false, length = 20)
+    @NotBlank(message = "O campo RG é obrigatório")
+    @Size(max = 20, message = "O campo RG deve conter no máximo 20 dígitos")
     private String rg;
 
-    @Column(name = "orgao_expedidor", nullable = false, length = 15)
+    @NotBlank(message = "O campo orgão expedidor é obrigatório")
+    @Size(max = 15, message = "Órgão Expedidor deve ter no máximo 15 caracteres.")
     private String orgaoExpedidor;
 
-        @Enumerated(EnumType.STRING)
-    @Column(name = "estado_civil", nullable = false, length = 10)
+    @NotNull(message = "O campo naturalidade é obrigatório")
     private EstadoCivil estadoCivil;
 
-    @Column(name = "batizado", nullable = false)
+    @NotNull(message = "O campo batizado é obrigatório")
     private boolean batizado;
 
-    @Column(name = "telefone", nullable = false, columnDefinition = "CHAR(10)")
+    @NotBlank(message = "O campo telefone é obrigatório")
+    @Pattern(regexp = "\\d{10}", message = "O campo telefone deve conter exatamente 10 dígitos")
     private String telefone;
 
-    @Column(name = "celular", nullable = false, columnDefinition = "CHAR(11)")
+    @NotBlank(message = "O campo celular é obrigatório")
+    @Pattern(regexp = "\\d{11}", message = "O campo celular deve conter exatamente 11 dígitos")
     private String celular;
 
-    @Column(name = "email", nullable = false, length = 255, unique = true)
+    @NotBlank(message = "O campo email é obrigatório")
+    @Email(message = "O campo email deve ser um email válido")
     private String email;
 
-    @Column(name = "senha", nullable = false, length = 255)
-    private String senha;
-
-    @Column(name = "numero", nullable = false)
+    @NotNull(message = "O campo numero é obrigatório")
+    @Min(value = 1, message = "O campo numero deve ser maior que 0")
     private int numero;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_endereco", referencedColumnName = "id")
+    @NotBlank(message = "O campo complemento é obrigatório")
     private Endereco endereco;
-
-    @Column(name = "tamanho_camisa", nullable = false, length = 5)
+    
+    @NotBlank(message = "O tamanho da camisa é obrigatório")
+    @Size(max = 5, message = "O campo tamanho da camisa deve conter no máximo 5 caracteres")
     private String tamanhoCamisa;
-
-    @Column(name = "ficha_saude", length = 255)
+    
+    @Size(max = 255, message = "O campo ficha de saúde deve conter no máximo 255 caracteres")
     private String fichaSaude;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo", nullable = false, length = 20)
+    @NotNull(message = "O campo tipo é obrigatório")
     private TipoMembro tipo;
 
-    @Column(name = "data_cadastro", nullable = false, columnDefinition= "DATETIME")
-    private LocalDateTime dataCadastro = LocalDateTime.now();
-
-    @Column(name = "ativo", nullable = false)
-    private boolean ativo = true;
+    @NotNull(message = "O campo ativo é obrigatório")
+    private boolean ativo;
 
     public int getId() {
         return id;
@@ -189,14 +177,6 @@ public class Membro {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public int getNumero() {
         return numero;
     }
@@ -235,14 +215,6 @@ public class Membro {
 
     public void setTipo(TipoMembro tipo) {
         this.tipo = tipo;
-    }
-
-    public LocalDateTime getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
     }
 
     public boolean isAtivo() {

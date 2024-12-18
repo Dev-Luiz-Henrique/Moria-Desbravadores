@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +30,6 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/eventos")
 @Validated
-@CrossOrigin(origins = "https://proud-wave-0042c520f.5.azurestaticapps.net")
 public class EventoController {
 
     @Autowired
@@ -42,7 +42,7 @@ public class EventoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Evento> update(@PathVariable int id, @Valid @RequestBody Evento evento) {
+    public ResponseEntity<Evento> update(@PathVariable int id, @Valid @RequestBody @NotNull Evento evento) {
         evento.setId(id);
         Evento updatedEvento = eventoService.update(evento);
         return ResponseEntity.ok(updatedEvento);
@@ -91,7 +91,9 @@ public class EventoController {
     }
 
     @PostMapping("/{id}/imagem")
-    public ResponseEntity<String> uploadImagemEvento(@PathVariable int id, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> uploadImagemEvento(@PathVariable int id,
+                                                     @RequestParam("file")
+                                                     @NotNull MultipartFile file) throws IOException {
         if (file.isEmpty())
             return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
 

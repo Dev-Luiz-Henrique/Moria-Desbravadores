@@ -16,15 +16,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "inscricoes", uniqueConstraints = {
 	    @UniqueConstraint(columnNames = {"id_membro", "id_evento"})
 	})
-@Getter
-@Setter
 public class Inscricao {
 
     @Id
@@ -52,8 +48,49 @@ public class Inscricao {
     @Column(name = "inscrito", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
     private Boolean inscrito;
 
+    // TODO Implementar autorizacao
     /*@NotBlank
     @Size(max = 255, message = "Path da autorizacao deve ter no máximo 255 caracteres.")
     @Column(name = "autorizacao", nullable = false, length = 255)
     private String autorizacao;*/
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Membro getMembro() {
+        return membro;
+    }
+
+    public void setMembro(Membro membro) {
+        this.membro = membro;
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public StatusParticipacao getStatusParticipacao() {
+        return statusParticipacao;
+    }
+
+    public void setStatusParticipacao(StatusParticipacao statusParticipacao) {
+        this.statusParticipacao = statusParticipacao;
+    }
+
+    public Boolean getInscrito() {
+        return inscrito;
+    }
+
+    public void setInscrito(Boolean inscrito) {
+        this.inscrito = inscrito;
+    }
 }

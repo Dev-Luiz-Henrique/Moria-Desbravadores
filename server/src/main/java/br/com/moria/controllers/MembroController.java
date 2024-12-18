@@ -3,6 +3,7 @@ package br.com.moria.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,7 +29,6 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/membros")
 @Validated
-@CrossOrigin(origins = "https://proud-wave-0042c520f.5.azurestaticapps.net")
 public class MembroController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class MembroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Membro> update(@PathVariable int id, @RequestBody Membro membro) {
+    public ResponseEntity<Membro> update(@PathVariable int id, @RequestBody @NotNull Membro membro) {
         membro.setId(id);
         Membro updatedMembro = membroService.update(membro);
         return ResponseEntity.ok(updatedMembro);
@@ -78,7 +78,9 @@ public class MembroController {
     }
 
     @PostMapping("/{id}/ficha-saude")
-    public ResponseEntity<String> uploadFichaSaude(@PathVariable int id, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> uploadFichaSaude(@PathVariable int id,
+                                                   @RequestParam("file")
+                                                   @NotNull MultipartFile file) throws IOException {
         if (file.isEmpty())
 			return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
 

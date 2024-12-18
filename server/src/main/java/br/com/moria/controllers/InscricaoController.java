@@ -2,6 +2,7 @@ package br.com.moria.controllers;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,6 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/inscricoes")
 @Validated
-@CrossOrigin(origins = "https://proud-wave-0042c520f.5.azurestaticapps.net")
 public class InscricaoController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class InscricaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Inscricao> update(@PathVariable int id, @RequestBody Inscricao inscricao) {
+    public ResponseEntity<Inscricao> update(@PathVariable int id, @RequestBody @NotNull Inscricao inscricao) {
         inscricao.setId(id);
         Inscricao updatedInscricao = inscricaoService.update(inscricao);
         return ResponseEntity.ok(updatedInscricao);

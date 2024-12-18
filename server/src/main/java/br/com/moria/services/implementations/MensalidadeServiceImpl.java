@@ -74,7 +74,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
 
     private Mensalidade criarNovaMensalidade(Membro membro, LocalDateTime dataAtual) {
         Mensalidade mensalidade = new Mensalidade();
-        mensalidade.setMembro(membro);
+        //mensalidade.setMembro(membro);
         mensalidade.setData(dataAtual);
         mensalidade.setDataVencimento(dataAtual.plusDays(20));
         mensalidade.setValor(15.00);
@@ -110,7 +110,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
 
 	@Override
 	public Mensalidade findMembroAndDataInterval(Membro membro, LocalDateTime start, LocalDateTime end) {
-		return mensalidadeRepository.findByMembroAndDataBetween(membro, start, end);
+		return mensalidadeRepository.findByMembroAndDataBetween(membro, start, end)
+                .orElseThrow(() -> new EntityNotFoundException("Mensalidade não encontrada"));
 	}
-
 }

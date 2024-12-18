@@ -2,6 +2,7 @@ package br.com.moria.repositories;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,9 +10,8 @@ import br.com.moria.models.Membro;
 import br.com.moria.models.Mensalidade;
 
 public interface MensalidadeRepository extends JpaRepository<Mensalidade, Integer>{
-
 	public boolean existsByMembroAndDataBetween(Membro membro, LocalDateTime start, LocalDateTime end);
 	public List<Mensalidade> findByDataBetween(LocalDateTime start, LocalDateTime end);
     public List<Mensalidade> findByPagamentoRealizadoFalse();
-    public Mensalidade findByMembroAndDataBetween(Membro membro, LocalDateTime start, LocalDateTime end);
+    public Optional<Mensalidade> findByMembroAndDataBetween(Membro membro, LocalDateTime start, LocalDateTime end);
 }

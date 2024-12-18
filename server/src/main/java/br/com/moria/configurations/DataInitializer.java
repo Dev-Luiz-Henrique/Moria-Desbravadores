@@ -28,6 +28,11 @@ import br.com.moria.services.implementations.RecursoServiceImpl;
 @Component
 public class DataInitializer implements CommandLineRunner {
 
+    @Override
+    public void run(String... args) {
+
+    }
+/*
     @Autowired
     private MembroRepository membroRepository;
     @Autowired
@@ -53,7 +58,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         final String path = "src/main/resources/json/";
-
+        /*
         if (membroRepository.count() == 0) {
             List<Membro> modelos = List.of(
                 objectMapper.readValue(new File(path + "membros.json"), Membro[].class));
@@ -93,5 +98,5 @@ public class DataInitializer implements CommandLineRunner {
 				recursoRepository.save(recurso);
 			}
         }
-    }
+    }*/
 }
