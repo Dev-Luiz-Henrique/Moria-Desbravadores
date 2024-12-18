@@ -1,8 +1,5 @@
 package br.com.moria.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import br.com.moria.enums.StatusParticipacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "inscricoes", uniqueConstraints = {
@@ -28,25 +24,22 @@ public class Inscricao {
     @Column(name = "id")
     private int id;
 
-    @NotNull(message = "Membro não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_membro", referencedColumnName = "id")
-    @JsonIgnoreProperties({"inscricoes", "mensalidades"})
+    //@JsonIgnoreProperties({"inscricoes", "mensalidades"})
     private Membro membro;
 
-    @NotNull(message = "Evento não pode ser nulo.")
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_evento", referencedColumnName = "id")
-    @JsonBackReference("eventoInscricoes")
+    //@JsonBackReference("eventoInscricoes")
     private Evento evento;
 
-    @NotNull(message = "Status de participação não pode ser nulo.")
     @Enumerated(EnumType.STRING)
     @Column(name = "status_participacao", nullable = false, length = 20)
     private StatusParticipacao statusParticipacao;
 
     @Column(name = "inscrito", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")
-    private Boolean inscrito;
+    private boolean inscrito;
 
     // TODO Implementar autorizacao
     /*@NotBlank

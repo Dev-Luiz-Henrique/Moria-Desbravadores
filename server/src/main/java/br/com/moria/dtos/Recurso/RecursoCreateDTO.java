@@ -1,65 +1,41 @@
-package br.com.moria.models;
+package br.com.moria.dtos.Recurso;
 
 import java.math.BigDecimal;
 
 import br.com.moria.enums.FormaPagamento;
 import br.com.moria.enums.RecursoEvento;
 import br.com.moria.enums.StatusPagamento;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-@Entity
-@Table(name = "recursos")
-public class Recurso {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_evento", referencedColumnName = "id")
-    private Evento evento;
-
-    @Column(name = "nome", nullable = false)
+public class RecursoCreateDTO {
+    
+    @NotBlank(message = "O campo nome é obrigatório")
+    @Size(max = 255, message = "O nome deve ter no máximo 255 caracteres")
     private String nome;
 
-    @Column(name = "descricao", nullable = false)
+    @NotBlank(message = "O campo descrição é obrigatório")
+    @Size(max = 255, message = "A descrição deve ter no máximo 255 caracteres")
     private String descricao;
-
-    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
+    
+    @NotNull(message = "O campo valor é obrigatório")
+    @DecimalMin(value = "0.00", message = "O valor deve ser maior que 0")
     private BigDecimal valor;
 
-    @Column(name = "quantidade", nullable = false, columnDefinition = "DOUBLE(8,2)")
+    @NotNull(message = "O campo quantidade é obrigatório")
+    @DecimalMin(value = "0.00", message = "A quantidade deve ser maior que 0")
     private Double quantidade;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "forma_pagamento", nullable = false, length = 20)
+    @NotNull(message = "O campo forma de pagamento é obrigatório")
     private FormaPagamento formaPagamento;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "categoria", nullable = false, length = 30)
+    @NotNull(message = "O campo categoria é obrigatório")
     private RecursoEvento categoria;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status_pagamento", nullable = false, length = 20)
+    @NotNull(message = "O campo status de pagamento é obrigatório")
     private StatusPagamento statusPagamento;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -115,13 +91,5 @@ public class Recurso {
 
     public void setStatusPagamento(StatusPagamento statusPagamento) {
         this.statusPagamento = statusPagamento;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 }
