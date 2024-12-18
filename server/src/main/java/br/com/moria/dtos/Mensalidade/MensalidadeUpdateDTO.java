@@ -1,55 +1,40 @@
-package br.com.moria.models;
+package br.com.moria.dtos.Mensalidade;
 
 import java.time.LocalDateTime;
 
 import br.com.moria.enums.FormaPagamento;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "mensalidades")
-public class Mensalidade {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class MensalidadeUpdateDTO {
+    
+    @NotNull(message = "O campo id é obrigatório")
     private int id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_membro", referencedColumnName = "id")
-    private Membro membro;
-
-    @Column(name = "data", nullable = false, columnDefinition= "DATETIME")
+    @NotNull(message = "O campo data é obrigatória")
     private LocalDateTime data;
 
-    @Column(name = "data_vencimento", nullable = false, columnDefinition= "DATETIME")
+    @NotNull(message = "O campo data de vencimento é obrigatória")
     private LocalDateTime dataVencimento;
 
-    @Column(name = "data_pagamento", columnDefinition= "DATETIME")
+    @NotNull(message = "O campo data de pagamento é obrigatória")
     private LocalDateTime dataPagamento;
 
-    @Column(name = "valor", nullable = false, columnDefinition = "DOUBLE(8,2)")
+    @NotNull(message = "O campo valor é obrigatório")
+    @DecimalMin(value = "0.00", message = "O campo valor deve ser maior que 0")
     private Double valor;
 
-    @Column(name = "pagamento_realizado", nullable = false)
+    @NotNull(message = "O campo pagamento realizado é obrigatório")
     private boolean pagamentoRealizado;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "forma_pagamento", length = 20)
+    @NotNull(message = "O campo forma de pagamento é obrigatório")
     private FormaPagamento formaPagamento;
 
-    @Column(name = "comprovante", length = 255)
+    @NotBlank(message = "O campo comprovante é obrigatório")
     private String comprovante;
 
-    @Column(name = "observacoes", length = 500)
+    @NotBlank(message = "O campo observações é obrigatório")
     private String observacoes;
 
     public int getId() {
@@ -122,13 +107,5 @@ public class Mensalidade {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
-    }
-
-    public Membro getMembro() {
-        return membro;
-    }
-
-    public void setMembro(Membro membro) {
-        this.membro = membro;
     }
 }
