@@ -45,15 +45,14 @@ public class EnderecoServiceImpl implements IEnderecoService {
 
     @Override
     public EnderecoResponseDTO update(@NotNull EnderecoUpdateDTO enderecoUpdateDTO) {
-        Endereco existingEndereco = enderecoRepository.findById(enderecoUpdateDTO.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+        Endereco existingEndereco = getEnderecoById(enderecoUpdateDTO.getId());
 
         if (!existingEndereco.getCep().equals(enderecoUpdateDTO.getCep()))
             existsByCep(enderecoUpdateDTO.getCep());
 
         Endereco endereco = enderecoMapper.toEntity(enderecoUpdateDTO);
-        Endereco savedEndereco = enderecoRepository.save(endereco);
-        return enderecoMapper.toResponseDTO(savedEndereco);
+        Endereco updatedEndereco = enderecoRepository.save(endereco);
+        return enderecoMapper.toResponseDTO(updatedEndereco);
     }
 
     @Override

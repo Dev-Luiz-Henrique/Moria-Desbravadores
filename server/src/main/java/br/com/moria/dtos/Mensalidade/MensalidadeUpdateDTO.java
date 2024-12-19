@@ -8,8 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class MensalidadeUpdateDTO {
-    
-    @NotNull(message = "O campo id é obrigatório")
+
     private int id;
 
     @NotNull(message = "O campo data é obrigatória")

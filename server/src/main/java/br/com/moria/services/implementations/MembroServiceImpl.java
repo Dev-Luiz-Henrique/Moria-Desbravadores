@@ -3,6 +3,13 @@ package br.com.moria.services.implementations;
 import java.io.IOException;
 import java.util.List;
 
+import br.com.moria.dtos.Endereco.EnderecoCreateDTO;
+import br.com.moria.dtos.Membro.MembroCreateDTO;
+import br.com.moria.dtos.Membro.MembroResponseDTO;
+import br.com.moria.dtos.Membro.MembroUpdateDTO;
+import br.com.moria.mappers.EnderecoMapper;
+import br.com.moria.mappers.MembroMapper;
+import br.com.moria.services.interfaces.IEnderecoService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,91 +28,118 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class MembroServiceImpl implements IMembroService {
 
-	@Autowired
-    private MembroRepository membroRepository;
+    private final MembroMapper membroMapper;
+    private final MembroRepository membroRepository;
+    private final IEnderecoService enderecoService;
+    private final IFileService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private EnderecoRepository enderecoRepository;
-
-    @Autowired
-    private IFileService uploadService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Override
-    public Membro create(@NotNull Membro membro) { 
-        Endereco endereco = membro.getEndereco();
-        membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
-                .orElseGet(() -> enderecoRepository.save(endereco)));
-
-        if (membroRepository.findByEmail(membro.getEmail()).isPresent())
-            throw new IllegalArgumentException("Email já cadastrado.");
-        if (membroRepository.findByCpf(membro.getCpf()).isPresent())
-            throw new IllegalArgumentException("CPF já cadastrado.");
-
-        membro.setSenha(passwordEncoder.encode(membro.getSenha()));
-        return membroRepository.save(membro);
+    public MembroServiceImpl(MembroMapper membroMapper,
+                             MembroRepository membroRepository,
+                             IEnderecoService enderecoService,
+                             IFileService uploadService,
+                             PasswordEncoder passwordEncoder) {
+        this.membroMapper = membroMapper;
+        this.membroRepository = membroRepository;
+        this.enderecoService = enderecoService;
+        this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    public Membro update(@NotNull Membro membro) {
-        Membro existingMembro = membroRepository.findById(membro.getId())
-            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
-
-        //membro.setInscricoes(existingMembro.getInscricoes());
-        //membro.setMensalidades(existingMembro.getMensalidades());
-
-    	Endereco endereco = membro.getEndereco();
-        membro.setEndereco(enderecoRepository.findByCep(endereco.getCep())
-            .orElseGet(() -> enderecoRepository.save(endereco)));
-
-        // TODO: Essa verificação de senha deve ser feita com DTO
-        if (!membro.getSenha().equals(existingMembro.getSenha()))
-            membro.setSenha(passwordEncoder.encode(membro.getSenha()));
-
-        return membroRepository.save(membro);
+    private void existsByEmail(String email) {
+        if (membroRepository.existsByEmail(email))
+            throw new IllegalArgumentException("Membro com email já cadastrado");
     }
 
-    @Override
-    public void delete(int id) {
-        Membro existingMembro = membroRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
-        membroRepository.delete(existingMembro);
+    private void existsByCpf(String cpf) {
+        if (membroRepository.existsByCpf(cpf))
+            throw new IllegalArgumentException("Membro com CPF já cadastrado");
     }
 
-    @Override
-    public List<Membro> findAll() {
-        return membroRepository.findAll();
-    }
-
-    @Override
-    public Membro findById(int id) {
+    private Membro getMembroById(int id) {
         return membroRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
     }
 
-	@Override
-	public Membro findByEmail(String email) {
-		return membroRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
-	}
+    @Override
+    public MembroResponseDTO create(@NotNull MembroCreateDTO membroCreateDTO) {
+        existsByEmail(membroCreateDTO.getEmail());
+        existsByCpf(membroCreateDTO.getCpf());
+        membroCreateDTO.setSenha(passwordEncoder.encode(membroCreateDTO.getSenha()));
+
+        Endereco endereco = enderecoService.findOrCreate(membroCreateDTO.getEnderecoCreateDTO());
+        Membro membro = membroMapper.toEntity(membroCreateDTO);
+        membro.setEndereco(endereco);
+
+        Membro savedMembro = membroRepository.save(membro);
+        return membroMapper.toResponseDTO(savedMembro);
+    }
 
     @Override
-    public List<Membro> findByNomeContaining(String nome) {
-        return membroRepository.findByNomeContaining(nome);
+    public MembroResponseDTO update(@NotNull MembroUpdateDTO membroUpdateDTO) {
+        Membro existingMembro = getMembroById(membroUpdateDTO.getId());
+
+        if (!existingMembro.getEmail().equals(membroUpdateDTO.getEmail()))
+            existsByEmail(membroUpdateDTO.getEmail());
+        if (!existingMembro.getCpf().equals(membroUpdateDTO.getCpf()))
+            existsByCpf(membroUpdateDTO.getCpf());
+
+        Endereco endereco = enderecoService.findOrCreate(membroUpdateDTO.getEnderecoCreateDTO());
+        Membro membro = membroMapper.toEntity(membroUpdateDTO);
+        membro.setEndereco(endereco);
+
+        Membro updatedMembro = membroRepository.save(membro);
+        return membroMapper.toResponseDTO(updatedMembro);
+    }
+
+    @Override
+    public void delete(int id) {
+        Membro existingMembro = getMembroById(id);
+        membroRepository.delete(existingMembro);
+    }
+
+    @Override
+    public List<MembroResponseDTO> findAll() {
+        List<Membro> membros = membroRepository.findAll();
+        return membroMapper.toResponseDTO(membros);
+    }
+
+    @Override
+    public MembroResponseDTO findById(int id) {
+        Membro existingMembro = getMembroById(id);
+        return membroMapper.toResponseDTO(existingMembro);
+    }
+
+    @Override
+    public MembroResponseDTO findByCpf(String cpf) {
+        Membro membro = membroRepository.findByCpf(cpf)
+                .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+        return membroMapper.toResponseDTO(membro);
     }
 
 	@Override
-	public Membro findByCpf(String cpf) {
-		return membroRepository.findByCpf(cpf)
+	public MembroResponseDTO findByEmail(String email) {
+        Membro membro = membroRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+        return membroMapper.toResponseDTO(membro);
 	}
 
+    @Override
+    public List<MembroResponseDTO> findByNomeContaining(String nome) {
+        List<Membro> membros = membroRepository.findByNomeContaining(nome);
+        return membroMapper.toResponseDTO(membros);
+    }
+
 	@Override
-	public List<Membro> findByAtivo(Boolean ativo) {
-		return membroRepository.findByAtivo(ativo);
+	public List<MembroResponseDTO> findByAtivo(Boolean ativo) {
+        List<Membro> membros = membroRepository.findByAtivo(ativo);
+        return membroMapper.toResponseDTO(membros);
 	}
+
+    //
+    // TODO Review this file methods
+    //
 
     @Override
     public Membro updateFichaSaudeById(int id, MultipartFile file) throws IOException {

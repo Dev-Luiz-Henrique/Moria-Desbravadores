@@ -13,6 +13,8 @@ import jakarta.validation.constraints.Size;
 
 public class RecursoUpdateDTO {
 
+    private int id;
+
     @NotBlank(message = "O campo nome é obrigatório")
     @Size(max = 255, message = "O nome deve ter no máximo 255 caracteres")
     private String nome;
@@ -37,6 +39,14 @@ public class RecursoUpdateDTO {
 
     @NotNull(message = "O campo status de pagamento é obrigatório")
     private StatusPagamento statusPagamento;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;

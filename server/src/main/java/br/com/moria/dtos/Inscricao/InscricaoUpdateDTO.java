@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 public class InscricaoUpdateDTO {
 
-    @NotNull(message = "O campo id é obrigatório")
     private int id;
 
     @NotNull(message = "O campo status de participação é obrigatório")

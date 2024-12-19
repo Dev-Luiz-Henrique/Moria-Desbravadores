@@ -11,7 +11,6 @@ import jakarta.validation.constraints.Size;
 
 public class EventoUpdateDTO {
 
-    @NotNull(message = "O campo id é obrigatório")
     private int id;
 
     @NotBlank(message = "O campo nome é obrigatório")
