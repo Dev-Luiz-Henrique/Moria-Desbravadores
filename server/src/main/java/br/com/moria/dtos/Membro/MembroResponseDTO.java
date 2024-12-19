@@ -3,9 +3,9 @@ package br.com.moria.dtos.Membro;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import br.com.moria.dtos.Endereco.EnderecoResponseDTO;
 import br.com.moria.enums.EstadoCivil;
 import br.com.moria.enums.TipoMembro;
-import br.com.moria.models.Endereco;
 
 public class MembroResponseDTO {
 
@@ -22,7 +22,7 @@ public class MembroResponseDTO {
     private String celular;
     private String email;
     private int numero;
-    private Endereco endereco;
+    private EnderecoResponseDTO enderecoResponseDTO;
     private String tamanhoCamisa;
     private String fichaSaude;
     private TipoMembro tipo;
@@ -132,13 +132,13 @@ public class MembroResponseDTO {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-    
-    public Endereco getEndereco() {
-        return endereco;
+
+    public EnderecoResponseDTO getEnderecoResponseDTO() {
+        return enderecoResponseDTO;
     }
-    
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+
+    public void setEnderecoResponseDTO(EnderecoResponseDTO enderecoResponseDTO) {
+        this.enderecoResponseDTO = enderecoResponseDTO;
     }
     
     public String getTamanhoCamisa() {

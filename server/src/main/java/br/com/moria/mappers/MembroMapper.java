@@ -11,20 +11,20 @@ import br.com.moria.dtos.Membro.MembroResponseDTO;
 import br.com.moria.dtos.Membro.MembroUpdateDTO;
 import br.com.moria.models.Membro;
 
-@Mapper
+@Mapper(uses = {EnderecoMapper.class}, componentModel = "spring")
 public interface MembroMapper {
-
-    MembroMapper INSTANCE = Mappers.getMapper(MembroMapper.class);
 
     MembroResponseDTO toResponseDTO(Membro membro);
     List<MembroResponseDTO> toResponseDTO(List<Membro> membros);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "dataCadastro", ignore = true)
+    @Mapping(target = "endereco", source = "enderecoCreateDTO")
     Membro toEntity(MembroCreateDTO membroCreateDTO);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "dataCadastro", ignore = true) 
+    @Mapping(target = "dataCadastro", ignore = true)
     @Mapping(target = "senha", ignore = true)
+    @Mapping(target = "endereco", source = "enderecoUpdateDTO")
     Membro toEntity(MembroUpdateDTO membroUpdateDTO);
 }

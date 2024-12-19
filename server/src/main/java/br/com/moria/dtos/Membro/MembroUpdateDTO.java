@@ -2,9 +2,11 @@ package br.com.moria.dtos.Membro;
 
 import java.time.LocalDate;
 
+import br.com.moria.dtos.Endereco.EnderecoUpdateDTO;
 import br.com.moria.enums.EstadoCivil;
 import br.com.moria.enums.TipoMembro;
 import br.com.moria.models.Endereco;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -65,8 +67,8 @@ public class MembroUpdateDTO {
     @Min(value = 1, message = "O campo numero deve ser maior que 0")
     private int numero;
 
-    @NotBlank(message = "O campo complemento é obrigatório")
-    private Endereco endereco;
+    @Valid
+    private EnderecoUpdateDTO enderecoUpdateDTO;
     
     @NotBlank(message = "O tamanho da camisa é obrigatório")
     @Size(max = 5, message = "O campo tamanho da camisa deve conter no máximo 5 caracteres")
@@ -185,12 +187,12 @@ public class MembroUpdateDTO {
         this.numero = numero;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public EnderecoUpdateDTO getEnderecoUpdateDTO() {
+        return enderecoUpdateDTO;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEnderecoUpdateDTO(EnderecoUpdateDTO enderecoUpdateDTO) {
+        this.enderecoUpdateDTO = enderecoUpdateDTO;
     }
 
     public String getTamanhoCamisa() {

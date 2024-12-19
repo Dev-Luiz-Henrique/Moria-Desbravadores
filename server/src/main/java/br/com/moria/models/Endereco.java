@@ -19,27 +19,18 @@ public class Endereco {
     @Column(name = "id")
     private int id;
 
-    @NotBlank(message = "CEP não pode ser vazio.")
-    @Pattern(regexp = "\\d{8}", message = "CEP deve ter exatamente 8 dígitos.")
     @Column(name = "cep", nullable = false, unique = true, columnDefinition = "CHAR(8)")
     private String cep;
 
-    @NotBlank(message = "Logradouro não pode ser vazio.")
-    @Size(min = 3, max = 255, message = "Bairro deve ter entre 3 e 255 caracteres.")
     @Column(name = "bairro", nullable = false, length = 255)
     private String bairro;
 
-    @Size(max = 255, message = "Logradouro deve ter no máximo 255 caracteres.")
     @Column(name = "logradouro", length = 255)
     private String logradouro;
 
-    @NotBlank(message = "Cidade não pode ser vazia.")
-    @Size(min = 3, max = 255, message = "Cidade deve ter entre 3 e 255 caracteres.")
     @Column(name = "cidade", nullable = false, length = 255)
     private String cidade;
 
-    @NotBlank(message = "Estado não pode ser vazio.")
-    @Pattern(regexp = "[A-Z]{2}", message = "Estado deve ter exatamente 2 letras maiúsculas.")
     @Column(name = "estado", nullable = false, length = 2)
     private String estado;
 

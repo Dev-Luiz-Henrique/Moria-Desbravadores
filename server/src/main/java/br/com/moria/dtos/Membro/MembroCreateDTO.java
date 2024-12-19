@@ -2,9 +2,10 @@ package br.com.moria.dtos.Membro;
 
 import java.time.LocalDate;
 
+import br.com.moria.dtos.Endereco.EnderecoCreateDTO;
 import br.com.moria.enums.EstadoCivil;
 import br.com.moria.enums.TipoMembro;
-import br.com.moria.models.Endereco;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -60,7 +61,8 @@ public class MembroCreateDTO {
 
     @NotBlank(message = "O campo senha é obrigatório")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", 
-        message = "A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial")
+        message = "A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, " +
+                "uma letra minúscula, um número e um caractere especial")
     @Size(max = 255, message = "O campo senha deve conter no máximo 255 caracteres")
     private String senha;
 
@@ -68,8 +70,8 @@ public class MembroCreateDTO {
     @Min(value = 1, message = "O campo numero deve ser maior que 0")
     private int numero;
 
-    @NotBlank(message = "O campo complemento é obrigatório")
-    private Endereco endereco;
+    @Valid
+    private EnderecoCreateDTO enderecoCreateDTO;
     
     @NotBlank(message = "O tamanho da camisa é obrigatório")
     @Size(max = 5, message = "O campo tamanho da camisa deve conter no máximo 5 caracteres")
@@ -188,12 +190,12 @@ public class MembroCreateDTO {
         this.numero = numero;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public EnderecoCreateDTO getEnderecoCreateDTO() {
+        return enderecoCreateDTO;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEnderecoCreateDTO(EnderecoCreateDTO enderecoCreateDTO) {
+        this.enderecoCreateDTO = enderecoCreateDTO;
     }
 
     public String getTamanhoCamisa() {
