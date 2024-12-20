@@ -89,26 +89,22 @@ public class MembroController {
         return ResponseEntity.ok(membros);
     }
 
-    //
-    // TODO Review this file methods
-    //
-
     @PostMapping("/{id}/ficha-saude")
-    public ResponseEntity<String> uploadFichaSaude(@PathVariable int id,
-                                                   @RequestParam("file")
-                                                   @NotNull MultipartFile file) throws IOException {
-        if (file.isEmpty())
-			return ResponseEntity.badRequest().body("Nenhum arquivo foi enviado");
-
-        Membro membro = membroService.updateFichaSaudeById(id, file);
-        return ResponseEntity.ok("Ficha de saúde salva em: " + membro.getFichaSaude());
+    public ResponseEntity<MembroResponseDTO> uploadFichaSaude(@PathVariable int id,
+                                                              @RequestParam("file")
+                                                              @NotNull MultipartFile file) throws IOException {
+        MembroResponseDTO updatedMembro = membroService.updateFichaSaudeById(id, file);
+        return ResponseEntity.ok(updatedMembro);
     }
 
     @GetMapping("/{id}/ficha-saude")
     public ResponseEntity<byte[]> downloadFichaSaude(@PathVariable int id) throws IOException {
         FileResponseDTO fileResponse = membroService.getFichaSaudeById(id);
+
         return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
-            .body(fileResponse.getFileBytes());
+                .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
+                .header("Content-Disposition", "attachment; filename=\"" + fileResponse.getFileName() + "\"")
+                .header("Content-Length", String.valueOf(fileResponse.getFileSize()))
+                .body(fileResponse.getFileBytes());
     }
 }

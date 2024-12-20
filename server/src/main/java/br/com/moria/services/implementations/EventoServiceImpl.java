@@ -106,7 +106,7 @@ public class EventoServiceImpl implements IEventoService {
 		Evento eventoExistente = eventoRepository.findById(id)
 	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
 
-		String filePath = fileService.uploadImagemEvento(file);
+		String filePath = fileService.uploadFile(file, "evento");
         eventoExistente.setImagem(filePath);
 
 		return eventoRepository.save(eventoExistente);
@@ -121,6 +121,6 @@ public class EventoServiceImpl implements IEventoService {
         if (filePath == null || filePath.isEmpty()) {
             throw new IllegalArgumentException("Caminho de arquivo não disponível para o evento.");
         }
-        return fileService.downloadImagemEvento(filePath);
+        return fileService.downloadFile(filePath);
 	}
 }

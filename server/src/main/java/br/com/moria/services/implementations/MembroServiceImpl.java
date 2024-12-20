@@ -3,11 +3,9 @@ package br.com.moria.services.implementations;
 import java.io.IOException;
 import java.util.List;
 
-import br.com.moria.dtos.Endereco.EnderecoCreateDTO;
 import br.com.moria.dtos.Membro.MembroCreateDTO;
 import br.com.moria.dtos.Membro.MembroResponseDTO;
 import br.com.moria.dtos.Membro.MembroUpdateDTO;
-import br.com.moria.mappers.EnderecoMapper;
 import br.com.moria.mappers.MembroMapper;
 import br.com.moria.services.interfaces.IEnderecoService;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.models.Endereco;
 import br.com.moria.models.Membro;
-import br.com.moria.repositories.EnderecoRepository;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.services.interfaces.IFileService;
 import br.com.moria.services.interfaces.IMembroService;
@@ -137,29 +134,21 @@ public class MembroServiceImpl implements IMembroService {
         return membroMapper.toResponseDTO(membros);
 	}
 
-    //
-    // TODO Review this file methods
-    //
-
     @Override
-    public Membro updateFichaSaudeById(int id, MultipartFile file) throws IOException {
-        Membro existingMembro = membroRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
-
-        String filePath = uploadService.uploadFichaSaude(file);
+    public MembroResponseDTO updateFichaSaudeById(int id, @NotNull MultipartFile file) throws IOException {
+        Membro existingMembro = getMembroById(id);
+        String filePath = uploadService.uploadFile(file, "fichaSaude");
         existingMembro.setFichaSaude(filePath);
 
-        return membroRepository.save(existingMembro);
+        Membro updatedMembro = membroRepository.save(existingMembro);
+        return membroMapper.toResponseDTO(updatedMembro);
     }
 
     @Override
     public FileResponseDTO getFichaSaudeById(int id) throws IOException {
-        Membro membro = membroRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+        Membro existingMembro = getMembroById(id);
+        String filePath = existingMembro.getFichaSaude();
 
-        String filePath = membro.getFichaSaude();
-        if (filePath == null || filePath.isEmpty())
-            throw new IllegalArgumentException("Caminho de arquivo não disponível para o membro.");
-        return uploadService.downloadFichaSaude(filePath);
+        return uploadService.downloadFile(filePath);
     }
 }

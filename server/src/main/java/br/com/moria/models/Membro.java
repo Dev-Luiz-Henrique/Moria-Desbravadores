@@ -20,14 +20,6 @@ import jakarta.persistence.Table;
 @Table(name = "membros")
 public class Membro {
 
-    /*@OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference("membroInscricoes")
-    private List<Inscricao> inscricoes;
-
-    @OneToMany(mappedBy = "membro", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
-    private List<Mensalidade> mensalidades;*/
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -51,7 +43,7 @@ public class Membro {
     @Column(name = "orgao_expedidor", nullable = false, length = 15)
     private String orgaoExpedidor;
 
-        @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado_civil", nullable = false, length = 10)
     private EstadoCivil estadoCivil;
 
@@ -64,10 +56,10 @@ public class Membro {
     @Column(name = "celular", nullable = false, columnDefinition = "CHAR(11)")
     private String celular;
 
-    @Column(name = "email", nullable = false, length = 255, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "senha", nullable = false, length = 255)
+    @Column(name = "senha", nullable = false)
     private String senha;
 
     @Column(name = "numero", nullable = false)
@@ -80,7 +72,7 @@ public class Membro {
     @Column(name = "tamanho_camisa", nullable = false, length = 5)
     private String tamanhoCamisa;
 
-    @Column(name = "ficha_saude", length = 255)
+    @Column(name = "ficha_saude")
     private String fichaSaude;
 
     @Enumerated(EnumType.STRING)

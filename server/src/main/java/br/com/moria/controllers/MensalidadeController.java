@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.moria.dtos.Membro.MembroResponseDTO;
 import br.com.moria.enums.FormaPagamento;
+import br.com.moria.mappers.MembroMapper;
 import br.com.moria.models.Membro;
 import br.com.moria.models.Mensalidade;
 import br.com.moria.services.interfaces.IMembroService;
@@ -41,7 +43,7 @@ public class MensalidadeController {
     @PostMapping("/{id}/manual")
     public ResponseEntity<Object> gerarMensalidadeManual(@PathVariable("id") int idMembro) {
         try {
-        	Membro membro = membroService.findById(idMembro);
+        	MembroResponseDTO membro = membroService.findById(idMembro);
             Mensalidade mensalidade = mensalidadeService.gerarMensalidadeManual(membro);
             return ResponseEntity.status(HttpStatus.CREATED).body(mensalidade);
         } catch (IllegalArgumentException e) {
@@ -82,7 +84,7 @@ public class MensalidadeController {
                                                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
                                                                  @RequestParam int id) {
     	try {
-    		Membro membro = membroService.findById(id);
+    		MembroResponseDTO membro = membroService.findById(id);
     		Mensalidade mensalidade = mensalidadeService.findMembroAndDataInterval(membro, start, end);
      	    return ResponseEntity.ok(mensalidade);
     	} catch (EntityNotFoundException e) {

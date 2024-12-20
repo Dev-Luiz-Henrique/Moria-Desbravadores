@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import br.com.moria.dtos.Membro.MembroCreateDTO;
 import br.com.moria.dtos.Membro.MembroResponseDTO;
@@ -14,7 +13,10 @@ import br.com.moria.models.Membro;
 @Mapper(uses = {EnderecoMapper.class}, componentModel = "spring")
 public interface MembroMapper {
 
+    @Mapping(target = "enderecoResponseDTO", source = "endereco")
     MembroResponseDTO toResponseDTO(Membro membro);
+
+    @Mapping(target = "enderecoResponseDTO", source = "endereco")
     List<MembroResponseDTO> toResponseDTO(List<Membro> membros);
 
     @Mapping(target = "id", ignore = true)
@@ -25,6 +27,6 @@ public interface MembroMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "dataCadastro", ignore = true)
     @Mapping(target = "senha", ignore = true)
-    @Mapping(target = "endereco", source = "enderecoUpdateDTO")
+    @Mapping(target = "endereco", source = "enderecoCreateDTO")
     Membro toEntity(MembroUpdateDTO membroUpdateDTO);
 }

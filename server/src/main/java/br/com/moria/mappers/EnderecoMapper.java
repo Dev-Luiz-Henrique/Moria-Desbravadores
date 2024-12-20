@@ -5,7 +5,6 @@ import br.com.moria.dtos.Endereco.EnderecoResponseDTO;
 import br.com.moria.dtos.Endereco.EnderecoUpdateDTO;
 import br.com.moria.models.Endereco;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 

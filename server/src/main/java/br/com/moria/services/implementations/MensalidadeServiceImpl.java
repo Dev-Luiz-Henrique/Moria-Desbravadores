@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.moria.dtos.Membro.MembroResponseDTO;
 import br.com.moria.enums.FormaPagamento;
 import br.com.moria.models.Membro;
 import br.com.moria.models.Mensalidade;
@@ -48,7 +49,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     }
 
     @Override
-	public Mensalidade gerarMensalidadeManual(@Valid Membro membro) {
+	public Mensalidade gerarMensalidadeManual(@Valid MembroResponseDTO membro) {
         if (existeMensalidadeNoMesAtual(membro, LocalDateTime.now())) {
 			throw new IllegalArgumentException("Já existe mensalidade gerada para este membro no mês atual");
 		}
@@ -88,7 +89,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
         Mensalidade existingMensalidade = mensalidadeRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Mensalidade não encontrada"));
 
-        String filePath = uploadService.uploadComprovantePagamento(file);
+        String filePath = uploadService.uploadFile(file, "mensalidade");
         LocalDateTime today = LocalDateTime.now();
         existingMensalidade.setPagamentoRealizado(true);
         existingMensalidade.setFormaPagamento(formaPagamento);
