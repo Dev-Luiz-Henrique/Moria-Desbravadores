@@ -4,123 +4,134 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.dtos.FileResponseDTO;
+import br.com.moria.dtos.Evento.EventoCreateDTO;
+import br.com.moria.dtos.Evento.EventoResponseDTO;
+import br.com.moria.dtos.Evento.EventoUpdateDTO;
+import br.com.moria.mappers.EventoMapper;
 import br.com.moria.models.Endereco;
 import br.com.moria.models.Evento;
-import br.com.moria.repositories.EnderecoRepository;
 import br.com.moria.repositories.EventoRepository;
+import br.com.moria.services.interfaces.IEnderecoService;
 import br.com.moria.services.interfaces.IEventoService;
 import br.com.moria.services.interfaces.IFileService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 
 @Service
 public class EventoServiceImpl implements IEventoService {
 
-	@Autowired
-	private EventoRepository eventoRepository;
+    private final EventoMapper eventoMapper;
+	private final EventoRepository eventoRepository;
+    private final IEnderecoService enderecoService;
+    private final IFileService fileService;
 
-	@Autowired
-	private EnderecoRepository enderecoRepository;
+    @Autowired
+    public EventoServiceImpl(EventoMapper eventoMapper,
+							 EventoRepository eventoRepository,
+							 IEnderecoService enderecoService,
+							 IFileService fileService) {
+        this.eventoMapper = eventoMapper;
+        this.eventoRepository = eventoRepository;
+        this.enderecoService = enderecoService;
+        this.fileService = fileService;
+    }
 
-	@Autowired
-    private IFileService fileService;
+    private void validateDate(LocalDateTime start, @NotNull LocalDateTime end){
+        if(end.isBefore(start))
+			throw new IllegalArgumentException("A data de inicio não pode suceder a data de fim.");
+    }
+
+    private Evento getEventoById(int id) {
+        return eventoRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado."));
+    }
 
 	@Override
-	public Evento create(@Valid Evento evento) {
-		Endereco endereco = evento.getEndereco();
-		evento.setEndereco(enderecoRepository.findByCep(endereco.getCep())
-	            .orElseGet(() -> enderecoRepository.save(endereco)));
+	public EventoResponseDTO create(@NotNull EventoCreateDTO eventoCreateDTO) {
+        validateDate(eventoCreateDTO.getDataInicio(), eventoCreateDTO.getDataFim());
 
-		LocalDateTime inicio = evento.getDataInicio();
-		LocalDateTime fim = evento.getDataFim();
-
-		if(fim.isBefore(inicio)) {
-			throw new IllegalArgumentException("Data inicio não pode suceder data fim.");
-		}
-
-		return eventoRepository.save(evento);
+		Endereco endereco = enderecoService.findOrCreate(eventoCreateDTO.getEnderecoCreateDTO());
+        Evento evento = eventoMapper.toEntity(eventoCreateDTO);
+        evento.setEndereco(endereco);
+        
+        Evento savedEvento = eventoRepository.save(evento);
+		return eventoMapper.toResponseDTO(savedEvento);
 	}
 
 	@Override
-	public Evento update(@Valid Evento evento) {
-		Endereco endereco = evento.getEndereco();
-		evento.setEndereco(enderecoRepository.findByCep(endereco.getCep())
-	            .orElseGet(() -> enderecoRepository.save(endereco)));
+	public EventoResponseDTO update(@NotNull EventoUpdateDTO eventoUpdateDTO) {
+        getEventoById(eventoUpdateDTO.getId());
+        validateDate(eventoUpdateDTO.getDataInicio(), eventoUpdateDTO.getDataFim());
+	
+        Endereco endereco = enderecoService.findOrCreate(eventoUpdateDTO.getEnderecoCreateDTO());
+        Evento evento = eventoMapper.toEntity(eventoUpdateDTO);
+        evento.setEndereco(endereco);
 
-		LocalDateTime inicio = evento.getDataInicio();
-		LocalDateTime fim = evento.getDataFim();
-
-		if(fim.isBefore(inicio)) {
-			throw new IllegalArgumentException("Data inicio não pode suceder data fim.");
-		}
-
-		return eventoRepository.save(evento);
+        Evento updatedEvento = eventoRepository.save(evento);
+		return eventoMapper.toResponseDTO(updatedEvento);
 	}
 
 	@Override
 	public void delete(int id) {
-		Evento eventoExistente = eventoRepository.findById(id)
-	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
+		Evento existingEvento = getEventoById(id);
+	    eventoRepository.delete(existingEvento);
+	}
 
-	   eventoRepository.delete(eventoExistente);
+    @Override
+	public List<EventoResponseDTO> findAll() {
+		List<Evento> eventos = eventoRepository.findAll();
+		return eventoMapper.toResponseDTO(eventos);
 	}
 
 	@Override
-	public Evento findById(int id) {
-		return eventoRepository.findById(id)
-	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
+	public EventoResponseDTO findById(int id) {
+		Evento existingEvento = getEventoById(id);
+		return eventoMapper.toResponseDTO(existingEvento);
 	}
 
 	@Override
-	public List<Evento> findAll() {
-		return eventoRepository.findAll();
+	public List<EventoResponseDTO> findByNomeContaining(String keyword) {
+		List<Evento> eventos = eventoRepository.findByNomeContaining(keyword);
+		return eventoMapper.toResponseDTO(eventos);
 	}
 
 	@Override
-	public List<Evento> findByNomeContaining(String keyword) {
-		return eventoRepository.findByNomeContaining(keyword);
+	public List<EventoResponseDTO> findByDataInicioInterval(LocalDateTime start, LocalDateTime end) {
+		List<Evento> eventos = eventoRepository.findByDataInicioBetween(start, end);
+		return eventoMapper.toResponseDTO(eventos);
 	}
 
 	@Override
-	public List<Evento> findByDataInicioInterval(LocalDateTime start, LocalDateTime end) {
-		return eventoRepository.findByDataInicioBetween(start, end);
+	public List<EventoResponseDTO> findByDataInicio(LocalDateTime date) {
+		List<Evento> eventos = eventoRepository.findByDataInicio(date);
+		return eventoMapper.toResponseDTO(eventos);
 	}
 
 	@Override
-	public List<Evento> findByDataInicio(LocalDateTime date) {
-		return eventoRepository.findByDataInicio(date);
+	public List<EventoResponseDTO> findByDataFim(LocalDateTime date) {
+		List <Evento> eventos = eventoRepository.findByDataFim(date);
+		return eventoMapper.toResponseDTO(eventos);
 	}
 
 	@Override
-	public List<Evento> findByDataFim(LocalDateTime date) {
-		return eventoRepository.findByDataFim(date);
-	}
-
-	@Override
-	public Evento updateImagemEventoById(int id, MultipartFile file) throws IOException {
-		Evento eventoExistente = eventoRepository.findById(id)
-	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
-
+	public EventoResponseDTO updateImagemById(int id, MultipartFile file) throws IOException {
+		Evento existingEvento = getEventoById(id);
 		String filePath = fileService.uploadFile(file, "evento");
-        eventoExistente.setImagem(filePath);
+        existingEvento.setImagem(filePath);
 
-		return eventoRepository.save(eventoExistente);
+		Evento updatedEvento = eventoRepository.save(existingEvento);
+		return eventoMapper.toResponseDTO(updatedEvento);
 	}
 
 	@Override
-	public FileResponseDTO getImagemEventoById(int id) throws IOException {
-		Evento eventoExistente = eventoRepository.findById(id)
-	            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
-
-		String filePath = eventoExistente.getImagem();
-        if (filePath == null || filePath.isEmpty()) {
-            throw new IllegalArgumentException("Caminho de arquivo não disponível para o evento.");
-        }
+	public FileResponseDTO findImagemById(int id) throws IOException {
+		Evento existingEvento = getEventoById(id);
+		String filePath = existingEvento.getImagem();
         return fileService.downloadFile(filePath);
 	}
 }

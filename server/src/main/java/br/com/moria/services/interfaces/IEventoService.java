@@ -7,18 +7,20 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.dtos.FileResponseDTO;
-import br.com.moria.models.Evento;
+import br.com.moria.dtos.Evento.EventoCreateDTO;
+import br.com.moria.dtos.Evento.EventoResponseDTO;
+import br.com.moria.dtos.Evento.EventoUpdateDTO;
 
 public interface IEventoService {
-	public Evento create(Evento evento);
-	public Evento update(Evento evento);
-	public void delete(int id);
-	public Evento findById(int id);
-	public List<Evento> findAll();
-	public List<Evento> findByNomeContaining(String keyword);
-	public List<Evento> findByDataInicio(LocalDateTime date);
-	public List<Evento> findByDataFim(LocalDateTime date);
-	public List<Evento> findByDataInicioInterval(LocalDateTime start, LocalDateTime end);
-    public Evento updateImagemEventoById(int id, MultipartFile file) throws IOException;
-	public FileResponseDTO getImagemEventoById(int id) throws IOException;
+	EventoResponseDTO create(EventoCreateDTO eventoCreateDTO);
+	EventoResponseDTO update(EventoUpdateDTO eventoUpdateDTO);
+	void delete(int id);
+	EventoResponseDTO findById(int id);
+	List<EventoResponseDTO> findAll();
+	List<EventoResponseDTO> findByNomeContaining(String keyword);
+	List<EventoResponseDTO> findByDataInicio(LocalDateTime date);
+	List<EventoResponseDTO> findByDataFim(LocalDateTime date);
+	List<EventoResponseDTO> findByDataInicioInterval(LocalDateTime start, LocalDateTime end);
+    EventoResponseDTO updateImagemById(int id, MultipartFile file) throws IOException;
+	FileResponseDTO findImagemById(int id) throws IOException;
 }

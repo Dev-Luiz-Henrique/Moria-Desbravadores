@@ -145,10 +145,9 @@ public class MembroServiceImpl implements IMembroService {
     }
 
     @Override
-    public FileResponseDTO getFichaSaudeById(int id) throws IOException {
+    public FileResponseDTO findFichaSaudeById(int id) throws IOException {
         Membro existingMembro = getMembroById(id);
         String filePath = existingMembro.getFichaSaude();
-
         return uploadService.downloadFile(filePath);
     }
 }

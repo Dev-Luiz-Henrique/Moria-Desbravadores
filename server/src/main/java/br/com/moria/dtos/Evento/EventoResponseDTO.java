@@ -2,7 +2,7 @@ package br.com.moria.dtos.Evento;
 
 import java.time.LocalDateTime;
 
-import br.com.moria.models.Endereco;
+import br.com.moria.dtos.Endereco.EnderecoResponseDTO;
 
 public class EventoResponseDTO {
 
@@ -15,7 +15,7 @@ public class EventoResponseDTO {
     private LocalDateTime dataFim;
     private boolean publico;
     private int numero;
-    private Endereco endereco;
+    private EnderecoResponseDTO enderecoResponseDTO;
     
     public int getId() {
         return id;
@@ -89,11 +89,11 @@ public class EventoResponseDTO {
         this.numero = numero;
     }
     
-    public Endereco getEndereco() {
-        return endereco;
+    public EnderecoResponseDTO getEnderecoResponseDTO() {
+        return enderecoResponseDTO;
     }
     
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEnderecoResponseDTO(EnderecoResponseDTO enderecoResponseDTO) {
+        this.enderecoResponseDTO = enderecoResponseDTO;
     }
 }

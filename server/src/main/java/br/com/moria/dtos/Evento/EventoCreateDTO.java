@@ -2,7 +2,8 @@ package br.com.moria.dtos.Evento;
 
 import java.time.LocalDateTime;
 
-import br.com.moria.models.Endereco;
+import br.com.moria.dtos.Endereco.EnderecoCreateDTO;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -41,8 +42,8 @@ public class EventoCreateDTO {
     @Min(value = 1, message = "O campo numero deve ser maior que 0")
     private int numero;
 
-    @NotNull(message = "O campo endereço é obrigatório")
-    private Endereco endereco;
+    @Valid
+    private EnderecoCreateDTO enderecoCreateDTO;
 
     public String getNome() {
         return nome;
@@ -108,11 +109,11 @@ public class EventoCreateDTO {
         this.numero = numero;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public EnderecoCreateDTO getEnderecoCreateDTO() {
+        return enderecoCreateDTO;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEnderecoCreateDTO(EnderecoCreateDTO enderecoCreateDTO) {
+        this.enderecoCreateDTO = enderecoCreateDTO;
     }
 }

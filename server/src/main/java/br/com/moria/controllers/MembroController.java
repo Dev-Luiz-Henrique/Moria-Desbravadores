@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.dtos.FileResponseDTO;
-import br.com.moria.models.Membro;
 import br.com.moria.services.interfaces.IMembroService;
 import jakarta.validation.Valid;
 
@@ -99,7 +97,7 @@ public class MembroController {
 
     @GetMapping("/{id}/ficha-saude")
     public ResponseEntity<byte[]> downloadFichaSaude(@PathVariable int id) throws IOException {
-        FileResponseDTO fileResponse = membroService.getFichaSaudeById(id);
+        FileResponseDTO fileResponse = membroService.findFichaSaudeById(id);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
