@@ -46,9 +46,15 @@ public class EventoServiceImpl implements IEventoService {
 			throw new IllegalArgumentException("A data de inicio não pode suceder a data de fim.");
     }
 
-    private Evento getEventoById(int id) {
+    @Override
+    public Evento findEventoById(int id) {
         return eventoRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado."));
+    }
+
+    @Override
+    public boolean existsById(int id) {
+		return eventoRepository.existsById(id);
     }
 
 	@Override
@@ -65,7 +71,7 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Override
 	public EventoResponseDTO update(@NotNull EventoUpdateDTO eventoUpdateDTO) {
-        getEventoById(eventoUpdateDTO.getId());
+        findEventoById(eventoUpdateDTO.getId());
         validateDate(eventoUpdateDTO.getDataInicio(), eventoUpdateDTO.getDataFim());
 	
         Endereco endereco = enderecoService.findOrCreate(eventoUpdateDTO.getEnderecoCreateDTO());
@@ -78,7 +84,7 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Override
 	public void delete(int id) {
-		Evento existingEvento = getEventoById(id);
+		Evento existingEvento = findEventoById(id);
 	    eventoRepository.delete(existingEvento);
 	}
 
@@ -90,7 +96,7 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Override
 	public EventoResponseDTO findById(int id) {
-		Evento existingEvento = getEventoById(id);
+		Evento existingEvento = findEventoById(id);
 		return eventoMapper.toResponseDTO(existingEvento);
 	}
 
@@ -120,7 +126,7 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Override
 	public EventoResponseDTO updateImagemById(int id, MultipartFile file) throws IOException {
-		Evento existingEvento = getEventoById(id);
+		Evento existingEvento = findEventoById(id);
 		String filePath = fileService.uploadFile(file, "evento");
         existingEvento.setImagem(filePath);
 
@@ -130,7 +136,7 @@ public class EventoServiceImpl implements IEventoService {
 
 	@Override
 	public FileResponseDTO findImagemById(int id) throws IOException {
-		Evento existingEvento = getEventoById(id);
+		Evento existingEvento = findEventoById(id);
 		String filePath = existingEvento.getImagem();
         return fileService.downloadFile(filePath);
 	}

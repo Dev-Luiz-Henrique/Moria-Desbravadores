@@ -31,8 +31,12 @@ import jakarta.validation.Valid;
 @RequestMapping("/eventos")
 public class EventoController {
 
+    private final IEventoService eventoService;
+
     @Autowired
-    private IEventoService eventoService;
+    public EventoController(IEventoService eventoService) {
+        this.eventoService = eventoService;
+    }
 
     @PostMapping
     public ResponseEntity<EventoResponseDTO> create(@Valid @RequestBody EventoCreateDTO eventoCreateDTO) {

@@ -54,7 +54,7 @@ public class MembroServiceImpl implements IMembroService {
             throw new IllegalArgumentException("Membro com CPF já cadastrado");
     }
 
-    private Membro getMembroById(int id) {
+    private Membro findMembroById(int id) {
         return membroRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
     }
@@ -75,7 +75,7 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public MembroResponseDTO update(@NotNull MembroUpdateDTO membroUpdateDTO) {
-        Membro existingMembro = getMembroById(membroUpdateDTO.getId());
+        Membro existingMembro = findMembroById(membroUpdateDTO.getId());
 
         if (!existingMembro.getEmail().equals(membroUpdateDTO.getEmail()))
             existsByEmail(membroUpdateDTO.getEmail());
@@ -92,7 +92,7 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public void delete(int id) {
-        Membro existingMembro = getMembroById(id);
+        Membro existingMembro = findMembroById(id);
         membroRepository.delete(existingMembro);
     }
 
@@ -104,7 +104,7 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public MembroResponseDTO findById(int id) {
-        Membro existingMembro = getMembroById(id);
+        Membro existingMembro = findMembroById(id);
         return membroMapper.toResponseDTO(existingMembro);
     }
 
@@ -136,7 +136,7 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public MembroResponseDTO updateFichaSaudeById(int id, @NotNull MultipartFile file) throws IOException {
-        Membro existingMembro = getMembroById(id);
+        Membro existingMembro = findMembroById(id);
         String filePath = uploadService.uploadFile(file, "fichaSaude");
         existingMembro.setFichaSaude(filePath);
 
@@ -146,7 +146,7 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public FileResponseDTO findFichaSaudeById(int id) throws IOException {
-        Membro existingMembro = getMembroById(id);
+        Membro existingMembro = findMembroById(id);
         String filePath = existingMembro.getFichaSaude();
         return uploadService.downloadFile(filePath);
     }

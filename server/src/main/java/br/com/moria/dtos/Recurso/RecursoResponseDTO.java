@@ -5,12 +5,11 @@ import java.math.BigDecimal;
 import br.com.moria.enums.FormaPagamento;
 import br.com.moria.enums.RecursoEvento;
 import br.com.moria.enums.StatusPagamento;
-import br.com.moria.models.Evento;
 
 public class RecursoResponseDTO {
     
     private int id;
-    private Evento evento;
+    private int idEvento;
     private String nome;
     private String descricao;
     private BigDecimal valor;
@@ -27,12 +26,12 @@ public class RecursoResponseDTO {
         this.id = id;
     }
     
-    public Evento getEvento() {
-        return evento;
+    public int getIdEvento() {
+        return idEvento;
     }
-    
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
     }
     
     public String getNome() {

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.moria.models.Recurso;
+import br.com.moria.dtos.Recurso.RecursoCreateDTO;
+import br.com.moria.dtos.Recurso.RecursoResponseDTO;
+import br.com.moria.dtos.Recurso.RecursoUpdateDTO;
 import br.com.moria.services.interfaces.IRecursoService;
 import jakarta.validation.Valid;
 
@@ -26,37 +27,42 @@ import jakarta.validation.Valid;
 @Validated
 public class RecursoController {
 
+    private final IRecursoService recursoService;
+
     @Autowired
-    private IRecursoService recursoService;
+    public RecursoController(IRecursoService recursoService) {
+        this.recursoService = recursoService;
+    }
 
     @PostMapping
-    public ResponseEntity<Recurso> create(@Valid @RequestBody Recurso recurso) {
-        Recurso createdRecurso = recursoService.create(recurso);
+    public ResponseEntity<RecursoResponseDTO> create(@Valid @RequestBody RecursoCreateDTO recursoCreateDTO) {
+        RecursoResponseDTO createdRecurso = recursoService.create(recursoCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRecurso);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Recurso> update(@PathVariable int id, @RequestBody @NotNull Recurso recurso) {
-        recurso.setId(id);
-        Recurso updatedRecurso = recursoService.update(recurso);
+    public ResponseEntity<RecursoResponseDTO> update(@PathVariable int id,
+                                                     @RequestBody @NotNull RecursoUpdateDTO recursoUpdateDTO) {
+        recursoUpdateDTO.setId(id);
+        RecursoResponseDTO updatedRecurso = recursoService.update(recursoUpdateDTO);
         return ResponseEntity.ok(updatedRecurso);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable int id) {
+    public ResponseEntity<Void> delete(@PathVariable int id) {
         recursoService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Recurso>> findAll() {
-        List<Recurso> recursos = recursoService.findAll();
+    public ResponseEntity<List<RecursoResponseDTO>> findAll() {
+        List<RecursoResponseDTO> recursos = recursoService.findAll();
         return ResponseEntity.ok(recursos);
     }
 
     @GetMapping("/evento/{eventoId}")
-    public ResponseEntity<List<Recurso>> findRecursosById(@PathVariable int eventoId) {
-        List<Recurso> recursos = recursoService.findRecursosByEvento(eventoId);
+    public ResponseEntity<List<RecursoResponseDTO>> findRecursosById(@PathVariable int eventoId) {
+        List<RecursoResponseDTO> recursos = recursoService.findRecursosByEventoId(eventoId);
         return ResponseEntity.ok(recursos);
     }
 }

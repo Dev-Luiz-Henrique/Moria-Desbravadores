@@ -10,8 +10,11 @@ import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.dtos.Evento.EventoCreateDTO;
 import br.com.moria.dtos.Evento.EventoResponseDTO;
 import br.com.moria.dtos.Evento.EventoUpdateDTO;
+import br.com.moria.models.Evento;
 
 public interface IEventoService {
+    Evento findEventoById(int id);
+    boolean existsById(int id);
 	EventoResponseDTO create(EventoCreateDTO eventoCreateDTO);
 	EventoResponseDTO update(EventoUpdateDTO eventoUpdateDTO);
 	void delete(int id);

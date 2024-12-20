@@ -8,8 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.moria.models.Evento;
 
 public interface EventoRepository extends JpaRepository<Evento, Integer>{
-	public List<Evento> findByNomeContaining(String palavraChave);
-	public List<Evento> findByDataInicio(LocalDateTime data);
-	public List<Evento> findByDataFim(LocalDateTime data);
-	public List<Evento> findByDataInicioBetween(LocalDateTime start, LocalDateTime end);
+    boolean existsById(int id);
+	List<Evento> findByNomeContaining(String palavraChave);
+	List<Evento> findByDataInicio(LocalDateTime data);
+	List<Evento> findByDataFim(LocalDateTime data);
+	List<Evento> findByDataInicioBetween(LocalDateTime start, LocalDateTime end);
 }

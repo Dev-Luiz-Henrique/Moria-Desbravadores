@@ -15,6 +15,9 @@ public class RecursoUpdateDTO {
 
     private int id;
 
+    @NotNull(message = "O campo id evento é obrigatório")
+    private int idEvento;
+
     @NotBlank(message = "O campo nome é obrigatório")
     @Size(max = 255, message = "O nome deve ter no máximo 255 caracteres")
     private String nome;
@@ -46,6 +49,14 @@ public class RecursoUpdateDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdEvento() {
+        return idEvento;
+    }
+
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
     }
 
     public String getNome() {
