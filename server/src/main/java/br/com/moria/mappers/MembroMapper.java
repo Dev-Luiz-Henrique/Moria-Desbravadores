@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import br.com.moria.dtos.Membro.MembroCreateDTO;
+import br.com.moria.dtos.Membro.MembroInscricaoResponseDTO;
 import br.com.moria.dtos.Membro.MembroResponseDTO;
 import br.com.moria.dtos.Membro.MembroUpdateDTO;
 import br.com.moria.models.Membro;
@@ -29,4 +30,6 @@ public interface MembroMapper {
     @Mapping(target = "senha", ignore = true)
     @Mapping(target = "endereco", source = "enderecoCreateDTO")
     Membro toEntity(MembroUpdateDTO membroUpdateDTO);
+
+    MembroInscricaoResponseDTO toInscricaoResponseDTO(Membro membro);
 }

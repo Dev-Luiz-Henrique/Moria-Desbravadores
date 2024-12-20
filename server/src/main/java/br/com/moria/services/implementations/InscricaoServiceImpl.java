@@ -6,91 +6,120 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.moria.dtos.Inscricao.InscricaoCreateDTO;
+import br.com.moria.dtos.Inscricao.InscricaoResponseDTO;
+import br.com.moria.dtos.Inscricao.InscricaoUpdateDTO;
 import br.com.moria.enums.StatusParticipacao;
+import br.com.moria.mappers.InscricaoMapper;
+import br.com.moria.models.Evento;
 import br.com.moria.models.Inscricao;
-import br.com.moria.repositories.EventoRepository;
+import br.com.moria.models.Membro;
 import br.com.moria.repositories.InscricaoRepository;
-import br.com.moria.repositories.MembroRepository;
+import br.com.moria.services.interfaces.IEventoService;
 import br.com.moria.services.interfaces.IInscricaoService;
+import br.com.moria.services.interfaces.IMembroService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 
 @Service
 public class InscricaoServiceImpl implements IInscricaoService{
 
-	@Autowired
-	private InscricaoRepository inscricaoRepository;
+    private final InscricaoMapper inscricaoMapper;
+	private final InscricaoRepository inscricaoRepository;
+    private final IMembroService membroService;
+    private final IEventoService eventoService;
 
-	@Autowired
-	private EventoRepository eventoRepository;
+    @Autowired
+    public InscricaoServiceImpl(InscricaoMapper inscricaoMapper,
+                                InscricaoRepository inscricaoRepository,
+                                IMembroService membroService,
+                                IEventoService eventoService) {
+        this.inscricaoMapper = inscricaoMapper;
+        this.inscricaoRepository = inscricaoRepository;
+        this.membroService = membroService;
+        this.eventoService = eventoService;
+    }
 
-	@Autowired
-	private MembroRepository membroRepository;
+    private void validateEvento(int eventoId) {
+        if (!eventoService.existsById(eventoId))
+            throw new EntityNotFoundException("Evento não encontrado para a inscricao fornecida.");
+    }
 
-	@Override
-	public Inscricao create(@Valid @NotNull Inscricao inscricao) {
-		inscricao.setEvento(
-            eventoRepository.findById(inscricao.getEvento().getId())
-                .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"))
-        );
+    private void validateMembro(int membroId) {
+        if (!membroService.existsById(membroId))
+            throw new EntityNotFoundException("Membro não encontrado para a inscricao fornecida.");
+    }
 
-		inscricao.setMembro(
-            membroRepository.findById(inscricao.getMembro().getId())
-                .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"))
-		);
-		return inscricaoRepository.save(inscricao);
-	}
-
-	@Override
-	public Inscricao update(@Valid @NotNull Inscricao inscricao) {
-        Inscricao existingInscricao = inscricaoRepository.findById(inscricao.getId())
-            .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
-
-        if (inscricao.getStatusParticipacao() != null) {
-			existingInscricao.setStatusParticipacao(inscricao.getStatusParticipacao());
-		}
-        if (inscricao.getInscrito() != null) {
-			existingInscricao.setInscrito(inscricao.getInscrito());
-		}
-
-		return inscricaoRepository.save(existingInscricao);
-	}
-
-	@Override
-	public Inscricao updateStatusInscricao(int membroId, int eventoId) {
-		Inscricao existingInscricao = inscricaoRepository.findByMembroIdAndEventoId(membroId, eventoId)
-			.orElseThrow(() -> new EntityNotFoundException("Membro não elegivel para o evento"));
-		
-		if (existingInscricao.getInscrito() == true) 
-			throw new IllegalArgumentException("Inscrição já feita");
-		
-		existingInscricao.setInscrito(true);
-		return inscricaoRepository.save(existingInscricao);
-	}
-
-	@Override
-	public void delete(int id) {
-        Inscricao existingInscricao = inscricaoRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
-
-        inscricaoRepository.delete(existingInscricao);
-	}
-
-	@Override
-	public List<Inscricao> findAll() {
-		return inscricaoRepository.findAll();
-	}
-
-    @Override
-    public Inscricao findById(int id) {
+    private Inscricao findInscricaoById(int id) {
         return inscricaoRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
     }
 
 	@Override
-	public List<Inscricao> findByStatusParticipacao(StatusParticipacao status) {
-		return inscricaoRepository.findByStatusParticipacao(status);
+	public InscricaoResponseDTO create(@NotNull InscricaoCreateDTO inscricaoCreateDTO) {
+        validateEvento(inscricaoCreateDTO.getEventoId());
+        validateMembro(inscricaoCreateDTO.getMembroId());
+
+        Evento evento = eventoService.findEventoById(inscricaoCreateDTO.getEventoId());
+        Membro membro = membroService.findMembroById(inscricaoCreateDTO.getMembroId());
+        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoCreateDTO);
+        inscricao.setEvento(evento);
+        inscricao.setMembro(membro);
+
+        Inscricao saveInscricao = inscricaoRepository.save(inscricao);
+        return inscricaoMapper.toResponseDTO(saveInscricao);
 	}
+
+	@Override
+	public InscricaoResponseDTO update(@NotNull InscricaoUpdateDTO inscricaoUpdateDTO) {
+        findInscricaoById(inscricaoUpdateDTO.getId());
+        validateEvento(inscricaoUpdateDTO.getEventoId());
+        validateMembro(inscricaoUpdateDTO.getMembroId());
+
+        Evento evento = eventoService.findEventoById(inscricaoUpdateDTO.getEventoId());
+        Membro membro = membroService.findMembroById(inscricaoUpdateDTO.getMembroId());
+        Inscricao inscricao = inscricaoMapper.toEntity(inscricaoUpdateDTO);
+        inscricao.setEvento(evento);
+        inscricao.setMembro(membro);
+
+        Inscricao updatedInscricao = inscricaoRepository.save(inscricao);
+        return inscricaoMapper.toResponseDTO(updatedInscricao);
+	}
+
+	@Override
+	public InscricaoResponseDTO updateStatusInscricao(int membroId, int eventoId) {
+		Inscricao existingInscricao = inscricaoRepository.findByMembroIdAndEventoId(membroId, eventoId)
+			.orElseThrow(() -> new EntityNotFoundException("Membro não elegivel para o evento"));
+		
+		if (existingInscricao.getInscrito())
+			throw new IllegalArgumentException("Inscrição já feita");
+		
+		existingInscricao.setInscrito(true);
+		return inscricaoMapper.toResponseDTO(existingInscricao);
+	}
+
+	@Override
+	public void delete(int id) {
+        Inscricao existingInscricao = findInscricaoById(id);
+        inscricaoRepository.delete(existingInscricao);
+	}
+
+	@Override
+	public List<InscricaoResponseDTO> findAll() {
+		List<Inscricao> inscricoes = inscricaoRepository.findAll();
+		return inscricaoMapper.toResponseDTO(inscricoes);
+	}
+
+    @Override
+    public InscricaoResponseDTO findById(int id) {
+        Inscricao existingInscricao = findInscricaoById(id);
+		return inscricaoMapper.toResponseDTO(existingInscricao);
+    }
+
+    @Override
+    public List<InscricaoResponseDTO> findByStatusParticipacao(StatusParticipacao status) {
+        List<Inscricao> inscricao = inscricaoRepository.findByStatusParticipacao(status);
+        return inscricaoMapper.toResponseDTO(inscricao);
+    }
 
     @Override
     public boolean isInscrito(int id) {
@@ -98,16 +127,9 @@ public class InscricaoServiceImpl implements IInscricaoService{
     }
 
 	@Override
-	public List<Inscricao> findInscricoesByEventoId(int eventoId) {
-        /*if (!eventoRepository.existsById(eventoId)) {
-            throw new IllegalArgumentException("Evento não encontrado para o ID fornecido.");
-        }
+	public List<InscricaoResponseDTO> findInscricoesByEventoId(int eventoId) {
+        validateEvento(eventoId);
 		List<Inscricao> inscricoes = inscricaoRepository.findByEventoId(eventoId);
-        inscricoes.forEach(inscricao -> {
-            inscricao.getEvento().setRecursos(Collections.emptyList());
-        });
-
-        return inscricoes;*/
-		return null;
+        return inscricaoMapper.toResponseDTO(inscricoes);
 	}
 }

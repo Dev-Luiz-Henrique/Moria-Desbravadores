@@ -54,9 +54,15 @@ public class MembroServiceImpl implements IMembroService {
             throw new IllegalArgumentException("Membro com CPF já cadastrado");
     }
 
-    private Membro findMembroById(int id) {
+    @Override
+    public Membro findMembroById(int id) {
         return membroRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return membroRepository.existsById(id);
     }
 
     @Override

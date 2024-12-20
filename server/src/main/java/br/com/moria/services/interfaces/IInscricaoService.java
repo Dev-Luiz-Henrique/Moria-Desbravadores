@@ -2,17 +2,19 @@ package br.com.moria.services.interfaces;
 
 import java.util.List;
 
+import br.com.moria.dtos.Inscricao.InscricaoCreateDTO;
+import br.com.moria.dtos.Inscricao.InscricaoResponseDTO;
+import br.com.moria.dtos.Inscricao.InscricaoUpdateDTO;
 import br.com.moria.enums.StatusParticipacao;
-import br.com.moria.models.Inscricao;
 
 public interface IInscricaoService {
-	public Inscricao create(Inscricao inscricao);
-	public Inscricao update(Inscricao inscricao);
-	public Inscricao updateStatusInscricao(int membroId,int eventoId);
-	public void delete(int id);
-	public List<Inscricao> findAll();
-    public Inscricao findById(int id);
-	public List<Inscricao> findByStatusParticipacao(StatusParticipacao status);
-    public boolean isInscrito(int id);
-    public List<Inscricao> findInscricoesByEventoId(int eventoId);
+	InscricaoResponseDTO create(InscricaoCreateDTO InscricaoCreateDTO);
+	InscricaoResponseDTO update(InscricaoUpdateDTO inscricao);
+	InscricaoResponseDTO updateStatusInscricao(int membroId,int eventoId);
+	void delete(int id);
+	List<InscricaoResponseDTO> findAll();
+    InscricaoResponseDTO findById(int id);
+	List<InscricaoResponseDTO> findByStatusParticipacao(StatusParticipacao status);
+    List<InscricaoResponseDTO> findInscricoesByEventoId(int eventoId);
+    boolean isInscrito(int id);
 }

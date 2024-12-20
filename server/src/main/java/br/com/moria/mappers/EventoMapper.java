@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import br.com.moria.dtos.Evento.EventoCreateDTO;
+import br.com.moria.dtos.Evento.EventoInscricaoResponseDTO;
 import br.com.moria.dtos.Evento.EventoUpdateDTO;
 import br.com.moria.dtos.Evento.EventoResponseDTO;
 import br.com.moria.models.Evento;
@@ -25,4 +26,6 @@ public interface EventoMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "endereco", source = "enderecoCreateDTO")
     Evento toEntity(EventoUpdateDTO eventoUpdateDTO);
+
+    EventoInscricaoResponseDTO toInscricaoResponse(Evento evento);
 }

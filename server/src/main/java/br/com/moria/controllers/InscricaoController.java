@@ -6,8 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,58 +16,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.moria.dtos.Inscricao.InscricaoCreateDTO;
+import br.com.moria.dtos.Inscricao.InscricaoResponseDTO;
+import br.com.moria.dtos.Inscricao.InscricaoUpdateDTO;
 import br.com.moria.enums.StatusParticipacao;
-import br.com.moria.models.Inscricao;
 import br.com.moria.services.interfaces.IInscricaoService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/inscricoes")
-@Validated
 public class InscricaoController {
 
-    @Autowired
-    private IInscricaoService inscricaoService;
+    private final IInscricaoService inscricaoService;
 
+    @Autowired
+    public InscricaoController(IInscricaoService inscricaoService) {
+        this.inscricaoService = inscricaoService;
+    }
+    
     @PostMapping
-    public ResponseEntity<Object> create(@Valid @RequestBody Inscricao inscricao) {
-        Inscricao createdInscricao = inscricaoService.create(inscricao);
+    public ResponseEntity<InscricaoResponseDTO> create(@Valid @RequestBody InscricaoCreateDTO inscricaoCreateDTO) {
+        InscricaoResponseDTO createdInscricao = inscricaoService.create(inscricaoCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdInscricao);
     }
 
     @PutMapping("/confirmar")
-    public ResponseEntity<Inscricao> confirmarInscricao(@RequestParam int membroId, @RequestParam int eventoId) {
-        Inscricao updatedInscricao = inscricaoService.updateStatusInscricao(membroId, eventoId);
+    public ResponseEntity<InscricaoResponseDTO> confirmarInscricao(@RequestParam int membroId, @RequestParam int eventoId) {
+        InscricaoResponseDTO updatedInscricao = inscricaoService.updateStatusInscricao(membroId, eventoId);
         return ResponseEntity.ok(updatedInscricao);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Inscricao> update(@PathVariable int id, @RequestBody @NotNull Inscricao inscricao) {
-        inscricao.setId(id);
-        Inscricao updatedInscricao = inscricaoService.update(inscricao);
+    public ResponseEntity<InscricaoResponseDTO> update(@PathVariable int id, @RequestBody @NotNull InscricaoUpdateDTO inscricaoUpdateDTO) {
+        inscricaoUpdateDTO.setId(id);
+        InscricaoResponseDTO updatedInscricao = inscricaoService.update(inscricaoUpdateDTO);
         return ResponseEntity.ok(updatedInscricao);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
-        try {
-            inscricaoService.delete(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        inscricaoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Inscricao>> findAll() {
-        List<Inscricao> inscricoes = inscricaoService.findAll();
+    public ResponseEntity<List<InscricaoResponseDTO>> findAll() {
+        List<InscricaoResponseDTO> inscricoes = inscricaoService.findAll();
         return ResponseEntity.ok(inscricoes);
     }
 
     @GetMapping("/status")
-    public ResponseEntity<List<Inscricao>> findStatusParticipacao(@RequestParam StatusParticipacao status) {
-        List<Inscricao> inscricoes = inscricaoService.findByStatusParticipacao(status);
+    public ResponseEntity<List<InscricaoResponseDTO>> findStatusParticipacao(@RequestParam StatusParticipacao status) {
+        List<InscricaoResponseDTO> inscricoes = inscricaoService.findByStatusParticipacao(status);
         return ResponseEntity.ok(inscricoes);
     }
 
@@ -80,8 +78,8 @@ public class InscricaoController {
     }
 
     @GetMapping("/evento/{eventoId}")
-    public ResponseEntity<List<Inscricao>> findInscricoesById(@PathVariable int eventoId) {
-    	List<Inscricao> inscricoes = inscricaoService.findInscricoesByEventoId(eventoId);
+    public ResponseEntity<List<InscricaoResponseDTO>> findInscricoesById(@PathVariable int eventoId) {
+        List<InscricaoResponseDTO> inscricoes = inscricaoService.findInscricoesByEventoId(eventoId);
     	return ResponseEntity.ok(inscricoes);
     }
 }

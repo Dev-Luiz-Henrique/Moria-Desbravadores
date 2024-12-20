@@ -1,14 +1,14 @@
 package br.com.moria.dtos.Inscricao;
 
+import br.com.moria.dtos.Evento.EventoInscricaoResponseDTO;
+import br.com.moria.dtos.Membro.MembroInscricaoResponseDTO;
 import br.com.moria.enums.StatusParticipacao;
-import br.com.moria.models.Evento;
-import br.com.moria.models.Membro;
 
 public class InscricaoResponseDTO {
 
     private int id;
-    private Membro membro;
-    private Evento evento;
+    private MembroInscricaoResponseDTO membroInscricaoResponseDTO ;
+    private EventoInscricaoResponseDTO eventoInscricaoResponseDTO;
     private StatusParticipacao statusParticipacao;
     private boolean inscrito;
 
@@ -20,20 +20,20 @@ public class InscricaoResponseDTO {
         this.id = id;
     }
     
-    public Membro getMembro() {
-        return membro;
+    public MembroInscricaoResponseDTO getMembroInscricaoResponseDTO() {
+        return membroInscricaoResponseDTO;
     }
-    
-    public void setMembro(Membro membro) {
-        this.membro = membro;
+
+    public void setMembroInscricaoResponseDTO(MembroInscricaoResponseDTO membroInscricaoResponseDTO) {
+        this.membroInscricaoResponseDTO = membroInscricaoResponseDTO;
     }
-    
-    public Evento getEvento() {
-        return evento;
+
+    public EventoInscricaoResponseDTO getEventoInscricaoResponseDTO() {
+        return eventoInscricaoResponseDTO;
     }
-    
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+
+    public void setEventoInscricaoResponseDTO(EventoInscricaoResponseDTO eventoInscricaoResponseDTO) {
+        this.eventoInscricaoResponseDTO = eventoInscricaoResponseDTO;
     }
     
     public StatusParticipacao getStatusParticipacao() {

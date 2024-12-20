@@ -4,11 +4,13 @@ import br.com.moria.dtos.Endereco.EnderecoCreateDTO;
 import br.com.moria.dtos.Endereco.EnderecoResponseDTO;
 import br.com.moria.dtos.Endereco.EnderecoUpdateDTO;
 import br.com.moria.models.Endereco;
+
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@org.mapstruct.Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface EnderecoMapper {
 
     EnderecoResponseDTO toResponseDTO(Endereco endereco);

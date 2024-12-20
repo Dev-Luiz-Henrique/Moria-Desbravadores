@@ -6,11 +6,15 @@ import java.util.List;
 import br.com.moria.dtos.Membro.MembroCreateDTO;
 import br.com.moria.dtos.Membro.MembroResponseDTO;
 import br.com.moria.dtos.Membro.MembroUpdateDTO;
+import br.com.moria.models.Membro;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.dtos.FileResponseDTO;
 
 public interface IMembroService {
+    Membro findMembroById(int id);
+    boolean existsById(int id);
     MembroResponseDTO create(MembroCreateDTO membroCreateDTO);
     MembroResponseDTO update(MembroUpdateDTO membroUpdateDTO);
     void delete(int id);
