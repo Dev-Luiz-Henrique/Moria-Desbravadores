@@ -46,7 +46,7 @@ public class Mensalidade {
     @Column(name = "forma_pagamento", length = 20)
     private FormaPagamento formaPagamento;
 
-    @Column(name = "comprovante", length = 255)
+    @Column(name = "comprovante")
     private String comprovante;
 
     @Column(name = "observacoes", length = 500)

@@ -3,14 +3,12 @@ package br.com.moria.controllers;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
+
+import br.com.moria.dtos.Mensalidade.MensalidadeResponseDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,76 +17,62 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.moria.dtos.Membro.MembroResponseDTO;
 import br.com.moria.enums.FormaPagamento;
-import br.com.moria.mappers.MembroMapper;
-import br.com.moria.models.Membro;
-import br.com.moria.models.Mensalidade;
-import br.com.moria.services.interfaces.IMembroService;
 import br.com.moria.services.interfaces.IMensalidadeService;
-import jakarta.persistence.EntityNotFoundException;
+import br.com.moria.utils.DateTimeUtil;
 
 @RestController
 @RequestMapping("/mensalidades")
-@Validated
-@CrossOrigin(origins = "https://proud-wave-0042c520f.5.azurestaticapps.net")
 public class MensalidadeController {
 
-    @Autowired
-    private IMensalidadeService mensalidadeService;
+    private final IMensalidadeService mensalidadeService;
 
     @Autowired
-    private IMembroService membroService;
+    public MensalidadeController(IMensalidadeService mensalidadeService){
+        this.mensalidadeService = mensalidadeService;
+    }
 
-    @PostMapping("/{id}/manual")
-    public ResponseEntity<Object> gerarMensalidadeManual(@PathVariable("id") int idMembro) {
-        try {
-        	MembroResponseDTO membro = membroService.findById(idMembro);
-            Mensalidade mensalidade = mensalidadeService.gerarMensalidadeManual(membro);
-            return ResponseEntity.status(HttpStatus.CREATED).body(mensalidade);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", e.getMessage()));
-        }
+    @PostMapping("/{idMembro}")
+    public ResponseEntity<MensalidadeResponseDTO> create(@PathVariable int idMembro) {
+        MensalidadeResponseDTO mensalidade = mensalidadeService.create(idMembro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensalidade);
     }
 
     @PostMapping("/{id}/pagamento")
-    public ResponseEntity<Mensalidade> registrarPagamento(@PathVariable int id,
-                                                          @RequestParam FormaPagamento formaPagamento,
-                                                          @RequestParam("file") MultipartFile file) {
-        try {
-            Mensalidade mensalidade = mensalidadeService.registrarPagamento(id, formaPagamento, file);
-            return ResponseEntity.ok(mensalidade);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    public ResponseEntity<MensalidadeResponseDTO> updatePagamento(@PathVariable int id,
+                                                                  @RequestParam FormaPagamento formaPagamento,
+                                                                  @RequestParam("file") MultipartFile file) throws IOException {
+        MensalidadeResponseDTO mensalidade = mensalidadeService.updatePagamentoById(id, formaPagamento, file);
+        return ResponseEntity.ok(mensalidade);
     }
 
     @GetMapping
-    public ResponseEntity<List<Mensalidade>> findAll() {
-        List<Mensalidade> mensalidades = mensalidadeService.findAll();
+    public ResponseEntity<List<MensalidadeResponseDTO>> findAll() {
+        List<MensalidadeResponseDTO> mensalidades = mensalidadeService.findAll();
         return ResponseEntity.ok(mensalidades);
     }
 
     @GetMapping("/periodo")
-    public ResponseEntity<List<Mensalidade>> findDataInterval(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-                                                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
-        List<Mensalidade> mensalidades = mensalidadeService.findDataInterval(start, end);
+    public ResponseEntity<List<MensalidadeResponseDTO>> findDataInterval(@RequestParam String start,
+                                                                         @RequestParam String end) {
+        LocalDateTime startDateTime = DateTimeUtil.parse(start);
+        LocalDateTime endDateTime = DateTimeUtil.parse(end);
+
+        List<MensalidadeResponseDTO> mensalidades = mensalidadeService.findByDateInterval(startDateTime, endDateTime);
         return ResponseEntity.ok(mensalidades);
     }
 
-    @GetMapping("/mensalidade-membro")
-    public ResponseEntity<Mensalidade> findMembroAndDataInterval(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-                                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end,
-                                                                 @RequestParam int id) {
-    	try {
-    		MembroResponseDTO membro = membroService.findById(id);
-    		Mensalidade mensalidade = mensalidadeService.findMembroAndDataInterval(membro, start, end);
-     	    return ResponseEntity.ok(mensalidade);
-    	} catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    @GetMapping("/membro/{id}")
+    public ResponseEntity<List<MensalidadeResponseDTO>> findMembro(@PathVariable int membroId) {
+        List<MensalidadeResponseDTO> mensalidade = mensalidadeService.findByMembro(membroId);
+        return ResponseEntity.ok(mensalidade);
+    }
+
+    @GetMapping("/membro/{id}/intervalo")
+    public ResponseEntity<List<MensalidadeResponseDTO>> findMembroAndDataInterval(@PathVariable int membroId,
+                                                                                  @RequestParam LocalDateTime start,
+                                                                                  @RequestParam LocalDateTime end) {
+        List<MensalidadeResponseDTO> mensalidade = mensalidadeService.findByMembroAndDateInterval(membroId, start, end);
+        return ResponseEntity.ok(mensalidade);
     }
 }
