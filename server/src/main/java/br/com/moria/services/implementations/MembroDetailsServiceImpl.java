@@ -17,15 +17,18 @@ import br.com.moria.services.interfaces.IMembroDetailsService;
 @Service
 public class MembroDetailsServiceImpl implements IMembroDetailsService {
 
-    @Autowired
     private MembroRepository membroRepository;
+
+    @Autowired
+    public MembroDetailsServiceImpl(MembroRepository membroRepository) {
+        this.membroRepository = membroRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Membro membro = membroRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o email: " + email));
 
-        // Adiciona a authority baseada no tipo de membro
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(membro.getTipo().name()));
 

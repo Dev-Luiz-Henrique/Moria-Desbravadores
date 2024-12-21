@@ -3,18 +3,10 @@ package br.com.moria.configurations;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.MalformedJwtException;
+import br.com.moria.services.interfaces.IJwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,66 +15,34 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private UserDetailsService membroDetailsService;
+    private final IJwtService jwtService;
 
     @Autowired
-    private JwtUtil jwtUtil;
-
-    @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request,
-                                    @NonNull HttpServletResponse response,
-                                    @NonNull FilterChain chain)
-                                    throws ServletException, IOException {
-
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/plain; charset=UTF-8");
-
-        final String authorizationHeader = request.getHeader("Authorization");
-        String username = null;
-        String jwt = null;
-
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            jwt = authorizationHeader.substring(7);
-            try {
-                username = jwtUtil.extractUsername(jwt);
-
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    UserDetails userDetails = this.membroDetailsService.loadUserByUsername(username);
-
-                    if (jwtUtil.validateToken(jwt, userDetails)) {
-                        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities());
-                        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    }
-                }
-            } catch (ExpiredJwtException e) {
-                handleException(response, HttpServletResponse.SC_UNAUTHORIZED,
-                    "Token expirado.", e);
-                return;
-            } catch (MalformedJwtException e) {
-                handleException(response, HttpServletResponse.SC_BAD_REQUEST,
-                    "Token JWT malformado.", e);
-                return;
-            } catch (JwtException e) {
-                handleException(response, HttpServletResponse.SC_UNAUTHORIZED,
-                    "Assinatura do token inválida ou erro de processamento.", e);
-                return;
-            } catch (Exception e) {
-                handleException(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-                    "Erro interno.", e);
-                return;
-            }
-        }
-        chain.doFilter(request, response);
+    public JwtRequestFilter(IJwtService jwtService) {
+        this.jwtService = jwtService;
     }
 
-    private void handleException(HttpServletResponse response, int status, String message, Exception e) throws IOException {
-        logger.warn(message, e);
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
+        try {
+            final String authorizationHeader = request.getHeader("Authorization");
+
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+                String jwt = authorizationHeader.substring(7);
+                jwtService.validateAndAuthenticate(jwt, request);
+            }
+
+            chain.doFilter(request, response);
+        } catch (Exception ex) {
+            handleErrorResponse(response, HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+        }
+    }
+
+    private void handleErrorResponse(HttpServletResponse response, int status, String message) throws IOException {
         response.setStatus(status);
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/plain; charset=UTF-8");
-        response.getWriter().write(message);
+        response.getWriter().write(String.format("{\"error\": \"%s\"}", message));
     }
 }
