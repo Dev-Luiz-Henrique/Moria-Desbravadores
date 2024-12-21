@@ -55,6 +55,11 @@ public class MembroServiceImpl implements IMembroService {
     }
 
     @Override
+    public List<Membro> findAllMembrosByAtivo(boolean ativo){
+        return membroRepository.findByAtivo(ativo);
+    }
+
+    @Override
     public Membro findMembroById(int id) {
         return membroRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
@@ -135,7 +140,7 @@ public class MembroServiceImpl implements IMembroService {
     }
 
 	@Override
-	public List<MembroResponseDTO> findByAtivo(Boolean ativo) {
+	public List<MembroResponseDTO> findByAtivo(boolean ativo) {
         List<Membro> membros = membroRepository.findByAtivo(ativo);
         return membroMapper.toResponseDTO(membros);
 	}

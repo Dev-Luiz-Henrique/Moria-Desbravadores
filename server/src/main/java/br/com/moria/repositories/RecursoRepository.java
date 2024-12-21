@@ -6,5 +6,5 @@ import br.com.moria.models.Recurso;
 import java.util.List;
 
 public interface RecursoRepository extends JpaRepository<Recurso, Integer> {
-    public List<Recurso> findByEventoId(int eventoId);
+    List<Recurso> findByEventoId(int eventoId);
 }

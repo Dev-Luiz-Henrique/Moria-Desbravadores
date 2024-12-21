@@ -14,9 +14,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "inscricoes", uniqueConstraints = {
-	    @UniqueConstraint(columnNames = {"id_membro", "id_evento"})
-	})
+@Table(
+        name = "inscricoes",
+        uniqueConstraints = { @UniqueConstraint(columnNames = {"id_membro", "id_evento"}) }
+)
 public class Inscricao {
 
     @Id
@@ -26,12 +27,10 @@ public class Inscricao {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_membro", referencedColumnName = "id")
-    //@JsonIgnoreProperties({"inscricoes", "mensalidades"})
     private Membro membro;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_evento", referencedColumnName = "id")
-    //@JsonBackReference("eventoInscricoes")
     private Evento evento;
 
     @Enumerated(EnumType.STRING)

@@ -89,8 +89,7 @@ public class MembroController {
 
     @PostMapping("/{id}/ficha-saude")
     public ResponseEntity<MembroResponseDTO> uploadFichaSaude(@PathVariable int id,
-                                                              @RequestParam("file")
-                                                              @NotNull MultipartFile file) throws IOException {
+                                                              @RequestParam("file") @NotNull MultipartFile file) throws IOException {
         MembroResponseDTO updatedMembro = membroService.updateFichaSaudeById(id, file);
         return ResponseEntity.ok(updatedMembro);
     }

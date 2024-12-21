@@ -9,8 +9,8 @@ import br.com.moria.enums.StatusParticipacao;
 import br.com.moria.models.Inscricao;
 
 public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
-    public Optional<Inscricao> findByMembroIdAndEventoId(int membroId,int eventoId);
-	public List<Inscricao> findByStatusParticipacao(StatusParticipacao status);
-    public boolean existsByIdAndInscritoTrue(int inscricaoId);
-    public List<Inscricao> findByEventoId(int eventoId);
+    Optional<Inscricao> findByMembroIdAndEventoId(int membroId,int eventoId);
+	List<Inscricao> findByStatusParticipacao(StatusParticipacao status);
+    boolean existsByIdAndInscritoTrue(int inscricaoId);
+    List<Inscricao> findByEventoId(int eventoId);
 }

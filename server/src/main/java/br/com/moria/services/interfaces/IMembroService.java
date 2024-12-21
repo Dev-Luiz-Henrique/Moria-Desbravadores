@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.moria.dtos.FileResponseDTO;
 
 public interface IMembroService {
+    List<Membro> findAllMembrosByAtivo(boolean ativo);
     Membro findMembroById(int id);
     boolean existsById(int id);
     MembroResponseDTO create(MembroCreateDTO membroCreateDTO);
@@ -23,7 +24,7 @@ public interface IMembroService {
     MembroResponseDTO findByCpf(String cpf);
     MembroResponseDTO findByEmail(String email);
     List<MembroResponseDTO> findByNomeContaining(String nome);
-    List<MembroResponseDTO> findByAtivo(Boolean ativo);
+    List<MembroResponseDTO> findByAtivo(boolean ativo);
     MembroResponseDTO updateFichaSaudeById(int id, MultipartFile file) throws IOException;
     FileResponseDTO findFichaSaudeById(int id) throws IOException;
 }

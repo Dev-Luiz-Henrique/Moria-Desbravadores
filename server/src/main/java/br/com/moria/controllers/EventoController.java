@@ -97,8 +97,7 @@ public class EventoController {
 
     @PostMapping("/{id}/imagem")
     public ResponseEntity<EventoResponseDTO> uploadImagem(@PathVariable int id,
-                                                          @RequestParam("file")
-                                                          @NotNull MultipartFile file) throws IOException {
+                                                          @RequestParam("file") @NotNull MultipartFile file) throws IOException {
         EventoResponseDTO updatedEvento = eventoService.updateImagemById(id, file);
         return ResponseEntity.ok(updatedEvento);
     }

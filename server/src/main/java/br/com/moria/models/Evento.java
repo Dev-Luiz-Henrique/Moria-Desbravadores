@@ -14,14 +14,6 @@ import jakarta.persistence.Table;
 @Table(name = "eventos")
 public class Evento {
 
-    /*@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-    @JsonManagedReference
-	private List<Recurso> recursos;
-
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
-    @JsonManagedReference("eventoInscricoes")
-    private List<Inscricao> inscricoes;*/
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -36,7 +28,7 @@ public class Evento {
     @Column(name = "descricao", nullable = false, length = 500)
     private String descricao;
 
-    @Column(name = "imagem", length = 255)
+    @Column(name = "imagem")
     private String imagem;
 
     @Column(name = "data_inicio", nullable = false, columnDefinition = "DATETIME")

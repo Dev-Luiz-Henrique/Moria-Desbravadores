@@ -19,13 +19,13 @@ public class Endereco {
     @Column(name = "cep", nullable = false, unique = true, columnDefinition = "CHAR(8)")
     private String cep;
 
-    @Column(name = "bairro", nullable = false, length = 255)
+    @Column(name = "bairro", nullable = false)
     private String bairro;
 
-    @Column(name = "logradouro", length = 255)
+    @Column(name = "logradouro")
     private String logradouro;
 
-    @Column(name = "cidade", nullable = false, length = 255)
+    @Column(name = "cidade", nullable = false)
     private String cidade;
 
     @Column(name = "estado", nullable = false, length = 2)
