@@ -66,10 +66,10 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
         return new LocalDateTime[]{startOfMonth, endOfMonth};
     }
 
-    private boolean doesMensalidadeExist(Membro membro) {
+    private boolean doesMensalidadeExist(@NotNull Membro membro) {
         LocalDateTime currentDate = LocalDateTime.now(); 
         LocalDateTime[] interval = getMonthInterval(currentDate);
-        return mensalidadeRepository.existsByMembroAndDataBetween(membro, interval[0], interval[1]);
+        return mensalidadeRepository.existsByMembroIdAndDataBetween(membro.getId(), interval[0], interval[1]);
     }
 
     @Override
@@ -110,15 +110,13 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
 
 	@Override
 	public List<MensalidadeResponseDTO> findByMembroAndDateInterval(int membroId, LocalDateTime start, LocalDateTime end) {
-        Membro membro = membroService.findMembroById(membroId);
-		List<Mensalidade> mensalidades = mensalidadeRepository.findByMembroAndDataBetween(membro, start, end);
+		List<Mensalidade> mensalidades = mensalidadeRepository.findByMembroIdAndDataBetween(membroId, start, end);
         return mensalidadeMapper.toResponseDTO(mensalidades);
 	}
 
     @Override
     public List<MensalidadeResponseDTO> findByMembro(int membroId) {
-        Membro membro = membroService.findMembroById(membroId);
-        List<Mensalidade> mensalidades = mensalidadeRepository.findByMembro(membro);
+        List<Mensalidade> mensalidades = mensalidadeRepository.findByMembroId(membroId);
         return mensalidadeMapper.toResponseDTO(mensalidades);
     }
 
