@@ -3,6 +3,12 @@ package br.com.moria.dtos.Inscricao;
 import br.com.moria.enums.StatusParticipacao;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * DTO para atualização de uma inscrição existente.
+ *
+ * <p>Encapsula os dados necessários para atualizar as informações de uma inscrição já cadastrada,
+ * garantindo validações essenciais para integridade e consistência das informações.</p>
+ */
 public class InscricaoUpdateDTO {
 
     private int id;

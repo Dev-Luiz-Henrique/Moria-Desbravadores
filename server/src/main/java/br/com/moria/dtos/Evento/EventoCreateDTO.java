@@ -10,6 +10,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO para criação de um novo evento.
+ *
+ * <p>Encapsula os dados necessários para cadastrar um novo evento, garantindo validações
+ * essenciais para integridade e consistência das informações.</p>
+ */
 public class EventoCreateDTO {
 
     @NotBlank(message = "O campo nome é obrigatório")

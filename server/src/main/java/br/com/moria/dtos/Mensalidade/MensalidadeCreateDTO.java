@@ -7,6 +7,12 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * DTO para criação de uma nova mensalidade.
+ *
+ * <p>Encapsula os dados necessários para cadastrar uma nova mensalidade, garantindo validações
+ * essenciais para integridade e consistência das informações.</p>
+ */
 public class MensalidadeCreateDTO {
 
     @NotNull(message = "O campo data é obrigatória")

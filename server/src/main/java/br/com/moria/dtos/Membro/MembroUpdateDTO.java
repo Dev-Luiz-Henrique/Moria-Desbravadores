@@ -14,6 +14,12 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO para atualização de um membro existente.
+ *
+ * <p>Encapsula os dados necessários para atualizar as informações de um membro já cadastrado,
+ * garantindo validações essenciais para integridade e consistência das informações.</p>
+ */
 public class MembroUpdateDTO {
 
     private int id;

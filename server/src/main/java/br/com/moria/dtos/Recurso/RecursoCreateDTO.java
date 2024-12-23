@@ -10,6 +10,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO para criação de um novo recurso.
+ *
+ * <p>Encapsula os dados necessários para cadastrar um novo recurso, garantindo validações
+ * essenciais para integridade e consistência das informações.</p>
+ */
 public class RecursoCreateDTO {
 
     @NotNull(message = "O campo id evento é obrigatório")

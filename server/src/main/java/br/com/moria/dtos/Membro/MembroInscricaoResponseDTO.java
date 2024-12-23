@@ -2,6 +2,12 @@ package br.com.moria.dtos.Membro;
 
 import br.com.moria.enums.TipoMembro;
 
+/**
+ * DTO de resposta para informações resumidas de inscrição de membro.
+ *
+ * <p>Fornece informações básicas sobre um membro, normalmente usadas para exibição em
+ * listagens ou retornos de operações relacionadas a inscrições.</p>
+ */
 public class MembroInscricaoResponseDTO {
     
     private int id;

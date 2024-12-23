@@ -16,6 +16,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Entidade que representa um recurso de um evento no sistema.
+ *
+ * <p>Encapsula todas as informações relacionadas a um recurso.</p>
+ */
 @Entity
 @Table(name = "recursos")
 public class Recurso {

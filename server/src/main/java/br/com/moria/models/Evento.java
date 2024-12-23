@@ -10,6 +10,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Entidade que representa um evento no sistema.
+ *
+ * <p>Encapsula todas as informações relacionadas a um evento.</p>
+ */
 @Entity
 @Table(name = "eventos")
 public class Evento {

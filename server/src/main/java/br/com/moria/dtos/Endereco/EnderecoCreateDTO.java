@@ -4,6 +4,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO para criação de um novo endereço.
+ *
+ * <p>Encapsula os dados necessários para cadastrar um novo endereço, garantindo validações
+ * essenciais para integridade e consistência das informações.</p>
+ */
 public class EnderecoCreateDTO {
 
     @NotBlank(message = "O campo CEP é obrigatório")

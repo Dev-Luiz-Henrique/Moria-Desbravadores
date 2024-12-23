@@ -13,6 +13,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+/**
+ * Entidade que representa uma inscrição de um membro em um evento no sistema.
+ *
+ * <p>Encapsula todas as informações relacionadas a uma inscrição.</p>
+ */
 @Entity
 @Table(
         name = "inscricoes",

@@ -1,5 +1,11 @@
 package br.com.moria.dtos.Endereco;
 
+/**
+ * DTO de resposta para informações detalhadas de um endereço.
+ *
+ * <p>Fornece informações completas sobre um endereço, normalmente usadas para exibição em
+ * detalhes ou edição de informações.</p>
+ */
 public class EnderecoResponseDTO {
 
     private int id;

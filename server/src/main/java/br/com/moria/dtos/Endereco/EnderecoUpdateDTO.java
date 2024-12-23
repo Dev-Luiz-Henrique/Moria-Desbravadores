@@ -4,6 +4,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO para atualização de um endereço existente.
+ *
+ * <p>Encapsula os dados necessários para atualizar um endereço já cadastrado,
+ * garantindo validações essenciais para integridade e consistência das informações.</p>
+ */
 public class EnderecoUpdateDTO {
 
     private int id;

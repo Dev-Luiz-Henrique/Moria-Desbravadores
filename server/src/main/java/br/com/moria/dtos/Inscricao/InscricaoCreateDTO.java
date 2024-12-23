@@ -3,6 +3,12 @@ package br.com.moria.dtos.Inscricao;
 import br.com.moria.enums.StatusParticipacao;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * DTO para criação de uma nova inscrição.
+ *
+ * <p>Encapsula os dados necessários para cadastrar uma nova inscrição, garantindo validações
+ * essenciais para integridade e consistência das informações.</p>
+ * */
 public class InscricaoCreateDTO {
 
     @NotNull(message = "O campo id do evento é obrigatório")

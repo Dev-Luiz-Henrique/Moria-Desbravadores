@@ -7,6 +7,12 @@ import br.com.moria.dtos.Endereco.EnderecoResponseDTO;
 import br.com.moria.enums.EstadoCivil;
 import br.com.moria.enums.TipoMembro;
 
+/**
+ * DTO de resposta para informações detalhadas de um membro.
+ *
+ * <p>Fornece informações completas sobre um membro, normalmente usadas para exibição em
+ * detalhes ou edição de informações.</p>
+ */
 public class MembroResponseDTO {
 
     private int id;

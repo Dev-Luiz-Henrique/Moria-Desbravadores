@@ -10,6 +10,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO para atualização de um evento existente.
+ *
+ * <p>Encapsula os dados necessários para atualizar as informações de um evento já cadastrado,
+ * garantindo validações essenciais para integridade e consistência das informações.</p>
+ */
 public class EventoUpdateDTO {
 
     private int id;

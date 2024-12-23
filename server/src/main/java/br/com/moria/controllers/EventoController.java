@@ -107,9 +107,9 @@ public class EventoController {
         FileResponseDTO fileResponse = eventoService.findImagemById(id);
         
         return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType(fileResponse.getContentType()))
-            .header("Content-Disposition", "attachment; filename=\"" + fileResponse.getFileName() + "\"")
-            .header("Content-Length", String.valueOf(fileResponse.getFileSize()))
-            .body(fileResponse.getFileBytes());
+            .contentType(MediaType.parseMediaType(fileResponse.contentType()))
+            .header("Content-Disposition", "attachment; filename=\"" + fileResponse.fileName() + "\"")
+            .header("Content-Length", String.valueOf(fileResponse.fileSize()))
+            .body(fileResponse.fileBytes());
     }
 }

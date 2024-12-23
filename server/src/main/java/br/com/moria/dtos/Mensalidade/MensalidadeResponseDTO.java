@@ -5,6 +5,12 @@ import java.time.LocalDateTime;
 import br.com.moria.enums.FormaPagamento;
 import br.com.moria.models.Membro;
 
+/**
+ * DTO de resposta para informações detalhadas de uma mensalidade.
+ *
+ * <p>Fornece informações completas sobre uma mensalidade, normalmente usadas para exibição em
+ * detalhes ou edição de informações.</p>
+ */
 public class MensalidadeResponseDTO {
     
     private int id;

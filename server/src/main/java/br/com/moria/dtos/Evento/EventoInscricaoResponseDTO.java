@@ -2,6 +2,12 @@ package br.com.moria.dtos.Evento;
 
 import java.time.LocalDateTime;
 
+/**
+ * DTO de resposta para informações resumidas de inscrição de evento.
+ *
+ * <p>Fornece informações básicas sobre um evento, normalmente usadas para exibição em
+ * listagens ou retornos de operações relacionadas a inscrições.</p>
+ */
 public class EventoInscricaoResponseDTO {
     
     private int id;

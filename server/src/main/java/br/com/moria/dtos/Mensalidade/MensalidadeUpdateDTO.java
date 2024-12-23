@@ -7,6 +7,12 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * DTO para atualização de uma mensalidade existente.
+ *
+ * <p>Encapsula os dados necessários para atualizar as informações de uma mensalidade já cadastrada,
+ * garantindo validações essenciais para integridade e consistência das informações.</p>
+ */
 public class MensalidadeUpdateDTO {
 
     private int id;

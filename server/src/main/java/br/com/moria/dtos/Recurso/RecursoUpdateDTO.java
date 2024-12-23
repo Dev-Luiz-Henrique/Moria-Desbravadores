@@ -11,6 +11,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO para atualização de um recurso existente.
+ *
+ * <p>Encapsula os dados necessários para atualizar as informações de um recurso já cadastrado,
+ * garantindo validações essenciais para integridade e consistência das informações.</p>
+ */
 public class RecursoUpdateDTO {
 
     private int id;

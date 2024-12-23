@@ -6,6 +6,12 @@ import br.com.moria.enums.FormaPagamento;
 import br.com.moria.enums.RecursoEvento;
 import br.com.moria.enums.StatusPagamento;
 
+/**
+ * DTO de resposta para informações detalhadas de um recurso.
+ *
+ * <p>Fornece informações completas sobre um recurso, normalmente usadas para exibição em
+ * detalhes ou edição de informações.</p>
+ */
 public class RecursoResponseDTO {
     
     private int id;

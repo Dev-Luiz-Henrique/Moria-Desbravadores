@@ -14,6 +14,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Entidade que representa mensalidade de um membro no sistema.
+ *
+ * <p>Encapsula todas as informações relacionadas a uma mensalidade.</p>
+ */
 @Entity
 @Table(name = "mensalidades")
 public class Mensalidade {

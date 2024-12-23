@@ -14,6 +14,12 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+/**
+ * DTO para criação de um novo membro.
+ *
+ * <p>Encapsula os dados necessários para cadastrar um novo membro, garantindo validações
+ * essenciais para integridade e consistência das informações.</p>
+ */
 public class MembroCreateDTO {
     
     @NotBlank(message = "O campo nome é obrigatório")

@@ -7,6 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entidade que representa um endereço no sistema.
+ *
+ * <p>Encapsula todas as informações relacionadas a um endereço.</p>
+ */
 @Entity
 @Table(name = "enderecos")
 public class Endereco {

@@ -4,6 +4,12 @@ import java.time.LocalDateTime;
 
 import br.com.moria.dtos.Endereco.EnderecoResponseDTO;
 
+/**
+ * DTO de resposta para informações detalhadas de um evento.
+ *
+ * <p>Fornece informações completas sobre um evento, normalmente usadas para exibição em
+ * detalhes ou edição de informações.</p>
+ */
 public class EventoResponseDTO {
 
     private int id;

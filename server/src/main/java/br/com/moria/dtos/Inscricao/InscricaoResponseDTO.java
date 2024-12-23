@@ -4,6 +4,12 @@ import br.com.moria.dtos.Evento.EventoInscricaoResponseDTO;
 import br.com.moria.dtos.Membro.MembroInscricaoResponseDTO;
 import br.com.moria.enums.StatusParticipacao;
 
+/**
+ * DTO de resposta para informações detalhadas de uma inscrição.
+ *
+ * <p>Fornece informações completas sobre uma inscrição, normalmente usadas para exibição em
+ * detalhes ou edição de informações.</p>
+ */
 public class InscricaoResponseDTO {
 
     private int id;

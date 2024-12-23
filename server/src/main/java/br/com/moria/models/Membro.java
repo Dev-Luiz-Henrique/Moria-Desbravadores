@@ -16,6 +16,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * Entidade que representa um membro no sistema.
+ *
+ * <p>Encapsula todas as informações relacionadas a um membro.</p>
+ *
+ * @see EstadoCivil
+ * @see TipoMembro
+ */
 @Entity
 @Table(name = "membros")
 public class Membro {
