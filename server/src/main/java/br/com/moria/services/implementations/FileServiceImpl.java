@@ -17,6 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.moria.dtos.FileResponseDTO;
 import br.com.moria.services.interfaces.IFileService;
 
+/**
+ * Implementação do serviço de gerenciamento de arquivos.
+ *
+ * <p>Fornece funcionalidades para upload, download e exclusão de arquivos.</p>
+ */
 @Service
 public class FileServiceImpl implements IFileService { // TODO improve better security
 
@@ -30,6 +35,13 @@ public class FileServiceImpl implements IFileService { // TODO improve better se
         "image/png", "image/jpeg", "image/bmp", "image/webp", "image/svg+xml", "image/tiff"
     );
 
+    /**
+     * Obtém o caminho seguro para o diretório especificado, garantindo que esteja dentro do diretório base configurado.
+     *
+     * @param dir o diretório solicitado.
+     * @return o caminho seguro como um {@link Path}.
+     * @throws IOException se houver falha ao criar o diretório.
+     */
     private Path getSafePath(String dir) throws IOException {
         Path uploadPath = Paths.get(System.getProperty("user.dir"), uploadBaseDir, dir).normalize();
         if (!uploadPath.startsWith(Paths.get(System.getProperty("user.dir"), uploadBaseDir).normalize()))
@@ -40,11 +52,24 @@ public class FileServiceImpl implements IFileService { // TODO improve better se
         return uploadPath;
     }
 
+    /**
+     * Obtém o tipo de conteúdo de um arquivo com base no caminho especificado.
+     *
+     * @param filePath o caminho do arquivo.
+     * @return o tipo de conteúdo como uma string.
+     * @throws IOException se houver falha ao acessar o arquivo.
+     */
     private String getContentType(String filePath) throws IOException {
         Path fullPath = Paths.get(System.getProperty("user.dir"), uploadBaseDir, filePath);
         return Files.probeContentType(fullPath);
     }
 
+    /**
+     * Valida as propriedades do arquivo enviado, incluindo tamanho e tipo de conteúdo.
+     *
+     * @param file o arquivo enviado.
+     * @throws IllegalArgumentException se o arquivo for inválido.
+     */
     private void validateFile(@NotNull MultipartFile file) {
         if (file.isEmpty())
             throw new IllegalArgumentException("O arquivo está vazio");
@@ -57,6 +82,12 @@ public class FileServiceImpl implements IFileService { // TODO improve better se
                 + SUPPORTED_CONTENT_TYPES);
     }
 
+    /**
+     * Gera um nome de arquivo sanitizado e único com base no nome original.
+     *
+     * @param originalFilename o nome original do arquivo.
+     * @return o nome sanitizado do arquivo.
+     */
     private String sanitizeFileName(String originalFilename) {
         String fileName = StringUtils.cleanPath(originalFilename);
         if (fileName.contains(".."))
@@ -76,6 +107,13 @@ public class FileServiceImpl implements IFileService { // TODO improve better se
         return Paths.get(dir, sanitizedFileName).toString();
     }
 
+    /**
+     * Lê o conteúdo de um arquivo com base no caminho fornecido.
+     *
+     * @param filePath o caminho do arquivo.
+     * @return o conteúdo do arquivo como um array de bytes.
+     * @throws IOException se o arquivo não for encontrado ou não puder ser lido.
+     */
     private byte[] downloadFileContent(String filePath) throws IOException {
         Path fullPath = Paths.get(System.getProperty("user.dir"), uploadBaseDir, filePath);
         if (!Files.exists(fullPath))

@@ -14,16 +14,34 @@ import br.com.moria.models.Membro;
 import br.com.moria.repositories.MembroRepository;
 import br.com.moria.services.interfaces.IMembroDetailsService;
 
+/**
+ * Implementação do serviço de detalhes do membro para autenticação.
+ *
+ * <p>Carrega os detalhes de um membro com base no e-mail, fornecendo as autoridades
+ * necessárias para o Spring Security.</p>
+ */
 @Service
 public class MembroDetailsServiceImpl implements IMembroDetailsService {
 
-    private MembroRepository membroRepository;
+    private final MembroRepository membroRepository;
 
+    /**
+     * Construtor para injeção de dependências.
+     *
+     * @param membroRepository o repositório para operações com a entidade {@link Membro}.
+     */
     @Autowired
     public MembroDetailsServiceImpl(MembroRepository membroRepository) {
         this.membroRepository = membroRepository;
     }
 
+    /**
+     * Carrega o membro pelo e-mail fornecido, criando um {@link UserDetails} para autenticação.
+     *
+     * @param email o e-mail do membro.
+     * @return os detalhes do membro, incluindo suas autoridades.
+     * @throws UsernameNotFoundException se o membro não for encontrado.
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Membro membro = membroRepository.findByEmail(email)

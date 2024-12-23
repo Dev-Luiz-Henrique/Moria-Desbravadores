@@ -22,6 +22,14 @@ import br.com.moria.services.interfaces.IFileService;
 import br.com.moria.services.interfaces.IMembroService;
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * Implementação do serviço para operações relacionadas a membros.
+ *
+ * <p>Fornece funcionalidades para criação, atualização, exclusão e consulta de membros,
+ * bem como operações específicas, como o gerenciamento de fichas de saúde.</p>
+ *
+ * @see IMembroService
+ */
 @Service
 public class MembroServiceImpl implements IMembroService {
 
@@ -31,6 +39,15 @@ public class MembroServiceImpl implements IMembroService {
     private final IFileService uploadService;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Construtor para injeção de dependências.
+     *
+     * @param membroMapper       o mapper para conversão entre DTO e entidade.
+     * @param membroRepository   o repositório para operações com a entidade {@link Membro}.
+     * @param enderecoService    o serviço para manipulação de endereços.
+     * @param uploadService      o serviço para manipulação de arquivos.
+     * @param passwordEncoder    o codificador de senhas.
+     */
     @Autowired
     public MembroServiceImpl(MembroMapper membroMapper,
                              MembroRepository membroRepository,
@@ -44,11 +61,23 @@ public class MembroServiceImpl implements IMembroService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Verifica se já existe um membro com o e-mail fornecido.
+     *
+     * @param email o e-mail a ser verificado.
+     * @throws IllegalArgumentException se o e-mail já estiver cadastrado.
+     */
     private void existsByEmail(String email) {
         if (membroRepository.existsByEmail(email))
             throw new IllegalArgumentException("Membro com email já cadastrado");
     }
 
+    /**
+     * Verifica se já existe um membro com o CPF fornecido.
+     *
+     * @param cpf o CPF a ser verificado.
+     * @throws IllegalArgumentException se o CPF já estiver cadastrado.
+     */
     private void existsByCpf(String cpf) {
         if (membroRepository.existsByCpf(cpf))
             throw new IllegalArgumentException("Membro com CPF já cadastrado");

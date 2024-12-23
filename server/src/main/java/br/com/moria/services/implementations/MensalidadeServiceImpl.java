@@ -22,6 +22,13 @@ import br.com.moria.services.interfaces.IMembroService;
 import br.com.moria.services.interfaces.IMensalidadeService;
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * Implementação do serviço para operações relacionadas a mensalidades.
+ *
+ * <p>Fornece funcionalidades para criar, atualizar, consultar e gerenciar mensalidades, incluindo a geração automática mensal.</p>
+ *
+ * @see IMensalidadeService
+ */
 @Service
 public class MensalidadeServiceImpl implements IMensalidadeService {
 
@@ -33,6 +40,14 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     @Value("${mensalidade.valor:15.00}")
     private double value;
 
+    /**
+     * Construtor para injeção de dependências.
+     *
+     * @param mensalidadeMapper     o mapper para conversão entre DTO e entidade.
+     * @param mensalidadeRepository o repositório para operações com a entidade {@link Mensalidade}.
+     * @param membroService         o serviço para manipulação de membros.
+     * @param fileService           o serviço para manipulação de arquivos.
+     */
     @Autowired
     public MensalidadeServiceImpl(MensalidadeMapper mensalidadeMapper,
                                   MensalidadeRepository mensalidadeRepository,
@@ -44,12 +59,25 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
         this.fileService = fileService;
     }
 
+    /**
+     * Busca uma mensalidade pelo ID, lançando uma exceção se não for encontrada.
+     *
+     * @param id o identificador da mensalidade.
+     * @return a mensalidade encontrada.
+     * @throws EntityNotFoundException se a mensalidade não for encontrada.
+     */
     private Mensalidade findMensalidadeById(int id) {
         return mensalidadeRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Mensalidade não encontrada"));
     }
 
-    private @NotNull Mensalidade buildMensalidade(Membro membro) {
+    /**
+     * Constrói uma nova mensalidade para um membro ativo.
+     *
+     * @param membro o membro associado à mensalidade.
+     * @return a mensalidade criada.
+     */
+    private Mensalidade buildMensalidade(Membro membro) {
         LocalDateTime currentDate = LocalDateTime.now();
         Mensalidade mensalidade = new Mensalidade();
         mensalidade.setMembro(membro);
@@ -60,12 +88,24 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
         return mensalidade;
     }
 
+    /**
+     * Obtém o intervalo do mês atual.
+     *
+     * @param currentDate a data atual.
+     * @return um array contendo o início e o fim do mês.
+     */
     private LocalDateTime [] getMonthInterval(@NotNull LocalDateTime currentDate) {
         LocalDateTime startOfMonth = currentDate.withDayOfMonth(1).toLocalDate().atStartOfDay();
         LocalDateTime endOfMonth = startOfMonth.plusMonths(1).minusNanos(1);
         return new LocalDateTime[]{startOfMonth, endOfMonth};
     }
 
+    /**
+     * Verifica se uma mensalidade já existe para o membro no mês atual.
+     *
+     * @param membro o membro a ser verificado.
+     * @return {@code true} se a mensalidade já existir, caso contrário {@code false}.
+     */
     private boolean doesMensalidadeExist(@NotNull Membro membro) {
         LocalDateTime currentDate = LocalDateTime.now(); 
         LocalDateTime[] interval = getMonthInterval(currentDate);
@@ -100,6 +140,12 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     public List<MensalidadeResponseDTO> findAll() {
         List<Mensalidade> mensalidades = mensalidadeRepository.findAll();
         return mensalidadeMapper.toResponseDTO(mensalidades);
+    }
+
+    @Override
+    public MensalidadeResponseDTO findById(int id) {
+        Mensalidade mensalidade = findMensalidadeById(id);
+        return mensalidadeMapper.toResponseDTO(mensalidade);
     }
 
     @Override

@@ -20,6 +20,13 @@ import br.com.moria.services.interfaces.IInscricaoService;
 import br.com.moria.services.interfaces.IMembroService;
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * Implementação do serviço para operações relacionadas a inscrições.
+ *
+ * <p>Fornece funcionalidades para criar, atualizar, excluir e consultar inscrições de membros em eventos.</p>
+ *
+ * @see IInscricaoService
+ */
 @Service
 public class InscricaoServiceImpl implements IInscricaoService{
 
@@ -28,6 +35,14 @@ public class InscricaoServiceImpl implements IInscricaoService{
     private final IMembroService membroService;
     private final IEventoService eventoService;
 
+    /**
+     * Construtor para injeção de dependências.
+     *
+     * @param inscricaoMapper       o mapper para conversão entre DTO e entidade.
+     * @param inscricaoRepository   o repositório para operações com a entidade {@link Inscricao}.
+     * @param membroService         o serviço para manipulação de membros.
+     * @param eventoService         o serviço para manipulação de eventos.
+     */
     @Autowired
     public InscricaoServiceImpl(InscricaoMapper inscricaoMapper,
                                 InscricaoRepository inscricaoRepository,
@@ -39,16 +54,35 @@ public class InscricaoServiceImpl implements IInscricaoService{
         this.eventoService = eventoService;
     }
 
+    /**
+     * Valida se o evento existe.
+     *
+     * @param eventoId o identificador do evento.
+     * @throws EntityNotFoundException se o evento não for encontrado.
+     */
     private void validateEvento(int eventoId) {
         if (!eventoService.existsById(eventoId))
             throw new EntityNotFoundException("Evento não encontrado para a inscricao fornecida.");
     }
 
+    /**
+     * Valida se o membro existe.
+     *
+     * @param membroId o identificador do membro.
+     * @throws EntityNotFoundException se o membro não for encontrado.
+     */
     private void validateMembro(int membroId) {
         if (!membroService.existsById(membroId))
             throw new EntityNotFoundException("Membro não encontrado para a inscricao fornecida.");
     }
 
+    /**
+     * Busca uma inscrição pelo ID, lançando uma exceção se não for encontrada.
+     *
+     * @param id o identificador da inscrição.
+     * @return a inscrição encontrada.
+     * @throws EntityNotFoundException se a inscrição não for encontrada.
+     */
     private Inscricao findInscricaoById(int id) {
         return inscricaoRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));

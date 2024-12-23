@@ -22,6 +22,14 @@ import br.com.moria.services.interfaces.IEventoService;
 import br.com.moria.services.interfaces.IFileService;
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * Implementação do serviço para operações relacionadas a eventos.
+ *
+ * <p>Fornece a lógica para manipulação de dados de eventos, incluindo validações,
+ * criação, atualização, exclusão e gerenciamento de imagens associadas aos eventos.</p>
+ *
+ * @see IEventoService
+ */
 @Service
 public class EventoServiceImpl implements IEventoService {
 
@@ -30,6 +38,14 @@ public class EventoServiceImpl implements IEventoService {
     private final IEnderecoService enderecoService;
     private final IFileService fileService;
 
+	/**
+	 * Construtor para injeção de dependências.
+	 *
+	 * @param eventoMapper      o mapper para conversão entre DTO e entidade.
+	 * @param eventoRepository  o repositório para operações com a entidade {@link Evento}.
+	 * @param enderecoService   o serviço para manipulação de endereços.
+	 * @param fileService       o serviço para manipulação de arquivos.
+	 */
     @Autowired
     public EventoServiceImpl(EventoMapper eventoMapper,
 							 EventoRepository eventoRepository,
@@ -41,6 +57,13 @@ public class EventoServiceImpl implements IEventoService {
         this.fileService = fileService;
     }
 
+	/**
+	 * Valida o intervalo de datas de início e término.
+	 *
+	 * @param start a data de início.
+	 * @param end a data de término.
+	 * @throws IllegalArgumentException se a data de término for anterior à data de início.
+	 */
     private void validateDate(LocalDateTime start, @NotNull LocalDateTime end){
         if(end.isBefore(start))
 			throw new IllegalArgumentException("A data de inicio não pode suceder a data de fim.");
