@@ -1,102 +1,74 @@
 package br.com.moria.configurations;
 
-import java.io.File;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
-import br.com.moria.models.Evento;
-import br.com.moria.models.Inscricao;
-import br.com.moria.models.Membro;
-import br.com.moria.models.Mensalidade;
-import br.com.moria.models.Recurso;
-import br.com.moria.repositories.EventoRepository;
-import br.com.moria.repositories.InscricaoRepository;
-import br.com.moria.repositories.MembroRepository;
-import br.com.moria.repositories.MensalidadeRepository;
-import br.com.moria.repositories.RecursoRepository;
-import br.com.moria.services.implementations.EventoServiceImpl;
-import br.com.moria.services.implementations.InscricaoServiceImpl;
-import br.com.moria.services.implementations.MembroServiceImpl;
-import br.com.moria.services.implementations.RecursoServiceImpl;
+import br.com.moria.dtos.Evento.EventoCreateDTO;
+import br.com.moria.dtos.Inscricao.InscricaoCreateDTO;
+import br.com.moria.dtos.Membro.MembroCreateDTO;
+import br.com.moria.dtos.Mensalidade.MensalidadeCreateDTO;
+import br.com.moria.dtos.Recurso.RecursoCreateDTO;
+import br.com.moria.services.interfaces.*;
+
+import java.io.File;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @Component
+@Profile("dev")
 public class DataInitializer implements CommandLineRunner {
 
-    @Override
-    public void run(String... args) {
-
-    }
-/*
-    @Autowired
-    private MembroRepository membroRepository;
-    @Autowired
-    private EventoRepository eventoRepository;
-    @Autowired
-    private MensalidadeRepository mensalidadeRepository;
-    @Autowired
-    private InscricaoRepository inscricaoRepository;
-    @Autowired
-    private RecursoRepository recursoRepository;
-
-    @Autowired
-    private MembroServiceImpl membroService;
-    @Autowired
-    private EventoServiceImpl eventoService;
-    @Autowired
-    private InscricaoServiceImpl inscricaoService;
-    @Autowired
-    private RecursoServiceImpl recursoService;
+    private final IMembroService membroService;
+    private final IEventoService eventoService;
+    private final IRecursoService recursoService;
+    private final IInscricaoService inscricaoService;
+    private final IMensalidadeService mensalidadeService;
 
     private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private static final String JSON_PATH = "src/main/resources/json/";
+
+    public DataInitializer(
+            IMembroService membroService,
+            IEventoService eventoService,
+            IRecursoService recursoService,
+            IInscricaoService inscricaoService,
+            IMensalidadeService mensalidadeService
+    ) {
+        this.membroService = membroService;
+        this.eventoService = eventoService;
+        this.recursoService = recursoService;
+        this.inscricaoService = inscricaoService;
+        this.mensalidadeService = mensalidadeService;
+    }
 
     @Override
     public void run(String... args) throws Exception {
-        final String path = "src/main/resources/json/";
-        /*
-        if (membroRepository.count() == 0) {
-            List<Membro> modelos = List.of(
-                objectMapper.readValue(new File(path + "membros.json"), Membro[].class));
-            for (Membro modelo : modelos) {
-				membroService.create(modelo);
-			}
-        }
+        loadData("membros.json", MembroCreateDTO[].class,
+                membroService.count(), membroService::create);
+        loadData("eventos.json", EventoCreateDTO[].class,
+                eventoService.count(), eventoService::create);
+        loadData("mensalidades.json", MensalidadeCreateDTO[].class,
+                mensalidadeService.count(), mensalidadeService::create);
+        loadData("inscricoes.json", InscricaoCreateDTO[].class,
+                inscricaoService.count(), inscricaoService::create);
+        loadData("recursos.json", RecursoCreateDTO[].class,
+                recursoService.count(), recursoService::create);
+    }
 
-        if (eventoRepository.count() == 0) {
-            List<Evento> eventos = List.of(
-                objectMapper.readValue(new File(path + "eventos.json"), Evento[].class));
-            for (Evento evento : eventos) {
-				eventoService.create(evento);
-			}
+    private <T> void loadData(String fileName,
+                              Class<T[]> clazz,
+                              long count,
+                              Consumer<T> saveFn) throws Exception {
+        if (count == 0) {
+            File file = new File(JSON_PATH + fileName);
+            List<T> data = List.of(objectMapper.readValue(file, clazz));
+            data.forEach(saveFn);
+            System.out.println(data.size() + " registros inseridos de " + clazz.getSimpleName());
         }
-
-        if (mensalidadeRepository.count() == 0) {
-            List<Mensalidade> mensalidades = List.of(
-                objectMapper.readValue(new File(path + "mensalidades.json"), Mensalidade[].class));
-            for (Mensalidade mensalidade : mensalidades) {
-				mensalidadeRepository.save(mensalidade);
-			}
-        }
-
-        if (inscricaoRepository.count() == 0) {
-            List<Inscricao> inscricoes = List.of(
-                objectMapper.readValue(new File(path + "inscricoes.json"), Inscricao[].class));
-            for (Inscricao inscricao : inscricoes) {
-				inscricaoService.create(inscricao);
-			}
-        }
-
-        if (recursoRepository.count() == 0) {
-            List<Recurso> recursos = List.of(
-                objectMapper.readValue(new File(path + "recursos.json"), Recurso[].class));
-            for (Recurso recurso : recursos) {
-				recursoRepository.save(recurso);
-			}
-        }
-    }*/
+    }
 }

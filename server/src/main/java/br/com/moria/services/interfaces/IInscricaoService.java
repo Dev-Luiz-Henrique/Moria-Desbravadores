@@ -20,6 +20,13 @@ import br.com.moria.enums.StatusParticipacao;
 public interface IInscricaoService {
 
 	/**
+	 * Retorna a contagem total de inscrições cadastradas.
+	 *
+	 * @return o número total de inscrições.
+	 */
+	long count();
+
+	/**
 	 * Cria uma inscrição com base nos dados fornecidos.
 	 *
 	 * @param inscricaoCreateDTO os dados da inscrição a ser criada.

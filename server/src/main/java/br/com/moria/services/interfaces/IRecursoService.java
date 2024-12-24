@@ -19,6 +19,13 @@ import br.com.moria.dtos.Recurso.RecursoUpdateDTO;
 public interface IRecursoService {
 
     /**
+     * Retorna a contagem total de recursos cadastrados.
+     *
+     * @return o número total de recursos.
+     */
+    long count();
+
+    /**
      * Cria um novo recurso com base nos dados fornecidos.
      *
      * @param recursoCreateDTO os dados do recurso a ser criado.

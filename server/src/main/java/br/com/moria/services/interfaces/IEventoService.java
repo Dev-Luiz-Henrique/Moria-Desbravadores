@@ -34,6 +34,13 @@ public interface IEventoService {
 	Evento findEventoById(int id);
 
 	/**
+	 * Retorna a contagem total de eventos cadastrados.
+	 *
+	 * @return o número total de eventos.
+	 */
+	long count();
+
+	/**
 	 * Verifica se um evento existe pelo ID.
 	 *
 	 * @param id o identificador do evento.

@@ -88,6 +88,11 @@ public class InscricaoServiceImpl implements IInscricaoService{
             .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
     }
 
+    @Override
+    public long count() {
+        return inscricaoRepository.count();
+    }
+
 	@Override
 	public InscricaoResponseDTO create(@NotNull InscricaoCreateDTO inscricaoCreateDTO) {
         validateEvento(inscricaoCreateDTO.getEventoId());

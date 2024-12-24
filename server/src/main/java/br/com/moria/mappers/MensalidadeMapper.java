@@ -13,7 +13,10 @@ import br.com.moria.models.Mensalidade;
 @Mapper(componentModel = "spring")
 public interface MensalidadeMapper {
 
+    @Mapping(target = "idMembro", source = "membro.id")
     MensalidadeResponseDTO toResponseDTO(Mensalidade mensalidade);
+
+    @Mapping(target = "idMembro", source = "membro.id")
     List<MensalidadeResponseDTO> toResponseDTO(List<Mensalidade> mensalidades);
 
     @Mapping(target = "id", ignore = true)

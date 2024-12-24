@@ -34,7 +34,7 @@ public class MensalidadeController {
 
     @PostMapping("/{idMembro}")
     public ResponseEntity<MensalidadeResponseDTO> create(@PathVariable int idMembro) {
-        MensalidadeResponseDTO mensalidade = mensalidadeService.create(idMembro);
+        MensalidadeResponseDTO mensalidade = mensalidadeService.createManual(idMembro);
         return ResponseEntity.status(HttpStatus.CREATED).body(mensalidade);
     }
 

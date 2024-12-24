@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import br.com.moria.dtos.Mensalidade.MensalidadeCreateDTO;
 import br.com.moria.mappers.MensalidadeMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +115,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
 
     @Override
 	@Scheduled(cron = "0 0 0 1 * ?")
-    public void createMensalidadeAuto() {
+    public void createAuto() {
         List<Membro> membrosAtivos = membroService.findAllMembrosByAtivo(true);
         
         for (Membro membro : membrosAtivos) {
@@ -124,14 +125,30 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
             }
         }
     }
-    
+
     @Override
-    public MensalidadeResponseDTO create(int idMembro) {
+    public MensalidadeResponseDTO createManual(int idMembro) {
         Membro membro = membroService.findMembroById(idMembro);
         if (doesMensalidadeExist(membro))
             throw new IllegalArgumentException("Já existe mensalidade gerada para este membro no mês atual");
 
         Mensalidade mensalidade = buildMensalidade(membro);
+        Mensalidade savedMensalidade = mensalidadeRepository.save(mensalidade);
+        return mensalidadeMapper.toResponseDTO(savedMensalidade);
+    }
+
+    @Override
+    public long count() {
+        return mensalidadeRepository.count();
+    }
+
+    @Override
+    public MensalidadeResponseDTO create(@NotNull MensalidadeCreateDTO mensalidadeCreateDTO) {
+        Membro membro = membroService.findMembroById(mensalidadeCreateDTO.getIdMembro());
+        if (doesMensalidadeExist(membro))
+            throw new IllegalArgumentException("Já existe mensalidade gerada para este membro no mês atual");
+
+        Mensalidade mensalidade = mensalidadeMapper.toEntity(mensalidadeCreateDTO);
         Mensalidade savedMensalidade = mensalidadeRepository.save(mensalidade);
         return mensalidadeMapper.toResponseDTO(savedMensalidade);
     }

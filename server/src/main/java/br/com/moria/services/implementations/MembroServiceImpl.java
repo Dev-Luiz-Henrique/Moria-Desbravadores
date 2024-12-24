@@ -95,6 +95,11 @@ public class MembroServiceImpl implements IMembroService {
     }
 
     @Override
+    public long count(){
+        return membroRepository.count();
+    }
+
+    @Override
     public boolean existsById(int id) {
         return membroRepository.existsById(id);
     }

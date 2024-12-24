@@ -6,9 +6,7 @@
         "telefone": "5326399776",
         "celular": "11985425117",
         "email": "gabriel.gomes@outlook.com",
-        "senha": "547475",
-        "logradouro": "Rua Formosa",
-        "numero": 25,
+        "senha": "12345",
         "cpf": "58308393500",
         "rg": "201467082",
         "orgaoExpedidor": "SSP",
@@ -17,25 +15,24 @@
         "batizado": false,
         "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "DIRETOR_CLUBE",
         "endereco": {
             "cep": "29163670",
+            "logradouro": "Rua Formosa",
             "bairro": "Cidade Continental-Setor Ásia",
             "cidade": "Serra",
             "estado": "ES"
-        }
+        },
+        "numero": 25
     }, 
     {
-        "nome": "Luan Lorenzo Lucas da Mata",
-        "sexo": "M",
+        "nome": "Murilo Barros",
+        "sexo": "O",
         "dataNascimento": "1976-02-03",
         "telefone": "1927314823",
         "celular": "19985858829",
-        "email": "luan.damata@edu.uniso.br",
-        "senha": "senha123",
-        "logradouro": "Rua Exemplo",
-        "numero": 672,
+        "email": "murilo.tbgl@edu.prof.br",
+        "senha": "murilim231",
         "cpf": "52104726808",
         "rg": "313234541",
         "orgaoExpedidor": "SSP",
@@ -44,25 +41,24 @@
         "batizado": true,
         "dataCadastro": "2000-10-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "DIRETOR_ASSOCIADO",
         "endereco": {
             "cep": "13069072",
+            "logradouro": "Rua Exemplo",
             "bairro": "Rua dos Anjos I",
             "cidade": "Campinas",
             "estado": "SP"
-        }
+        },
+        "numero": 672
     },
     {
         "nome": "Daniel Leite Pereira",
-        "sexo": "M",
+        "sexo": "O",
         "dataNascimento": "2005-02-28",
         "telefone": "6338788409",
         "celular": "19972864670",
         "email": "daniel.pereira@gmail.com",
         "senha": "DannyBoy1234",
-        "logradouro": "Rua Silvania",
-        "numero": 427,
         "cpf": "42930124946",
         "rg": "197887508",
         "orgaoExpedidor": "SSP",
@@ -71,14 +67,15 @@
         "batizado": true,
         "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "TESOUREIRO",
         "endereco": {
             "cep": "77813560",
+            "logradouro": "Rua Silvania",
             "bairro": "Senador",
             "cidade": "Araguaína",
             "estado": "TO"
-        }
+        },
+        "numero": 427
     },
     {
         "nome": "Diego de Paula",
@@ -87,9 +84,7 @@
         "telefone": "1234567890",
         "celular": "11976543210",
         "email": "diegodepa@terra.com",
-        "senha": "senha123",
-        "logradouro": "Rua Silvania",
-        "numero": 232,
+        "senha": "@AbstracaoLivre",
         "cpf": "38624011469",
         "rg": "317917717",
         "orgaoExpedidor": "SSP",
@@ -98,11 +93,11 @@
         "batizado": false,
         "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "CAPELAO",
         "endereco": {
             "cep": "77813560"
-        }
+        },
+        "numero": 232
     },
     {
         "nome": "Weslley Paulow",
@@ -111,9 +106,7 @@
         "telefone": "1234567890",
         "celular": "11976543210",
         "email": "charlinho@hotmail.com",
-        "senha": "#MinhaSenhaSuperSecreta",
-        "logradouro": "Rua Vinte e Oito de Agosto",
-        "numero": 754,
+        "senha": "#PinguimVermelho",
         "cpf": "38624012469",
         "rg": "317917717",
         "orgaoExpedidor": "SSP",
@@ -122,25 +115,24 @@
         "batizado": true,
         "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "SECRETARIO",
         "endereco": {
             "cep": "38446106",
+            "logradouro": "Rua Vinte e Oito de Agosto",
             "bairro": "Amorim",
             "cidade": "Araguari",
             "estado": "MG"
-        }
+        },
+        "numero": 754
     },
     {
         "nome": "Luiz Henrique de Santana",
-        "sexo": "F",
+        "sexo": "M",
         "dataNascimento": "2004-10-26",
         "telefone": "1234567890",
         "celular": "11976543210",
         "email": "dev.luizhenrique@outlook.com",
-        "senha": "RDR2isTheBest",
-        "logradouro": "Rua Espedito de Paula Rodrigues",
-        "numero": 23,
+        "senha": "LISisTheBest",
         "cpf": "42819465196",
         "rg": "325494769",
         "orgaoExpedidor": "SSP",
@@ -149,52 +141,50 @@
         "batizado": false,
         "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "INSTRUTOR_CLASSES_PROGRESSIVAS",
         "endereco": {
             "cep": "69317263",
+            "logradouro": "Rua Espedito de Paula Rodrigues",
             "bairro": "Alvorada",
             "cidade": "Boa Vista",
             "estado": "RR"
-        }
+        },
+        "numero": 87
     },
     {
-        "nome": "Giovana Mariana Vieira",
+        "nome": "Nicole Carvalho Fukuhima",
         "sexo": "F",
         "dataNascimento": "1992-07-26",
         "telefone": "1234567890",
         "celular": "19976543210",
-        "email": "giovanavieira@maxilajes.com.br",
+        "email": "nfukus@artistascult.com",
         "senha": "32AkeIN2KC",
-        "logradouro": "Rua Antônio Maurício Ladeira",
-        "numero": 253,
         "cpf": "97016248828",
         "rg": "139905479",
         "orgaoExpedidor": "SSP",
         "tamanhoCamisa": "M",
-        "estadoCivil": "SOLTEIRO",
+        "estadoCivil": "DIVORCIADO",
         "batizado": false,
         "dataCadastro": "1998-11-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "CONSELHEIRO_UNIDADE",
         "endereco": {
             "cep": "12345678",
+            "logradouro": "Rua Antônio Maurício Ladeira",
             "bairro": "Jardim Conceição",
             "cidade": "Campinas",
             "estado": "SP"
-        }
+        },
+        "numero": 253
     },
     {
-        "nome": "Allana Eliane Vera Ferreira",
-        "sexo": "F",
+        "nome": "Carlos Eduardo Fernandes",
+        "sexo": "O",
         "dataNascimento": "2000-01-01",
         "telefone": "1234567890",
         "celular": "11987654321",
-        "email": "membroAUXILIAR@example.com",
-        "senha": "senha123",
-        "logradouro": "Rua Exemplo",
-        "numero": 123,
+        "email": "carlinhos@guinessrecordes.com",
+        "senha": "#CarlinhosRecordista!",
         "cpf": "12345678908",
         "rg": "123456796",
         "orgaoExpedidor": "SSP",
@@ -203,25 +193,24 @@
         "batizado": false,
         "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "AUXILIAR",
         "endereco": {
-            "cep": "12345678",
-            "bairro": "Bairro Exemplo",
-            "cidade": "Cidade Exemplo",
-            "estado": "SP"
-        }
+            "cep": "59031735",
+            "logradouro": "Vila dos Caicós",
+            "bairro": "Alecrim",
+            "cidade": "Natal",
+            "estado": "RN"
+        },
+        "numero": 777
     },
     {
-        "nome": "Diogo Alves da Silva",
+        "nome": "Diogo Silva da Ivenção",
         "sexo": "M",
         "dataNascimento": "2012-06-01",
         "telefone": "1937243249",
         "celular": "11985467878",
-        "email": "diogo_felipe_almeida@gmail.com",
-        "senha": "YrG8j6ELuS",
-        "logradouro": "Rua Antonio Réquia Henrique",
-        "numero": 635,
+        "email": "diogobuda@lol.com",
+        "senha": "#LoLGOTY2k25",
         "cpf": "36807289804",
         "rg": "298307984",
         "orgaoExpedidor": "SSP",
@@ -230,25 +219,24 @@
         "batizado": false,
         "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
-        "fichaSaude": "/",
         "tipo": "DESBRAVADOR",
         "endereco": {
             "cep": "13049594",
+            "logradouro": "Rua Antonio Réquia Henrique",
             "bairro": "Swiss Park",
             "cidade": "Campinas",
             "estado": "SP"
-        }
+        },
+        "numero": 63
     },
     {
-        "nome": "Diana Alves da Silva",
-        "sexo": "F",
+        "nome": "Pedro Henrique Miranda Assi",
+        "sexo": "M",
         "dataNascimento": "1980-05-13",
         "telefone": "1635537030",
         "celular": "16982064765",
-        "email": "dianaalvesdasilva@gmail.com",
-        "senha": "Belinha2000",
-        "logradouro": "Rua Exemplo",
-        "numero": 186,
+        "email": "pedrinhogames@servidores.com.br",
+        "senha": "&FNAFBestGame&",
         "cpf": "08674222897",
         "rg": "384069964",
         "orgaoExpedidor": "SSP",
@@ -257,13 +245,14 @@
         "batizado": false,
         "dataCadastro": "2023-06-27T13:30:15",
         "ativo": true,
-        "fichaSaude": "-",
         "tipo": "RESPONSAVEL",
         "endereco": {
             "cep": "13578970",
+            "logradouro": "Rua Bela Cintra",
             "bairro": "Água Vermelha",
-            "cidade": "Água Vermelha",
+            "cidade": "São Carlos",
             "estado": "SP"
-        }
+        },
+        "numero": 186
     }
 ]

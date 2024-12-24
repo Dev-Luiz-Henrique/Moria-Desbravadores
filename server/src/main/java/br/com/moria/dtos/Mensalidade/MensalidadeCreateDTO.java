@@ -15,6 +15,9 @@ import jakarta.validation.constraints.NotNull;
  */
 public class MensalidadeCreateDTO {
 
+    @NotNull(message = "O campo id do membro é obrigatório")
+    private int idMembro;
+
     @NotNull(message = "O campo data é obrigatória")
     private LocalDateTime data;
 
@@ -39,6 +42,14 @@ public class MensalidadeCreateDTO {
 
     @NotBlank(message = "O campo observações é obrigatório")
     private String observacoes;
+
+    public int getIdMembro() {
+        return idMembro;
+    }
+
+    public void setIdMembro(int idMembro) {
+        this.idMembro = idMembro;
+    }
 
     public LocalDateTime getData() {
         return data;

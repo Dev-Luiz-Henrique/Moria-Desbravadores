@@ -42,6 +42,13 @@ public interface IMembroService {
     Membro findMembroById(int id);
 
     /**
+     * Retorna a contagem total de membros cadastrados.
+     *
+     * @return o número total de membros.
+     */
+    long count();
+
+    /**
      * Verifica se um membro existe pelo ID.
      *
      * @param id o identificador do membro.

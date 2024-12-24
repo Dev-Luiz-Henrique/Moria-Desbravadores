@@ -14,7 +14,7 @@ import br.com.moria.models.Membro;
 public class MensalidadeResponseDTO {
     
     private int id;
-    private Membro membro;
+    private int idMembro;
     private LocalDateTime data;
     private LocalDateTime dataVencimento;
     private LocalDateTime dataPagamento;
@@ -32,12 +32,12 @@ public class MensalidadeResponseDTO {
         this.id = id;
     }
 
-    public Membro getMembro() {
-        return membro;
+    public int getIdMembro() {
+        return idMembro;
     }
 
-    public void setMembro(Membro membro) {
-        this.membro = membro;
+    public void setIdMembro(int idMembro) {
+        this.idMembro = idMembro;
     }
 
     public LocalDateTime getData() {

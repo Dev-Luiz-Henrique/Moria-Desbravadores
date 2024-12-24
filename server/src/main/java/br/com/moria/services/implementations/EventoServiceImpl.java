@@ -75,6 +75,11 @@ public class EventoServiceImpl implements IEventoService {
             .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado."));
     }
 
+	@Override
+	public long count() {
+		return eventoRepository.count();
+	}
+
     @Override
     public boolean existsById(int id) {
 		return eventoRepository.existsById(id);

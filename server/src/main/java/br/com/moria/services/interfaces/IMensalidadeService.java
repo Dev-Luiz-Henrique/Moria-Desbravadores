@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import br.com.moria.dtos.Mensalidade.MensalidadeCreateDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.dtos.Mensalidade.MensalidadeResponseDTO;
@@ -23,7 +24,7 @@ public interface IMensalidadeService {
     /**
      * Cria mensalidades automaticamente para todos os membros ativos.
      */
-    void createMensalidadeAuto();
+    void createAuto();
 
     /**
      * Cria uma mensalidade para um membro específico.
@@ -31,7 +32,22 @@ public interface IMensalidadeService {
      * @param idMembro o identificador do membro.
      * @return os detalhes da mensalidade criada.
      */
-    MensalidadeResponseDTO create(int idMembro);
+    MensalidadeResponseDTO createManual(int idMembro);
+
+    /**
+     * Retorna a contagem total de mensalidades cadastradas.
+     *
+     * @return o número total de mensalidades.
+     */
+    long count();
+
+    /**
+     * Cria uma nova mensalidade com base nos dados fornecidos.
+     *
+     * @param mensalidadeCreateDTO os dados da mensalidade a ser criada.
+     * @return os detalhes da mensalidade criada.
+     */
+    MensalidadeResponseDTO create(MensalidadeCreateDTO mensalidadeCreateDTO);
 
     /**
      * Retorna todas as mensalidades cadastradas.

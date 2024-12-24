@@ -43,6 +43,11 @@ public class RecursoServiceImpl implements IRecursoService {
     }
 
     @Override
+    public long count() {
+        return recursoRepository.count();
+    }
+
+    @Override
     public RecursoResponseDTO create(@NotNull RecursoCreateDTO recursoCreateDTO) {
         validateEvento(recursoCreateDTO.getIdEvento());
 
