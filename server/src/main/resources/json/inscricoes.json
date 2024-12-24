@@ -1,244 +1,122 @@
 [
     {
-        "membro": {
-            "id": 1
-        },
-        "evento": {
-            "id": 1
-        },
-    "statusParticipacao": "PENDENTE",
-    "inscrito": true
-    },
-
-    {
-        "membro": {
-            "id": 1
-        },
-        "evento": {
-            "id": 2
-        },
-    "statusParticipacao": "PRESENTE",
-    "inscrito": false
+        "membroId": 1,
+        "eventoId": 1,
+        "statusParticipacao": "PENDENTE",
+        "inscrito": true
     },
     {
-        "membro": {
-            "id": 2
-        },
-        "evento": {
-            "id": 1
-        },
-    "statusParticipacao": "AUSENTE",
-    "inscrito": true
+        "membroId": 1,
+        "eventoId": 2,
+        "statusParticipacao": "PRESENTE",
+        "inscrito": false
     },
-
     {
-        "membro": {
-            "id": 2 
-        },
-        "evento": {
-            "id": 2
-        },
-    "statusParticipacao": "JUSTIFICADO",
-    "inscrito": false
+        "membroId": 2,
+        "eventoId": 1,
+        "statusParticipacao": "AUSENTE",
+        "inscrito": true
     },
-
-  
-    
-
     {
-        "membro": {
-            "id": 3
-        },
-        "evento": {
-            "id": 1
-        },
-    "statusParticipacao": "PENDENTE",
-    "inscrito": true
+        "membroId": 2,
+        "eventoId": 2,
+        "statusParticipacao": "JUSTIFICADO",
+        "inscrito": false
     },
-
     {
-        "membro": {
-            "id": 3
-        },
-        "evento": {
-            "id": 2
-        },
-    "statusParticipacao": "PRESENTE",
-    "inscrito": false
+        "membroId": 3,
+        "eventoId": 1,
+        "statusParticipacao": "PENDENTE",
+        "inscrito": true
     },
-
-    
-    
-
     {
-        "membro": {
-            "id": 4
-        },
-        "evento": {
-            "id": 1
-        },
-    "statusParticipacao": "AUSENTE",
-    "inscrito": true
+        "membroId": 3,
+        "eventoId": 2,
+        "statusParticipacao": "PRESENTE",
+        "inscrito": false
     },
-
     {
-        "membro": {
-            "id": 4
-        },
-        "evento": {
-            "id": 2
-        },
-    "statusParticipacao": "JUSTIFICADO",
-    "inscrito": false
+        "membroId": 4,
+        "eventoId": 1,
+        "statusParticipacao": "AUSENTE",
+        "inscrito": true
     },
-
-
-    
-
     {
-        "membro": {
-            "id": 5
-        },
-        "evento": {
-            "id": 3
-        },
-    "statusParticipacao": "PENDENTE",
-    "inscrito": true
+        "membroId": 4,
+        "eventoId": 2,
+        "statusParticipacao": "JUSTIFICADO",
+        "inscrito": false
     },
-
     {
-        "membro": {
-            "id": 5
-        },
-        "evento": {
-            "id": 4
-        },
-    "statusParticipacao": "PRESENTE",
-    "inscrito": false
+        "membroId": 5,
+        "eventoId": 3,
+        "statusParticipacao": "PENDENTE",
+        "inscrito": true
     },
-
-  
-    
-
     {
-        "membro": {
-            "id": 6
-        },
-        "evento": {
-            "id": 3
-        },
-    "statusParticipacao": "AUSENTE",
-    "inscrito": true
+        "membroId": 5,
+        "eventoId": 4,
+        "statusParticipacao": "PRESENTE",
+        "inscrito": false
     },
-
     {
-        "membro": {
-            "id": 6
-        },
-        "evento": {
-            "id": 4
-        },
-    "statusParticipacao": "JUSTIFICADO",
-    "inscrito": false
+        "membroId": 6,
+        "eventoId": 3,
+        "statusParticipacao": "AUSENTE",
+        "inscrito": true
     },
-
-  
-    
-
     {
-        "membro": {
-            "id": 7
-        },
-        "evento": {
-            "id": 3
-        },
-    "statusParticipacao": "PENDENTE",
-    "inscrito": true
+        "membroId": 6,
+        "eventoId": 4,
+        "statusParticipacao": "JUSTIFICADO",
+        "inscrito": false
     },
-
     {
-        "membro": {
-            "id": 7
-        },
-        "evento": {
-            "id": 4
-        },
-    "statusParticipacao": "PRESENTE",
-    "inscrito": false
+        "membroId": 7,
+        "eventoId": 3,
+        "statusParticipacao": "PENDENTE",
+        "inscrito": true
     },
-
     {
-        "membro": {
-            "id": 7
-        },
-        "evento": {
-            "id": 5
-        },
-    "statusParticipacao": "AUSENTE",
-    "inscrito": true
+        "membroId": 7,
+        "eventoId": 4,
+        "statusParticipacao": "PRESENTE",
+        "inscrito": false
     },
-
-
-    
-
     {
-        "membro": {
-            "id": 8
-        },
-        "evento": {
-            "id": 3
-        },
-    "statusParticipacao": "JUSTIFICADO",
-    "inscrito": true
+        "membroId": 7,
+        "eventoId": 5,
+        "statusParticipacao": "AUSENTE",
+        "inscrito": true
     },
-
     {
-        "membro": {
-            "id": 8
-        },
-        "evento": {
-            "id": 4
-        },
-    "statusParticipacao": "PENDENTE",
-    "inscrito": false
+        "membroId": 8,
+        "eventoId": 3,
+        "statusParticipacao": "JUSTIFICADO",
+        "inscrito": true
     },
-
     {
-        "membro": {
-            "id": 8
-        },
-        "evento": {
-            "id": 5
-        },
-    "statusParticipacao": "PRESENTE",
-    "inscrito": true
+        "membroId": 8,
+        "eventoId": 4,
+        "statusParticipacao": "PENDENTE",
+        "inscrito": false
     },
-
-    
-
-
     {
-        "membro": {
-            "id": 9
-        },
-        "evento": {
-            "id": 5
-        },
-    "statusParticipacao": "AUSENTE",
-    "inscrito": true
+        "membroId": 8,
+        "eventoId": 5,
+        "statusParticipacao": "PRESENTE",
+        "inscrito": true
     },
-
-
-
-
     {
-        "membro": {
-            "id": 10
-        },
-        "evento": {
-            "id": 5
-        },
-    "statusParticipacao": "JUSTIFICADO",
-    "inscrito": true
+        "membroId": 9,
+        "eventoId": 5,
+        "statusParticipacao": "AUSENTE",
+        "inscrito": true
+    },
+    {
+        "membroId": 9,
+        "eventoId": 1,
+        "statusParticipacao": "JUSTIFICADO",
+        "inscrito": true
     }
-  ]
+]

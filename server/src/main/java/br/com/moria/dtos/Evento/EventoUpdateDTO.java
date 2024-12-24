@@ -3,6 +3,7 @@ package br.com.moria.dtos.Evento;
 import java.time.LocalDateTime;
 
 import br.com.moria.dtos.Endereco.EnderecoCreateDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
@@ -51,6 +52,7 @@ public class EventoUpdateDTO {
     private int numero;
 
     @Valid
+    @JsonProperty("endereco")
     private EnderecoCreateDTO enderecoCreateDTO;
 
     public int getId() {

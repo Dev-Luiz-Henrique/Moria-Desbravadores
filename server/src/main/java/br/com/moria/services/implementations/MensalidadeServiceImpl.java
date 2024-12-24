@@ -149,6 +149,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
             throw new IllegalArgumentException("Já existe mensalidade gerada para este membro no mês atual");
 
         Mensalidade mensalidade = mensalidadeMapper.toEntity(mensalidadeCreateDTO);
+        mensalidade.setMembro(membro);
         Mensalidade savedMensalidade = mensalidadeRepository.save(mensalidade);
         return mensalidadeMapper.toResponseDTO(savedMensalidade);
     }

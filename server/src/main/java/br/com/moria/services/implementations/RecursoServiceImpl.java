@@ -33,7 +33,7 @@ public class RecursoServiceImpl implements IRecursoService {
     }
 
     private void validateEvento(int eventoId){
-        if (eventoService.existsById(eventoId))
+        if (!eventoService.existsById(eventoId))
             throw new IllegalArgumentException("Evento não encontrado para o recurso fornecido.");
     }
 

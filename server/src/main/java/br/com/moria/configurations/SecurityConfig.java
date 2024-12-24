@@ -1,5 +1,6 @@
 package br.com.moria.configurations;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,15 +9,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import br.com.moria.enums.TipoMembro;
-import br.com.moria.services.interfaces.IJwtService;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
@@ -31,21 +31,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtRequestFilter jwtRequestFilter() {
-        return jwtRequestFilter;
-    }
-    
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        configureInscricaoRoutes(http);
-        configureRecursosRoutes(http);
-        configureMensalidadesRoutes(http);
-        configureEventosRoutes(http);
-        configureMembrosRoutes(http);
-        configureOthersRoutes(http);
+    public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
+        //configureInscricaoRoutes(http);
+        //configureRecursosRoutes(http);
+        //configureMensalidadesRoutes(http);
+        //configureEventosRoutes(http);
+        //configureMembrosRoutes(http);
+        //configureOthersRoutes(http);
 
         http
-            //.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+            .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
             .exceptionHandling(exceptionHandling ->
                 exceptionHandling
                     .authenticationEntryPoint((request, response, authException) -> {
@@ -58,9 +53,9 @@ public class SecurityConfig {
                     })
             )
             .sessionManagement(session ->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .csrf(csrf -> csrf.disable());
+            .csrf(AbstractHttpConfigurer::disable);
 
-        http.addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
@@ -70,11 +65,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(
+            @NotNull AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-    
-
 
     private void configureMensalidadesRoutes(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize

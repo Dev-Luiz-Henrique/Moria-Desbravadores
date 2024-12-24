@@ -13,7 +13,6 @@
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
-        "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
         "tipo": "DIRETOR_CLUBE",
         "endereco": {
@@ -39,7 +38,6 @@
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
-        "dataCadastro": "2000-10-27T00:00:00",
         "ativo": true,
         "tipo": "DIRETOR_ASSOCIADO",
         "endereco": {
@@ -65,7 +63,6 @@
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
-        "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
         "tipo": "TESOUREIRO",
         "endereco": {
@@ -91,7 +88,6 @@
         "tamanhoCamisa": "G",
         "estadoCivil": "CASADO",
         "batizado": false,
-        "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
         "tipo": "CAPELAO",
         "endereco": {
@@ -113,7 +109,6 @@
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
-        "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
         "tipo": "SECRETARIO",
         "endereco": {
@@ -139,7 +134,6 @@
         "tamanhoCamisa": "G",
         "estadoCivil": "DIVORCIADO",
         "batizado": false,
-        "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
         "tipo": "INSTRUTOR_CLASSES_PROGRESSIVAS",
         "endereco": {
@@ -165,7 +159,6 @@
         "tamanhoCamisa": "M",
         "estadoCivil": "DIVORCIADO",
         "batizado": false,
-        "dataCadastro": "1998-11-27T00:00:00",
         "ativo": true,
         "tipo": "CONSELHEIRO_UNIDADE",
         "endereco": {
@@ -191,7 +184,6 @@
         "tamanhoCamisa": "G",
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
-        "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
         "tipo": "AUXILIAR",
         "endereco": {
@@ -217,7 +209,6 @@
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
-        "dataCadastro": "2024-10-27T00:00:00",
         "ativo": true,
         "tipo": "DESBRAVADOR",
         "endereco": {
@@ -243,7 +234,6 @@
         "tamanhoCamisa": "M",
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
-        "dataCadastro": "2023-06-27T13:30:15",
         "ativo": true,
         "tipo": "RESPONSAVEL",
         "endereco": {

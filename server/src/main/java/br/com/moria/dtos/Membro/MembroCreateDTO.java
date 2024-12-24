@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import br.com.moria.dtos.Endereco.EnderecoCreateDTO;
 import br.com.moria.enums.EstadoCivil;
 import br.com.moria.enums.TipoMembro;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -77,6 +78,7 @@ public class MembroCreateDTO {
     private int numero;
 
     @Valid
+    @JsonProperty("endereco")
     private EnderecoCreateDTO enderecoCreateDTO;
     
     @NotBlank(message = "O tamanho da camisa é obrigatório")
