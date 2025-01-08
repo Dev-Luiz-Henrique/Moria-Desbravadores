@@ -22,11 +22,11 @@
 ////import org.mockito.MockitoAnnotations;
 ////import org.springframework.boot.test.context.SpringBootTest;
 ////
-////import br.com.moria.models.Endereco;
-////import br.com.moria.models.Evento;
-////import br.com.moria.repositories.EnderecoRepository;
-////import br.com.moria.repositories.EventoRepository;
-////import br.com.moria.services.implementations.EventoServiceImpl;
+////import br.com.moria.domain.endereco.Endereco;
+////import br.com.moria.domain.evento.Evento;
+////import br.com.moria.domain.endereco.EnderecoRepository;
+////import br.com.moria.domain.evento.EventoRepository;
+////import br.com.moria.domain.evento.services.EventoServiceImpl;
 ////
 ////@SpringBootTest
 ////public class EventoServiceTest {

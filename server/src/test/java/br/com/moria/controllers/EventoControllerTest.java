@@ -27,8 +27,8 @@
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //
-//import br.com.moria.models.Evento;
-//import br.com.moria.services.interfaces.IEventoService;
+//import br.com.moria.domain.evento.Evento;
+//import br.com.moria.domain.evento.services.IEventoService;
 //import jakarta.persistence.EntityNotFoundException;
 //
 //public class EventoControllerTest {

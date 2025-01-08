@@ -2,22 +2,24 @@ package br.com.moria.configurations;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import br.com.moria.dtos.Evento.EventoCreateDTO;
-import br.com.moria.dtos.Inscricao.InscricaoCreateDTO;
-import br.com.moria.dtos.Membro.MembroCreateDTO;
-import br.com.moria.dtos.Mensalidade.MensalidadeCreateDTO;
-import br.com.moria.dtos.Recurso.RecursoCreateDTO;
-import br.com.moria.services.interfaces.*;
+import br.com.moria.domains.evento.dtos.EventoCreateDTO;
+import br.com.moria.domains.inscricao.dtos.InscricaoCreateDTO;
+import br.com.moria.domains.membro.dtos.MembroCreateDTO;
+import br.com.moria.domains.mensalidade.dtos.MensalidadeCreateDTO;
+import br.com.moria.domains.recurso.dtos.RecursoCreateDTO;
+import br.com.moria.domains.evento.services.IEventoService;
+import br.com.moria.domains.inscricao.services.IInscricaoService;
+import br.com.moria.domains.membro.services.IMembroService;
+import br.com.moria.domains.mensalidade.services.IMensalidadeService;
+import br.com.moria.domains.recurso.services.IRecursoService;
 
 import java.io.File;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 @Component
 @Profile("dev")

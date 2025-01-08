@@ -29,8 +29,8 @@
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //
-//import br.com.moria.models.Membro;
-//import br.com.moria.services.interfaces.IMembroService;
+//import br.com.moria.domain.membro.Membro;
+//import br.com.moria.domain.membro.services.IMembroService;
 //
 //@WebMvcTest(MembroController.class)
 //public class MembroControllerTest {

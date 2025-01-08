@@ -14,7 +14,7 @@
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
         "ativo": true,
-        "tipo": "DIRETOR_CLUBE",
+        "funcao": "DIRETOR_CLUBE",
         "endereco": {
             "cep": "29163670",
             "logradouro": "Rua Formosa",
@@ -39,7 +39,7 @@
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
         "ativo": true,
-        "tipo": "DIRETOR_ASSOCIADO",
+        "funcao": "DIRETOR_ASSOCIADO",
         "endereco": {
             "cep": "13069072",
             "logradouro": "Rua Exemplo",
@@ -64,7 +64,7 @@
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
         "ativo": true,
-        "tipo": "TESOUREIRO",
+        "funcao": "TESOUREIRO",
         "endereco": {
             "cep": "77813560",
             "logradouro": "Rua Silvania",
@@ -89,7 +89,7 @@
         "estadoCivil": "CASADO",
         "batizado": false,
         "ativo": true,
-        "tipo": "CAPELAO",
+        "funcao": "CAPELAO",
         "endereco": {
             "cep": "77813560"
         },
@@ -110,7 +110,7 @@
         "estadoCivil": "SOLTEIRO",
         "batizado": true,
         "ativo": true,
-        "tipo": "SECRETARIO",
+        "funcao": "SECRETARIO",
         "endereco": {
             "cep": "38446106",
             "logradouro": "Rua Vinte e Oito de Agosto",
@@ -135,7 +135,7 @@
         "estadoCivil": "DIVORCIADO",
         "batizado": false,
         "ativo": true,
-        "tipo": "INSTRUTOR_CLASSES_PROGRESSIVAS",
+        "funcao": "INSTRUTOR_CLASSES_PROGRESSIVAS",
         "endereco": {
             "cep": "69317263",
             "logradouro": "Rua Espedito de Paula Rodrigues",
@@ -160,7 +160,7 @@
         "estadoCivil": "DIVORCIADO",
         "batizado": false,
         "ativo": true,
-        "tipo": "CONSELHEIRO_UNIDADE",
+        "funcao": "CONSELHEIRO_UNIDADE",
         "endereco": {
             "cep": "12345678",
             "logradouro": "Rua Antônio Maurício Ladeira",
@@ -185,7 +185,7 @@
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
         "ativo": true,
-        "tipo": "AUXILIAR",
+        "funcao": "AUXILIAR",
         "endereco": {
             "cep": "59031735",
             "logradouro": "Vila dos Caicós",
@@ -210,7 +210,7 @@
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
         "ativo": true,
-        "tipo": "DESBRAVADOR",
+        "funcao": "DESBRAVADOR",
         "endereco": {
             "cep": "13049594",
             "logradouro": "Rua Antonio Réquia Henrique",
@@ -235,7 +235,7 @@
         "estadoCivil": "SOLTEIRO",
         "batizado": false,
         "ativo": true,
-        "tipo": "RESPONSAVEL",
+        "funcao": "RESPONSAVEL",
         "endereco": {
             "cep": "13578970",
             "logradouro": "Rua Bela Cintra",

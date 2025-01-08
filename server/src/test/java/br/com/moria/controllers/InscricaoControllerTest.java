@@ -32,9 +32,9 @@
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //
-//import br.com.moria.enums.StatusParticipacao;
-//import br.com.moria.models.Inscricao;
-//import br.com.moria.services.interfaces.IInscricaoService;
+//import br.com.moria.domain.inscricao.enums.InscricaoStatusParticipacao;
+//import br.com.moria.domain.inscricao.Inscricao;
+//import br.com.moria.domain.inscricao.services.IInscricaoService;
 //
 //public class InscricaoControllerTest {
 //
@@ -57,7 +57,7 @@
 //    @Test
 //    public void testCreate() throws Exception {
 //        Inscricao inscricao = new Inscricao();
-//        inscricao.setStatusParticipacao(StatusParticipacao.AUSENTE);
+//        inscricao.setStatusParticipacao(InscricaoStatusParticipacao.AUSENTE);
 //
 //        when(inscricaoService.create(any(Inscricao.class))).thenReturn(inscricao);
 //
@@ -73,9 +73,9 @@
 //    @Test
 //    public void testUpdateStatusParticipacao() throws Exception {
 //        Inscricao inscricao = new Inscricao();
-//        inscricao.setStatusParticipacao(StatusParticipacao.PRESENTE);
+//        inscricao.setStatusParticipacao(InscricaoStatusParticipacao.PRESENTE);
 //
-//        when(inscricaoService.updateStatusParticipacao(anyInt(), any(StatusParticipacao.class))).thenReturn(inscricao);
+//        when(inscricaoService.updateStatusParticipacao(anyInt(), any(InscricaoStatusParticipacao.class))).thenReturn(inscricao);
 //
 //        mockMvc.perform(put("/inscricoes/1/status")
 //            .contentType(MediaType.APPLICATION_JSON)
@@ -83,7 +83,7 @@
 //            .andExpect(status().isOk())
 //            .andExpect(jsonPath("$.statusParticipacao").value("CONFIRMADO"));
 //
-//        verify(inscricaoService, times(1)).updateStatusParticipacao(anyInt(), any(StatusParticipacao.class));
+//        verify(inscricaoService, times(1)).updateStatusParticipacao(anyInt(), any(InscricaoStatusParticipacao.class));
 //    }
 //
 //    @Test
@@ -132,12 +132,12 @@
 //    @Test
 //    public void testFindStatusParticipacao() throws Exception {
 //        Inscricao inscricao1 = new Inscricao();
-//        inscricao1.setStatusParticipacao(StatusParticipacao.AUSENTE);
+//        inscricao1.setStatusParticipacao(InscricaoStatusParticipacao.AUSENTE);
 //        Inscricao inscricao2 = new Inscricao();
-//        inscricao2.setStatusParticipacao(StatusParticipacao.JUSTIFICADO);
+//        inscricao2.setStatusParticipacao(InscricaoStatusParticipacao.JUSTIFICADO);
 //        List<Inscricao> inscricoes = Arrays.asList(inscricao1, inscricao2);
 //
-//        when(inscricaoService.findStatusParticipacao(any(StatusParticipacao.class)))
+//        when(inscricaoService.findStatusParticipacao(any(InscricaoStatusParticipacao.class)))
 //            .thenReturn(inscricoes);
 //
 //        mockMvc.perform(get("/inscricoes/status").param("status", "AUSENTE"))
@@ -145,7 +145,7 @@
 //            .andExpect(jsonPath("$[0].statusParticipacao").value("AUSENTE"))
 //            .andExpect(jsonPath("$[1].statusParticipacao").value("JUSTIFICADO"));
 //
-//        verify(inscricaoService, times(1)).findStatusParticipacao(any(StatusParticipacao.class));
+//        verify(inscricaoService, times(1)).findStatusParticipacao(any(InscricaoStatusParticipacao.class));
 //    }
 //*/
 //}

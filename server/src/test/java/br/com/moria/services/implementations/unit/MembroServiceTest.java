@@ -21,12 +21,12 @@
 //import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.web.multipart.MultipartFile;
 //
-//import br.com.moria.models.Endereco;
-//import br.com.moria.models.Membro;
-//import br.com.moria.repositories.EnderecoRepository;
-//import br.com.moria.repositories.MembroRepository;
-//import br.com.moria.services.implementations.MembroServiceImpl;
-//import br.com.moria.services.interfaces.IFileService;
+//import br.com.moria.domain.endereco.Endereco;
+//import br.com.moria.domain.membro.Membro;
+//import br.com.moria.domain.endereco.EnderecoRepository;
+//import br.com.moria.domain.membro.MembroRepository;
+//import br.com.moria.domain.membro.services.MembroServiceImpl;
+//import br.com.moria.domain.file.IFileService;
 //
 //@SpringBootTest
 //public class MembroServiceTest {

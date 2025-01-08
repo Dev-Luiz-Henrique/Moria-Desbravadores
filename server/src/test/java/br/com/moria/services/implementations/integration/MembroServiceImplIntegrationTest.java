@@ -12,13 +12,13 @@
 //import org.springframework.test.context.ActiveProfiles;
 //import org.springframework.transaction.annotation.Transactional;
 //
-//import br.com.moria.enums.EstadoCivil;
-//import br.com.moria.enums.TipoMembro;
-//import br.com.moria.models.Endereco;
-//import br.com.moria.models.Membro;
-//import br.com.moria.repositories.EnderecoRepository;
-//import br.com.moria.repositories.MembroRepository;
-//import br.com.moria.services.implementations.MembroServiceImpl;
+//import br.com.moria.domain.membro.enums.MembroEstadoCivil;
+//import br.com.moria.domain.membro.enums.MembroFuncao;
+//import br.com.moria.domain.endereco.Endereco;
+//import br.com.moria.domain.membro.Membro;
+//import br.com.moria.domain.endereco.EnderecoRepository;
+//import br.com.moria.domain.membro.MembroRepository;
+//import br.com.moria.domain.membro.services.MembroServiceImpl;
 //
 //@SpringBootTest
 //@Transactional
@@ -59,12 +59,12 @@
 //        membro.setRg("123456789");
 //        membro.setOrgaoExpedidor("SSP");
 //        membro.setTamanhoCamisa("M");
-//        membro.setEstadoCivil(EstadoCivil.SOLTEIRO);
+//        membro.setEstadoCivil(MembroEstadoCivil.SOLTEIRO);
 //        membro.setBatizado(true);
 //        membro.setDataCadastro(LocalDateTime.now());
 //        membro.setAtivo(true);
 //        membro.setFichaSaude("Sem restrições.");
-//        membro.setTipo(TipoMembro.DESBRAVADOR);
+//        membro.setFuncao(MembroFuncao.DESBRAVADOR);
 //    }
 //
 //    @Test

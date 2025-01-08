@@ -25,8 +25,8 @@
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //
-//import br.com.moria.models.Recurso;
-//import br.com.moria.services.interfaces.IRecursoService;
+//import br.com.moria.domain.recurso.Recurso;
+//import br.com.moria.domain.recurso.services.IRecursoService;
 //
 //public class RecursoControllerTest {
 //
