@@ -1,4 +1,4 @@
-package br.com.moria.domains.auth;
+package br.com.moria.domains.auth.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class MembroDetailsServiceImpl implements IMembroDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o email: " + email));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(membro.getFuncao().name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + membro.getFuncao().name()));
 
         return new org.springframework.security.core.userdetails.User(
             membro.getEmail(),

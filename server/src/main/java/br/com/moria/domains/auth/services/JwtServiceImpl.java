@@ -1,5 +1,6 @@
-package br.com.moria.domains.auth;
+package br.com.moria.domains.auth.services;
 
+import br.com.moria.domains.auth.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

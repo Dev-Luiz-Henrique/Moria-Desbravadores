@@ -2,11 +2,12 @@ package br.com.moria.configurations.security;
 
 import java.io.IOException;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.com.moria.domains.auth.IJwtService;
+import br.com.moria.domains.auth.services.IJwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +24,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+    protected void doFilterInternal(@NotNull HttpServletRequest request,
+                                    @NotNull HttpServletResponse response,
+                                    @NotNull FilterChain chain)
             throws ServletException, IOException {
         try {
             final String authorizationHeader = request.getHeader("Authorization");
@@ -39,7 +42,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
     }
 
-    private void handleErrorResponse(HttpServletResponse response, int status, String message) throws IOException {
+    private void handleErrorResponse(@NotNull HttpServletResponse response,
+                                     int status,
+                                     String message) throws IOException {
         response.setStatus(status);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

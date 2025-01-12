@@ -1,4 +1,4 @@
-package br.com.moria.domains.auth;
+package br.com.moria.domains.auth.services;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

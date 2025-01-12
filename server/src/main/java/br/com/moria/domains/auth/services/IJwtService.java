@@ -1,4 +1,4 @@
-package br.com.moria.domains.auth;
+package br.com.moria.domains.auth.services;
 
 import jakarta.servlet.http.HttpServletRequest;
 
