@@ -2,35 +2,31 @@ package br.com.moria.domains.membro.enums;
 
 import br.com.moria.domains.auth.enums.AuthPermission;
 
-import java.util.EnumSet;
 import java.util.Set;
 
-import static br.com.moria.domains.auth.enums.AuthPermission.*;
-
 public enum MembroFuncao {
-    ADMINISTRADOR(Set.of(ALL)),
-    DIRETOR_CLUBE(FULL_ACCESS),
-    DIRETOR_ASSOCIADO(FULL_ACCESS),
+    DIRETOR_CLUBE(AuthPermission.FULL_ACCESS.getPermissions()),
+    DIRETOR_ASSOCIADO(AuthPermission.FULL_ACCESS.getPermissions()),
     TESOUREIRO(Set.of(
-            MANAGE_MENSALIDADES,
-            MANAGE_RECURSOS,
-            VIEW_MEMBROS,
-            VIEW_EVENTOS,
-            VIEW_INSCRICOES
+            AuthPermission.MANAGE_MENSALIDADES,
+            AuthPermission.MANAGE_RECURSOS,
+            AuthPermission.VIEW_MEMBROS,
+            AuthPermission.VIEW_EVENTOS,
+            AuthPermission.VIEW_INSCRICOES
     )),
     SECRETARIO(Set.of(
-            MANAGE_MEMBROS,
-            MANAGE_EVENTOS,
-            MANAGE_INSCRICOES,
-            VIEW_MENSALIDADES,
-            VIEW_RECURSOS
+            AuthPermission.MANAGE_MEMBROS,
+            AuthPermission.MANAGE_EVENTOS,
+            AuthPermission.MANAGE_INSCRICOES,
+            AuthPermission.VIEW_MENSALIDADES,
+            AuthPermission.VIEW_RECURSOS
     )),
-    INSTRUTOR_CLASSES_PROGRESSIVAS(VIEW_ONLY),
-    CONSELHEIRO_UNIDADE(VIEW_ONLY),
-    CAPELAO(VIEW_ONLY),
-    AUXILIAR(VIEW_ONLY),
-    DESBRAVADOR(VIEW_OWN),
-    RESPONSAVEL(VIEW_OWN);
+    INSTRUTOR_CLASSES_PROGRESSIVAS(AuthPermission.VIEW_ONLY.getPermissions()),
+    CONSELHEIRO_UNIDADE(AuthPermission.VIEW_ONLY.getPermissions()),
+    CAPELAO(AuthPermission.VIEW_ONLY.getPermissions()),
+    AUXILIAR(AuthPermission.VIEW_ONLY.getPermissions()),
+    DESBRAVADOR(AuthPermission.VIEW_OWN.getPermissions()),
+    RESPONSAVEL(AuthPermission.VIEW_OWN.getPermissions());
 
     private final Set<AuthPermission> permissions;
 
@@ -40,18 +36,5 @@ public enum MembroFuncao {
 
     public Set<AuthPermission> getPermissions() {
         return permissions;
-    }
-
-    public boolean hasPermission(AuthPermission permission) {
-        return permissions.contains(permission) || permissions.contains(ALL);
-    }
-
-    public boolean hasPermission(String permission) {
-        if (permission == null || permission.isEmpty()) return false;
-
-        return EnumSet.allOf(AuthPermission.class)
-                .stream()
-                .anyMatch(authPermission -> authPermission.name().equals(permission)) &&
-                    hasPermission(AuthPermission.valueOf(permission));
     }
 }

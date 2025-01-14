@@ -1,36 +1,39 @@
 package br.com.moria.domains.auth.enums;
 
+import java.util.EnumSet;
 import java.util.Set;
 
 public enum AuthPermission {
-    ALL,
-    VIEW_OWN_ENTITIES,
-    MANAGE_MEMBROS,
     VIEW_MEMBROS,
-    MANAGE_EVENTOS,
     VIEW_EVENTOS,
-    MANAGE_INSCRICOES,
     VIEW_INSCRICOES,
-    MANAGE_RECURSOS,
+    VIEW_MENSALIDADES,
     VIEW_RECURSOS,
+    MANAGE_MEMBROS,
+    MANAGE_EVENTOS,
+    MANAGE_INSCRICOES,
     MANAGE_MENSALIDADES,
-    VIEW_MENSALIDADES;
+    MANAGE_RECURSOS,
 
-    public static final Set<AuthPermission> FULL_ACCESS = Set.of(
-            MANAGE_MENSALIDADES,
-            MANAGE_RECURSOS,
-            MANAGE_MEMBROS,
-            MANAGE_EVENTOS,
-            MANAGE_INSCRICOES
-    );
+    FULL_ACCESS(EnumSet.allOf(AuthPermission.class)),
+    VIEW_ONLY(EnumSet.of(
+            VIEW_MEMBROS, VIEW_EVENTOS, VIEW_INSCRICOES, VIEW_MENSALIDADES, VIEW_RECURSOS
+    )),
+    VIEW_OWN(EnumSet.of(
+            VIEW_MEMBROS, VIEW_EVENTOS, VIEW_INSCRICOES
+    ));
 
-    public static final Set<AuthPermission> VIEW_ONLY = Set.of(
-            VIEW_MEMBROS,
-            VIEW_EVENTOS,
-            VIEW_INSCRICOES
-    );
+    private final Set<AuthPermission> permissions;
 
-    public static final Set<AuthPermission> VIEW_OWN = Set.of(
-            VIEW_OWN_ENTITIES
-    );
+    AuthPermission(Set<AuthPermission> permissions) {
+        this.permissions = permissions;
+    }
+
+    AuthPermission() {
+        this.permissions = Set.of(this);
+    }
+
+    public Set<AuthPermission> getPermissions() {
+        return permissions;
+    }
 }

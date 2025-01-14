@@ -1,9 +1,14 @@
 package br.com.moria.domains.auth;
 
+import br.com.moria.domains.auth.dtos.AuthRequestDTO;
+import br.com.moria.domains.auth.dtos.AuthResponseDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,39 +27,26 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody AuthRequest authRequest) throws Exception {
+    public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody AuthRequestDTO authRequestDTO) throws Exception {
         try {
             // Authenticate the user using the UserDetailsService implementation (MembroDetailsService).
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(authRequestDTO.getEmail(), authRequestDTO.getPassword())
             );
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             final String jwt = jwtUtil.generateToken(userDetails);
-            return jwt;
+
+            AuthResponseDTO response = new AuthResponseDTO();
+            response.setToken(jwt);
+            response.setEmail(userDetails.getUsername());
+            response.setRole(userDetails.getAuthorities().stream()
+                    .findFirst().map(GrantedAuthority::getAuthority).orElse("ROLE_NULL"));
+            response.setExpiresAt(jwtUtil.extractExpiration(jwt));
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             throw new Exception("Usuário ou senha inválidos", e);
         }
-    }
-}
-
-class AuthRequest {
-    private String email;
-    private String password;
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
