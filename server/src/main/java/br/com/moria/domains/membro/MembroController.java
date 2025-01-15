@@ -38,12 +38,14 @@ public class MembroController {
         this.membroService = membroService;
     }
 
+    @PreAuthorize("@authService.hasPermission('MANAGE_MEMBROS')")
     @PostMapping
     public ResponseEntity<MembroResponseDTO> create(@Valid @RequestBody MembroCreateDTO membroCreateDTO) {
         MembroResponseDTO createdMembro = membroService.create(membroCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMembro);
     }
 
+    @PreAuthorize("@authService.hasPermission('MANAGE_MEMBROS')")
     @PutMapping("/{id}")
     public ResponseEntity<MembroResponseDTO> update(@PathVariable int id,
                                                     @Valid @RequestBody @NotNull MembroUpdateDTO membroUpdateDTO) {
@@ -52,6 +54,7 @@ public class MembroController {
         return ResponseEntity.ok(updatedMembro);
     }
 
+    @PreAuthorize("@authService.hasPermission('MANAGE_MEMBROS')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
         membroService.delete(id);
@@ -65,30 +68,35 @@ public class MembroController {
         return ResponseEntity.ok(membros);
     }
 
+    @PreAuthorize("@authService.hasPermissionOrIsOwner('VIEW_MEMBROS', #id)")
     @GetMapping("/{id}")
     public ResponseEntity<MembroResponseDTO> findById(@PathVariable int id) {
         MembroResponseDTO membro = membroService.findById(id);
         return ResponseEntity.ok(membro);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MEMBROS')")
     @GetMapping("/cpf")
     public ResponseEntity<MembroResponseDTO> findByCpf(@RequestParam String cpf) {
         MembroResponseDTO membro = membroService.findByCpf(cpf);
         return ResponseEntity.ok(membro);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MEMBROS')")
     @GetMapping("/email")
     public ResponseEntity<MembroResponseDTO> findByEmail(@RequestParam String email) {
         MembroResponseDTO membro = membroService.findByEmail(email);
         return ResponseEntity.ok(membro);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MEMBROS')")
     @GetMapping("/nome")
     public ResponseEntity<List<MembroResponseDTO>> findByName(@RequestParam String nome) {
         List<MembroResponseDTO> membros = membroService.findByNomeContaining(nome);
         return ResponseEntity.ok(membros);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MEMBROS')")
     @PostMapping("/{id}/ficha-saude")
     public ResponseEntity<MembroResponseDTO> uploadFichaSaude(@PathVariable int id,
                                                               @RequestParam("file") @NotNull MultipartFile file) throws IOException {
@@ -96,6 +104,7 @@ public class MembroController {
         return ResponseEntity.ok(updatedMembro);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MEMBROS')")
     @GetMapping("/{id}/ficha-saude")
     public ResponseEntity<byte[]> downloadFichaSaude(@PathVariable int id) throws IOException {
         FileResponseDTO fileResponse = membroService.findFichaSaudeById(id);

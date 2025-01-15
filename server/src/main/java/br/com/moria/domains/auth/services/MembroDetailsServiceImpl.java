@@ -3,6 +3,7 @@ package br.com.moria.domains.auth.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.moria.domains.auth.MembroDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -38,7 +39,7 @@ public class MembroDetailsServiceImpl implements IMembroDetailsService {
      * Carrega o membro pelo e-mail fornecido, criando um {@link UserDetails} para autenticação.
      *
      * @param email o e-mail do membro.
-     * @return os detalhes do membro, incluindo suas autoridades.
+     * @return os detalhes do membro, incluindo sua função.
      * @throws UsernameNotFoundException se o membro não for encontrado.
      */
     @Override
@@ -49,10 +50,11 @@ public class MembroDetailsServiceImpl implements IMembroDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + membro.getFuncao().name()));
 
-        return new org.springframework.security.core.userdetails.User(
-            membro.getEmail(),
-            membro.getSenha(),
-            authorities
+        return new MembroDetails(
+                membro.getId(),
+                membro.getEmail(),
+                membro.getSenha(),
+                authorities
         );
     }
 }

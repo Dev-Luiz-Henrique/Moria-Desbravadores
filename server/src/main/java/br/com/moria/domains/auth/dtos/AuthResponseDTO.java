@@ -12,6 +12,7 @@ public class AuthResponseDTO {
 
     private String token;
     private String email;
+    private Integer userId;
     private String role;
     private Date expiresAt;
 
@@ -29,6 +30,14 @@ public class AuthResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getRole() {

@@ -43,6 +43,7 @@ public class AuthController {
             response.setRole(userDetails.getAuthorities().stream()
                     .findFirst().map(GrantedAuthority::getAuthority).orElse("ROLE_NULL"));
             response.setExpiresAt(jwtUtil.extractExpiration(jwt));
+            if (userDetails instanceof MembroDetails) response.setUserId(((MembroDetails) userDetails).getId()); // TODO SEGURO?
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {

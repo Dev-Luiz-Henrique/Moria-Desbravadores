@@ -1,5 +1,6 @@
 package br.com.moria.domains.auth.services;
 
+import br.com.moria.domains.auth.MembroDetails;
 import br.com.moria.domains.auth.enums.AuthPermission;
 import br.com.moria.domains.membro.enums.MembroFuncao;
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +34,17 @@ public class AuthServiceImpl implements IAuthService {
         } catch (IllegalArgumentException e) {
             return false;
         }
+    }
+
+    @Override
+    public boolean isCurrentUserOwner(int itemOwnerId) {
+        int currentUserId = getCurrentUserId();
+        return currentUserId == itemOwnerId;
+    }
+
+    @Override
+    public boolean hasPermissionOrIsOwner(AuthPermission permission, int ownerId) {
+        return hasPermission(permission) || isCurrentUserOwner(ownerId);
     }
 
     @Override
@@ -83,5 +95,19 @@ public class AuthServiceImpl implements IAuthService {
             // TODO Realizar Log e tratar erro
             return null;
         }
+    }
+
+    /**
+     * Obtém o ID do usuário autenticado.
+     *
+     * @return o ID do usuário autenticado.
+     * @throws IllegalStateException se o usuário atual não estiver autenticado ou o principal não for uma instância válida.
+     */
+    private int getCurrentUserId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof MembroDetails)
+            return ((MembroDetails) principal).getId();
+
+        throw new IllegalStateException("Usuário atual não é uma instância válida de MembroDetails");
     }
 }

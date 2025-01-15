@@ -32,11 +32,6 @@ public enum AuthPermission {
             VIEW_MEMBROS, VIEW_EVENTOS, VIEW_INSCRICOES, VIEW_MENSALIDADES, VIEW_RECURSOS
     );
 
-    /** Conjunto de permissões para visualização de entidades próprias. */
-    public static final Set<AuthPermission> VIEW_OWN = EnumSet.of(
-            VIEW_MEMBROS, VIEW_EVENTOS, VIEW_INSCRICOES
-    );
-
     /**
      * Combina dois conjuntos de permissões.
      *

@@ -26,8 +26,8 @@ public enum MembroFuncao {
     CONSELHEIRO_UNIDADE(AuthPermission.VIEW_ONLY),
     CAPELAO(AuthPermission.VIEW_ONLY),
     AUXILIAR(AuthPermission.VIEW_ONLY),
-    DESBRAVADOR(AuthPermission.VIEW_OWN),
-    RESPONSAVEL(AuthPermission.VIEW_OWN);
+    DESBRAVADOR(Set.of()),
+    RESPONSAVEL(Set.of());
 
     private final Set<AuthPermission> permissions;
 
