@@ -1,4 +1,4 @@
-package br.com.moria.enums;
+package br.com.moria.shared.enums;
 
 /**
  * Enumeração que define o status de um pagamento.

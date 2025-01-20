@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.moria.enums.FormaPagamento;
+import br.com.moria.shared.enums.FormaPagamento;
 import br.com.moria.domains.membro.Membro;
 import br.com.moria.domains.file.IFileService;
 import br.com.moria.domains.membro.services.IMembroService;

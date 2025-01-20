@@ -1,4 +1,4 @@
-package br.com.moria.utils;
+package br.com.moria.shared.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

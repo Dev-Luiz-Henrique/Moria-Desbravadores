@@ -3,7 +3,7 @@ package br.com.moria.domains.mensalidade;
 import java.time.LocalDateTime;
 
 import br.com.moria.domains.membro.Membro;
-import br.com.moria.enums.FormaPagamento;
+import br.com.moria.shared.enums.FormaPagamento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

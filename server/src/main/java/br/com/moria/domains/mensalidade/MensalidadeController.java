@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.moria.enums.FormaPagamento;
-import br.com.moria.utils.DateTimeUtil;
+import br.com.moria.shared.enums.FormaPagamento;
+import br.com.moria.shared.utils.DateTimeUtil;
 
 @RestController
 @RequestMapping("/mensalidades")

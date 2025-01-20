@@ -2,7 +2,7 @@ package br.com.moria.domains.mensalidade.dtos;
 
 import java.time.LocalDateTime;
 
-import br.com.moria.enums.FormaPagamento;
+import br.com.moria.shared.enums.FormaPagamento;
 
 /**
  * DTO de resposta para informações detalhadas de uma mensalidade.

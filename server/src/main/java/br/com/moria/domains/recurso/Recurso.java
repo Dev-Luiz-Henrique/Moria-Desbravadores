@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 import br.com.moria.domains.evento.Evento;
 import br.com.moria.domains.recurso.enums.RecursoCategoria;
-import br.com.moria.enums.FormaPagamento;
-import br.com.moria.enums.StatusPagamento;
+import br.com.moria.shared.enums.FormaPagamento;
+import br.com.moria.shared.enums.StatusPagamento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

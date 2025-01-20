@@ -8,7 +8,7 @@ import br.com.moria.domains.mensalidade.dtos.MensalidadeCreateDTO;
 import br.com.moria.domains.mensalidade.dtos.MensalidadeResponseDTO;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.moria.enums.FormaPagamento;
+import br.com.moria.shared.enums.FormaPagamento;
 
 /**
  * Interface de serviço para operações relacionadas a mensalidades.

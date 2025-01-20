@@ -1,4 +1,4 @@
-package br.com.moria.exceptions;
+package br.com.moria.shared.exceptions;
 
 import java.util.List;
 import java.util.Map;

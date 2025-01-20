@@ -1,4 +1,4 @@
-package br.com.moria.enums;
+package br.com.moria.shared.enums;
 
 /**
  * Enumeração que define as formas de pagamento disponíveis.

@@ -98,13 +98,13 @@ public class MembroController {
 
     @PreAuthorize("@authService.hasPermission('VIEW_MEMBROS')")
     @PostMapping("/{id}/ficha-saude")
-    public ResponseEntity<MembroResponseDTO> uploadFichaSaude(@PathVariable int id,
-                                                              @RequestParam("file") @NotNull MultipartFile file) throws IOException {
+    public ResponseEntity<MembroResponseDTO> uploadFichaSaude(
+            @PathVariable int id, @RequestParam("file") @NotNull MultipartFile file) throws IOException {
         MembroResponseDTO updatedMembro = membroService.updateFichaSaudeById(id, file);
         return ResponseEntity.ok(updatedMembro);
     }
 
-    @PreAuthorize("@authService.hasPermission('VIEW_MEMBROS')")
+    @PreAuthorize("@authService.hasPermissionOrIsOwner('VIEW_MEMBROS', #id)")
     @GetMapping("/{id}/ficha-saude")
     public ResponseEntity<byte[]> downloadFichaSaude(@PathVariable int id) throws IOException {
         FileResponseDTO fileResponse = membroService.findFichaSaudeById(id);
