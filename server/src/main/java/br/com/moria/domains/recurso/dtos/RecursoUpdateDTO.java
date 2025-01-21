@@ -21,32 +21,32 @@ public class RecursoUpdateDTO {
 
     private int id;
 
-    @NotNull(message = "O campo id evento é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private int idEvento;
 
-    @NotBlank(message = "O campo nome é obrigatório")
-    @Size(max = 255, message = "O nome deve ter no máximo 255 caracteres")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(max = 255, message = "{javax.validation.constraints.Size}")
     private String nome;
 
-    @NotBlank(message = "O campo descrição é obrigatório")
-    @Size(max = 255, message = "A descrição deve ter no máximo 255 caracteres")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(max = 255, message = "{javax.validation.constraints.Size}")
     private String descricao;
-    
-    @NotNull(message = "O campo valor é obrigatório")
-    @DecimalMin(value = "0.00", message = "O valor deve ser maior que 0")
+
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @DecimalMin(value = "0.00", message = "{javax.validation.constraints.DecimalMin}")
     private BigDecimal valor;
 
-    @NotNull(message = "O campo quantidade é obrigatório")
-    @DecimalMin(value = "0.00", message = "A quantidade deve ser maior que 0")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @DecimalMin(value = "0.00", message = "{javax.validation.constraints.DecimalMin}")
     private Double quantidade;
 
-    @NotNull(message = "O campo forma de pagamento é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private FormaPagamento formaPagamento;
 
-    @NotNull(message = "O campo categoria é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private RecursoCategoria categoria;
 
-    @NotNull(message = "O campo status de pagamento é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private StatusPagamento statusPagamento;
 
     public int getId() {

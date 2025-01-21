@@ -12,23 +12,23 @@ import jakarta.validation.constraints.Size;
  */
 public class EnderecoCreateDTO {
 
-    @NotBlank(message = "O campo CEP é obrigatório")
-    @Pattern(regexp = "\\d{8}", message = "O campo CEP deve ter exatamente 8 dígitos")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Pattern(regexp = "^\\d{8}$", message = "{javax.validation.constraints.Pattern.cep}")
     private String cep;
 
-    @Size(min = 3, max = 255, message = "O campo logradouro deve ter entre 3 e 255 caracteres")
+    @Size(min = 3, max = 255, message = "{javax.validation.constraints.Size}")
     private String logradouro;
 
-    @NotBlank(message = "O campo bairro é obrigatório")
-    @Size(min = 3, max = 255, message = "O campo bairro deve ter entre 3 e 255 caracteres")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(min = 3, max = 255, message = "{javax.validation.constraints.Size}")
     private String bairro;
 
-    @NotBlank(message = "O campo cidade é obrigatório")
-    @Size(min = 3, max = 255, message = "O campo cidade deve ter entre 3 e 255 caracteres")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(min = 3, max = 255, message = "{javax.validation.constraints.Size}")
     private String cidade;
 
-    @NotBlank(message = "O campo estado é obrigatório")
-    @Pattern(regexp = "[A-Z]{2}", message = "O campo estado deve ter exatamente 2 letras maiúsculas")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Pattern(regexp = "^[A-Z]{2}$", message = "{javax.validation.constraints.Pattern.estado}")
     private String estado;
 
     public String getCep() {

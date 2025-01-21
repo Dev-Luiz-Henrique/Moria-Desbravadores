@@ -1,16 +1,21 @@
 package br.com.moria.shared.exceptions;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,20 +36,29 @@ public class GlobalExceptionHandler {
     @Value("${spring.profiles.active:default}")
     private String activeProfile;
 
+    @Autowired
+    private MessageSource messageSource;
+
     /**
      * Handle validation exceptions from MethodArgumentNotValidException (400 Bad Request)
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-        List<String> errors = ex.getBindingResult().getFieldErrors().stream()
-            .map(error -> String.format("Campo '%s': %s", error.getField(), error.getDefaultMessage()))
-            .collect(Collectors.toList());
-        
-        String errorMessage = "Houve erros de validação. Verifique os seguintes campos:";
-        logAndAdaptMessage(ex, errorMessage, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String, Object>> handleValidationException(MethodArgumentNotValidException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("timestamp", System.currentTimeMillis());
+        response.put("status", HttpStatus.BAD_REQUEST.value());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-            Map.of("code", HttpStatus.BAD_REQUEST.value(), "message", errorMessage, "errors", errors));
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+            String message = messageSource.getMessage(
+                    error,
+                    Locale.getDefault()
+            );
+            errors.put(error.getField(), message);
+        }
+        response.put("errors", errors);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
     /**

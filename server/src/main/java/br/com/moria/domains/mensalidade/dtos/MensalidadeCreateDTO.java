@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import br.com.moria.shared.enums.FormaPagamento;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -15,32 +16,34 @@ import jakarta.validation.constraints.NotNull;
  */
 public class MensalidadeCreateDTO {
 
-    @NotNull(message = "O campo id do membro é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private int idMembro;
 
-    @NotNull(message = "O campo data é obrigatória")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private LocalDateTime data;
 
-    @NotNull(message = "O campo data de vencimento é obrigatória")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @FutureOrPresent(message = "{javax.validation.constraints.FutureOrPresent}")
     private LocalDateTime dataVencimento;
 
-    @NotNull(message = "O campo data de pagamento é obrigatória")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @FutureOrPresent(message = "{javax.validation.constraints.FutureOrPresent}")
     private LocalDateTime dataPagamento;
 
-    @NotNull(message = "O campo valor é obrigatório")
-    @DecimalMin(value = "0.0", inclusive = false, message = "O valor deve ser maior que zero")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @DecimalMin(value = "0.0", inclusive = false, message = "{javax.validation.constraints.DecimalMin}")
     private Double valor;
 
-    @NotNull(message = "O campo pagamento realizado é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private boolean pagamentoRealizado;
 
-    @NotNull(message = "O campo forma de pagamento é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private FormaPagamento formaPagamento;
 
-    @NotBlank(message = "O campo comprovante é obrigatório")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
     private String comprovante;
 
-    @NotBlank(message = "O campo observações é obrigatório")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
     private String observacoes;
 
     public int getIdMembro() {

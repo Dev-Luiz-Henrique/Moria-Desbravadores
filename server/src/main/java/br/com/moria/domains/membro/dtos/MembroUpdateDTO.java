@@ -7,13 +7,7 @@ import br.com.moria.domains.membro.enums.MembroEstadoCivil;
 import br.com.moria.domains.membro.enums.MembroFuncao;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 /**
  * DTO para atualização de um membro existente.
@@ -24,69 +18,69 @@ import jakarta.validation.constraints.Size;
 public class MembroUpdateDTO {
 
     private int id;
-    
-    @NotBlank(message = "O campo nome é obrigatório")
-    @Size(min = 3, max = 100, message = "O campo nome deve conter entre 3 e 100 caracteres")
+
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(min = 3, max = 100, message = "{javax.validation.constraints.Size}")
     private String nome;
 
-    @NotBlank(message = "O campo sexo é obrigatório")
-    @Pattern(regexp = "[MFO]", message = "Sexo deve ser 'M', 'F' ou 'O'.")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Pattern(regexp = "[MFO]", message = "{javax.validation.constraints.Pattern.sexo}")
     private String sexo;
 
-    @NotNull(message = "O campo data de nascimento é obrigatório")
-    @Past(message = "A data de nascimento deve ser anterior a data atual")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @Past(message = "{javax.validation.constraints.Past}")
     private LocalDate dataNascimento;
 
-    @NotBlank(message = "O campo CPF é obrigatório")
-    @Pattern(regexp = "\\d{11}", message = "O campo CPF deve conter exatamente 11 dígitos")
-    @Size(min = 11, max = 11, message = "O campo CPF deve conter exatamente 11 dígitos")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Pattern(regexp = "\\d{11}", message = "{javax.validation.constraints.Pattern.cpf}")
+    @Size(min = 11, max = 11, message = "{javax.validation.constraints.Size}")
     private String cpf;
 
-    @NotBlank(message = "O campo RG é obrigatório")
-    @Size(max = 20, message = "O campo RG deve conter no máximo 20 dígitos")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(max = 20, message = "{javax.validation.constraints.Size}")
     private String rg;
 
-    @NotBlank(message = "O campo orgão expedidor é obrigatório")
-    @Size(max = 15, message = "Órgão Expedidor deve ter no máximo 15 caracteres.")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(max = 15, message = "{javax.validation.constraints.Size}")
     private String orgaoExpedidor;
 
-    @NotNull(message = "O campo naturalidade é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private MembroEstadoCivil estadoCivil;
 
-    @NotNull(message = "O campo batizado é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private boolean batizado;
 
-    @NotBlank(message = "O campo telefone é obrigatório")
-    @Pattern(regexp = "\\d{10}", message = "O campo telefone deve conter exatamente 10 dígitos")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Pattern(regexp = "\\d{10}", message = "{javax.validation.constraints.Pattern.telefone}")
     private String telefone;
 
-    @NotBlank(message = "O campo celular é obrigatório")
-    @Pattern(regexp = "\\d{11}", message = "O campo celular deve conter exatamente 11 dígitos")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Pattern(regexp = "\\d{11}", message = "{javax.validation.constraints.Pattern.celular}")
     private String celular;
 
-    @NotBlank(message = "O campo email é obrigatório")
-    @Email(message = "O campo email deve ser um email válido")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Email(message = "{javax.validation.constraints.Email}")
     private String email;
 
-    @NotNull(message = "O campo numero é obrigatório")
-    @Min(value = 1, message = "O campo numero deve ser maior que 0")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @Positive(message = "{javax.validation.constraints.Positive}")
     private int numero;
 
     @Valid
     @JsonProperty("endereco")
     private EnderecoCreateDTO enderecoCreateDTO;
-    
-    @NotBlank(message = "O tamanho da camisa é obrigatório")
-    @Size(max = 5, message = "O campo tamanho da camisa deve conter no máximo 5 caracteres")
+
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(max = 5, message = "{javax.validation.constraints.Size}")
     private String tamanhoCamisa;
-    
-    @Size(max = 255, message = "O campo ficha de saúde deve conter no máximo 255 caracteres")
+
+    @Size(max = 255, message = "{javax.validation.constraints.Size}")
     private String fichaSaude;
 
-    @NotNull(message = "O campo função é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private MembroFuncao funcao;
 
-    @NotNull(message = "O campo ativo é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private boolean ativo;
 
     public int getId() {

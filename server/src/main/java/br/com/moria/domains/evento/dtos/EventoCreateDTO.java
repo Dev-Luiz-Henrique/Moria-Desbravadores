@@ -5,11 +5,7 @@ import java.time.LocalDateTime;
 import br.com.moria.domains.endereco.dtos.EnderecoCreateDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 /**
  * DTO para criação de um novo evento.
@@ -19,34 +15,34 @@ import jakarta.validation.constraints.Size;
  */
 public class EventoCreateDTO {
 
-    @NotBlank(message = "O campo nome é obrigatório")
-    @Size(max = 50, message = "O campo nome deve ter no máximo 50 caracteres")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(max = 50, message = "{javax.validation.constraints.Size}")
     private String nome;
-    
-    @NotBlank(message = "O campo descrição é obrigatório")
-    @Size(max = 500, message = "O campo descrição deve ter no máximo 500 caracteres")
+
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(max = 500, message = "{javax.validation.constraints.Size}")
     private String descricao;
 
-    @NotBlank(message = "O campo atração é obrigatório")
-    @Size(max = 50, message = "O campo atração deve ter no máximo 50 caracteres")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
+    @Size(max = 50, message = "{javax.validation.constraints.Size}")
     private String atracao;
 
-    @NotBlank(message = "O campo imagem é obrigatório")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
     private String imagem;
 
-    @NotNull(message = "O campo data de início é obrigatório")
-    @Future(message = "A data de início deve ser uma data futura")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @Future(message = "{javax.validation.constraints.Future}")
     private LocalDateTime dataInicio;
 
-    @NotNull(message = "O campo data de fim é obrigatório")
-    @Future(message = "A data de fim deve ser uma data futura")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @Future(message = "{javax.validation.constraints.Future}")
     private LocalDateTime dataFim;
 
-    @NotNull(message = "O campo valor é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private boolean publico;
 
-    @NotNull(message = "O campo numero é obrigatório")
-    @Min(value = 1, message = "O campo numero deve ser maior que 0")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
+    @Positive(message = "{javax.validation.constraints.Positive}")
     private int numero;
 
     @Valid

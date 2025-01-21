@@ -11,11 +11,11 @@ import jakarta.validation.constraints.NotBlank;
  */
 public class AuthRequestDTO {
 
-    @Email(message = "O e-mail deve ser válido.")
-    @NotBlank(message = "O e-mail não pode estar vazio.")
+    @Email(message = "{javax.validation.constraints.Email}")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
     private String email;
 
-    @NotBlank(message = "A senha não pode estar vazia.")
+    @NotBlank(message = "{javax.validation.constraints.NotBlank}")
     private String password;
 
     public String getEmail() {

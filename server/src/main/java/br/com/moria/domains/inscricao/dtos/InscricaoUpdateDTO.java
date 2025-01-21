@@ -13,16 +13,16 @@ public class InscricaoUpdateDTO {
 
     private int id;
 
-    @NotNull(message = "O campo id do evento é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private int eventoId;
 
-    @NotNull(message = "O campo id do membro é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private int membroId;
 
-    @NotNull(message = "O campo status de participação é obrigatório")
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private InscricaoStatusParticipacao statusParticipacao;
-    
-    @NotNull(message = "O campo inscrito é obrigatório")
+
+    @NotNull(message = "{javax.validation.constraints.NotNull}")
     private Boolean inscrito;
 
     public int getId() {
