@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
  *
  * <p>Representa uma exceção com status HTTP 500 (Internal Server Error),
  * geralmente utilizada quando ocorre um erro inesperado na aplicação.</p>
+ *
+ * @see ApplicationException
  */
 public class InternalServerErrorException extends ApplicationException {
 

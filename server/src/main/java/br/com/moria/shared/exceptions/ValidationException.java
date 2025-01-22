@@ -14,6 +14,8 @@ import java.util.Map;
  * <p>Além da mensagem, esta exceção armazena os erros detalhados em forma
  * de um mapa, onde cada chave representa o campo inválido e o valor
  * descreve o erro correspondente.</p>
+ *
+ * @see ApplicationException
  */
 public class ValidationException extends ApplicationException {
 
