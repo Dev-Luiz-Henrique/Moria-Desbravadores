@@ -8,12 +8,9 @@ import java.util.Map;
 /**
  * Exceção personalizada para erros de validação.
  *
- * <p>Representa uma exceção com status HTTP 400 (Bad Request), indicando
- * que os dados fornecidos não atendem aos requisitos de validação.</p>
- *
- * <p>Além da mensagem, esta exceção armazena os erros detalhados em forma
- * de um mapa, onde cada chave representa o campo inválido e o valor
- * descreve o erro correspondente.</p>
+ * <p>Indica que os dados fornecidos não atendem aos requisitos de validação.
+ * Essa exceção retorna um status HTTP 400 (Bad Request) e fornece detalhes
+ * adicionais dos erros em forma de mapa.</p>
  *
  * @see ApplicationException
  */
@@ -22,7 +19,7 @@ public class ValidationException extends ApplicationException {
     private final Map<String, String> errors;
 
     /**
-     * Construtor privado para inicializar a exceção com detalhes de erros.
+     * Construtor privado para criar a exceção com detalhes de erros de validação.
      *
      * @param message a mensagem descritiva do erro.
      * @param errors  o mapa contendo os erros de validação.
@@ -37,10 +34,7 @@ public class ValidationException extends ApplicationException {
     }
 
     /**
-     * Cria uma instância da exceção com uma mensagem padrão e detalhes dos erros.
-     *
-     * <p>A mensagem é obtida a partir do utilitário {@link MessageUtil} com a chave
-     * "validation.error.default".</p>
+     * Cria uma nova instância da exceção com uma mensagem padrão e os erros de validação.
      *
      * @param errors o mapa contendo os erros de validação.
      * @return uma nova instância de {@link ValidationException}.
@@ -51,13 +45,14 @@ public class ValidationException extends ApplicationException {
     }
 
     /**
-     * Cria uma instância da exceção com uma mensagem personalizada e detalhes dos erros.
+     * Cria uma nova instância da exceção com uma mensagem obtida do {@link MessageUtil} e os erros de validação.
      *
-     * @param customMessage a mensagem personalizada descrevendo o erro.
-     * @param errors        o mapa contendo os erros de validação.
+     * @param messageKey a chave da mensagem no {@link MessageUtil}.
+     * @param errors o mapa contendo os erros de validação.
      * @return uma nova instância de {@link ValidationException}.
      */
-    public static ValidationException of(String customMessage, Map<String, String> errors) {
-        return new ValidationException(customMessage, errors);
+    public static ValidationException of(String messageKey, Map<String, String> errors) {
+        String message = MessageUtil.getMessage(messageKey);
+        return new ValidationException(message, errors);
     }
 }

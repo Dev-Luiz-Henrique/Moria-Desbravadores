@@ -5,11 +5,11 @@ import br.com.moria.shared.utils.MessageUtil;
 import org.springframework.http.HttpStatus;
 
 /**
- * Exceção personalizada para representar erros de entidade não encontrada.
- * <p>
- * Esta exceção é lançada quando uma entidade específica não é encontrada no sistema.
- * Ela fornece detalhes como o tipo da entidade e seu identificador.
- * </p>
+ * Exceção personalizada para indicar que uma entidade não foi encontrada.
+ *
+ * <p>Essa exceção é lançada quando uma entidade específica não está disponível no sistema.
+ * Ela retorna um status HTTP 404 (Not Found) e fornece detalhes como o tipo da entidade
+ * e seu identificador.</p>
  *
  * @see ApplicationException
  * @see EntityType
@@ -20,11 +20,11 @@ public class NotFoundException extends ApplicationException {
     private final Object entityId;
 
     /**
-     * Construtor privado para criar uma instância da exceção.
+     * Construtor privado para criar a exceção com os detalhes da entidade não encontrada.
      *
      * @param entityType o tipo da entidade que não foi encontrada.
      * @param entityId o identificador da entidade.
-     * @param message a mensagem de erro associada.
+     * @param message a mensagem descritiva do erro.
      * @param errorCode o código de erro associado.
      */
     private NotFoundException(EntityType entityType, Object entityId, String message, String errorCode) {
@@ -42,7 +42,7 @@ public class NotFoundException extends ApplicationException {
     }
 
     /**
-     * Cria uma nova instância da exceção com base no tipo de entidade e seu identificador.
+     * Cria uma nova instância da exceção para uma entidade não encontrada.
      *
      * @param entityType o tipo da entidade.
      * @param entityId o identificador da entidade.
