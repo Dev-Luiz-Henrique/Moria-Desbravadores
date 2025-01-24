@@ -32,7 +32,7 @@ public class UnauthorizedException extends ApplicationException {
      * @return uma nova instância de {@link UnauthorizedException}.
      */
     public static UnauthorizedException ofDefault() {
-        String message = MessageUtil.getMessage("auth.unauthorized.default");
+        String message = MessageUtil.getMessage("auth.access.unauthorized");
         return new UnauthorizedException(message);
     }
 

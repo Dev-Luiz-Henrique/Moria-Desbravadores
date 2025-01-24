@@ -49,9 +49,9 @@ public class NotFoundException extends ApplicationException {
      * @return uma nova instância de {@link NotFoundException}.
      */
     public static NotFoundException forEntity(EntityType entityType, Object entityId) {
-        String messageKey = String.format("%s.not_found", entityType.getKey());
+        String messageKey = String.format("entity.%s.not_found", entityType.getKey());
         String message = MessageUtil.getMessage(messageKey, entityId);
-        String errorCode = entityType.name() + "_NOT_FOUND";
+        String errorCode = entityType.name().toUpperCase() + "_NOT_FOUND";
         return new NotFoundException(entityType, entityId, message, errorCode);
     }
 }

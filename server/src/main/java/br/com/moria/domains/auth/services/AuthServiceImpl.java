@@ -2,7 +2,11 @@ package br.com.moria.domains.auth.services;
 
 import br.com.moria.domains.auth.MembroDetails;
 import br.com.moria.domains.auth.enums.AuthPermission;
+import br.com.moria.domains.auth.exceptions.ForbiddenException;
+import br.com.moria.domains.auth.exceptions.UnauthorizedException;
 import br.com.moria.domains.membro.enums.MembroFuncao;
+import br.com.moria.shared.exceptions.ValidationException;
+import br.com.moria.shared.utils.MessageUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +27,9 @@ public class AuthServiceImpl implements IAuthService {
     @Override
     public boolean hasPermission(AuthPermission permission) {
         MembroFuncao currentRole = getCurrentUserRole();
-        return currentRole != null && currentRole.getPermissions().contains(permission);
+        if (currentRole == null)
+            throw ForbiddenException.of("auth.role.not_found");
+        return currentRole.getPermissions().contains(permission);
     }
 
     @Override
@@ -32,7 +38,8 @@ public class AuthServiceImpl implements IAuthService {
             AuthPermission authPermission = AuthPermission.valueOf(permission);
             return hasPermission(authPermission);
         } catch (IllegalArgumentException e) {
-            return false;
+            throw ValidationException.of("auth.permission.invalid",
+                    Collections.singletonMap("permission", permission));
         }
     }
 
@@ -50,7 +57,23 @@ public class AuthServiceImpl implements IAuthService {
     @Override
     public Set<AuthPermission> getCurrentUserPermissions() {
         MembroFuncao currentRole = getCurrentUserRole();
-        return currentRole != null ? currentRole.getPermissions() : Collections.emptySet();
+        if (currentRole == null)
+            throw ForbiddenException.of("auth.role.not_found");
+        return currentRole.getPermissions();
+    }
+
+    /**
+     * Obtém o ID do usuário autenticado.
+     *
+     * @return o ID do usuário autenticado.
+     * @throws UnauthorizedException se o usuário não estiver autenticado.
+     */
+    private int getCurrentUserId() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof MembroDetails)
+            return ((MembroDetails) principal).getId();
+
+        throw UnauthorizedException.of("auth.user.not_authenticated");
     }
 
     /**
@@ -59,6 +82,7 @@ public class AuthServiceImpl implements IAuthService {
      * <p>A primeira autoridade válida encontrada será convertida para um enum {@link MembroFuncao}.</p>
      *
      * @return a função atual do usuário, ou {@code null} se nenhuma função válida for encontrada.
+     * @throws ForbiddenException se nenhuma função válida for encontrada.
      */
     private MembroFuncao getCurrentUserRole() {
         return SecurityContextHolder.getContext().getAuthentication()
@@ -67,7 +91,7 @@ public class AuthServiceImpl implements IAuthService {
                 .map(this::extractRoleName)
                 .map(this::safeGetMembroFuncao)
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> ForbiddenException.of("auth.role.not_found"));
     }
 
     /**
@@ -77,37 +101,22 @@ public class AuthServiceImpl implements IAuthService {
      * @return o nome da função sem o prefixo.
      */
     private String extractRoleName(@NotNull String authority) {
-        if (authority.startsWith("ROLE_")) return authority.substring(5);
-        return authority;
+        return authority.startsWith("ROLE_") ? authority.substring(5) : authority;
     }
 
     /**
      * Converte o nome da função em um enum {@link MembroFuncao}, tratando valores inválidos.
      *
-     *
      * @param authority o nome da função a ser convertido.
-     * @return o enum {@link MembroFuncao} correspondente, ou {@code null} se inválido.
+     * @return o enum {@link MembroFuncao} correspondente.
+     * @throws ValidationException se o nome da função for inválido.
      */
     private MembroFuncao safeGetMembroFuncao(String authority) {
         try {
             return MembroFuncao.valueOf(authority);
         } catch (IllegalArgumentException e) {
-            // TODO Realizar Log e tratar erro
-            return null;
+            throw ValidationException.of("auth.role.invalid",
+                    Collections.singletonMap("role", authority));
         }
-    }
-
-    /**
-     * Obtém o ID do usuário autenticado.
-     *
-     * @return o ID do usuário autenticado.
-     * @throws IllegalStateException se o usuário atual não estiver autenticado ou o principal não for uma instância válida.
-     */
-    private int getCurrentUserId() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof MembroDetails)
-            return ((MembroDetails) principal).getId();
-
-        throw new IllegalStateException("Usuário atual não é uma instância válida de MembroDetails");
     }
 }

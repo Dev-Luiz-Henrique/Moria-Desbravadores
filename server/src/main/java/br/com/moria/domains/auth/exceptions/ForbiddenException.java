@@ -29,7 +29,7 @@ public class ForbiddenException extends ApplicationException {
      * @return uma nova instância de {@link ForbiddenException}.
      */
     public static ForbiddenException ofDefault() {
-        String message = MessageUtil.getMessage("auth.forbidden.default");
+        String message = MessageUtil.getMessage("auth.access.forbidden");
         return new ForbiddenException(message);
     }
 
