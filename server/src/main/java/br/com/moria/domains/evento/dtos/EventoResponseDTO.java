@@ -2,6 +2,8 @@ package br.com.moria.domains.evento.dtos;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.com.moria.domains.endereco.dtos.EnderecoResponseDTO;
 
 /**
@@ -21,6 +23,8 @@ public class EventoResponseDTO {
     private LocalDateTime dataFim;
     private boolean publico;
     private int numero;
+
+    @JsonProperty("endereco")
     private EnderecoResponseDTO enderecoResponseDTO;
     
     public int getId() {

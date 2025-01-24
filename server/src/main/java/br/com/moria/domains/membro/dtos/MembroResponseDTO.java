@@ -3,6 +3,8 @@ package br.com.moria.domains.membro.dtos;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.com.moria.domains.endereco.dtos.EnderecoResponseDTO;
 import br.com.moria.domains.membro.enums.MembroEstadoCivil;
 import br.com.moria.domains.membro.enums.MembroFuncao;
@@ -28,7 +30,10 @@ public class MembroResponseDTO {
     private String celular;
     private String email;
     private int numero;
+
+    @JsonProperty("endereco")
     private EnderecoResponseDTO enderecoResponseDTO;
+    
     private String tamanhoCamisa;
     private String fichaSaude;
     private MembroFuncao funcao;
