@@ -9,6 +9,10 @@ import br.com.moria.domains.inscricao.enums.InscricaoStatusParticipacao;
 import br.com.moria.domains.inscricao.dtos.InscricaoCreateDTO;
 import br.com.moria.domains.inscricao.dtos.InscricaoResponseDTO;
 import br.com.moria.domains.inscricao.dtos.InscricaoUpdateDTO;
+import br.com.moria.shared.enums.EntityType;
+import br.com.moria.shared.exceptions.DuplicatedResourceException;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
+import br.com.moria.shared.exceptions.ValidationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,22 +61,22 @@ public class InscricaoServiceImpl implements IInscricaoService{
      * Valida se o evento existe.
      *
      * @param eventoId o identificador do evento.
-     * @throws EntityNotFoundException se o evento não for encontrado.
+     * @throws NotFoundResourceException se o evento não for encontrado.
      */
     private void validateEvento(int eventoId) {
         if (!eventoService.existsById(eventoId))
-            throw new EntityNotFoundException("Evento não encontrado para a inscricao fornecida.");
+            throw NotFoundResourceException.forEntity(EntityType.EVENTO, eventoId);
     }
 
     /**
      * Valida se o membro existe.
      *
      * @param membroId o identificador do membro.
-     * @throws EntityNotFoundException se o membro não for encontrado.
+     * @throws NotFoundResourceException se o membro não for encontrado.
      */
     private void validateMembro(int membroId) {
         if (!membroService.existsById(membroId))
-            throw new EntityNotFoundException("Membro não encontrado para a inscricao fornecida.");
+            throw NotFoundResourceException.forEntity(EntityType.MEMBRO, membroId);
     }
 
     /**
@@ -80,11 +84,11 @@ public class InscricaoServiceImpl implements IInscricaoService{
      *
      * @param id o identificador da inscrição.
      * @return a inscrição encontrada.
-     * @throws EntityNotFoundException se a inscrição não for encontrada.
+     * @throws NotFoundResourceException se a inscrição não for encontrada.
      */
     private Inscricao findInscricaoById(int id) {
         return inscricaoRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Inscricao não encontrada"));
+                .orElseThrow(() -> NotFoundResourceException.forEntity(EntityType.INSCRICAO, id));
     }
 
     @Override
@@ -96,6 +100,10 @@ public class InscricaoServiceImpl implements IInscricaoService{
 	public InscricaoResponseDTO create(@NotNull InscricaoCreateDTO inscricaoCreateDTO) {
         validateEvento(inscricaoCreateDTO.getEventoId());
         validateMembro(inscricaoCreateDTO.getMembroId());
+
+        if (inscricaoRepository.existsByMembroIdAndEventoId(
+                inscricaoCreateDTO.getMembroId(), inscricaoCreateDTO.getEventoId()))
+            throw DuplicatedResourceException.forEntity(EntityType.INSCRICAO, "business.inscricao.duplicated");
 
         Evento evento = eventoService.findEventoById(inscricaoCreateDTO.getEventoId());
         Membro membro = membroService.findMembroById(inscricaoCreateDTO.getMembroId());
@@ -125,14 +133,16 @@ public class InscricaoServiceImpl implements IInscricaoService{
 
 	@Override
 	public InscricaoResponseDTO updateStatusInscricao(int membroId, int eventoId) {
-		Inscricao existingInscricao = inscricaoRepository.findByMembroIdAndEventoId(membroId, eventoId)
-			.orElseThrow(() -> new EntityNotFoundException("Membro não elegivel para o evento"));
-		
-		if (existingInscricao.getInscrito())
-			throw new IllegalArgumentException("Inscrição já feita");
-		
-		existingInscricao.setInscrito(true);
-		return inscricaoMapper.toResponseDTO(existingInscricao);
+        Inscricao existingInscricao = inscricaoRepository.findByMembroIdAndEventoId(membroId, eventoId)
+                .orElseThrow(() -> NotFoundResourceException.forEntity(
+                        EntityType.INSCRICAO, "business.inscricao.not_found_membro_evento"));
+
+        if (existingInscricao.getInscrito())
+            throw ValidationException.of("business.inscricao.already_registered");
+
+        existingInscricao.setInscrito(true);
+        Inscricao updatedInscricao = inscricaoRepository.save(existingInscricao);
+        return inscricaoMapper.toResponseDTO(updatedInscricao);
 	}
 
 	@Override

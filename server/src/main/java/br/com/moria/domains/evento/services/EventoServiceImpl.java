@@ -10,6 +10,9 @@ import br.com.moria.domains.evento.EventoRepository;
 import br.com.moria.domains.evento.dtos.EventoCreateDTO;
 import br.com.moria.domains.evento.dtos.EventoResponseDTO;
 import br.com.moria.domains.evento.dtos.EventoUpdateDTO;
+import br.com.moria.shared.enums.EntityType;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
+import br.com.moria.shared.exceptions.ValidationException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +22,6 @@ import br.com.moria.domains.file.FileResponseDTO;
 import br.com.moria.domains.endereco.Endereco;
 import br.com.moria.domains.endereco.services.IEnderecoService;
 import br.com.moria.domains.file.IFileService;
-import jakarta.persistence.EntityNotFoundException;
 
 /**
  * Implementação do serviço para operações relacionadas a eventos.
@@ -60,18 +62,18 @@ public class EventoServiceImpl implements IEventoService {
 	 * Valida o intervalo de datas de início e término.
 	 *
 	 * @param start a data de início.
-	 * @param end a data de término.
-	 * @throws IllegalArgumentException se a data de término for anterior à data de início.
+	 * @param end   a data de término.
+	 * @throws ValidationException se a data de término for anterior à data de início.
 	 */
-    private void validateDate(LocalDateTime start, @NotNull LocalDateTime end){
-        if(end.isBefore(start))
-			throw new IllegalArgumentException("A data de inicio não pode suceder a data de fim.");
-    }
+	private void validateDate(LocalDateTime start, @NotNull LocalDateTime end) {
+		if (end.isBefore(start))
+			throw ValidationException.of("business.evento.data.invalid");
+	}
 
     @Override
     public Evento findEventoById(int id) {
-        return eventoRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado."));
+		return eventoRepository.findById(id)
+				.orElseThrow(() -> NotFoundResourceException.forEntity(EntityType.EVENTO, id));
     }
 
 	@Override

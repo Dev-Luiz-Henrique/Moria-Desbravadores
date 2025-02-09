@@ -27,6 +27,15 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
     Optional<Inscricao> findByMembroIdAndEventoId(int membroId, int eventoId);
 
     /**
+     * Verifica se existe uma inscrição com o ID de membro e evento especificados.
+     *
+     * @param membroId o ID do membro.
+     * @param eventoId o ID do evento.
+     * @return {@code true} se a inscrição existir, {@code false} caso contrário.
+     */
+    boolean existsByMembroIdAndEventoId(int membroId, int eventoId);
+
+    /**
      * Verifica se existe uma inscrição com o ID especificado e que esteja marcada como inscrito.
      *
      * @param inscricaoId o ID da inscrição.

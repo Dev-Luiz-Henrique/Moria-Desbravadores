@@ -8,6 +8,8 @@ import br.com.moria.domains.recurso.RecursoRepository;
 import br.com.moria.domains.recurso.dtos.RecursoCreateDTO;
 import br.com.moria.domains.recurso.dtos.RecursoResponseDTO;
 import br.com.moria.domains.recurso.dtos.RecursoUpdateDTO;
+import br.com.moria.shared.enums.EntityType;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,14 +33,27 @@ public class RecursoServiceImpl implements IRecursoService {
         this.eventoService = eventoService;
     }
 
+    /**
+     * Valida se o evento existe.
+     *
+     * @param eventoId o identificador do evento.
+     * @throws NotFoundResourceException se o evento não for encontrado.
+     */
     private void validateEvento(int eventoId){
         if (!eventoService.existsById(eventoId))
-            throw new IllegalArgumentException("Evento não encontrado para o recurso fornecido.");
+            throw NotFoundResourceException.forEntity(EntityType.EVENTO, eventoId);
     }
 
+    /**
+     * Busca um recurso pelo ID, lançando uma exceção se não for encontrado.
+     *
+     * @param id o identificador do recurso.
+     * @return o recurso encontrado.
+     * @throws NotFoundResourceException se o recurso não for encontrado.
+     */
     private Recurso findRecursoById(int id){
         return recursoRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Recurso não encontrado."));
+                .orElseThrow(() -> NotFoundResourceException.forEntity(EntityType.RECURSO, id));
     }
 
     @Override

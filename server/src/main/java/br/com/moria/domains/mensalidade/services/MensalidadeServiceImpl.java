@@ -9,6 +9,9 @@ import br.com.moria.domains.mensalidade.MensalidadeMapper;
 import br.com.moria.domains.mensalidade.MensalidadeRepository;
 import br.com.moria.domains.mensalidade.dtos.MensalidadeCreateDTO;
 import br.com.moria.domains.mensalidade.dtos.MensalidadeResponseDTO;
+import br.com.moria.shared.enums.EntityType;
+import br.com.moria.shared.exceptions.DuplicatedResourceException;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,11 +67,11 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
      *
      * @param id o identificador da mensalidade.
      * @return a mensalidade encontrada.
-     * @throws EntityNotFoundException se a mensalidade não for encontrada.
+     * @throws NotFoundResourceException se a mensalidade não for encontrada.
      */
     private Mensalidade findMensalidadeById(int id) {
         return mensalidadeRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Mensalidade não encontrada"));
+                .orElseThrow(() -> NotFoundResourceException.forEntity(EntityType.MENSALIDADE, id));
     }
 
     /**
@@ -89,27 +92,16 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     }
 
     /**
-     * Obtém o intervalo do mês atual.
-     *
-     * @param currentDate a data atual.
-     * @return um array contendo o início e o fim do mês.
-     */
-    private LocalDateTime [] getMonthInterval(@NotNull LocalDateTime currentDate) {
-        LocalDateTime startOfMonth = currentDate.withDayOfMonth(1).toLocalDate().atStartOfDay();
-        LocalDateTime endOfMonth = startOfMonth.plusMonths(1).minusNanos(1);
-        return new LocalDateTime[]{startOfMonth, endOfMonth};
-    }
-
-    /**
-     * Verifica se uma mensalidade já existe para o membro no mês atual.
+     * Verifica se já existe uma mensalidade gerada para um membro no mês atual.
      *
      * @param membro o membro a ser verificado.
-     * @return {@code true} se a mensalidade já existir, caso contrário {@code false}.
+     * @return true se já existe uma mensalidade para o membro no mês atual, false caso contrário.
      */
     private boolean doesMensalidadeExist(@NotNull Membro membro) {
-        LocalDateTime currentDate = LocalDateTime.now(); 
-        LocalDateTime[] interval = getMonthInterval(currentDate);
-        return mensalidadeRepository.existsByMembroIdAndDataBetween(membro.getId(), interval[0], interval[1]);
+        LocalDateTime currentDate = LocalDateTime.now();
+        LocalDateTime startOfMonth = currentDate.withDayOfMonth(1).toLocalDate().atStartOfDay();
+        LocalDateTime endOfMonth = startOfMonth.plusMonths(1).minusNanos(1);
+        return mensalidadeRepository.existsByMembroIdAndDataBetween(membro.getId(), startOfMonth, endOfMonth);
     }
 
     @Override
@@ -129,7 +121,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     public MensalidadeResponseDTO createManual(int idMembro) {
         Membro membro = membroService.findMembroById(idMembro);
         if (doesMensalidadeExist(membro))
-            throw new IllegalArgumentException("Já existe mensalidade gerada para este membro no mês atual");
+            throw DuplicatedResourceException.forEntity(EntityType.MENSALIDADE, "business.mensalidade.duplicated");
 
         Mensalidade mensalidade = buildMensalidade(membro);
         Mensalidade savedMensalidade = mensalidadeRepository.save(mensalidade);

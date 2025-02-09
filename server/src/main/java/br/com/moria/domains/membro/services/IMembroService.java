@@ -7,6 +7,8 @@ import br.com.moria.domains.membro.Membro;
 import br.com.moria.domains.membro.dtos.MembroCreateDTO;
 import br.com.moria.domains.membro.dtos.MembroResponseDTO;
 import br.com.moria.domains.membro.dtos.MembroUpdateDTO;
+import br.com.moria.shared.exceptions.DuplicatedResourceException;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.domains.file.FileResponseDTO;
@@ -37,8 +39,9 @@ public interface IMembroService {
      *
      * @param id o identificador do membro.
      * @return o membro encontrado.
+     * @throws NotFoundResourceException se o membro não for encontrado.
      */
-    Membro findMembroById(int id);
+    Membro findMembroById(int id) throws NotFoundResourceException;
 
     /**
      * Retorna a contagem total de membros cadastrados.
@@ -56,27 +59,32 @@ public interface IMembroService {
     boolean existsById(int id);
 
     /**
-     * Cria um membro com base nos dados fornecidos.
+     * Cria um novo membro com base nos dados fornecidos.
      *
      * @param membroCreateDTO os dados do membro a ser criado.
      * @return os detalhes do membro criado.
+     * @throws DuplicatedResourceException se já existir um membro com o mesmo e-mail ou CPF.
      */
-    MembroResponseDTO create(MembroCreateDTO membroCreateDTO);
+    MembroResponseDTO create(MembroCreateDTO membroCreateDTO) throws DuplicatedResourceException;
 
     /**
      * Atualiza as informações de um membro existente.
      *
      * @param membroUpdateDTO os dados do membro a serem atualizados.
      * @return os detalhes do membro atualizado.
+     * @throws NotFoundResourceException se o membro não for encontrado.
+     * @throws DuplicatedResourceException se o novo e-mail ou CPF já estiver cadastrado.
      */
-    MembroResponseDTO update(MembroUpdateDTO membroUpdateDTO);
+    MembroResponseDTO update(MembroUpdateDTO membroUpdateDTO)
+            throws NotFoundResourceException, DuplicatedResourceException;
 
     /**
      * Remove um membro pelo ID.
      *
      * @param id o identificador do membro.
+     * @throws NotFoundResourceException se o membro não for encontrado.
      */
-    void delete(int id);
+    void delete(int id) throws NotFoundResourceException;
 
     /**
      * Retorna todos os membros cadastrados.
@@ -90,24 +98,27 @@ public interface IMembroService {
      *
      * @param id o identificador do membro.
      * @return os detalhes do membro.
+     * @throws NotFoundResourceException se o membro não for encontrado.
      */
-    MembroResponseDTO findById(int id);
+    MembroResponseDTO findById(int id) throws NotFoundResourceException;
 
     /**
      * Busca um membro pelo CPF.
      *
      * @param cpf o CPF do membro.
      * @return os detalhes do membro.
+     * @throws NotFoundResourceException se o membro não for encontrado.
      */
-    MembroResponseDTO findByCpf(String cpf);
+    MembroResponseDTO findByCpf(String cpf) throws NotFoundResourceException;
 
     /**
      * Busca um membro pelo endereço de e-mail.
      *
      * @param email o e-mail do membro.
      * @return os detalhes do membro.
+     * @throws NotFoundResourceException se o membro não for encontrado.
      */
-    MembroResponseDTO findByEmail(String email);
+    MembroResponseDTO findByEmail(String email) throws NotFoundResourceException;
 
     /**
      * Busca membros cujo nome contenha a string especificada.
@@ -131,8 +142,9 @@ public interface IMembroService {
      * @param id o identificador do membro.
      * @return os dados do arquivo da ficha de saúde.
      * @throws IOException se houver erro ao acessar o arquivo.
+     * @throws NotFoundResourceException se o membro não for encontrado.
      */
-    FileResponseDTO findFichaSaudeById(int id) throws IOException;
+    FileResponseDTO findFichaSaudeById(int id) throws IOException, NotFoundResourceException;
 
     /**
      * Atualiza a ficha de saúde de um membro pelo ID.
@@ -141,6 +153,7 @@ public interface IMembroService {
      * @param file o arquivo da ficha de saúde.
      * @return os detalhes do membro com a ficha de saúde atualizada.
      * @throws IOException se houver erro ao processar o arquivo.
+     * @throws NotFoundResourceException se o membro não for encontrado.
      */
-    MembroResponseDTO updateFichaSaudeById(int id, MultipartFile file) throws IOException;
+    MembroResponseDTO updateFichaSaudeById(int id, MultipartFile file) throws IOException, NotFoundResourceException;
 }

@@ -3,6 +3,7 @@ package br.com.moria.domains.recurso.services;
 import br.com.moria.domains.recurso.dtos.RecursoCreateDTO;
 import br.com.moria.domains.recurso.dtos.RecursoResponseDTO;
 import br.com.moria.domains.recurso.dtos.RecursoUpdateDTO;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public interface IRecursoService {
      *
      * @param recursoCreateDTO os dados do recurso a ser criado.
      * @return os detalhes do recurso criado.
+     * @throws NotFoundResourceException se o evento associado ao recurso não for encontrado.
      */
     RecursoResponseDTO create(RecursoCreateDTO recursoCreateDTO);
 
@@ -38,6 +40,7 @@ public interface IRecursoService {
      *
      * @param recursoUpdateDTO os dados atualizados do recurso.
      * @return os detalhes do recurso atualizado.
+     * @throws NotFoundResourceException se o recurso ou o evento associado não for encontrado.
      */
     RecursoResponseDTO update(RecursoUpdateDTO recursoUpdateDTO);
 
@@ -45,6 +48,7 @@ public interface IRecursoService {
      * Remove um recurso pelo ID.
      *
      * @param id o identificador do recurso.
+     * @throws NotFoundResourceException se o recurso não for encontrado.
      */
     void delete(int id);
 
@@ -60,6 +64,7 @@ public interface IRecursoService {
      *
      * @param id o identificador do recurso.
      * @return os detalhes do recurso encontrado.
+     * @throws NotFoundResourceException se o recurso não for encontrado.
      */
     RecursoResponseDTO findById(int id);
 
@@ -68,6 +73,7 @@ public interface IRecursoService {
      *
      * @param eventoId o identificador do evento.
      * @return uma lista de recursos relacionados ao evento.
+     * @throws NotFoundResourceException se o evento não for encontrado.
      */
     List<RecursoResponseDTO> findRecursosByEventoId(int eventoId);
 }

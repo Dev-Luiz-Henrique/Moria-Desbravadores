@@ -4,6 +4,8 @@ import br.com.moria.domains.endereco.Endereco;
 import br.com.moria.domains.endereco.dtos.EnderecoCreateDTO;
 import br.com.moria.domains.endereco.dtos.EnderecoResponseDTO;
 import br.com.moria.domains.endereco.dtos.EnderecoUpdateDTO;
+import br.com.moria.shared.exceptions.DuplicatedResourceException;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
 
 /**
  * Interface de serviço para operações relacionadas a endereços.
@@ -31,6 +33,7 @@ public interface IEnderecoService {
      *
      * @param enderecoUpdateDTO os dados do endereço a serem atualizados.
      * @return os detalhes do endereço atualizado.
+     * @throws NotFoundResourceException se o endereço não for encontrado.
      */
     EnderecoResponseDTO update(EnderecoUpdateDTO enderecoUpdateDTO);
 
@@ -38,6 +41,7 @@ public interface IEnderecoService {
      * Remove um endereço pelo ID.
      *
      * @param id o identificador do endereço.
+     * @throws NotFoundResourceException se o endereço não for encontrado.
      */
     void delete(int id);
 
@@ -46,6 +50,7 @@ public interface IEnderecoService {
      *
      * @param id o identificador do endereço.
      * @return os detalhes do endereço.
+     * @throws NotFoundResourceException se o endereço não for encontrado.
      */
     EnderecoResponseDTO findById(int id);
 

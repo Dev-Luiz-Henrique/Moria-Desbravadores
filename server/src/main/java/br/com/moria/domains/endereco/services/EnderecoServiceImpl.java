@@ -6,6 +6,10 @@ import br.com.moria.domains.endereco.EnderecoRepository;
 import br.com.moria.domains.endereco.dtos.EnderecoCreateDTO;
 import br.com.moria.domains.endereco.dtos.EnderecoResponseDTO;
 import br.com.moria.domains.endereco.dtos.EnderecoUpdateDTO;
+import br.com.moria.shared.enums.EntityType;
+import br.com.moria.shared.exceptions.DuplicatedResourceException;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
+import br.com.moria.shared.exceptions.ValidationException;
 import jakarta.persistence.EntityNotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +24,7 @@ import org.springframework.stereotype.Service;
  * @see IEnderecoService
  */
 @Service
-public class EnderecoServiceImpl implements IEnderecoService {
+public class EnderecoServiceImpl implements IEnderecoService {   // TODO Revisar essa lógica copletamente
 
     private final EnderecoMapper enderecoMapper;
     private final EnderecoRepository enderecoRepository;
@@ -41,11 +45,11 @@ public class EnderecoServiceImpl implements IEnderecoService {
      * Verifica se já existe um endereço com o CEP informado.
      *
      * @param cep o CEP a ser verificado.
-     * @throws IllegalArgumentException se um endereço com o mesmo CEP já estiver cadastrado.
+     * @throws ValidationException se já existir um endereço com o CEP fornecido.
      */
     private void existsByCep(String cep) {
         if (enderecoRepository.existsByCep(cep))
-            throw new IllegalArgumentException("Endereço com CEP já cadastrado.");
+            throw DuplicatedResourceException.forEntity(EntityType.ENDERECO, "business.endereco.cep.duplicated");
     }
 
     /**
@@ -53,11 +57,11 @@ public class EnderecoServiceImpl implements IEnderecoService {
      *
      * @param id o identificador do endereço.
      * @return o endereço encontrado.
-     * @throws EntityNotFoundException se o endereço não for encontrado.
+     * @throws NotFoundResourceException se o endereço não for encontrado.
      */
     private Endereco findEnderecoById(int id) {
         return enderecoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado"));
+                .orElseThrow(() -> NotFoundResourceException.forEntity(EntityType.ENDERECO, id));
     }
 
     @Override

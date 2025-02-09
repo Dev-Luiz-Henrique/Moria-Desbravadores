@@ -10,6 +10,9 @@ import br.com.moria.domains.membro.MembroRepository;
 import br.com.moria.domains.membro.dtos.MembroCreateDTO;
 import br.com.moria.domains.membro.dtos.MembroResponseDTO;
 import br.com.moria.domains.membro.dtos.MembroUpdateDTO;
+import br.com.moria.shared.enums.EntityType;
+import br.com.moria.shared.exceptions.DuplicatedResourceException;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -64,22 +67,22 @@ public class MembroServiceImpl implements IMembroService {
      * Verifica se já existe um membro com o e-mail fornecido.
      *
      * @param email o e-mail a ser verificado.
-     * @throws IllegalArgumentException se o e-mail já estiver cadastrado.
+     * @throws DuplicatedResourceException se o e-mail já estiver cadastrado.
      */
     private void existsByEmail(String email) {
         if (membroRepository.existsByEmail(email))
-            throw new IllegalArgumentException("Membro com email já cadastrado");
+            throw DuplicatedResourceException.forEntity(EntityType.MEMBRO,"business.membro.email.duplicated");
     }
 
     /**
      * Verifica se já existe um membro com o CPF fornecido.
      *
      * @param cpf o CPF a ser verificado.
-     * @throws IllegalArgumentException se o CPF já estiver cadastrado.
+     * @throws DuplicatedResourceException se o CPF já estiver cadastrado.
      */
     private void existsByCpf(String cpf) {
         if (membroRepository.existsByCpf(cpf))
-            throw new IllegalArgumentException("Membro com CPF já cadastrado");
+            throw DuplicatedResourceException.forEntity(EntityType.MEMBRO, "business.membro.cpf.duplicated");
     }
 
     @Override
@@ -90,7 +93,7 @@ public class MembroServiceImpl implements IMembroService {
     @Override
     public Membro findMembroById(int id) {
         return membroRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+            .orElseThrow(() -> NotFoundResourceException.forEntity(EntityType.MEMBRO, id));
     }
 
     @Override
@@ -155,14 +158,16 @@ public class MembroServiceImpl implements IMembroService {
     @Override
     public MembroResponseDTO findByCpf(String cpf) {
         Membro membro = membroRepository.findByCpf(cpf)
-                .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+                .orElseThrow(() -> NotFoundResourceException.forEntity(
+                        EntityType.MEMBRO, "business.membro.cpf.not_found"));
         return membroMapper.toResponseDTO(membro);
     }
 
 	@Override
 	public MembroResponseDTO findByEmail(String email) {
         Membro membro = membroRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Membro não encontrado"));
+                .orElseThrow(() -> NotFoundResourceException.forEntity(
+                        EntityType.MEMBRO, "business.membro.email.not_found"));
         return membroMapper.toResponseDTO(membro);
 	}
 

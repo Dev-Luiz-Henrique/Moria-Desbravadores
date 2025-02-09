@@ -34,6 +34,18 @@ public class ValidationException extends ApplicationException {
     }
 
     /**
+     * Cria uma nova instância da exceção com uma mensagem obtida do {@link MessageUtil},
+     * sem a necessidade de especificar erros detalhados.
+     *
+     * @param messageKey a chave da mensagem no {@link MessageUtil}.
+     * @return uma nova instância de {@link ValidationException}.
+     */
+    public static ValidationException of(String messageKey) {
+        String message = MessageUtil.getMessage(messageKey);
+        return new ValidationException(message, null);
+    }
+
+    /**
      * Cria uma nova instância da exceção com uma mensagem padrão e os erros de validação.
      *
      * @param errors o mapa contendo os erros de validação.

@@ -8,6 +8,8 @@ import br.com.moria.domains.evento.Evento;
 import br.com.moria.domains.evento.dtos.EventoCreateDTO;
 import br.com.moria.domains.evento.dtos.EventoResponseDTO;
 import br.com.moria.domains.evento.dtos.EventoUpdateDTO;
+import br.com.moria.shared.exceptions.NotFoundResourceException;
+import br.com.moria.shared.exceptions.ValidationException;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.moria.domains.file.FileResponseDTO;
@@ -30,6 +32,7 @@ public interface IEventoService {
 	 *
 	 * @param id o identificador do evento.
 	 * @return o evento encontrado.
+	 * @throws NotFoundResourceException se o evento não for encontrado.
 	 */
 	Evento findEventoById(int id);
 
@@ -53,6 +56,7 @@ public interface IEventoService {
 	 *
 	 * @param eventoCreateDTO os dados do evento a ser criado.
 	 * @return os detalhes do evento criado.
+	 * @throws ValidationException se a data de término for anterior à data de início.
 	 */
 	EventoResponseDTO create(EventoCreateDTO eventoCreateDTO);
 
@@ -61,6 +65,8 @@ public interface IEventoService {
 	 *
 	 * @param eventoUpdateDTO os dados do evento a serem atualizados.
 	 * @return os detalhes do evento atualizado.
+	 * @throws NotFoundResourceException se o evento não for encontrado.
+	 * @throws ValidationException se a data de término for anterior à data de início.
 	 */
 	EventoResponseDTO update(EventoUpdateDTO eventoUpdateDTO);
 
@@ -68,6 +74,7 @@ public interface IEventoService {
 	 * Remove um evento pelo ID.
 	 *
 	 * @param id o identificador do evento.
+	 * @throws NotFoundResourceException se o evento não for encontrado.
 	 */
 	void delete(int id);
 
@@ -83,6 +90,7 @@ public interface IEventoService {
 	 *
 	 * @param id o identificador do evento.
 	 * @return os detalhes do evento.
+	 * @throws NotFoundResourceException se o evento não for encontrado.
 	 */
 	EventoResponseDTO findById(int id);
 
@@ -125,6 +133,7 @@ public interface IEventoService {
 	 * @param id o identificador do evento.
 	 * @param file o arquivo da imagem.
 	 * @return os detalhes do evento com a imagem atualizada.
+	 * @throws NotFoundResourceException se o evento não for encontrado.
 	 * @throws IOException se houver erro ao processar o arquivo.
 	 */
 	EventoResponseDTO updateImagemById(int id, MultipartFile file) throws IOException;
@@ -134,6 +143,7 @@ public interface IEventoService {
 	 *
 	 * @param id o identificador do evento.
 	 * @return os dados do arquivo da imagem.
+	 * @throws NotFoundResourceException se o evento não for encontrado.
 	 * @throws IOException se houver erro ao acessar o arquivo.
 	 */
 	FileResponseDTO findImagemById(int id) throws IOException;
