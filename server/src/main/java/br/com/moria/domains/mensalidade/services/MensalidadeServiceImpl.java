@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import br.com.moria.domains.membro.services.IMembroQueryService;
 import br.com.moria.domains.mensalidade.Mensalidade;
 import br.com.moria.domains.mensalidade.MensalidadeMapper;
 import br.com.moria.domains.mensalidade.MensalidadeRepository;
@@ -22,8 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.moria.shared.enums.FormaPagamento;
 import br.com.moria.domains.membro.Membro;
 import br.com.moria.domains.file.IFileService;
-import br.com.moria.domains.membro.services.IMembroService;
-import jakarta.persistence.EntityNotFoundException;
 
 /**
  * Implementação do serviço para operações relacionadas a mensalidades.
@@ -37,7 +36,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
 
     private final MensalidadeMapper mensalidadeMapper;
     private final MensalidadeRepository mensalidadeRepository;
-    private final IMembroService membroService;
+    private final IMembroQueryService membroQueryService;
     private final IFileService fileService;
 
     @Value("${mensalidade.valor:15.00}")
@@ -48,17 +47,17 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
      *
      * @param mensalidadeMapper     o mapper para conversão entre DTO e entidade.
      * @param mensalidadeRepository o repositório para operações com a entidade {@link Mensalidade}.
-     * @param membroService         o serviço para manipulação de membros.
+     * @param membroQueryService         o serviço para manipulação de membros.
      * @param fileService           o serviço para manipulação de arquivos.
      */
     @Autowired
     public MensalidadeServiceImpl(MensalidadeMapper mensalidadeMapper,
                                   MensalidadeRepository mensalidadeRepository,
-                                  IMembroService membroService,
+                                  IMembroQueryService membroQueryService,
                                   IFileService fileService ) {
         this.mensalidadeMapper = mensalidadeMapper;
         this.mensalidadeRepository = mensalidadeRepository;
-        this.membroService = membroService;
+        this.membroQueryService = membroQueryService;
         this.fileService = fileService;
     }
 
@@ -107,7 +106,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     @Override
 	@Scheduled(cron = "0 0 0 1 * ?")
     public void createAuto() {
-        List<Membro> membrosAtivos = membroService.findAllMembrosByAtivo(true);
+        List<Membro> membrosAtivos = membroQueryService.findAllMembrosByAtivo(true);
         
         for (Membro membro : membrosAtivos) {
             if (!doesMensalidadeExist(membro)) {
@@ -119,7 +118,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
 
     @Override
     public MensalidadeResponseDTO createManual(int idMembro) {
-        Membro membro = membroService.findMembroById(idMembro);
+        Membro membro = membroQueryService.findMembroById(idMembro);
         if (doesMensalidadeExist(membro))
             throw DuplicatedResourceException.forEntity(EntityType.MENSALIDADE, "business.mensalidade.duplicated");
 
@@ -135,7 +134,7 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
 
     @Override
     public MensalidadeResponseDTO create(@NotNull MensalidadeCreateDTO mensalidadeCreateDTO) {
-        Membro membro = membroService.findMembroById(mensalidadeCreateDTO.getIdMembro());
+        Membro membro = membroQueryService.findMembroById(mensalidadeCreateDTO.getIdMembro());
         if (doesMensalidadeExist(membro))
             throw new IllegalArgumentException("Já existe mensalidade gerada para este membro no mês atual");
 

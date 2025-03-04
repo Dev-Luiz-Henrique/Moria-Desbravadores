@@ -9,6 +9,7 @@ import br.com.moria.domains.mensalidade.services.IMensalidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,12 +32,14 @@ public class MensalidadeController {
         this.mensalidadeService = mensalidadeService;
     }
 
+    @PreAuthorize("@authService.hasPermission('MANAGE_MENSALIDADES')")
     @PostMapping("/{idMembro}")
     public ResponseEntity<MensalidadeResponseDTO> create(@PathVariable int idMembro) {
         MensalidadeResponseDTO mensalidade = mensalidadeService.createManual(idMembro);
         return ResponseEntity.status(HttpStatus.CREATED).body(mensalidade);
     }
 
+    @PreAuthorize("@authService.hasPermission('MANAGE_MENSALIDADES')")
     @PostMapping("/{id}/pagamento")
     public ResponseEntity<MensalidadeResponseDTO> updatePagamento(@PathVariable int id,
                                                                   @RequestParam FormaPagamento formaPagamento,
@@ -45,12 +48,14 @@ public class MensalidadeController {
         return ResponseEntity.ok(mensalidade);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MENSALIDADES')")
     @GetMapping
     public ResponseEntity<List<MensalidadeResponseDTO>> findAll() {
         List<MensalidadeResponseDTO> mensalidades = mensalidadeService.findAll();
         return ResponseEntity.ok(mensalidades);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MENSALIDADES')")
     @GetMapping("/periodo")
     public ResponseEntity<List<MensalidadeResponseDTO>> findDataInterval(@RequestParam String start,
                                                                          @RequestParam String end) {
@@ -61,12 +66,14 @@ public class MensalidadeController {
         return ResponseEntity.ok(mensalidades);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MENSALIDADES')")
     @GetMapping("/membro/{id}")
     public ResponseEntity<List<MensalidadeResponseDTO>> findMembro(@PathVariable int membroId) {
         List<MensalidadeResponseDTO> mensalidade = mensalidadeService.findByMembro(membroId);
         return ResponseEntity.ok(mensalidade);
     }
 
+    @PreAuthorize("@authService.hasPermission('VIEW_MENSALIDADES')")
     @GetMapping("/membro/{id}/intervalo")
     public ResponseEntity<List<MensalidadeResponseDTO>> findMembroAndDataInterval(@PathVariable int membroId,
                                                                                   @RequestParam LocalDateTime start,

@@ -48,4 +48,15 @@ public enum MembroFuncao {
     public Set<AuthPermission> getPermissions() {
         return permissions;
     }
+
+    /**
+     * Filtra as funções permitidas para o usuário.
+     *
+     * @param funcao a função a ser filtrada.
+     * @return a função permitida, ou a função padrão se a função fornecida for nula ou não permitida.
+     */
+    public static MembroFuncao filterAllowed(MembroFuncao funcao) {
+        return funcao != null &&
+                Set.of(DESBRAVADOR, RESPONSAVEL).contains(funcao) ? funcao : DESBRAVADOR;
+    }
 }

@@ -1,5 +1,6 @@
 package br.com.moria.configurations;
 
+import br.com.moria.domains.membro.services.IMembroCommandService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.CommandLineRunner;
@@ -15,11 +16,10 @@ import br.com.moria.domains.mensalidade.dtos.MensalidadeCreateDTO;
 import br.com.moria.domains.recurso.dtos.RecursoCreateDTO;
 import br.com.moria.domains.evento.services.IEventoService;
 import br.com.moria.domains.inscricao.services.IInscricaoService;
-import br.com.moria.domains.membro.services.IMembroService;
 import br.com.moria.domains.mensalidade.services.IMensalidadeService;
+import br.com.moria.domains.membro.services.IMembroQueryService;
 import br.com.moria.domains.recurso.services.IRecursoService;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.function.Consumer;
@@ -28,7 +28,8 @@ import java.util.function.Consumer;
 @Profile("dev")
 public class DataInitializer implements CommandLineRunner {
 
-    private final IMembroService membroService;
+    private final IMembroCommandService membroCommandService;
+    private final IMembroQueryService membroQueryService;
     private final IEventoService eventoService;
     private final IRecursoService recursoService;
     private final IInscricaoService inscricaoService;
@@ -38,13 +39,15 @@ public class DataInitializer implements CommandLineRunner {
     private static final String JSON_PATH = "json/";
 
     public DataInitializer(
-            IMembroService membroService,
+            IMembroCommandService membroCommandService,
+            IMembroQueryService membroQueryService,
             IEventoService eventoService,
             IRecursoService recursoService,
             IInscricaoService inscricaoService,
             IMensalidadeService mensalidadeService
     ) {
-        this.membroService = membroService;
+        this.membroCommandService = membroCommandService;
+        this.membroQueryService = membroQueryService;
         this.eventoService = eventoService;
         this.recursoService = recursoService;
         this.inscricaoService = inscricaoService;
@@ -55,7 +58,7 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Thread.sleep(3000);
         loadData("membros.json", MembroCreateDTO[].class,
-                membroService.count(), membroService::create);
+                membroQueryService.count(), membroCommandService::create);
         loadData("eventos.json", EventoCreateDTO[].class,
                 eventoService.count(), eventoService::create);
         loadData("mensalidades.json", MensalidadeCreateDTO[].class,

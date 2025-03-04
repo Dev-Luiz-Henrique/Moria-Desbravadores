@@ -10,6 +10,7 @@ import br.com.moria.domains.membro.MembroRepository;
 import br.com.moria.domains.membro.dtos.MembroCreateDTO;
 import br.com.moria.domains.membro.dtos.MembroResponseDTO;
 import br.com.moria.domains.membro.dtos.MembroUpdateDTO;
+import br.com.moria.domains.membro.enums.MembroFuncao;
 import br.com.moria.shared.enums.EntityType;
 import br.com.moria.shared.exceptions.DuplicatedResourceException;
 import br.com.moria.shared.exceptions.NotFoundResourceException;
@@ -25,18 +26,19 @@ import br.com.moria.domains.file.IFileService;
 import jakarta.persistence.EntityNotFoundException;
 
 /**
- * Implementação do serviço para operações relacionadas a membros.
+ * Implementação do serviço para operações relacionadas à gestão de membros.
  *
- * <p>Fornece funcionalidades para criação, atualização, exclusão e consulta de membros,
+ * <p>Fornece funcionalidades para criação, atualização e exclusão de membros,
  * bem como operações específicas, como o gerenciamento de fichas de saúde.</p>
  *
- * @see IMembroService
+ * @see IMembroCommandService
  */
 @Service
-public class MembroServiceImpl implements IMembroService {
+public class MembroCommandService implements IMembroCommandService {
 
     private final MembroMapper membroMapper;
     private final MembroRepository membroRepository;
+    private final IMembroQueryService membroQueryService;
     private final IEnderecoService enderecoService;
     private final IFileService uploadService;
     private final PasswordEncoder passwordEncoder;
@@ -51,13 +53,15 @@ public class MembroServiceImpl implements IMembroService {
      * @param passwordEncoder    o codificador de senhas.
      */
     @Autowired
-    public MembroServiceImpl(MembroMapper membroMapper,
+    public MembroCommandService(MembroMapper membroMapper,
                              MembroRepository membroRepository,
+                             IMembroQueryService membroQueryService,
                              IEnderecoService enderecoService,
                              IFileService uploadService,
                              PasswordEncoder passwordEncoder) {
         this.membroMapper = membroMapper;
         this.membroRepository = membroRepository;
+        this.membroQueryService = membroQueryService;
         this.enderecoService = enderecoService;
         this.uploadService = uploadService;
         this.passwordEncoder = passwordEncoder;
@@ -86,27 +90,6 @@ public class MembroServiceImpl implements IMembroService {
     }
 
     @Override
-    public List<Membro> findAllMembrosByAtivo(boolean ativo){
-        return membroRepository.findByAtivo(ativo);
-    }
-
-    @Override
-    public Membro findMembroById(int id) {
-        return membroRepository.findById(id)
-            .orElseThrow(() -> NotFoundResourceException.forEntity(EntityType.MEMBRO, id));
-    }
-
-    @Override
-    public long count(){
-        return membroRepository.count();
-    }
-
-    @Override
-    public boolean existsById(int id) {
-        return membroRepository.existsById(id);
-    }
-
-    @Override
     public MembroResponseDTO create(@NotNull MembroCreateDTO membroCreateDTO) {
         existsByEmail(membroCreateDTO.getEmail());
         existsByCpf(membroCreateDTO.getCpf());
@@ -120,9 +103,14 @@ public class MembroServiceImpl implements IMembroService {
         return membroMapper.toResponseDTO(savedMembro);
     }
 
+    public MembroResponseDTO selfRegister(MembroCreateDTO dto) {
+        dto.setFuncao(MembroFuncao.filterAllowed(dto.getFuncao()));
+        return create(dto);
+    }
+
     @Override
     public MembroResponseDTO update(@NotNull MembroUpdateDTO membroUpdateDTO) {
-        Membro existingMembro = findMembroById(membroUpdateDTO.getId());
+        Membro existingMembro = membroQueryService.findMembroById(membroUpdateDTO.getId());
 
         if (!existingMembro.getEmail().equals(membroUpdateDTO.getEmail()))
             existsByEmail(membroUpdateDTO.getEmail());
@@ -139,53 +127,13 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public void delete(int id) {
-        Membro existingMembro = findMembroById(id);
+        Membro existingMembro = membroQueryService.findMembroById(id);
         membroRepository.delete(existingMembro);
     }
 
     @Override
-    public List<MembroResponseDTO> findAll() {
-        List<Membro> membros = membroRepository.findAll();
-        return membroMapper.toResponseDTO(membros);
-    }
-
-    @Override
-    public MembroResponseDTO findById(int id) {
-        Membro existingMembro = findMembroById(id);
-        return membroMapper.toResponseDTO(existingMembro);
-    }
-
-    @Override
-    public MembroResponseDTO findByCpf(String cpf) {
-        Membro membro = membroRepository.findByCpf(cpf)
-                .orElseThrow(() -> NotFoundResourceException.forEntity(
-                        EntityType.MEMBRO, "business.membro.cpf.not_found"));
-        return membroMapper.toResponseDTO(membro);
-    }
-
-	@Override
-	public MembroResponseDTO findByEmail(String email) {
-        Membro membro = membroRepository.findByEmail(email)
-                .orElseThrow(() -> NotFoundResourceException.forEntity(
-                        EntityType.MEMBRO, "business.membro.email.not_found"));
-        return membroMapper.toResponseDTO(membro);
-	}
-
-    @Override
-    public List<MembroResponseDTO> findByNomeContaining(String nome) {
-        List<Membro> membros = membroRepository.findByNomeContaining(nome);
-        return membroMapper.toResponseDTO(membros);
-    }
-
-	@Override
-	public List<MembroResponseDTO> findByAtivo(boolean ativo) {
-        List<Membro> membros = membroRepository.findByAtivo(ativo);
-        return membroMapper.toResponseDTO(membros);
-	}
-
-    @Override
     public MembroResponseDTO updateFichaSaudeById(int id, @NotNull MultipartFile file) throws IOException {
-        Membro existingMembro = findMembroById(id);
+        Membro existingMembro = membroQueryService.findMembroById(id);
         String filePath = uploadService.uploadFile(file, "fichaSaude");
         existingMembro.setFichaSaude(filePath);
 
@@ -195,7 +143,7 @@ public class MembroServiceImpl implements IMembroService {
 
     @Override
     public FileResponseDTO findFichaSaudeById(int id) throws IOException {
-        Membro existingMembro = findMembroById(id);
+        Membro existingMembro = membroQueryService.findMembroById(id);
         String filePath = existingMembro.getFichaSaude();
         return uploadService.downloadFile(filePath);
     }

@@ -9,6 +9,7 @@ import br.com.moria.domains.inscricao.enums.InscricaoStatusParticipacao;
 import br.com.moria.domains.inscricao.dtos.InscricaoCreateDTO;
 import br.com.moria.domains.inscricao.dtos.InscricaoResponseDTO;
 import br.com.moria.domains.inscricao.dtos.InscricaoUpdateDTO;
+import br.com.moria.domains.membro.services.IMembroQueryService;
 import br.com.moria.shared.enums.EntityType;
 import br.com.moria.shared.exceptions.DuplicatedResourceException;
 import br.com.moria.shared.exceptions.NotFoundResourceException;
@@ -20,8 +21,6 @@ import org.springframework.stereotype.Service;
 import br.com.moria.domains.evento.Evento;
 import br.com.moria.domains.membro.Membro;
 import br.com.moria.domains.evento.services.IEventoService;
-import br.com.moria.domains.membro.services.IMembroService;
-import jakarta.persistence.EntityNotFoundException;
 
 /**
  * Implementação do serviço para operações relacionadas a inscrições.
@@ -35,7 +34,7 @@ public class InscricaoServiceImpl implements IInscricaoService{
 
     private final InscricaoMapper inscricaoMapper;
 	private final InscricaoRepository inscricaoRepository;
-    private final IMembroService membroService;
+    private final IMembroQueryService membroQueryService;
     private final IEventoService eventoService;
 
     /**
@@ -43,17 +42,17 @@ public class InscricaoServiceImpl implements IInscricaoService{
      *
      * @param inscricaoMapper       o mapper para conversão entre DTO e entidade.
      * @param inscricaoRepository   o repositório para operações com a entidade {@link Inscricao}.
-     * @param membroService         o serviço para manipulação de membros.
+     * @param membroQueryService    o serviço para manipulação de membros.
      * @param eventoService         o serviço para manipulação de eventos.
      */
     @Autowired
     public InscricaoServiceImpl(InscricaoMapper inscricaoMapper,
                                 InscricaoRepository inscricaoRepository,
-                                IMembroService membroService,
+                                IMembroQueryService membroQueryService,
                                 IEventoService eventoService) {
         this.inscricaoMapper = inscricaoMapper;
         this.inscricaoRepository = inscricaoRepository;
-        this.membroService = membroService;
+        this.membroQueryService = membroQueryService;
         this.eventoService = eventoService;
     }
 
@@ -75,7 +74,7 @@ public class InscricaoServiceImpl implements IInscricaoService{
      * @throws NotFoundResourceException se o membro não for encontrado.
      */
     private void validateMembro(int membroId) {
-        if (!membroService.existsById(membroId))
+        if (!membroQueryService.existsById(membroId))
             throw NotFoundResourceException.forEntity(EntityType.MEMBRO, membroId);
     }
 
@@ -106,7 +105,7 @@ public class InscricaoServiceImpl implements IInscricaoService{
             throw DuplicatedResourceException.forEntity(EntityType.INSCRICAO, "business.inscricao.duplicated");
 
         Evento evento = eventoService.findEventoById(inscricaoCreateDTO.getEventoId());
-        Membro membro = membroService.findMembroById(inscricaoCreateDTO.getMembroId());
+        Membro membro = membroQueryService.findMembroById(inscricaoCreateDTO.getMembroId());
         Inscricao inscricao = inscricaoMapper.toEntity(inscricaoCreateDTO);
         inscricao.setEvento(evento);
         inscricao.setMembro(membro);
@@ -122,7 +121,7 @@ public class InscricaoServiceImpl implements IInscricaoService{
         validateMembro(inscricaoUpdateDTO.getMembroId());
 
         Evento evento = eventoService.findEventoById(inscricaoUpdateDTO.getEventoId());
-        Membro membro = membroService.findMembroById(inscricaoUpdateDTO.getMembroId());
+        Membro membro = membroQueryService.findMembroById(inscricaoUpdateDTO.getMembroId());
         Inscricao inscricao = inscricaoMapper.toEntity(inscricaoUpdateDTO);
         inscricao.setEvento(evento);
         inscricao.setMembro(membro);
