@@ -2,6 +2,7 @@ package br.com.moria.domains.membro.services;
 
 import br.com.moria.domains.membro.Membro;
 import br.com.moria.domains.membro.dtos.MembroResponseDTO;
+import br.com.moria.shared.enums.EntityType;
 import br.com.moria.shared.exceptions.NotFoundResourceException;
 
 import java.util.List;
@@ -16,6 +17,17 @@ import java.util.List;
  * @see MembroResponseDTO
  */
 public interface IMembroQueryService {
+
+    /**
+     * Verifica se um membro existe pelo ID, lançando uma exceção se não for encontrado.
+     *
+     * @param id o identificador do membro.
+     * @throws NotFoundResourceException se o membro não for encontrado.
+     */
+    default void assertMembroExists(int id) {
+        if (!existsById(id))
+            throw NotFoundResourceException.forEntity(EntityType.MEMBRO, id);
+    }
 
     /**
      * Retorna uma lista de todos os membros ativos ou inativos.

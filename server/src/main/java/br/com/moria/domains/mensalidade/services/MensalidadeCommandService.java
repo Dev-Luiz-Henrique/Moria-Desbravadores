@@ -12,7 +12,6 @@ import br.com.moria.domains.mensalidade.dtos.MensalidadeCreateDTO;
 import br.com.moria.domains.mensalidade.dtos.MensalidadeResponseDTO;
 import br.com.moria.shared.enums.EntityType;
 import br.com.moria.shared.exceptions.DuplicatedResourceException;
-import br.com.moria.shared.exceptions.NotFoundResourceException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,17 +24,19 @@ import br.com.moria.domains.membro.Membro;
 import br.com.moria.domains.file.IFileService;
 
 /**
- * Implementação do serviço para operações relacionadas a mensalidades.
+ * Implementação do serviço para operações relacionadas à gestão de mensalidades.
  *
- * <p>Fornece funcionalidades para criar, atualizar, consultar e gerenciar mensalidades, incluindo a geração automática mensal.</p>
+ * <p>Fornece funcionalidades para criação, atualização e exclusão de mensalidades,
+ * bem como operações específicas.</p>
  *
- * @see IMensalidadeService
+ * @see IMensalidadeCommandService
  */
 @Service
-public class MensalidadeServiceImpl implements IMensalidadeService {
+public class MensalidadeCommandService implements IMensalidadeCommandService {
 
     private final MensalidadeMapper mensalidadeMapper;
     private final MensalidadeRepository mensalidadeRepository;
+    private final IMensalidadeQueryService mensalidadeQueryService;
     private final IMembroQueryService membroQueryService;
     private final IFileService fileService;
 
@@ -47,30 +48,20 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
      *
      * @param mensalidadeMapper     o mapper para conversão entre DTO e entidade.
      * @param mensalidadeRepository o repositório para operações com a entidade {@link Mensalidade}.
-     * @param membroQueryService         o serviço para manipulação de membros.
+     * @param membroQueryService    o serviço para manipulação de membros.
      * @param fileService           o serviço para manipulação de arquivos.
      */
     @Autowired
-    public MensalidadeServiceImpl(MensalidadeMapper mensalidadeMapper,
+    public MensalidadeCommandService(MensalidadeMapper mensalidadeMapper,
                                   MensalidadeRepository mensalidadeRepository,
+                                  IMensalidadeQueryService mensalidadeQueryService,
                                   IMembroQueryService membroQueryService,
                                   IFileService fileService ) {
         this.mensalidadeMapper = mensalidadeMapper;
         this.mensalidadeRepository = mensalidadeRepository;
+        this.mensalidadeQueryService = mensalidadeQueryService;
         this.membroQueryService = membroQueryService;
         this.fileService = fileService;
-    }
-
-    /**
-     * Busca uma mensalidade pelo ID, lançando uma exceção se não for encontrada.
-     *
-     * @param id o identificador da mensalidade.
-     * @return a mensalidade encontrada.
-     * @throws NotFoundResourceException se a mensalidade não for encontrada.
-     */
-    private Mensalidade findMensalidadeById(int id) {
-        return mensalidadeRepository.findById(id)
-                .orElseThrow(() -> NotFoundResourceException.forEntity(EntityType.MENSALIDADE, id));
     }
 
     /**
@@ -128,11 +119,6 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     }
 
     @Override
-    public long count() {
-        return mensalidadeRepository.count();
-    }
-
-    @Override
     public MensalidadeResponseDTO create(@NotNull MensalidadeCreateDTO mensalidadeCreateDTO) {
         Membro membro = membroQueryService.findMembroById(mensalidadeCreateDTO.getIdMembro());
         if (doesMensalidadeExist(membro))
@@ -145,38 +131,8 @@ public class MensalidadeServiceImpl implements IMensalidadeService {
     }
 
     @Override
-    public List<MensalidadeResponseDTO> findAll() {
-        List<Mensalidade> mensalidades = mensalidadeRepository.findAll();
-        return mensalidadeMapper.toResponseDTO(mensalidades);
-    }
-
-    @Override
-    public MensalidadeResponseDTO findById(int id) {
-        Mensalidade mensalidade = findMensalidadeById(id);
-        return mensalidadeMapper.toResponseDTO(mensalidade);
-    }
-
-    @Override
-    public List<MensalidadeResponseDTO> findByDateInterval(LocalDateTime start, LocalDateTime end) {
-        List<Mensalidade> mensalidades = mensalidadeRepository.findByDataBetween(start, end);
-        return mensalidadeMapper.toResponseDTO(mensalidades);
-    }
-
-	@Override
-	public List<MensalidadeResponseDTO> findByMembroAndDateInterval(int membroId, LocalDateTime start, LocalDateTime end) {
-		List<Mensalidade> mensalidades = mensalidadeRepository.findByMembroIdAndDataBetween(membroId, start, end);
-        return mensalidadeMapper.toResponseDTO(mensalidades);
-	}
-
-    @Override
-    public List<MensalidadeResponseDTO> findByMembro(int membroId) {
-        List<Mensalidade> mensalidades = mensalidadeRepository.findByMembroId(membroId);
-        return mensalidadeMapper.toResponseDTO(mensalidades);
-    }
-
-    @Override
     public MensalidadeResponseDTO updatePagamentoById(int id, FormaPagamento formaPagamento, MultipartFile file) throws IOException {
-        Mensalidade existingMensalidade = findMensalidadeById(id);
+        Mensalidade existingMensalidade = mensalidadeQueryService.findMensalidadeById(id);
         String filePath = fileService.uploadFile(file, "mensalidade");
 
         LocalDateTime today = LocalDateTime.now();

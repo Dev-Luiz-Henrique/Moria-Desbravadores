@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import br.com.moria.domains.mensalidade.dtos.MensalidadeResponseDTO;
-import br.com.moria.domains.mensalidade.services.IMensalidadeService;
+import br.com.moria.domains.mensalidade.services.IMensalidadeCommandService;
+import br.com.moria.domains.mensalidade.services.IMensalidadeQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,17 +26,20 @@ import br.com.moria.shared.utils.DateTimeUtil;
 @RequestMapping("/mensalidades")
 public class MensalidadeController {
 
-    private final IMensalidadeService mensalidadeService;
+    private final IMensalidadeQueryService mensalidadeQueryService;
+    private final IMensalidadeCommandService mensalidadeCommandService;
 
     @Autowired
-    public MensalidadeController(IMensalidadeService mensalidadeService){
-        this.mensalidadeService = mensalidadeService;
+    public MensalidadeController(IMensalidadeQueryService mensalidadeQueryService,
+                                 IMensalidadeCommandService mensalidadeCommandService) {
+        this.mensalidadeQueryService = mensalidadeQueryService;
+        this.mensalidadeCommandService = mensalidadeCommandService;
     }
 
     @PreAuthorize("@authService.hasPermission('MANAGE_MENSALIDADES')")
     @PostMapping("/{idMembro}")
     public ResponseEntity<MensalidadeResponseDTO> create(@PathVariable int idMembro) {
-        MensalidadeResponseDTO mensalidade = mensalidadeService.createManual(idMembro);
+        MensalidadeResponseDTO mensalidade = mensalidadeCommandService.createManual(idMembro);
         return ResponseEntity.status(HttpStatus.CREATED).body(mensalidade);
     }
 
@@ -44,14 +48,14 @@ public class MensalidadeController {
     public ResponseEntity<MensalidadeResponseDTO> updatePagamento(@PathVariable int id,
                                                                   @RequestParam FormaPagamento formaPagamento,
                                                                   @RequestParam("file") MultipartFile file) throws IOException {
-        MensalidadeResponseDTO mensalidade = mensalidadeService.updatePagamentoById(id, formaPagamento, file);
+        MensalidadeResponseDTO mensalidade = mensalidadeCommandService.updatePagamentoById(id, formaPagamento, file);
         return ResponseEntity.ok(mensalidade);
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_MENSALIDADES')")
     @GetMapping
     public ResponseEntity<List<MensalidadeResponseDTO>> findAll() {
-        List<MensalidadeResponseDTO> mensalidades = mensalidadeService.findAll();
+        List<MensalidadeResponseDTO> mensalidades = mensalidadeQueryService.findAll();
         return ResponseEntity.ok(mensalidades);
     }
 
@@ -62,14 +66,14 @@ public class MensalidadeController {
         LocalDateTime startDateTime = DateTimeUtil.parse(start);
         LocalDateTime endDateTime = DateTimeUtil.parse(end);
 
-        List<MensalidadeResponseDTO> mensalidades = mensalidadeService.findByDateInterval(startDateTime, endDateTime);
+        List<MensalidadeResponseDTO> mensalidades = mensalidadeQueryService.findByDateInterval(startDateTime, endDateTime);
         return ResponseEntity.ok(mensalidades);
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_MENSALIDADES')")
     @GetMapping("/membro/{id}")
     public ResponseEntity<List<MensalidadeResponseDTO>> findMembro(@PathVariable int membroId) {
-        List<MensalidadeResponseDTO> mensalidade = mensalidadeService.findByMembro(membroId);
+        List<MensalidadeResponseDTO> mensalidade = mensalidadeQueryService.findByMembro(membroId);
         return ResponseEntity.ok(mensalidade);
     }
 
@@ -78,7 +82,7 @@ public class MensalidadeController {
     public ResponseEntity<List<MensalidadeResponseDTO>> findMembroAndDataInterval(@PathVariable int membroId,
                                                                                   @RequestParam LocalDateTime start,
                                                                                   @RequestParam LocalDateTime end) {
-        List<MensalidadeResponseDTO> mensalidade = mensalidadeService.findByMembroAndDateInterval(membroId, start, end);
+        List<MensalidadeResponseDTO> mensalidade = mensalidadeQueryService.findByMembroAndDateInterval(membroId, start, end);
         return ResponseEntity.ok(mensalidade);
     }
 }

@@ -5,8 +5,6 @@ import br.com.moria.domains.recurso.dtos.RecursoResponseDTO;
 import br.com.moria.domains.recurso.dtos.RecursoUpdateDTO;
 import br.com.moria.shared.exceptions.NotFoundResourceException;
 
-import java.util.List;
-
 /**
  * Interface de serviço para operações relacionadas a recursos.
  *
@@ -17,14 +15,7 @@ import java.util.List;
  * @see RecursoCreateDTO
  * @see RecursoUpdateDTO
  */
-public interface IRecursoService {
-
-    /**
-     * Retorna a contagem total de recursos cadastrados.
-     *
-     * @return o número total de recursos.
-     */
-    long count();
+public interface IRecursoCommandService {
 
     /**
      * Cria um novo recurso com base nos dados fornecidos.
@@ -51,29 +42,4 @@ public interface IRecursoService {
      * @throws NotFoundResourceException se o recurso não for encontrado.
      */
     void delete(int id);
-
-    /**
-     * Retorna todos os recursos cadastrados.
-     *
-     * @return uma lista de todos os recursos.
-     */
-    List<RecursoResponseDTO> findAll();
-
-    /**
-     * Busca os detalhes de um recurso pelo ID.
-     *
-     * @param id o identificador do recurso.
-     * @return os detalhes do recurso encontrado.
-     * @throws NotFoundResourceException se o recurso não for encontrado.
-     */
-    RecursoResponseDTO findById(int id);
-
-    /**
-     * Busca todos os recursos associados a um evento específico.
-     *
-     * @param eventoId o identificador do evento.
-     * @return uma lista de recursos relacionados ao evento.
-     * @throws NotFoundResourceException se o evento não for encontrado.
-     */
-    List<RecursoResponseDTO> findRecursosByEventoId(int eventoId);
 }

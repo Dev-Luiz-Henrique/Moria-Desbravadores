@@ -6,7 +6,8 @@ import br.com.moria.domains.inscricao.dtos.InscricaoCreateDTO;
 import br.com.moria.domains.inscricao.dtos.InscricaoResponseDTO;
 import br.com.moria.domains.inscricao.dtos.InscricaoUpdateDTO;
 import br.com.moria.domains.inscricao.enums.InscricaoStatusParticipacao;
-import br.com.moria.domains.inscricao.services.IInscricaoService;
+import br.com.moria.domains.inscricao.services.IInscricaoCommandService;
+import br.com.moria.domains.inscricao.services.IInscricaoQueryService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,24 +29,27 @@ import jakarta.validation.Valid;
 @RequestMapping("/inscricoes")
 public class InscricaoController {
 
-    private final IInscricaoService inscricaoService;
+    private final IInscricaoCommandService inscricaoCommandService;
+    private final IInscricaoQueryService inscricaoQueryService;
 
     @Autowired
-    public InscricaoController(IInscricaoService inscricaoService) {
-        this.inscricaoService = inscricaoService;
+    public InscricaoController(IInscricaoCommandService inscricaoCommandService,
+                               IInscricaoQueryService inscricaoQueryService) {
+        this.inscricaoCommandService = inscricaoCommandService;
+        this.inscricaoQueryService = inscricaoQueryService;
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_INSCRICOES')")
     @PostMapping
     public ResponseEntity<InscricaoResponseDTO> create(@Valid @RequestBody InscricaoCreateDTO inscricaoCreateDTO) {
-        InscricaoResponseDTO createdInscricao = inscricaoService.create(inscricaoCreateDTO);
+        InscricaoResponseDTO createdInscricao = inscricaoCommandService.create(inscricaoCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdInscricao);
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_INSCRICOES')")
     @PutMapping("/confirmar")
     public ResponseEntity<InscricaoResponseDTO> confirmarInscricao(@RequestParam int membroId, @RequestParam int eventoId) {
-        InscricaoResponseDTO updatedInscricao = inscricaoService.updateStatusInscricao(membroId, eventoId);
+        InscricaoResponseDTO updatedInscricao = inscricaoCommandService.updateStatusInscricao(membroId, eventoId);
         return ResponseEntity.ok(updatedInscricao);
     }
 
@@ -53,42 +57,42 @@ public class InscricaoController {
     @PutMapping("/{id}")
     public ResponseEntity<InscricaoResponseDTO> update(@PathVariable int id, @RequestBody @NotNull InscricaoUpdateDTO inscricaoUpdateDTO) {
         inscricaoUpdateDTO.setId(id);
-        InscricaoResponseDTO updatedInscricao = inscricaoService.update(inscricaoUpdateDTO);
+        InscricaoResponseDTO updatedInscricao = inscricaoCommandService.update(inscricaoUpdateDTO);
         return ResponseEntity.ok(updatedInscricao);
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_INSCRICOES')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
-        inscricaoService.delete(id);
+        inscricaoCommandService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_INSCRICOES')")
     @GetMapping
     public ResponseEntity<List<InscricaoResponseDTO>> findAll() {
-        List<InscricaoResponseDTO> inscricoes = inscricaoService.findAll();
+        List<InscricaoResponseDTO> inscricoes = inscricaoQueryService.findAll();
         return ResponseEntity.ok(inscricoes);
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_INSCRICOES')")
     @GetMapping("/status")
     public ResponseEntity<List<InscricaoResponseDTO>> findStatusParticipacao(@RequestParam InscricaoStatusParticipacao status) {
-        List<InscricaoResponseDTO> inscricoes = inscricaoService.findByStatusParticipacao(status);
+        List<InscricaoResponseDTO> inscricoes = inscricaoQueryService.findByStatusParticipacao(status);
         return ResponseEntity.ok(inscricoes);
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_INSCRICOES')")
     @GetMapping("/inscrito")
     public ResponseEntity<Boolean> isInscrito(@RequestParam int id) {
-        boolean inscrito = inscricaoService.isInscrito(id);
+        boolean inscrito = inscricaoQueryService.isInscrito(id);
         return ResponseEntity.ok(inscrito);
     }
 
     @PreAuthorize("@authService.hasPermission('VIEW_INSCRICOES')")
     @GetMapping("/evento/{eventoId}")
     public ResponseEntity<List<InscricaoResponseDTO>> findInscricoesById(@PathVariable int eventoId) {
-        List<InscricaoResponseDTO> inscricoes = inscricaoService.findInscricoesByEventoId(eventoId);
+        List<InscricaoResponseDTO> inscricoes = inscricaoQueryService.findInscricoesByEventoId(eventoId);
     	return ResponseEntity.ok(inscricoes);
     }
 }

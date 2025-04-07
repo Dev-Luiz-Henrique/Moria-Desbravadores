@@ -5,7 +5,8 @@ import java.util.List;
 import br.com.moria.domains.recurso.dtos.RecursoCreateDTO;
 import br.com.moria.domains.recurso.dtos.RecursoResponseDTO;
 import br.com.moria.domains.recurso.dtos.RecursoUpdateDTO;
-import br.com.moria.domains.recurso.services.IRecursoService;
+import br.com.moria.domains.recurso.services.IRecursoCommandService;
+import br.com.moria.domains.recurso.services.IRecursoQueryService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,16 +26,18 @@ import jakarta.validation.Valid;
 @RequestMapping("/recursos")
 public class RecursoController {
 
-    private final IRecursoService recursoService;
+    private final IRecursoCommandService recursoCommandService;
+    private final IRecursoQueryService recursoQueryService;
 
     @Autowired
-    public RecursoController(IRecursoService recursoService) {
-        this.recursoService = recursoService;
+    public RecursoController(IRecursoCommandService recursoCommandService, IRecursoQueryService recursoQueryService) {
+        this.recursoCommandService = recursoCommandService;
+        this.recursoQueryService = recursoQueryService;
     }
 
     @PostMapping
     public ResponseEntity<RecursoResponseDTO> create(@Valid @RequestBody RecursoCreateDTO recursoCreateDTO) {
-        RecursoResponseDTO createdRecurso = recursoService.create(recursoCreateDTO);
+        RecursoResponseDTO createdRecurso = recursoCommandService.create(recursoCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRecurso);
     }
 
@@ -42,25 +45,25 @@ public class RecursoController {
     public ResponseEntity<RecursoResponseDTO> update(@PathVariable int id,
                                                      @RequestBody @NotNull RecursoUpdateDTO recursoUpdateDTO) {
         recursoUpdateDTO.setId(id);
-        RecursoResponseDTO updatedRecurso = recursoService.update(recursoUpdateDTO);
+        RecursoResponseDTO updatedRecurso = recursoCommandService.update(recursoUpdateDTO);
         return ResponseEntity.ok(updatedRecurso);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
-        recursoService.delete(id);
+        recursoCommandService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity<List<RecursoResponseDTO>> findAll() {
-        List<RecursoResponseDTO> recursos = recursoService.findAll();
+        List<RecursoResponseDTO> recursos = recursoQueryService.findAll();
         return ResponseEntity.ok(recursos);
     }
 
     @GetMapping("/evento/{eventoId}")
     public ResponseEntity<List<RecursoResponseDTO>> findRecursosById(@PathVariable int eventoId) {
-        List<RecursoResponseDTO> recursos = recursoService.findRecursosByEventoId(eventoId);
+        List<RecursoResponseDTO> recursos = recursoQueryService.findRecursosByEventoId(eventoId);
         return ResponseEntity.ok(recursos);
     }
 }

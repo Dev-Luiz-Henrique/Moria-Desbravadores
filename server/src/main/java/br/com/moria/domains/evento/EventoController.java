@@ -7,7 +7,8 @@ import java.util.List;
 import br.com.moria.domains.evento.dtos.EventoCreateDTO;
 import br.com.moria.domains.evento.dtos.EventoResponseDTO;
 import br.com.moria.domains.evento.dtos.EventoUpdateDTO;
-import br.com.moria.domains.evento.services.IEventoService;
+import br.com.moria.domains.evento.services.IEventoCommandService;
+import br.com.moria.domains.evento.services.IEventoQueryService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,16 +32,18 @@ import jakarta.validation.Valid;
 @RequestMapping("/eventos")
 public class EventoController {
 
-    private final IEventoService eventoService;
+    private final IEventoCommandService eventoCommandService;
+    private final IEventoQueryService eventoQueryService;
 
     @Autowired
-    public EventoController(IEventoService eventoService) {
-        this.eventoService = eventoService;
+    public EventoController(IEventoCommandService eventoCommandService, IEventoQueryService eventoQueryService) {
+        this.eventoCommandService = eventoCommandService;
+        this.eventoQueryService = eventoQueryService;
     }
 
     @PostMapping
     public ResponseEntity<EventoResponseDTO> create(@Valid @RequestBody EventoCreateDTO eventoCreateDTO) {
-        EventoResponseDTO createdEvento = eventoService.create(eventoCreateDTO);
+        EventoResponseDTO createdEvento = eventoCommandService.create(eventoCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdEvento);
     }
 
@@ -48,63 +51,63 @@ public class EventoController {
     public ResponseEntity<EventoResponseDTO> update(@PathVariable int id,
                                                     @Valid @RequestBody @NotNull EventoUpdateDTO eventoUpdateDTO) {
         eventoUpdateDTO.setId(id);
-        EventoResponseDTO updatedEvento = eventoService.update(eventoUpdateDTO);
+        EventoResponseDTO updatedEvento = eventoCommandService.update(eventoUpdateDTO);
         return ResponseEntity.ok(updatedEvento);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
-        eventoService.delete(id);
+        eventoCommandService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity<List<EventoResponseDTO>> findAll() {
-        List<EventoResponseDTO> eventos = eventoService.findAll();
+        List<EventoResponseDTO> eventos = eventoQueryService.findAll();
         return ResponseEntity.ok(eventos);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EventoResponseDTO> findById(@PathVariable int id) {
-        EventoResponseDTO evento = eventoService.findById(id);
+        EventoResponseDTO evento = eventoQueryService.findById(id);
         return ResponseEntity.ok(evento);
     }
 
     @GetMapping("/search")
     public ResponseEntity<List<EventoResponseDTO>> findNomeContaining(@RequestParam(name="k") String keyword) {
-        List<EventoResponseDTO> eventos = eventoService.findByNomeContaining(keyword);
+        List<EventoResponseDTO> eventos = eventoQueryService.findByNomeContaining(keyword);
         return ResponseEntity.ok(eventos);
     }
 
     @GetMapping("/periodo")
     public ResponseEntity<List<EventoResponseDTO>> findDataInicioInterval(@RequestParam LocalDateTime start,
                                                                           @RequestParam LocalDateTime end) {
-        List<EventoResponseDTO> eventos = eventoService.findByDataInicioInterval(start, end);
+        List<EventoResponseDTO> eventos = eventoQueryService.findByDataInicioInterval(start, end);
         return ResponseEntity.ok(eventos);
     }
 
     @GetMapping("/data-inicio")
     public ResponseEntity<List<EventoResponseDTO>> findDataInicio(@RequestParam LocalDateTime date) {
-        List<EventoResponseDTO> eventos = eventoService.findByDataInicio(date);
+        List<EventoResponseDTO> eventos = eventoQueryService.findByDataInicio(date);
         return ResponseEntity.ok(eventos);
     }
 
     @GetMapping("/data-fim")
     public ResponseEntity<List<EventoResponseDTO>> findDataFim(@RequestParam LocalDateTime date) {
-        List<EventoResponseDTO> eventos = eventoService.findByDataFim(date);
+        List<EventoResponseDTO> eventos = eventoQueryService.findByDataFim(date);
         return ResponseEntity.ok(eventos);
     }
 
     @PostMapping("/{id}/imagem")
     public ResponseEntity<EventoResponseDTO> uploadImagem(@PathVariable int id,
                                                           @RequestParam("file") @NotNull MultipartFile file) throws IOException {
-        EventoResponseDTO updatedEvento = eventoService.updateImagemById(id, file);
+        EventoResponseDTO updatedEvento = eventoCommandService.updateImagemById(id, file);
         return ResponseEntity.ok(updatedEvento);
     }
 
     @GetMapping("/{id}/imagem")
     public ResponseEntity<byte[]> downloadImagem(@PathVariable int id) throws IOException {
-        FileResponseDTO fileResponse = eventoService.findImagemById(id);
+        FileResponseDTO fileResponse = eventoCommandService.findImagemById(id);
         
         return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType(fileResponse.contentType()))
